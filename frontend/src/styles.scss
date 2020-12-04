@@ -1,0 +1,45 @@
+
+* {
+    --myOrange: #f0860c;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+html, body {
+    color: black;
+    background-color: white;
+    background-attachment:fixed;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    width: 100vw;
+    height: 100%;
+    max-width: 100% !important;
+    -webkit-text-size-adjust: 100vw !important;
+    /*overflow-x: hidden;*/
+    overflow-y: scroll;
+    
+}
+
+::-webkit-scrollbar {
+    width: 0px;                 /* Remove scrollbar space */
+    background: transparent;    /* Optional: just make scrollbar invisible */
+}
+
+.vertical-center {
+    min-height: 90%;  
+    min-height: 90vh; 
+  
+    display: flex;
+    align-items: center;
+  }
+
+
+.vertical-center-div {
+    display: flex;
+    align-items: center;
+}
+
+.row{
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
