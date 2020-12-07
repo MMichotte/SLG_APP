@@ -55,11 +55,7 @@
       "browser": true
     },
     "ignorePatterns": [
-      "**/dist/**/*.js",
-      "./client-side/**/*.js",
-      "./.nyc_output/**/*.js",
-      "./.idea/**/*.js",
-      "./docs/**/*.js"
+      "**/dist/**/*.js"
     ],
     "parserOptions": {
       "ecmaVersion": 12
