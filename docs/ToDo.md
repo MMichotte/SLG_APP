@@ -19,7 +19,7 @@
   - [ ] Schéma relationnel de la base de données
   - [ ] Mocks des premières pages à valider avec le client
 >
-- [ ] Mise en place des outils de gestion :
+- [X] Mise en place des outils de gestion :
   - [X] git & [Github](https://github.com/MMichotte/SLG_APP)
   - [X] [*Trello*](https://trello.com/b/jxYKBrWG)
   - [X] [*Clockify*](https://clockify.me/shared/5faa54597454944cb39a6c64)
