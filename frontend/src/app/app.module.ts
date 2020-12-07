@@ -1,11 +1,11 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser'
+import { NgModule } from '@angular/core'
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { SpinnerComponent } from './spinner/spinner.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module'
+import { AppComponent } from './app.component'
+import { HomeComponent } from './home/home.component'
+import { SpinnerComponent } from './spinner/spinner.component'
+import { HttpClient, HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

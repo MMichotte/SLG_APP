@@ -1,0 +1,8 @@
+
+/Users/martinmichotte/Documents/EPHEC-Projects-3/TFE/SLG_APP/frontend/src/app/home/home.component.ts
+  9:3  error  Useless constructor  no-useless-constructor
+
+/Users/martinmichotte/Documents/EPHEC-Projects-3/TFE/SLG_APP/frontend/src/app/spinner/spinner.component.ts
+  9:3  error  Useless constructor  no-useless-constructor
+
+✖ 2 problems (2 errors, 0 warnings)
