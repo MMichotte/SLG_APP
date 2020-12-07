@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node -r esm server.js",
     "start:dev": "nodemon -r esm server.js",
+    "lint": "./node_modules/.bin/eslint --fix \"**/*.js\" -o ./lintErrors.log --no-color",
     "db:migration:create": "npx sequelize migration:create",
     "db:migrate": "npx sequelize db:migrate",
     "db:migrate:undo": "npx sequelize db:migrate:undo",
@@ -40,6 +41,34 @@
     "sequelize-mock": "^0.10.2"
   },
   "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
     "nodemon": "^2.0.6"
+  },
+  "eslintConfig": {
+    "extends": "standard",
+    "env": {
+      "es2021": true,
+      "browser": true
+    },
+    "ignorePatterns": [
+      "**/dist/**/*.js",
+      "./client-side/**/*.js",
+      "./.nyc_output/**/*.js",
+      "./.idea/**/*.js",
+      "./docs/**/*.js"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 12
+    },
+    "rules": {
+      "quotes": [
+        "error",
+        "single"
+      ]
+    }
   }
 }
