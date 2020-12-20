@@ -1,5 +1,4 @@
 import Sequelize from 'sequelize'
-import SequelizeMock from 'sequelize-mock/src'
 import env from './env'
 
 let dbConnection = ''

@@ -3,7 +3,7 @@ import consola from 'consola'
 import dbConnection from './config/database'
 import env from './config/env'
 
-export default function express_server (express) {
+export default function ExpressServer (express) {
   this.app = express()
 
   /** @databaseInitiation
@@ -69,7 +69,7 @@ export default function express_server (express) {
     /* homepage route */
     this.app.get('/', (req, res) => {
       return res.sendFile(path
-        .join(__dirname + '/public', 'dist', 'index.html'))
+        .join(__dirname, '/public', 'dist', 'index.html'))
     })
 
     /* API routes */
@@ -78,7 +78,7 @@ export default function express_server (express) {
     /* ANY route */
     this.app.get('*', (req, res) => {
       return res.sendFile(path
-        .join(__dirname + '/public', 'dist', 'index.html'))
+        .join(__dirname, '/public', 'dist', 'index.html'))
     })
 
     return this

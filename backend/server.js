@@ -3,11 +3,11 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import helmet from 'helmet'
 import routes from './routes'
-import express_server from './app'
+import ExpressServer from './app'
 
 const addRequestId = require('express-request-id')()
 
-const server = new express_server(express)
+const server = new ExpressServer(express)
 
 server
   .initDatabase()
