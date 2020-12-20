@@ -6,7 +6,7 @@
   - [X] Choisir type de platform (web/desktop/...)
   - [ ] Etude des marchés
     - [X] Serveur Local
-    - [ ] Heroku 
+    - [X] Heroku 
     - [ ] Azure 
     - [ ] AWS 
 >
