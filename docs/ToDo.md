@@ -3,8 +3,9 @@
 - [X] Description de la société (client)
 - [X] Description du projet
 - [ ] Proposition de solution 
-  - [ ] Choisir type de platform (web/desktop/...)
+  - [X] Choisir type de platform (web/desktop/...)
   - [ ] Etude des marchés
+    - [X] Serveur Local
     - [ ] Heroku 
     - [ ] Azure 
     - [ ] AWS 
