@@ -8,7 +8,6 @@
     - [X] Serveur Local
     - [X] Heroku 
     - [ ] Azure 
-    - [ ] AWS 
 >
 - [X] Planification des périodes de travail 
   - [ ] ~~Meetings Client~~
@@ -17,6 +16,7 @@
 >
 - [ ] Analyse des besoin du client :
   - [ ] Backlog complet des 4-5 fonctionnalités primordiales 
+  - [X] Description des Business-Rules
   - [ ] Schéma relationnel de la base de données
   - [ ] Mocks des premières pages à valider avec le client
 >
