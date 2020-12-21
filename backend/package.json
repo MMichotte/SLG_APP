@@ -61,10 +61,9 @@
       "ecmaVersion": 12
     },
     "rules": {
-      "quotes": [
-        "error",
-        "single"
-      ]
+      "indent": ["warn", 4],
+      "quotes": ["warn", "single"],
+      "no-use-before-define":"warn" 
     }
   }
 }
