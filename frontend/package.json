@@ -6,7 +6,7 @@
     "start": "ng serve",
     "start:dev": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --prod",
-    "lint": "./node_modules/.bin/eslint --fix \"**/*.js\" \"**/*.ts\" -o ./lintErrors.log --no-color",
+    "lint": "rm ./lintErrors.log && ./node_modules/.bin/eslint --fix \"**/*.js\" \"**/*.ts\" -o ./lintErrors.log --no-color",
     "lin2t": "ng lint",
     "test:unit": "ng test",
     "test:unit:headless": "ng test --watch=false --browsers=ChromeHeadless",
@@ -79,7 +79,9 @@
     "rules": {
       "indent": ["warn", 4],
       "quotes": ["warn", "single"],
-      "no-use-before-define":"warn"
+      "no-use-before-define":"warn",
+      "no-unused-vars":"warn",
+      "no-unused-expressions":"warn"
     }
   }
 }
