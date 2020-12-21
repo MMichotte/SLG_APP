@@ -77,11 +77,9 @@
       "@typescript-eslint"
     ],
     "rules": {
-      "quotes": [
-        "error",
-        "single"
-      ],
-      "no-use-before-define":"warn" 
+      "indent": ["warn", 4],
+      "quotes": ["warn", "single"],
+      "no-use-before-define":"warn"
     }
   }
 }
