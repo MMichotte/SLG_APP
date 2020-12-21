@@ -34,7 +34,7 @@
     - [ ] Linter
     - [ ] API-doc
   - [ ] Choix nom de l'application (non-dépendant du client)
-  - [ ] Mise en place de l'intégration continue
+  - [X] Mise en place de l'intégration continue
 >
 - [ ] Analyse des perspectives d'avenir 
   - [ ] Qui maintiendra l'application ?
