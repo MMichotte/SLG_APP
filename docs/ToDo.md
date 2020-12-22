@@ -10,13 +10,13 @@
   - [ ] Mocks des premières pages à valider avec le client
 >
 - [X] Proposition de solution 
-- [ ] Choix des technologies 
-    - [ ] Backend
-    - [ ] Frontend
-    - [ ] DB
-    - [ ] Tests
-    - [ ] Linter
-    - [ ] API-doc
+- [X] Choix des technologies 
+    - [X] Backend
+    - [X] Frontend
+    - [X] DB
+    - [X] Tests
+    - [X] Linter
+    - [X] API-doc
 >
 - [X] Choix hébergement (web/desktop/...)
   - [X] Etude des marchés
@@ -31,8 +31,8 @@
 >
 - [X] Mise en place des outils de gestion :
   - [X] git & [Github](https://github.com/MMichotte/SLG_APP)
-  - [X] [*Trello*](https://trello.com/b/jxYKBrWG)
-  - [X] [*Clockify*](https://clockify.me/shared/5faa54597454944cb39a6c64)
+  - [X] [Trello](https://trello.com/b/jxYKBrWG)
+  - [X] [Clockify](https://clockify.me/shared/5faa54597454944cb39a6c64)
 >
 - [ ] Développement :
   - [X] Setup Backend
