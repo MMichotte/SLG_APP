@@ -19,10 +19,10 @@
     - [ ] API-doc
 >
 - [X] Choix hébergement (web/desktop/...)
-  - [ ] Etude des marchés
+  - [X] Etude des marchés
     - [X] Serveur Local
     - [X] Heroku 
-    - [ ] Azure 
+    - [X] Azure 
 >
 - [X] Planification des périodes de travail 
   - [ ] ~~Meetings Client~~
