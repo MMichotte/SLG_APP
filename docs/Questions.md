@@ -17,5 +17,5 @@ Ce document contient une liste de questions à poser ou posées au client ou au 
 ---
 ## Questions rapporteur-Ephec
 
-1. **Lors du choix des technologies, faut-il justifier le choix de manière technique ?**
-   > Justifier l'utilisation d'une DB SQL ou noSQL me parait pertinent, mais justifier le choix entre Angular ou React moins... 
+1. **Concernant les US prioritaires, faut-il les voir comme étant primordiales pour obtenir un MVP (Minimum Viable Product) ou plutôt comme étant des fonctionnalités que le client veut voir en premier?**
+   > Imaginons que le client estime que la consultation des factures est prioritaire. Afin de consulter une facture, il faut que des données (factures) soient présentes dans la base de données. Si aucune autre US est implémentée, il est impossible pour le client d'ajouter des factures (données) dans la DB. Est-ce donc intelligent de commencer par l'implémentation de cette US en sachant que dans un premier temps le client ne pourra que consulter les données déjà existantes dans la DB? Ou vaudrait-il mieux commencer par implémenter une US permettant d'ajouter des factures dans la base de données ? 
