@@ -7,7 +7,6 @@
   - [ ] Backlog complet des 4-5 fonctionnalités primordiales 
   - [X] Description des Business-Rules
   - [ ] Schéma relationnel de la base de données
-  - [ ] Mocks des premières pages à valider avec le client
 >
 - [X] Proposition de solution 
 - [X] Choix des technologies 

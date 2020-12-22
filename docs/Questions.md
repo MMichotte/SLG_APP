@@ -14,6 +14,9 @@ Ce document contient une liste de questions à poser ou posées au client ou au 
 
    Du point de vue de l'application, tout doit être enregistré en €. Par contre, lors d'une réception de commande, la devise ne doit pas être spécifié. En effet, le taux de conversion sera calculé sur base du montant total (peut importe la devise) et la somme déboursée en €. (voir application slg-order-manager)
 
+3. **Un devis peut être considéré comme une fiche de travail imprimé en pdf ?**
+   //TODO
+
 ---
 ## Questions rapporteur-Ephec
 
