@@ -8,17 +8,17 @@ import { SpinnerComponent } from './spinner/spinner.component'
 import { HttpClient, HttpClientModule } from '@angular/common/http'
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    SpinnerComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
-  providers: [HttpClient],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HomeComponent,
+        SpinnerComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule
+    ],
+    providers: [HttpClient],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
