@@ -15,10 +15,15 @@ Ce document contient une liste de questions à poser ou posées au client ou au 
    Du point de vue de l'application, tout doit être enregistré en €. Par contre, lors d'une réception de commande, la devise ne doit pas être spécifié. En effet, le taux de conversion sera calculé sur base du montant total (peut importe la devise) et la somme déboursée en €. (voir application slg-order-manager)
 
 3. **Un devis peut être considéré comme une fiche de travail imprimé en pdf ?**
-   //TODO
+   
+   Fondamentalement une fiche de travail que j'imprime peut être un devis. Et ensuite je travaille dans la fiche de travail en question, c'est bien.
+   Il faudra juste que je puisse imprimer avec une en tête "devis", pour que le client sache de quoi il s'agit.
 
 ---
 ## Questions rapporteur-Ephec
 
 1. **Concernant les US prioritaires, faut-il les voir comme étant primordiales pour obtenir un MVP (Minimum Viable Product) ou plutôt comme étant des fonctionnalités que le client veut voir en premier?**
    > Imaginons que le client estime que la consultation des factures est prioritaire. Afin de consulter une facture, il faut que des données (factures) soient présentes dans la base de données. Si aucune autre US est implémentée, il est impossible pour le client d'ajouter des factures (données) dans la DB. Est-ce donc intelligent de commencer par l'implémentation de cette US en sachant que dans un premier temps le client ne pourra que consulter les données déjà existantes dans la DB? Ou vaudrait-il mieux commencer par implémenter une US permettant d'ajouter des factures dans la base de données ? 
+
+   Poser la question, c’est un peu y répondre.
+   Il faut vraiment mettre la priorité sur ce qui est utilisable (MVP) mais d’un point de vue du client. Il faut donc mettre la priorité sur ce qu’il te demande mais que ce soit opérationnel, sinon cela ne sert à rien.
