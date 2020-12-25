@@ -34,11 +34,10 @@ jobs:
         echo "OAUTH_TOKEN = ${{ secrets.TRELLO_AUTH_KEY}}" >> .env 
         echo "BOARD_NAME = \"SLG_APP\"" >> .env 
         echo "LIST_NAME = \"To Do\"" >> .env 
-        cat .env
               
     - name: add new cards to trello
       run: |
-        for file in ./docs/wiki/User-Stories/*; \
-        do ls && python3 US-to-TrelloCard/src/addTrelloCards.py "$file"; \
+        for file in ./docs/wiki/User-Stories/*.md; \
+        do python3 US-to-TrelloCard/src/addTrelloCards.py "$file"; \
         done
       
