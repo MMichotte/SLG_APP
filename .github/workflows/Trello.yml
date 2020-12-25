@@ -26,7 +26,7 @@ jobs:
         pip install -r US-to-TrelloCard/requirements.txt
         pip freeze
 
-    - name: add .venv
+    - name: add .env
       run: |
         cd US-to-TrelloCard
         touch .env
@@ -38,7 +38,7 @@ jobs:
               
     - name: add new cards to trello
       run: |
-        for file in /docs/wiki/User-Stories/*; \
-        do python3 US-to-TrelloCard/src/addTrelloCards.py "$file"; \
+        for file in ./docs/wiki/User-Stories/*; \
+        do ls && python3 US-to-TrelloCard/src/addTrelloCards.py "$file"; \
         done
       
