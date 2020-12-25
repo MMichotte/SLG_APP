@@ -26,6 +26,15 @@ jobs:
         pip install -r US-to-TrelloCard/requirements.txt
         pip freeze
 
+    - name: add .venv
+      run: |
+        cd US-to-TrelloCard
+        touch .env
+        echo "API_KEY = ${{ secrets.TRELLO_API_KEY }}" >> .env 
+        echo "OAUTH_TOKEN = ${{ secrets.TRELLO_AUTH_LEY}}" >> .env 
+        echo "BOARD_NAME = \"SLG_APP\"" >> .env 
+        echo "LIST_NAME = \"To Do\"" >> .env 
+              
     - name: add new cards to trello
       run: |
         for file in /docs/wiki/User-Stories/*; \
