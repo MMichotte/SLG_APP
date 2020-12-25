@@ -1,0 +1,22 @@
+name: Add new US's to Trello
+
+on:
+  push:
+    paths:
+      - 'docs/wiki/**'
+
+jobs:
+  add-trello-card:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: actions/checkout@v2
+      with:
+        name: MMichotte/US-to-TrelloCard
+        ref: refs/heads/release
+    
+    - name: ls
+      run: |
+        ls
+      
