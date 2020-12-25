@@ -15,7 +15,20 @@ jobs:
       run: |
         git clone https://github.com/MMichotte/US-to-TrelloCard
     
-    - name: ls
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: instal python dependencies 
+      run : |
+        pip install --upgrade pip
+        pip install -r US-to-TrelloCard/requirements.txt
+        pip freeze
+
+    - name: add new cards to trello
       run: |
-        ls
+        for file in /docs/wiki/User-Stories/*; \
+        do python3 US-to-TrelloCard/src/addTrelloCards.py "$file"; \
+        done
       
