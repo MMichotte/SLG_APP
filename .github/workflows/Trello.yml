@@ -11,10 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - uses: actions/checkout@v2
+    - name: clone US-to-TrelloCard repository
+      uses: actions/checkout@v2
       with:
-        name: MMichotte/US-to-TrelloCard
-        ref: refs/heads/release
+        repository: MMichotte/US-to-TrelloCard
     
     - name: ls
       run: |
