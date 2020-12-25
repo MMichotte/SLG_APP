@@ -2,8 +2,8 @@ name: Add new US's to Trello
 
 on:
   push:
-    paths:
-      - 'docs/wiki/**'
+    #paths:
+    #  - 'docs/wiki/**'
 
 jobs:
   add-trello-card:
