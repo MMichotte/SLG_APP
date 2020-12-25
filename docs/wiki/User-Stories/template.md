@@ -1,22 +1,37 @@
-
+<!--/us-->
+<!--title-->
 ### (AA00) Nom de la US
+<!--/title-->
+<!--description-->
 > En tant que .... j'aimerais ... afin de .... 
 
 #### <u>📌 Préconditions :</u>
 - **Technique :**
-  <!-- SCHECK : 📌 Préconditions technique -->
+  <!--checklist: "📌 Préconditions technique"-->
   - /
-  <!-- ECHECK -->
+  <!--/checklist-->
 - **Logique :**
   - /
 
 #### <u>📋 Détail :</u>
 /
 
+```js
+console.log("some code block")
+```
+
+simple bullet list : 
+
+- /
+- /
+
 #### <u>🔍 Critères de validation :</u>
- <!-- SCHECK : 🔍  Critères de validation -->
+  <!--checklist: "🔍 Critères de validation"-->
   - /
   - /
-  <!-- ECHECK -->
+  <!--/checklist-->
+
+<!--/description-->
+<!--/us-->
 
 ---
