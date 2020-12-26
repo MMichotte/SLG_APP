@@ -45,6 +45,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
+    "husky": "^4.3.6",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.0.0",
@@ -77,11 +78,22 @@
       "@typescript-eslint"
     ],
     "rules": {
-      "indent": ["warn", 4],
-      "quotes": ["warn", "single"],
-      "no-use-before-define":"warn",
-      "no-unused-vars":"warn",
-      "no-unused-expressions":"warn"
+      "indent": [
+        "warn",
+        4
+      ],
+      "quotes": [
+        "warn",
+        "single"
+      ],
+      "no-use-before-define": "warn",
+      "no-unused-vars": "warn",
+      "no-unused-expressions": "warn"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run lint"
     }
   }
 }
