@@ -11,7 +11,7 @@ env:
   node-version: 14.15.1
       
 jobs:
-  test-frontend:
+  unit-tests-frontend:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
@@ -78,7 +78,7 @@ jobs:
   
   build-to-Heroku:
     runs-on: ubuntu-latest
-    needs: [test-frontend, integration-tests-backend, unit-tests-backend]
+    needs: [unit-tests-frontend, integration-tests-backend, unit-tests-backend]
     steps:
       - uses: actions/checkout@v2
       - name: Node ${{ env.node-version }}
