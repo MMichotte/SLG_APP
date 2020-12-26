@@ -95,7 +95,7 @@ jobs:
         working-directory: ./frontend
         run: |
           npm run build
-          mkdir ../backend/public
+          #mkdir ../backend/public
           mv ./dist ../backend/public
       - name: replace backend .gitignore 
         working-directory: ./

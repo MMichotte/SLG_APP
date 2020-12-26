@@ -57,6 +57,16 @@ export default function ExpressServer (express) {
 
         this.app.use(helmet.permittedCrossDomainPolicies())
         this.app.use(helmet.referrerPolicy({ policy: 'strict-origin-when-cross-origin' }))
+        this.app.use(helmet.contentSecurityPolicy({
+            directives: {
+                defaultSrc: ['\'self\''],
+                scriptSrc: ['\'self\'', '\'unsafe-inline\'', 'https://cdnjs.cloudflare.com'],
+                styleSrc: ['\'self\'', '\'unsafe-inline\'', 'fonts.googleapis.com', 'https://cdnjs.cloudflare.com'],
+                fontSrc: ['\'self\'', 'fonts.googleapis.com', 'fonts.gstatic.com'],
+                imgSrc: ['\'self\'', 'data:', 'https://cdnjs.cloudflare.com']
+            }
+        }))
+
         return this
     }
 
@@ -70,6 +80,12 @@ export default function ExpressServer (express) {
         this.app.get('/', (req, res) => {
             return res.sendFile(path
                 .join(__dirname, '/public', 'dist', 'index.html'))
+        })
+
+        /* API documentation */
+        this.app.get('/api-doc/', (req, res) => {
+            return res.sendFile(path
+                .join(__dirname, '/public', 'api-doc', 'index.html'))
         })
 
         /* API routes */
