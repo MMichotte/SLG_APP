@@ -10,12 +10,16 @@
     "start": "node -r esm server.js",
     "start:dev": "nodemon -r esm server.js",
     "lint": " echo \"Everything looks fine !\" > ./lintErrors.log > ./lintErrors.log && ./node_modules/.bin/eslint --fix \"**/*.js\" -o ./lintErrors.log --no-color",
+    
     "db:migration:create": "npx sequelize migration:create",
     "db:migrate": "npx sequelize db:migrate",
     "db:migrate:undo": "npx sequelize db:migrate:undo",
     "db:seed": "sequelize db:seed:all",
-    "test": "NODE_ENV=test mocha --require esm ./tests/ --timeout 10000 --exit",
-    "test:with:db": "NODE_ENV=test npm run test:setup && npm run test && npm run test:drop:db",
+
+    "test:all": "npm run test:unit && npm run test:integration",
+    "test:unit": "NODE_ENV=test mocha --require esm ./tests/tests-unit/** --timeout 10000 --exit",
+    "test:integration": "NODE_ENV=test npm run test:setup && npm run test:with:db && npm run test:drop:db",
+    "test:with:db": "NODE_ENV=test mocha --require esm ./tests/tests-integration/** --timeout 10000 --exit",
     "test:setup": "NODE_ENV=test npm run test:drop:db && npm run test:create:db && npm run test:migrate:db && npm run test:seed:db",
     "test:drop:db": "NODE_ENV=test npx sequelize-cli db:drop",
     "test:create:db": "NODE_ENV=test npx sequelize-cli db:create",

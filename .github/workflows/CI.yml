@@ -28,7 +28,7 @@ jobs:
           run: |
             npm run test:unit:headless
   
-  test-backend:
+  integration-tests-backend:
       runs-on: ubuntu-latest
       services:
         postgres:
@@ -57,10 +57,28 @@ jobs:
         - name: run tests
           working-directory: ./backend
           run: |
-            npm run test:with:db
+            npm run test:integration
+  
+  unit-tests-backend:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Setup Node ${{ env.node-version }}
+          uses: actions/setup-node@v1
+          with:
+            node-version: ${{ env.node-version }}
+        - name: npm install
+          working-directory: ./backend
+          run: |
+            npm install
+        - name: run tests
+          working-directory: ./backend
+          run: |
+            npm run test:unit
+  
   build-to-Heroku:
     runs-on: ubuntu-latest
-    needs: [test-frontend, test-backend]
+    needs: [test-frontend, integration-tests-backend, unit-tests-backend]
     steps:
       - uses: actions/checkout@v2
       - name: Node ${{ env.node-version }}
