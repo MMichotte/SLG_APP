@@ -1,3 +1,4 @@
+# Swagger documentation : https://swagger.io/docs/specification/basic-structure/
 openapi: '3.0.2'
 info:
   title: SLG Tools 
