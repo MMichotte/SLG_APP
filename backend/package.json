@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node -r esm server.js",
     "start:dev": "nodemon -r esm server.js",
-    "lint": " echo \"Everything looks fine !\" > ./lintErrors.log > ./lintErrors.log && ./node_modules/.bin/eslint --fix \"**/*.js\" -o ./lintErrors.log --no-color",
+    "lint": " echo \" \n ✅ Everything looks fine !\" > ../logs/backend-lintErrors.log && ./node_modules/.bin/eslint --fix \"**/*.js\" -o ../logs/backend-lintErrors.log --no-color",
     
     "db:migration:create": "npx sequelize migration:create",
     "db:migrate": "npx sequelize db:migrate",

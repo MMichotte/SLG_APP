@@ -6,7 +6,7 @@
     "start": "ng serve",
     "start:dev": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --prod",
-    "lint": " echo \"Everything looks fine !\" > ./lintErrors.log && ./node_modules/.bin/eslint --fix \"**/*.js\" \"**/*.ts\" -o ./lintErrors.log --no-color",
+    "lint": "echo \" \n ✅ Everything looks fine !\" > ../logs/frontend-lintErrors.log && ./node_modules/.bin/eslint --fix \"**/*.js\" \"**/*.ts\" -o ../logs/frontend-lintErrors.log --no-color",
     "lin2t": "ng lint",
     "test:unit": "ng test",
     "test:unit:headless": "ng test --watch=false --browsers=ChromeHeadless",
