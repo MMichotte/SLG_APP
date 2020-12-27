@@ -90,10 +90,5 @@
       "no-unused-vars": "warn",
       "no-unused-expressions": "warn"
     }
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run lint"
-    }
   }
 }
