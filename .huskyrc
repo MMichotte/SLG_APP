@@ -1,5 +1,5 @@
 {
     "hooks": {
-      "pre-push": "cd backend && npm run lint && cd ../frontend && run npm lint"
+      "pre-push": "./logs/cmd/run-linters.sh"
     }
 }
