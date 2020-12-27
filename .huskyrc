@@ -1,5 +1,0 @@
-{
-    "hooks": {
-      "pre-push": "cd ./logs/cmd && ./run-linters.sh"
-    }
-}
