@@ -7,60 +7,12 @@ servers:
   - url: https://slg-app.herokuapp.com/api
 
 paths:
-  /bus:
-    get:
-      description: retrieve a list of all busses
-      responses:
-        '200':
-          description: OK
-      tags:
-        - "bus"
-
-    delete:
-      description: remove an existing bus 
-      responses:
-        '200':
-          description: OK
-      tags:
-        - "bus"
-
-    options:
-      description: d
-      responses:
-        '200':
-          description: OK
-      tags:
-        - "bus"
 
   /cars:
     get:
-      description:  retrieve a list of all cars
+      description:  this is a temporary test path
       responses:
         '200':
-          description: OK
-      tags:
-        - "cars"
-
-    post:
-      description: Add a new car
-      responses:
-        '200':
-          description: OK
-      tags:
-        - "cars"
-
-    delete:
-      description: Remove a specific car
-      responses:
-        '200':
-          description: OK
-      tags:
-        - "cars"
-
-    patch:
-      description: update a car
-      responses:
-        '200':
-          description: OK
+          description: do not use
       tags:
         - "cars"
