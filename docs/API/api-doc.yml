@@ -10,9 +10,9 @@ paths:
 
   /cars:
     get:
-      description:  this is a temporary test path
+      description: This is a temporary test path
       responses:
         '200':
-          description: do not use
+          description: Do not use
       tags:
         - "cars"
