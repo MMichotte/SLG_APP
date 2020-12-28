@@ -1,7 +1,8 @@
-# Swagger documentation : https://swagger.io/docs/specification/basic-structure/
+# Swagger documentation : https://swagger.io/docs/specification/basic-structure/ or https://idratherbewriting.com/learnapidoc/pubapis_openapi_step6_security_object.html
 openapi: '3.0.2'
 info:
   title: SLG Tools 
+  description: //TODO
   version: '1.0'
 servers:
   - url: https://slg-app.herokuapp.com/api
@@ -10,9 +11,23 @@ paths:
 
   /cars:
     get:
+      tags:
+        - "cars"
+      summary: Test path, nothing to see here
       description: This is a temporary test path
       responses:
         '200':
           description: Do not try this endpoint !
-      tags:
-        - "cars"
+          content:
+            application/json:
+              example:
+                BMW:
+                  value:
+                    id: 10
+                    model: M4
+                    color: red
+                Audi:
+                  value:
+                    id: 11
+                    model: Q5
+                    color: grey
