@@ -1,5 +1,5 @@
 # Swagger documentation : https://swagger.io/docs/specification/basic-structure/ or https://idratherbewriting.com/learnapidoc/pubapis_openapi_step6_security_object.html
-openapi: '3.0.2'
+openapi: 3.0.2
 info:
   title: SLG Tools 
   description: //TODO
