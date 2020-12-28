@@ -52,7 +52,7 @@ Il est "facile" d'écrire du code mais beaucoup plus compliqué de le rendre coh
 ## API-doc
 ![API-doc](img/tech/OpenApi.png)
 
-Une API sans documentation est pratiquement inutilisable. Il existe un grand nombre d'e technologies pour écrire de la documentation API. Néanmoins, afin de centraliser un maximum d'éléments, j'ai décidé d'utiliser un extension de mon IDE (VsCode) utilisant `Swagger` et `OpenApi` permettant décrire, de structurer et de visualiser la documentation. 
+Une API sans documentation est pratiquement inutilisable. Il existe un grand nombre d'e technologies pour écrire de la documentation API. Néanmoins, afin de centraliser un maximum d'éléments, j'ai décidé d'utiliser l'extension `OpenAPI` pour mon IDE (VsCode). Cela me permet d'écrire, de structurer et de visualiser la documentation de mon API.
 
 Extension utilisée : [OpenAPI (Swagger) Editor](https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi)
 
