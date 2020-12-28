@@ -31,7 +31,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.24.2/swagger-ui-standalone-preset.js"> </script>
 <script>
 window.onload = function() {
-  var spec = {"openapi": "3.0.2", "info": {"title": "SLG Tools", "version": "1.0"}, "servers": [{"url": "https://slg-app.herokuapp.com/api"}], "paths": {"/cars": {"get": {"description": "This is a temporary test path", "responses": {"200": {"description": "Do not use"}}, "tags": ["cars"]}}}};
+  var spec = {"openapi": "3.0.2", "info": {"title": "SLG Tools", "version": "1.0"}, "servers": [{"url": "https://slg-app.herokuapp.com/api"}], "paths": {"/cars": {"get": {"description": "This is a temporary test path", "responses": {"200": {"description": "Do not try this endpoint !"}}, "tags": ["cars"]}}}};
   // Build a system
   const ui = SwaggerUIBundle({
     spec: spec,

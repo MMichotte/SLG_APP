@@ -13,6 +13,6 @@ paths:
       description: This is a temporary test path
       responses:
         '200':
-          description: Do not use
+          description: Do not try this endpoint !
       tags:
         - "cars"
