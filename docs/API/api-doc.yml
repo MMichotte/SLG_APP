@@ -6,6 +6,7 @@ info:
 servers:
   - url: https://slg-app.herokuapp.com/api
 
+
 paths:
   /bus:
     get:
