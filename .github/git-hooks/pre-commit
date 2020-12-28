@@ -1,0 +1,11 @@
+#!/bin/sh
+
+FILES_CHANGED=$(git diff --cached --name-status)
+
+if [[ $FILES_CHANGED == *"docs/API/api-doc.yml"* ]]; then
+	printf "\n\e[32mUpdating api-doc html\e[0m \n"
+	./docs/API/compile.sh
+	git add backend/public/api-doc/index.html
+	git commit -m "hooks: updated api-doc html" --no-verify 
+	printf "\n\e[32mDone\e[0m \n\n"
+fi
