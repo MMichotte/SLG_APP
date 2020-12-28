@@ -51,4 +51,6 @@ if (env.NODE_ENV === 'dev') {
         })
 }
 
+Object.freeze(dbConnection)
+
 export default dbConnection
