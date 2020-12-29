@@ -19,11 +19,11 @@
 
 #### <u>📌 Préconditions :</u>
 - **Technique :**
-<!--checklist: "📌 Préconditions technique"-->
-- table `Stock` doit exister
-<!--/checklist-->
+  <!--checklist: "📌 Préconditions technique"-->
+  - table `Stock` doit exister
+  <!--/checklist-->
 - **Logique :**
-- /
+  - /
 
 #### <u>📋 Détail :</u>
 Quand l'utilisateur clique sur l'onglet `Stock` de la barre des menus, une requête `GET` est envoyée à l'API afin de récupérer les 25 premiers produits: 
