@@ -46,8 +46,9 @@ S'il existe plus de 25 factures, des petites flèches en dessous du tableau perm
 Un compteur se trouvant à gauche des deux flêches permet de savoir la plage de factures actuellement affichée. 
 
 **exemple :**
->
+<!--img-->
 ![table navigation](img/mocks/Table_nav.png)
+<!--/img-->
 
 #### <u>🔍 Critères de validation :</u>
 <!--checklist: "🔍 Critères de validation"-->
