@@ -10,12 +10,51 @@
 <!--/us-->
 ---
 
-<!--us-->
+<!--/us-->
 <!--title-->
 ### (ST02) Consulter le stock
-> En tant qu'utilisateur j'aimerais pouvoir consulter une liste des articles dans mon stock sous forme d'un tableau afin d'avoir un résumé des informations de chaque article. 
 <!--/title-->
 <!--description-->
+> En tant qu'utilisateur j'aimerais pouvoir consulter une liste des articles dans mon stock sous forme d'un tableau afin d'avoir un résumé des informations de chaque article. 
+
+#### <u>📌 Préconditions :</u>
+- **Technique :**
+<!--checklist: "📌 Préconditions technique"-->
+- table `Stock` doit exister
+<!--/checklist-->
+- **Logique :**
+- /
+
+#### <u>📋 Détail :</u>
+Quand l'utilisateur clique sur l'onglet `Stock` de la barre des menus, une requête `GET` est envoyée à l'API afin de récupérer les 25 premiers produits: 
+
+```json
+method  : GET
+url     : /api/products?show=25
+```
+
+En attendant la réponse du serveur, la page est chargée avec :
+
+- la structure du tableau (les headers)
+- un spinner à la place des données 
+
+✅ Si la requête abouti avec succès: les données sont chargées dans le tableau
+
+❌ Si la requête échoue: un message d'erreur est affiché
+
+S'il existe plus de 25 produits, des petites flèches en dessous du tableau permettent de charger les 25 produits suivants et ensuite remplacer les lignes du tableau existant par les "nouveaux" produits. 
+Un compteur se trouvant à gauche des deux flêches permet de savoir la plage de produits actuellement affichée. 
+
+**exemple :**
+>
+![table navigation](img/mocks/Table_nav.png)
+
+#### <u>🔍 Critères de validation :</u>
+<!--checklist: "🔍 Critères de validation"-->
+- Un utilisateur peut consulter une table reprenant tous les produits, chaque ligne de la table correspond à un produit.
+- Si aucun produit existe, l'utilisateur voit un message indiquant qu'aucun produit n'a été trouvée et ce à la place du contenu de la table.
+<!--/checklist-->
+
 <!--/description-->
 <!--/us-->
 
