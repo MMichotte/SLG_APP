@@ -1,12 +1,23 @@
 ## Stock (ST)
 
+<!--us-->
+<!--title-->
 ### (ST01) Onglet Stock
+<!--/title-->
+<!--description-->
 > En tant qu'utilisateur j'aimerais avoir un onglet `Stock` afin de pouvoir y gérer tout ce qui concerne mes articles.
-
+<!--/description-->
+<!--/us-->
 ---
 
+<!--us-->
+<!--title-->
 ### (ST02) Consulter le stock
 > En tant qu'utilisateur j'aimerais pouvoir consulter une liste des articles dans mon stock sous forme d'un tableau afin d'avoir un résumé des informations de chaque article. 
+<!--/title-->
+<!--description-->
+<!--/description-->
+<!--/us-->
 
 ---
 
