@@ -30,7 +30,7 @@ Quand l'utilisateur clique sur l'onglet `Stock` de la barre des menus, une requ�
 
 ```json
 method  : GET
-url     : /api/products?show=25
+url     : /api/products?show=0-24
 ```
 
 En attendant la réponse du serveur, la page est chargée avec :

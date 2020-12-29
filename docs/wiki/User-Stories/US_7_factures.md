@@ -30,7 +30,7 @@ Quand l'utilisateur clique sur l'onglet `factures` de la barre des menus, une re
 
 ```json
 method  : GET
-url     : /api/invoice?show=25
+url     : /api/invoice?show=0-24
 ```
 
 En attendant la réponse du serveur, la page est chargée avec :
