@@ -25,6 +25,10 @@ simple bullet list :
 - /
 - /
 
+<!--img-->
+![my image](path/to/imahe.png)
+<!--/img-->
+
 #### <u>🔍 Critères de validation :</u>
   <!--checklist: "🔍 Critères de validation"-->
   - /
