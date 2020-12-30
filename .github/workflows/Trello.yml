@@ -13,9 +13,9 @@ jobs:
 
     - name: installing tools
       run: |
-        apt-get update && apt-get upgrade
-        apt-get install wget
-        apt-get install unzip
+        sudo apt-get update && sudo apt-get upgrade
+        sudo apt-get install wget
+        sudo apt-get install unzip
 
     - name: download latest US-to-TrelloCard release 
       run: |
