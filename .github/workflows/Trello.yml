@@ -36,7 +36,7 @@ jobs:
 
     - name: add .env
       run: |
-        cd US-to-TrelloCard
+        cd US-to-TrelloCard*
         touch .env
         echo "API_KEY = ${{ secrets.TRELLO_API_KEY }}" >> .env 
         echo "OAUTH_TOKEN = ${{ secrets.TRELLO_AUTH_KEY}}" >> .env 
