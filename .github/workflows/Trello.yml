@@ -34,6 +34,7 @@ jobs:
         echo "OAUTH_TOKEN = ${{ secrets.TRELLO_AUTH_KEY}}" >> .env 
         echo "BOARD_NAME = \"SLG_APP\"" >> .env 
         echo "LIST_NAME = \"To Do\"" >> .env 
+        echo "LABELS = \"[US]\"" >> .env 
               
     - name: add new cards to trello
       run: |
