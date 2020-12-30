@@ -31,4 +31,4 @@ L'infrastructure informatique se trouve principalement sur le site de l'atelier 
 
 La site de la carrosserie n'est équipé que d'un **ordinateur portable** (windows 10). Actuellement, dû à un problème du logiciel *GAD-Garage*, le site de la carrosserie n'a aucun moyen d'encoder ses données. Le gérant doit obligatoirement se rendre sur le site de l'atelier mécanique afin d'avoir accès aux logiciels et de pouvoir encoder ses données! 
 
-L'entreprise enregistre actuellement une grande partie de ses documents importants dans un cloud, néanmoins, aucun back-up vers un cloud ou serveur secondaire n'est mis en place au niveau des bases de données. 
+L'entreprise enregistre actuellement une grande partie de ses documents importants dans un cloud, néanmoins, aucun back-up vers un cloud ou serveur secondaire n'est mis en place au niveau des bases de données.  
