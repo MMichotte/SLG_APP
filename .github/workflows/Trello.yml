@@ -11,9 +11,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: clone US-to-TrelloCard repository
+    - name: installing tools
       run: |
-        git clone https://github.com/MMichotte/US-to-TrelloCard
+        apt-get install wget
+        apt-get install unzip
+
+    - name: download latest US-to-TrelloCard release 
+      run: |
+        wget https://github.com/$(wget https://github.com/MMichotte/US-to-TrelloCard/releases/latest -O - | egrep '/.*/.*/.*zip' -o)
+        unzip *.zip -d ./
+        rm -f *.zip
     
     - name: setup python
       uses: actions/setup-python@v2
