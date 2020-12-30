@@ -13,7 +13,7 @@ jobs:
 
     - name: installing tools
       run: |
-        sudo apt-get update && sudo apt-get upgrade
+        sudo apt-get update
         sudo apt-get install wget
         sudo apt-get install unzip
 
@@ -31,7 +31,7 @@ jobs:
     - name: instal python dependencies 
       run : |
         pip install --upgrade pip
-        pip install -r US-to-TrelloCard/requirements.txt
+        pip install -r US-to-TrelloCard*/requirements.txt
         pip freeze
 
     - name: add .env
@@ -47,6 +47,6 @@ jobs:
     - name: add new cards to trello
       run: |
         for file in ./docs/wiki/User-Stories/*.md; \
-        do python3 US-to-TrelloCard/src/add_trello_cards.py -F "$file"; \
+        do python3 US-to-TrelloCard*/src/add_trello_cards.py -F "$file"; \
         done
       
