@@ -13,6 +13,7 @@ jobs:
 
     - name: installing tools
       run: |
+        apt-get update && apt-get upgrade
         apt-get install wget
         apt-get install unzip
 

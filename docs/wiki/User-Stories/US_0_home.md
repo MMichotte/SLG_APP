@@ -66,4 +66,3 @@ Bien évidemment, afin de répondre à ses besoins, une série d'US intermédiai
 19. [ ] FA04 - Télécharger la facture en pdf
 20. [ ] 🔸 //TODO -> fournisseur (onglet, consulter, ajouter)
 21. [ ] 🔸 //TODO -> commandes (...)
-
