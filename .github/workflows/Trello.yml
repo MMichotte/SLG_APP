@@ -38,6 +38,6 @@ jobs:
     - name: add new cards to trello
       run: |
         for file in ./docs/wiki/User-Stories/*.md; \
-        do python3 US-to-TrelloCard/src/addTrelloCards.py "$file"; \
+        do python3 US-to-TrelloCard/src/add_trello_cards.py -F "$file"; \
         done
       
