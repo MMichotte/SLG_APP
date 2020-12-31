@@ -20,7 +20,7 @@ jobs:
     - name: download latest US-to-TrelloCard release 
       run: |
         wget https://github.com/$(wget https://github.com/MMichotte/US-to-TrelloCard/releases/latest -O - | egrep '/.*/.*/.*zip' -o)
-        unzip *.zip -d ./
+        unzip *.zip -d ./US-to-TrelloCard
         rm -f *.zip
     
     - name: setup python
@@ -31,12 +31,12 @@ jobs:
     - name: instal python dependencies 
       run : |
         pip install --upgrade pip
-        pip install -r US-to-TrelloCard*/requirements.txt
+        pip install -r US-to-TrelloCard/requirements.txt
         pip freeze
 
     - name: add .env
       run: |
-        cd US-to-TrelloCard*
+        cd US-to-TrelloCard
         touch .env
         echo "API_KEY = ${{ secrets.TRELLO_API_KEY }}" >> .env 
         echo "OAUTH_TOKEN = ${{ secrets.TRELLO_AUTH_KEY}}" >> .env 
@@ -47,6 +47,6 @@ jobs:
     - name: add new cards to trello
       run: |
         for file in ./docs/wiki/User-Stories/*.md; \
-        do python3 US-to-TrelloCard*/src/add_trello_cards.py -F "$file"; \
+        do python3 US-to-TrelloCard/src/add_trello_cards.py -F "$file"; \
         done
       
