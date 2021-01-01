@@ -60,10 +60,10 @@ export default function ExpressServer (express) {
         this.app.use(helmet.contentSecurityPolicy({
             directives: {
                 defaultSrc: ['\'self\''],
-                scriptSrc: ['\'self\'', '\'unsafe-inline\'', 'https://cdnjs.cloudflare.com'],
-                styleSrc: ['\'self\'', '\'unsafe-inline\'', 'fonts.googleapis.com', 'https://cdnjs.cloudflare.com'],
-                fontSrc: ['\'self\'', 'fonts.googleapis.com', 'fonts.gstatic.com'],
-                imgSrc: ['\'self\'', 'data:', 'https://cdnjs.cloudflare.com']
+                scriptSrc: ['\'self\'', '\'unsafe-inline\''],
+                styleSrc: ['\'self\'', '\'unsafe-inline\'', 'fonts.googleapis.com', 'https://stackpath.bootstrapcdn.com'],
+                fontSrc: ['\'self\'', 'fonts.googleapis.com', 'fonts.gstatic.com', 'https://stackpath.bootstrapcdn.com'],
+                imgSrc: ['\'self\'', 'data:', 'https://insomnia.rest']
             }
         }))
 
@@ -87,6 +87,10 @@ export default function ExpressServer (express) {
             return res.sendFile(path
                 .join(__dirname, '/public', 'api-doc', 'index.html'))
         })
+        this.app.get('/insomnia.json/', (req, res) => {
+            return res.sendFile(path
+                .join(__dirname, '/public', 'api-doc', 'insomnia.json'))
+        })
 
         /* API routes */
         this.app.use('/api/', route.carsRoutes)
@@ -105,8 +109,10 @@ export default function ExpressServer (express) {
      * @returns {this} reference to the express app
      */
     this.serveStaticFiles = () => {
-        this.app.use(express.static(path
+        this.app.use('/', express.static(path
             .join(__dirname, '/public', 'dist')))
+        this.app.use('/api-doc', express.static(path
+            .join(__dirname, '/public', 'api-doc')))
         return this
     }
 
