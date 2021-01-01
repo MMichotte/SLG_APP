@@ -50,11 +50,12 @@ Mocha permet d'exécuter les tests et renvoie un log du résultat. Chai quant à
 Il est "facile" d'écrire du code mais beaucoup plus compliqué de le rendre cohérent, lisible et portable. Afin de palier à ces problèmes un linter est indispensable. Étant donnée que je travaille principalement avec du `JS`et du `TS`, j'ai opté pour [ESLint](https://eslint.org). Ce linter est 100% configurable pour chaque projet et me permet de garantir, dans l'éventualité où dans le future un autre développeur venait à contribuer au projet, la cohérence de nommage des variables, la configuration de l'IDE et bien d'autre choses. Pour ce qui est du `HTML` et `SCSS` un linter est inclus dans le framework Angular. 
 
 ## API-doc
-![API-doc](img/tech/OpenApi.png)
+![API-doc](img/tech/insomnia.png)
 
-Une API sans documentation est pratiquement inutilisable. Il existe un grand nombre d'e technologies pour écrire de la documentation API. Néanmoins, afin de centraliser un maximum d'éléments, j'ai décidé d'utiliser l'extension `OpenAPI` pour mon IDE (VsCode). Cela me permet d'écrire, de structurer et de visualiser la documentation de mon API.
+Une API sans documentation est pratiquement inutilisable. Il existe un grand nombre de technologies pour écrire de la documentation API. Néanmoins, afin de centraliser un maximum d'éléments, j'ai décidé d'utiliser l'application `Insomnia`. `Insomnia` permet non seulement de tester mon API en temps réel (équivalent à Postman) mais permet aussi d'écrire la documentation et de donner des examples pour chaque requêtes. De plus, à l'aide d'un plugin, je peux exporter ma documentation en un fichier HTML qui sera alors déployé automatiquement sur le site-web.
 
-Extension utilisée : [OpenAPI (Swagger) Editor](https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi)
+Programme utilisé : [Insomnia.com](https://insomnia.rest)
+Plugin utilisé : [Insomnia documenter plugin](https://insomnia.rest/plugins/insomnia-plugin-documenter)
 
 ## Schémas / Design
 ![draw.io](img/tech/Shema_Design.png)
