@@ -58,7 +58,7 @@
       "browser": true
     },
     "ignorePatterns": [
-      "**/dist/**/*.js"
+      "**/public/**/*.js"
     ],
     "parserOptions": {
       "ecmaVersion": 12
