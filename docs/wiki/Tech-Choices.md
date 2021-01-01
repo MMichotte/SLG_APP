@@ -52,10 +52,9 @@ Il est "facile" d'écrire du code mais beaucoup plus compliqué de le rendre coh
 ## API-doc
 ![API-doc](img/tech/insomnia.png)
 
-Une API sans documentation est pratiquement inutilisable. Il existe un grand nombre de technologies pour écrire de la documentation API. Néanmoins, afin de centraliser un maximum d'éléments, j'ai décidé d'utiliser l'application `Insomnia`. `Insomnia` permet non seulement de tester mon API en temps réel (équivalent à Postman) mais permet aussi d'écrire la documentation et de donner des examples pour chaque requêtes. De plus, à l'aide d'un plugin, je peux exporter ma documentation en un fichier HTML qui sera alors déployé automatiquement sur le site-web.
+Une API sans documentation est pratiquement inutilisable. Il existe un grand nombre de technologies pour écrire de la documentation API. Néanmoins, afin de centraliser un maximum d'éléments, j'ai décidé d'utiliser l'application `Insomnia`. `Insomnia` permet non seulement de tester mon API en temps réel (équivalent à Postman) mais permet aussi d'écrire la documentation et de donner des examples pour chaque requêtes. De plus, à l'aide d'un script bash, je peux convertir ma documentation depuis un format json (généré par `Insomnia`) en un fichier HTML qui sera alors déployé automatiquement sur le site-web.
 
 Programme utilisé : [Insomnia.com](https://insomnia.rest)
-Plugin utilisé : [Insomnia documenter plugin](https://insomnia.rest/plugins/insomnia-plugin-documenter)
 
 ## Schémas / Design
 ![draw.io](img/tech/Shema_Design.png)
