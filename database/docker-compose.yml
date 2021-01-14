@@ -12,4 +12,11 @@ services:
       - 5432:5432
     env_file:
       - slg_db.env
-    command: ["postgres", "-c", "logging_collector=on", "-c", "log_directory=/var/logs/postgresql", "-c", "log_filename=postgresql.log", "-c", "log_statement=all", "-c", "log_connections=tru", "-c", "log_disconnections=true", "-c", "log_hostname=true"]
+    command: ["postgres",
+              "-c", "logging_collector=on",
+              "-c", "log_directory=/var/logs/postgresql",
+              "-c", "log_filename=postgresql.log",
+              "-c", "log_statement=all",
+              "-c", "log_connections=true",
+              "-c", "log_disconnections=true",
+              "-c", "log_hostname=true"]
