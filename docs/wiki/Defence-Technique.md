@@ -1,11 +1,11 @@
 
-# Défence Technique 22/01/2021
+# Défense Technique 22/01/2021
 
 >Martin Michotte - HE302955
 ## Titre du TFE : 
 Conception et réalisation d'une application web de gestion de la supply-chain pour la société *SLG Classic Cars. (restauration de véhicules anciens)*
 ## Objectifs
-Le client, [SLG Classic Cars](https://www.slgcars.be), est un petite société familiale de restauration et entretien de voitures anciennes. Ils utilisent actuellement une combinaison de 2 logiciels (*[GAD-Garage](https://www.logiciel-garage.fr)* + *SLG-order-manager* (logiciel propriétaire) ) afin de répondre à leurs besoins en matière de :
+Le client, [SLG Classic Cars](https://www.slgcars.be), est un petite société familiale de restauration et entretien de voitures anciennes. Ils utilisent actuellement une combinaison de 2 logiciels (*[GAD-Garage](https://www.logiciel-garage.fr)* + *SLG-order-manager* (logiciel propriétaire) ) afin de répondre à leurs besoins, à savoir :
 * Gestion des clients
 * Gestion des fournisseurs
 * Gestion des véhicules
@@ -24,21 +24,20 @@ Cette solution devra être conçue de façon à pouvoir être adaptée au fil de
 
 ## Methodologie
 
-La méthodologie que j'ai choisie pour ce TFE s'articule principalement autour de la méthodologie `Agile`. J'ai commencé par définir, au travers d'une multitude de réunions avec le client, les grandes fonctionnalités de ce projet. Sur base de ces informations j'ai pu choisir les technologies 
-et mettre en place la structure du projet ainsi que tous les outils nécessaire au développement de celui-ci. 
+La méthodologie que j'ai choisie pour ce TFE s'articule principalement autour de la méthodologie `Agile`. J'ai commencé par définir, au travers de nombreuses de réunions avec le client, les grandes fonctionnalités de ce projet. Sur base de ces informations j'ai pu choisir les technologies et mettre en place la structure du projet ainsi que tous les outils nécessaires au développement de celui-ci. 
 
 Les fonctionnalités du projet sont toutes découpées en User-stories. Néanmoins le projet dans sa globalité étant assez conséquent, le détail de chaque user-story se fera petit à petit. Mon workflow sera donc le suivant: 
 1. En collaboration avec le client, deux ou trois user-stories sont détaillées.
 2. J'implémente complètement ces user-stories.
 3. Les fonctionnalités (US) ajoutées sont validées ou non par le client.
-4. Modification au besoin des ces fonctionnalités en fonction des remarques du client.
+4. Modification au besoin de ces fonctionnalités en fonction des remarques du client.
 5. Retour au point 1. 
 
 Ce workflow me permet donc de ne pas "perdre" du temps à détailler des User-Stories qui au final de seront pas implémentées par manque de temps. 
 
 --- 
 
-## Plan de travail
+## Planning
 La réalisation du TFE devant se faire en même temps que le stage, j'ai décidé de travailler selon le planning suivant: 
 ![planning-semaine](img/other/semaine-type.png)
 
@@ -47,7 +46,7 @@ Notons que ce planning représente une semaine type mais qu'il peut varier lég�
 <div style="page-break-after: always;"></div>
 
 ## État d'avancement 
-Afin de facilement pouvoir consulter l'avancement du projet j'ai créé une `ToDo-list`consultable [ici](https://github.com/MMichotte/SLG_APP/blob/master/docs/ToDo.md). En voici un extrait reprennant les grandes étapes:
+Afin de facilement pouvoir consulter l'avancement du projet j'ai créé une `ToDo-list`consultable [ici](https://github.com/MMichotte/SLG_APP/blob/master/docs/ToDo.md). En voici un extrait reprenant les grandes étapes:
 - [X] Description de la société (client)
 - [X] Description du projet
 >
@@ -60,7 +59,7 @@ Afin de facilement pouvoir consulter l'avancement du projet j'ai créé une `ToD
 - [X] Choix des technologies 
 >
 - [X] Choix hébergement (web/desktop/...)
-  - [X] Etude des marchés 
+  - [X] Etude de marché
 >
 - [X] Planification des périodes de travail 
 >
