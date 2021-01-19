@@ -2,7 +2,7 @@
 
 ## Description du projet 
 
-Le client, [SLG Classic Cars](https://www.slgcars.be), utilise actuellement une combinaison de 2 logiciels (*[GAD-Garage](https://www.logiciel-garage.fr)* + *SLG-order-manager* (logiciel propriétaire) ) afin de répondre à leurs besoins en matière de :
+Le client, [SLG Classic Cars](https://www.slgcars.be), est un petite société familiale de restauration et entretien de voitures anciennes. Ils utilisent actuellement une combinaison de 2 logiciels (*[GAD-Garage](https://www.logiciel-garage.fr)* + *SLG-order-manager* (logiciel propriétaire) ) afin de répondre à leurs besoins en matière de :
 * Gestion des clients
 * Gestion des fournisseurs
 * Gestion des véhicules
