@@ -1,6 +1,5 @@
 
 * {
-    --myOrange: #f0860c;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -11,6 +10,7 @@ html, body {
     background-color: white;
     background-attachment:fixed;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
     width: 100vw;
     height: 100%;
     max-width: 100% !important;
@@ -25,21 +25,15 @@ html, body {
     background: transparent;    /* Optional: just make scrollbar invisible */
 }
 
-.vertical-center {
-    min-height: 90%;  
-    min-height: 90vh; 
-  
-    display: flex;
-    align-items: center;
-  }
-
-
-.vertical-center-div {
-    display: flex;
-    align-items: center;
+.screen-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
-.row{
-    margin-top: 30px;
-    margin-bottom: 30px;
-  }
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 500;
+}
