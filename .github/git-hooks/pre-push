@@ -1,3 +1,13 @@
 #!/bin/sh
 
-cd ./logs/cmd && ./run-linters.sh
+git show | grep --quiet "backend/"
+B=$?
+
+git show | grep --quiet "frontend/"
+F=$?
+
+if [ $B -eq 0 ] || [ $F -eq 0 ]
+then
+  cd ./logs/cmd && ./run-linters.sh
+  exit 0
+fi
