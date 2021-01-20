@@ -43,10 +43,16 @@ body    :
 - le champ *Password* est vidé
 - un message d'erreur est affiché en dessous du champ *Password* indiquant l'erreur de connexion.
 
+Une fois l'utilisateur connecté, celui-ci a accès à toutes les fonctionnalités de l'application grâce à un token JWT. Ce token JWT est valable jusqu'au lendemain 06h00.
+
+🔑 Durant la totalité de la durée de validité du token JWT, la connexion est automatique et l'utilisateur est redirigé vers son dashboard. 
+
 #### <u>🔍 Critères de validation :</u>
   <!--checklist: "🔍 Critères de validation"-->
   - Une personne ayant entré un mauvais *Username* et/ou mauvais *Password* ne sait pas se connecter
   - Une personne ayant entré un *Username* et un *Password* correcte est connecté et est redirigé vers son dashboard. 
+  - Une personne connectée reçoit un token JWT afin de s'authentifier sur le reste de l'application. 
+  - Une personne non-connectée avec un token JWT valide, est connectée automatiquement.
   <!--/checklist-->
 
 <!--/description-->
@@ -71,5 +77,10 @@ body    :
 
 ### (G05) Suppression d'un utilisateur en tant que direction
 > En tant qu'utilisateur Direction j'aimerais pouvoir supprimer un compte utilisateur de type mécanicien et comptable afin d'interdire l'accès à l'application et d'enlever des droits à certaines personnes.
+
+---
+
+### (G06) Déconnexion
+> En tant qu'utilisateur j'aimerais pouvoir me déconnecter afin de pouvoir me connecter avec un autre compte utilisateur.
 
 ---
