@@ -136,6 +136,7 @@ body    :
 <!--checklist: "🔍 Critères de validation"-->
 - Un utilisateur peut ajouter un nouvel article avec au minimum un numéro de référence et un nom. 
 - Un article ne peut être ajouté s'il existe déjà. 
+- Prov
 <!--/checklist-->
 
 <!--/description-->
