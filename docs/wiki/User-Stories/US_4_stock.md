@@ -109,7 +109,7 @@ Quand l'utilisateur clique sur le bouton *Add* une requête `POST` est envoyé �
 
 ```json
 method  : POST
-url     : /api/product
+url     : /api/products
 body    :
 {
     "id_prod": "...ref...",
