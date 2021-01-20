@@ -1,7 +1,22 @@
 ## Main d'oeuvres (MO)
 
+<!--us-->
+<!--title-->
 ### (MO01) Onglet Main d'oeuvres
+<!--/title-->
+<!--description-->
 > En tant qu'utilisateur j'aimerais avoir un onglet `Main d'oeuvres` afin de pouvoir y gérer tout ce qui concerne les différents types de main-d'oeuvres. 
+
+#### <u>📌 Préconditions :</u>
+- **Technique :**
+  <!--checklist: "📌 Préconditions technique"-->
+  - Une barre de navigation doit être implémentée.
+  <!--/checklist-->
+- **Logique :**
+  - /
+
+<!--/description-->
+<!--/us-->
 
 ---
 
