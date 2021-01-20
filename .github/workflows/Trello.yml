@@ -19,7 +19,7 @@ jobs:
 
     - name: download latest US-to-TrelloCard release 
       run: |
-        wget https://github.com/$(wget https://github.com/MMichotte/US-to-TrelloCard/releases/latest -O - | egrep '/.*/.*/.*zip' -o)
+        wget https://github.com/$(wget https://github.com/MMichotte/US-to-TrelloCard/releases/latest -O - | egrep '/.*/.*/.*zip' -o) || exit 0
         unzip *.zip -d ./US-to-TrelloCard
         rm -f *.zip
     
