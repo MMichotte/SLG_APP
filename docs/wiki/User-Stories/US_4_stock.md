@@ -6,6 +6,15 @@
 <!--/title-->
 <!--description-->
 > En tant qu'utilisateur j'aimerais avoir un onglet `Stock` afin de pouvoir y gérer tout ce qui concerne mes articles.
+
+#### <u>📌 Préconditions :</u>
+- **Technique :**
+  <!--checklist: "📌 Préconditions technique"-->
+  - Une barre de navigation doit être implémentée.
+  <!--/checklist-->
+- **Logique :**
+  - /
+
 <!--/description-->
 <!--/us-->
 ---
