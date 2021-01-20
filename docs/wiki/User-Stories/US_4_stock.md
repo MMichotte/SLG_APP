@@ -70,21 +70,76 @@ Un compteur se trouvant à gauche des deux flêches permet de savoir la plage de
 
 ---
 
+<!--us-->
+<!--title-->
 ### (ST03) Ajouter nouvel article dans le stock
-> En tant qu'utilisateur j'aimerais pouvoir ajouter un nouvel article et encoder les informations ci-dessous afin pouvoir garder un trâce de celui-ci.
+<!--/title-->
+<!--description-->
+> En tant qu'utilisateur j'aimerais pouvoir ajouter un nouvel article afin pouvoir agrandir mon inventaire.
 
-informations à encoder :
-  - référence article
-  - désignation 
-  - dernier prix d'achat (HT)
-  - prix vente (HT)
-  - prix vente (TTC)
-  - marge 
-  - Quantité stock 
-  - Quantité réservée
-  - Quantité dispo 
-  - Note 
+#### <u>📌 Préconditions :</u>
+- **Technique :**
+  <!--checklist: "📌 Préconditions technique"-->
+  - table `Stock` doit exister
+  <!--/checklist-->
+- **Logique :**
+  - /
+
+#### <u>📋 Détail :</u>
+Quand l'utilisateur clique sur le bouton `new article` un formulaire contenant les champs ci-dessous s'ouvre :
+
+  - référence article: `Text` `required`
+  - désignation: `Text` `required`
+  - dernier prix d'achat (HT): `Number` 
+  - prix vente (HT): `Number` 
+  - prix vente (TTC): `Number` 
+  - marge: `Number` 
+  - Quantité stock: `Number` 
+  - Quantité réservée: `Number`
+  - Quantité disponible: `Number`
+  - Note: `Text` 
+  - Add : `Button`
+  - Cancel : `Button`
+
+Tous les champs de type `Number`sont initialisé à 0 par défaut.
+
 A noter que l'utilisateur peut soit encoder le prix d'achat HT ainsi que le prix de vente HT afin que la marge soit calculée, soit encoder le prix d'achat HT ainsi que la marge afin que le prix de vente HT soit calculé.
+
+Quand l'utilisateur clique sur le bouton *Add* une requête `POST` est envoyé à l'API afin de tenter d'ajouter l'article au stock :
+
+```json
+method  : POST
+url     : /api/product
+body    :
+{
+    "id_prod": "...ref...",
+    "name": "...designation...",
+    "purchase_price_HT": 0,
+    "sale_price_HT": 0,
+    "sale_price_TTC": 0,
+    "quantity": 0,
+    "quantity_reserved": 0,
+    "note": "...note..."
+}
+```
+
+✅ Si aucun produit n'existe avec la même référence alors:
+  - L'article est ajouté  dans la base de données.
+  - Un message de couleur vert indiquant la réussite de l'ajout apparaît sous les boutons.
+  - Après une courte durée (1-2sec) le formulaire est fermé. 
+
+❌ Si l'article existe déjà ou si une autre erreur survient:
+  - L'article n'est pas ajouté dans la base de données!
+  - un message d'erreur de couleur rouge spécifiant le problème, apparaÎt sous les boutons. 
+
+#### <u>🔍 Critères de validation :</u>
+<!--checklist: "🔍 Critères de validation"-->
+- Un utilisateur peut ajouter un nouvel article avec au minimum un numéro de référence et un nom. 
+- Un article ne peut être ajouté s'il existe déjà. 
+<!--/checklist-->
+
+<!--/description-->
+<!--/us-->
 
 ---
 
