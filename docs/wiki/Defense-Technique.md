@@ -4,6 +4,7 @@
 >Martin Michotte - HE302955
 ## Titre du TFE : 
 Conception et réalisation d'une application web de gestion de la supply-chain pour la société *SLG Classic Cars. (restauration de véhicules anciens)*
+
 ## Objectifs
 Le client, [SLG Classic Cars](https://www.slgcars.be), est un petite société familiale de restauration et entretien de voitures anciennes. Ils utilisent actuellement une combinaison de 2 logiciels (*[GAD-Garage](https://www.logiciel-garage.fr)* + *SLG-order-manager* (logiciel propriétaire) ) afin de répondre à leurs besoins, à savoir :
 * Gestion des clients

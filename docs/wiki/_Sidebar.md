@@ -20,5 +20,5 @@
     <li><a href="Tech-Choices">Tech-Choices</a></li>
     <li><a href="Web-Hosting">Web-Hosting</a></li>
     <li><a href="Sources">Sources</a></li>
-    <li><a href="Defence-Technique">Défence Technique 22/01/2021</a></li>
+    <li><a href="Defense-Technique">Défence Technique 22/01/2021</a></li>
 </ul>
