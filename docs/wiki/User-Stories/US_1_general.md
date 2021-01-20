@@ -18,9 +18,9 @@
 #### <u>📋 Détail :</u>
 Quand la personne navigue vers l'URL du site-web, il arrive sur une page de login contenant un formulaire avec les champs suivant :
 
-- Username: `texte` 
-- Password: `texte` 
-- Login : `bouton`
+- Username: `Text` `required`
+- Password: `Text` `required`
+- Login : `Button`
 
 Lorsqu'il clique sur le bouton *Login* une requête `POST` est envoyé à l'API afin de tenter d'authentifier l'utilisateur :
 
