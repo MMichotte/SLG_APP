@@ -131,14 +131,3 @@ body    :
 <!--/us-->
 
 ---
-
-
-
-
-informations à encoder :
-  - nom
-  - tarif (HT)
-  - tarif (TTC) 
-  - Note 
-
----

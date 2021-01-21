@@ -112,7 +112,7 @@ method  : POST
 url     : /api/products
 body    :
 {
-    "id_prod": "...ref...",
+    "reference": "...ref...",
     "name": "...designation...",
     "purchase_price_HT": 0,
     "sale_price_HT": 0,
