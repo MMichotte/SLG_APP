@@ -4,8 +4,7 @@ async function login (username) {
     return User.findOne({
         where: {
             username: username
-        },
-        attributes: ['password']
+        }
     })
 }
 
