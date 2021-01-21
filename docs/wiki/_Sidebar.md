@@ -11,7 +11,7 @@
             <li><a href="US_5_main-oeuvres">Main d'oeuvres (MO)</a></li>
             <li><a href="US_6_fiches-travail">Fiches de travail (FT)</a></li>
             <li><a href="US_7_factures">Factures (FA)</a></li>
-            <li><a href="US_8_fournisseur">Fournisseurs (FO)</a></li>
+            <li><a href="US_8_fournisseurs">Fournisseurs (FO)</a></li>
             <li><a href="US_9_commandes">Commandes (CO)</a></li>
             <li><a href="US_10_devis">Devis (DE)</a></li>
             <li><a href="US_11_note-credit">Notes de crédits (NC)</a></li>
