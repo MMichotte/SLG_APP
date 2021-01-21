@@ -29,7 +29,7 @@
 #### <u>📌 Préconditions :</u>
 - **Technique :**
   <!--checklist: "📌 Préconditions technique"-->
-  - table `Stock` doit exister
+  - table `Product` doit exister
   <!--/checklist-->
 - **Logique :**
   - /
@@ -80,7 +80,7 @@ Un compteur se trouvant à gauche des deux flêches permet de savoir la plage de
 #### <u>📌 Préconditions :</u>
 - **Technique :**
   <!--checklist: "📌 Préconditions technique"-->
-  - table `Stock` doit exister
+  - table `Product` doit exister
   <!--/checklist-->
 - **Logique :**
   - /
