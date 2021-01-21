@@ -4,7 +4,7 @@
 - [X] Description du projet
 >
 - [ ] Analyse des besoin du client :
-  - [ ] Backlog complet des 4-5 fonctionnalités primordiales 
+  - [X] Backlog complet des 4-5 fonctionnalités primordiales 
   - [X] Description des Business-Rules
   - [ ] Schéma relationnel de la base de données
 >
