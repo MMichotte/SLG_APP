@@ -27,6 +27,7 @@
   "author": "M.Michotte",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "consola": "^2.15.0",
