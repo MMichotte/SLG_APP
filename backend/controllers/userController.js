@@ -14,21 +14,17 @@ async function login (httpRequest) {
         const userInfo = httpRequest.body
 
         const storedUser = await userService.login(userInfo.username)
-        if (!storedUser) {
-            return error404
-        }
-        const isValidPwd = await security.checkPassword(userInfo.password, storedUser.dataValues.password)
+        if (!storedUser) { return error404 }
 
-        if (!isValidPwd) {
-            return error404
-        }
+        const isValidPwd = await security.checkPassword(userInfo.password, storedUser.dataValues.password)
+        if (!isValidPwd) { return error404 }
 
         return {
             statusCode: 200,
             body: {
                 success: true,
                 message: `Successfully authenticated as ${userInfo.username}.`,
-                token: 'token'
+                token: security.generateJwt(userInfo.username)
             }
         }
     } catch (e) {

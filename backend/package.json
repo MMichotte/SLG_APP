@@ -38,6 +38,7 @@
     "express-request-id": "^1.4.1",
     "helmet": "^4.2.0",
     "ini": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
     "mocha": "^8.2.1",
     "pg": "^8.5.1",
     "sequelize": "^6.3.5",
