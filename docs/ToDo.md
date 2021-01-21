@@ -3,10 +3,10 @@
 - [X] Description de la société (client)
 - [X] Description du projet
 >
-- [ ] Analyse des besoin du client :
+- [X] Analyse des besoin du client (non-complet, car évolutif):
   - [X] Backlog complet des 4-5 fonctionnalités primordiales 
   - [X] Description des Business-Rules
-  - [ ] Schéma relationnel de la base de données
+  - [X] Schéma relationnel de la base de données (pour les premières US)
 >
 - [X] Proposition de solution 
 - [X] Choix des technologies 
