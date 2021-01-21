@@ -17,6 +17,9 @@ if (env.NODE_ENV === 'dev') {
                 min: 0,
                 acquire: 30000,
                 idle: 10000
+            },
+            define: {
+                freezeTableName: true
             }
         }
     )
@@ -34,6 +37,9 @@ if (env.NODE_ENV === 'dev') {
                 min: 0,
                 acquire: 30000,
                 idle: 10000
+            },
+            define: {
+                freezeTableName: true
             }
         }
     )
@@ -47,6 +53,9 @@ if (env.NODE_ENV === 'dev') {
                     require: true,
                     rejectUnauthorized: false
                 }
+            },
+            define: {
+                freezeTableName: true
             }
         })
 }
