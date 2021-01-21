@@ -93,7 +93,7 @@ export default function ExpressServer (express) {
         })
 
         /* API routes */
-        this.app.use('/api/', route.carsRoutes)
+        this.app.use('/api/', route.userRoutes)
 
         /* ANY route */
         this.app.get('*', (req, res) => {

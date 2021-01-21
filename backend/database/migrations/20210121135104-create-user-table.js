@@ -23,12 +23,12 @@ module.exports = {
                 unique: false,
                 allowNull: false
             },
-            created_at: {
+            createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
                 defaultValue: new Date()
             },
-            updated_at: {
+            updatedAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
                 defaultValue: new Date()
