@@ -19,6 +19,9 @@ Ce document contient une liste de questions à poser ou posées au client ou au 
    Fondamentalement une fiche de travail que j'imprime peut être un devis. Et ensuite je travaille dans la fiche de travail en question, c'est bien.
    Il faudra juste que je puisse imprimer avec une en tête "devis", pour que le client sache de quoi il s'agit.
 
+4. **Un client peut-il avoir plusieurs adresses? (facturation/livraison/...)**
+
+
 ---
 ## Questions rapporteur-Ephec
 
@@ -27,3 +30,6 @@ Ce document contient une liste de questions à poser ou posées au client ou au 
 
    Poser la question, c’est un peu y répondre.
    Il faut vraiment mettre la priorité sur ce qui est utilisable (MVP) mais d’un point de vue du client. Il faut donc mettre la priorité sur ce qu’il te demande mais que ce soit opérationnel, sinon cela ne sert à rien.
+
+2. **Quel niveau de détail faut-il dans une DB? -> Jusqu'a quel point faut il décortiquer les différents tables?**
+
