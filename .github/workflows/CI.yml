@@ -119,3 +119,4 @@ jobs:
           appdir: "backend"
         env:
           HD_NODE_ENV: "prod"
+          HD_JWT_PRIVATE_KEY: ${{secrets.JWT_PRIVATE_KEY}}
