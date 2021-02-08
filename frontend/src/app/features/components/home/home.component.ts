@@ -8,6 +8,10 @@ import { Component, OnInit } from '@angular/core'
 export class HomeComponent implements OnInit {
     // constructor () { }
 
+    connected=false
+
     ngOnInit (): void {
+        console.log(localStorage.getItem('token'))
+        if (localStorage.getItem('token')) { this.connected = true }
     }
 }
