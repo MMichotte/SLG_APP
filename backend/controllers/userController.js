@@ -33,4 +33,14 @@ async function login (httpRequest) {
     }
 }
 
-export { login }
+async function validateAuth (httpRequest) {
+    return {
+        statusCode: 200,
+        body: {
+            success: true,
+            message: 'Successfully authenticated'
+        }
+    }
+}
+
+export { login, validateAuth }
