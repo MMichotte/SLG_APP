@@ -13,7 +13,7 @@ async function login (httpRequest) {
 
         const userInfo = httpRequest.body
 
-        const storedUser = await userService.login(userInfo.username)
+        const storedUser = await userService.getUser(userInfo.username)
         if (!storedUser) { return error404 }
 
         const isValidPwd = await security.checkPassword(userInfo.password, storedUser.dataValues.password)

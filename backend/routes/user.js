@@ -6,7 +6,7 @@ import passport from 'passport'
 const router = express.Router()
 
 router.post('/login', makeCallback(userController.login))
-// router.get('/login', passport.authenticate('jwt', { session: false }), makeCallback(userController.validateAuth))
-router.get('/login', makeCallback(userController.validateAuth))
+router.get('/login', passport.authenticate('jwt', { session: false }), makeCallback(userController.validateAuth))
+// router.get('/login', makeCallback(userController.validateAuth))
 
 export { router as userRoutes }

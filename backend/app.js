@@ -2,6 +2,7 @@ import path from 'path'
 import consola from 'consola'
 import dbConnection from './config/database'
 import env from './config/env'
+import { authUser } from './helpers/security'
 
 export default function ExpressServer (express) {
     this.app = express()
@@ -67,6 +68,18 @@ export default function ExpressServer (express) {
             }
         }))
 
+        return this
+    }
+
+    /** @passportConfiguration
+     * Function to configure the passport libary
+     * @returns {this} reference to the express app
+     * @param passport
+     */
+    this.passportConfig = passport => {
+        authUser(passport)
+        this.app.use(passport.initialize())
+        this.app.use(passport.session())
         return this
     }
 
