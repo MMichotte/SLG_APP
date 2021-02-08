@@ -84,6 +84,9 @@
         "warn",
         "single"
       ],
+      "semi": [
+        "warn"
+      ],
       "no-use-before-define": "warn",
       "no-unused-vars": "warn",
       "no-unused-expressions": "warn"
