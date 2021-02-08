@@ -1,1 +1,10 @@
+<form class="screen-center" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <label>Utilisateur: </label>
+    <input type="text" formControlName="username" (click)="hideError()">
+    
+    <label>Mot de passe:</label>
+    <input type="password" onfocus="this.value=''" formControlName="password" (click)="hideError()">
 
+    <small class="formError" *ngIf="displayError">Nom d'utilisateur ou mot de passe incorrecte.</small>
+    <button class="button button-success" type="submit" [disabled]="!loginForm.valid">Login</button>
+</form>
