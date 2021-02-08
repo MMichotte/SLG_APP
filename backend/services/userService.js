@@ -1,4 +1,4 @@
-import User from '../database/models/User'
+import User from '../database/models/user'
 
 async function login (username) {
     return User.findOne({
