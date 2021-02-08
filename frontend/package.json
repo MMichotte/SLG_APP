@@ -89,7 +89,8 @@
       ],
       "no-use-before-define": "warn",
       "no-unused-vars": "warn",
-      "no-unused-expressions": "warn"
+      "no-unused-expressions": "warn",
+      "no-useless-constructor": "off"
     }
   }
 }
