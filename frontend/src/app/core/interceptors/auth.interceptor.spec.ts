@@ -6,10 +6,10 @@ import { AuthInterceptor } from './auth.interceptor';
 
 describe('AuthInterceptor', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [ HttpClientTestingModule, RouterTestingModule ],
+    imports: [HttpClientTestingModule, RouterTestingModule],
     providers: [
       AuthInterceptor
-      ]
+    ]
   }));
 
   it('should be created', () => {
