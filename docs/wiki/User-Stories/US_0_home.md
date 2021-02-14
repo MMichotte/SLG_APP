@@ -5,13 +5,13 @@ Type de permission d'un utilisateur :
 - comptable (C) 🕵️ :
   - peut uniquement consulter l'ensemble des données
   - peut générer des pdf de factures, ...
-- mécanicien (M) 👷‍♂️ :
+- utilisateur (MU 👷‍♂️ :
   - a tout les droits du comptable
   - peut créer/modifier une fiche de travail
   - peut créer/modifier une commande
-- direction (D) 👨‍💼 : 
+- administrateur (A) 👨‍💼 : 
   - peut tout faire.
-- admin (A) 👨‍💻 :
+- développeur (D) 👨‍💻 :
   - peut tout faire et a accès aux logs et métriques 
 
 Le mot 'utilisateur' fait référence à un utilisateur connecté (peu importe sa permission).

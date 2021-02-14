@@ -60,23 +60,23 @@ Une fois l'utilisateur connecté, celui-ci a accès à toutes les fonctionnalit�
 
 ---
 
-### (G02) Ajout/Création utilisateur en tant qu'admin
-> En tant qu'utilisateur Admin j'aimerais pouvoir créer/ajouter un compte utilisateur de n'importe quel type (A,D,M,C) afin de accorder l'accès à l'application et de donner des droits à certaines personnes.
+### (G02) Ajout/Création utilisateur en tant que dev
+> En tant qu'utilisateur dev j'aimerais pouvoir créer/ajouter un compte utilisateur de n'importe quel type (A,D,M,C) afin de accorder l'accès à l'application et de donner des droits à certaines personnes.
 
 ---
 
-### (G03) Suppression d'un utilisateur en tant qu'admin
-> En tant qu'utilisateur Admin j'aimerais pouvoir supprimer un compte utilisateur de n'importe quel type (A,D,M,C) afin d'interdire l'accès à l'application et d'enlever des droits à certaines personnes.
+### (G03) Suppression d'un utilisateur en tant qu'dev
+> En tant qu'utilisateur dev j'aimerais pouvoir supprimer un compte utilisateur de n'importe quel type (A,D,M,C) afin d'interdire l'accès à l'application et d'enlever des droits à certaines personnes.
 
 ---
 
-### (G04) Ajout/Création utilisateur en tant que direction
-> En tant qu'utilisateur Direction j'aimerais pouvoir créer/ajouter un compte utilisateur de type mécanicien et comptable afin de accorder l'accès à l'application et de donner des droits à certaines personnes.
+### (G04) Ajout/Création utilisateur en tant que admin
+> En tant qu'utilisateur admin j'aimerais pouvoir créer/ajouter un compte utilisateur de type mécanicien et comptable afin de accorder l'accès à l'application et de donner des droits à certaines personnes.
 
 ---
 
-### (G05) Suppression d'un utilisateur en tant que direction
-> En tant qu'utilisateur Direction j'aimerais pouvoir supprimer un compte utilisateur de type mécanicien et comptable afin d'interdire l'accès à l'application et d'enlever des droits à certaines personnes.
+### (G05) Suppression d'un utilisateur en tant que admin
+> En tant qu'utilisateur admin j'aimerais pouvoir supprimer un compte utilisateur de type mécanicien et comptable afin d'interdire l'accès à l'application et d'enlever des droits à certaines personnes.
 
 ---
 
