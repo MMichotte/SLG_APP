@@ -1,0 +1,20 @@
+{
+  "rules": {
+    "indent": [
+      "warn",
+      2
+    ],
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "semi": [
+      "warn","always"
+    ],
+    "no-use-before-define": "warn",
+    "no-unused-vars": "warn",
+    "no-unused-expressions": "warn",
+    "no-useless-constructor": "off",
+    "no-trailing-spaces" : "off"
+  }
+}
