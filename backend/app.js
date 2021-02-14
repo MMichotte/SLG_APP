@@ -106,18 +106,6 @@ export default function ExpressServer (express) {
         .join(__dirname, '/public', 'dist', 'index.html'));
     });
 
-    /* API documentation */
-    /*
-    this.app.get('/api-doc/', (req, res) => {
-      return res.sendFile(path
-        .join(__dirname, '/public', 'api-doc', 'index.html'));
-    });
-    this.app.get('/insomnia.json/', (req, res) => {
-      return res.sendFile(path
-        .join(__dirname, '/public', 'api-doc', 'insomnia.json'));
-    });
-    */ // !todo: remove after tests
-
     /* API routes */
     this.app.use('/api/', route.userRoutes);
 
@@ -137,8 +125,6 @@ export default function ExpressServer (express) {
   this.serveStaticFiles = () => {
     this.app.use('/', express.static(path
       .join(__dirname, '/public', 'dist')));
-    /* this.app.use('/api-doc', express.static(path
-      .join(__dirname, '/public', 'api-doc'))); */ // !todo: remove after tests
     return this;
   };
 
