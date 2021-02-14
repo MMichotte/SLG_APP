@@ -1,40 +1,41 @@
-import { AuthService } from './../../../core/services/auth.service'
-import { Component, OnInit } from '@angular/core'
-import { FormGroup, FormControl, Validators } from '@angular/forms'
-import { Router } from '@angular/router'
+import { AuthService } from './../../../core/services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-    constructor (private auth: AuthService, private router: Router) { }
+
+  constructor (private auth: AuthService, private router: Router) { }
 
     loginForm = new FormGroup({
-        username: new FormControl('', Validators.required),
-        password: new FormControl('', Validators.required)
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     })
 
-    displayError = false
+    displayError: boolean = false
 
     ngOnInit (): void {
     }
 
-    onSubmit () {
-        this.auth.loginUser(this.loginForm.value).subscribe(
-            (res: any) => {
-                localStorage.setItem('token', res.body.token)
-                this.router.navigate(['/'])
-            },
-            error => {
-                this.displayError = true
-                console.log(error.message)
-            }
-        )
+    onSubmit (): void {
+      this.auth.loginUser(this.loginForm.value).subscribe(
+        (res: any) => {
+          this.auth.setLogin(res.token);
+          this.router.navigate(['/']);
+        },
+        error => {
+          this.displayError = true;
+          console.log(error);
+        }
+      );
     }
 
-    hideError () {
-        this.displayError = false
+    hideError (): void {
+      this.displayError = false;
     }
 }
