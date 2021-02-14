@@ -1,7 +1,7 @@
-import { userRoutes } from './user'
+import { userRoutes } from './user';
 
 const routes = Object.freeze({
-    userRoutes
-})
+  userRoutes
+});
 
-export default routes
+export default routes;
