@@ -3,6 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
+import { EUserRoles } from 'src/app/shared/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -53,17 +54,23 @@ export class AuthService {
 
   hasMinAccess (role: string): boolean {
     switch (role) {
-    case 'dev':
-      return (this.roleAs === 'dev'); 
+    case EUserRoles.DEV:
+      return (this.roleAs === EUserRoles.DEV); 
       
-    case 'admin':
-      return !!((this.roleAs === 'dev' || this.roleAs === 'admin'));   
+    case EUserRoles.ADMIN:
+      return !!((this.roleAs === EUserRoles.ADMIN ||
+                this.roleAs === EUserRoles.DEV));   
       
-    case 'user':
-      return !!((this.roleAs === 'user' || this.roleAs === 'dev' || this.roleAs === 'admin'));  
+    case EUserRoles.USER:
+      return !!((this.roleAs === EUserRoles.USER ||
+                this.roleAs === EUserRoles.ADMIN ||
+                this.roleAs === EUserRoles.DEV));  
     
-    case 'accounting':
-      return !!((this.roleAs === 'accounting' || this.roleAs === 'user' || this.roleAs === 'dev' || this.roleAs === 'admin'));  
+    case EUserRoles.ACCOUNTING:
+      return !!((this.roleAs === EUserRoles.ACCOUNTING ||
+                this.roleAs === EUserRoles.USER ||
+                this.roleAs === EUserRoles.ADMIN ||
+                this.roleAs === EUserRoles.DEV));  
 
     default:
       return false;

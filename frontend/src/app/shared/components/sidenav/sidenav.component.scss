@@ -1,72 +1,73 @@
 .navbar {
   background-color: #1a1a1a;
   transition: width 450ms ease;
-  overflow: scroll;
   width: 3.5rem;
-  height: 100vh; //TODO
-  padding-bottom: 100%;
-  flex-direction: column;
-  align-items: center;
-
-  .expanded {
-    align-items: left !important;
-  }
-}
-
-.navbar-nav {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-}
-
-
-.nav-item,
-.nav-toggle {
-  padding: 0 1rem;
-}
-
-.nav-toggle {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  margin: 1rem 0 2rem 0;
+  height: 100vh;
   
-  .fa {
-    transition: transform 450ms ease-in-out;
+  .navbar-nav {
+    width: 100%;
+    margin-top: 1rem;
+
+    .nav-toggle {
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: center;
+      justify-content: flex-end;
+      margin-right: 1rem;
+
+      .fas {
+        width:max-content;
+        transition: transform 450ms ease-in-out;
+      }
+    }
+
+    .nav-content {
+      height: 95%;
+      display: flex;
+      flex-direction: column;
+      
+      .nav-item {
+        margin: 1rem 0;
+        border-left: 5px solid transparent;
+
+        .nav-link {
+          margin-left: 0.5rem;
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          overflow-x: hidden;
+
+          .nav-icon {
+            width: 3rem !important;
+          }
+
+          .link-text {
+            color: white;
+            font-size:larger;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      .nav-item:hover {
+        //background-color: gray;
+        border-left: 5px solid white;
+      }
+
+      .nav-item:last-child {
+        margin-top: auto; 
+        margin-bottom: 2rem; 
+      }
+    }
   }
-}
 
-.nav-item {
-  padding: 0.6rem;
-  margin: 0.3rem 0;
-}
-
-.nav-item:hover {
-  //background-color: gray;
-  border-left: 5px solid white;
-}
-
-.nav-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-
-.fa {
-  color: var(--slgGreen);
-  font-size: x-large;
-  .fa-arrow-right {
-    font-size: xx-large;
+  .fas {
+    width: 3rem;
+    color: var(--slgGreen);
+    font-size: x-large;
+  
+    .fa-arrow-right {
+      font-size: xx-large;
+    }
   }
-}
-
-.link-text {
-  color: white;
-  font-size:larger;
-  margin: 0 0 0 1rem;
 }
