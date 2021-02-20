@@ -18,13 +18,12 @@ async function bootstrap() {
     .addTag('users')
     .addBearerAuth()
     .build();
-    
-  const document = SwaggerModule.createDocument(app, swaggerOptions);
-  SwaggerModule.setup('api-docs',app, document);
-    
-  await app.listen(env.PORT);
-  
-  console.log(`Application is running on: ${await app.getUrl()}`);
 
+  const document = SwaggerModule.createDocument(app, swaggerOptions);
+  SwaggerModule.setup('api-docs', app, document);
+
+  await app.listen(env.PORT);
+
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

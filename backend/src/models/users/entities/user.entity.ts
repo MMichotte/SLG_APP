@@ -2,72 +2,70 @@ import { Table, Column, Model, DataType } from 'sequelize-typescript';
 import { EUserRoles } from '../constants/user-roles.enum';
 
 @Table({
-  tableName: 'user'
+  tableName: 'user',
 })
-export class User extends Model<User>{
-  
+export class User extends Model<User> {
   @Column({
     type: DataType.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   })
-  id: Number;
+  id: number;
 
   @Column({
     type: DataType.STRING(255),
     unique: false,
-    allowNull: false
+    allowNull: false,
   })
   firstName: string;
-  
+
   @Column({
     type: DataType.STRING(255),
     unique: false,
-    allowNull: false
+    allowNull: false,
   })
   lastName: string;
-  
+
   @Column({
     type: DataType.STRING(255),
     unique: true,
     allowNull: false,
     validate: {
-      isEmail: true
-    }
+      isEmail: true,
+    },
   })
   email: string;
-  
+
   @Column({
     type: DataType.STRING,
     unique: false,
     allowNull: false,
     validate: {
-      is: /^[0-9a-f]{64}$/i
-    }
+      is: /^[0-9a-f]{64}$/i,
+    },
   })
   password: string;
 
   @Column({
     type: DataType.ENUM,
-    //values: ['accounting', 'user', 'admin', 'dev'],
+    // values: ['accounting', 'user', 'admin', 'dev'],
     values: Object.values(EUserRoles),
     unique: false,
-    allowNull: false
+    allowNull: false,
   })
-  role: String;
+  role: string;
 
   @Column({
     type: DataType.DATE,
     defaultValue: new Date(),
-    allowNull: false
+    allowNull: false,
   })
   createdAt: Date;
 
-   @Column({
+  @Column({
     type: DataType.DATE,
     defaultValue: new Date(),
-    allowNull: false
+    allowNull: false,
   })
   updatedAt: Date;
-
 }

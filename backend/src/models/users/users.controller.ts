@@ -22,5 +22,4 @@ export class UsersController {
   findOneByEmail(@Param('email') email: string) {
     return this.usersService.findOneByEmail(email);
   }
-
 }

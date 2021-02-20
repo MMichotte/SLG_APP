@@ -7,15 +7,12 @@ import { AuthService } from './auth.service';
 @ApiTags('authenticate')
 @Controller('login')
 export class AuthController {
-
   constructor(private readonly authService: AuthService) {}
-  
+
   @Post()
-  @ApiBody({type: LoginDTO})
+  @ApiBody({ type: LoginDTO })
   @UseGuards(AuthGuard('local'))
   async login(@Request() req) {
     return await this.authService.login(req.user);
   }
-  
-
 }

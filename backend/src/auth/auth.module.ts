@@ -15,13 +15,9 @@ import env from '../config/env';
     JwtModule.register({
       secret: env.JWT_PRIVATE_KEY,
       signOptions: { expiresIn: process.env.TOKEN_EXPIRATION },
-  }),
+    }),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    LocalStrategy,
-    JwtStrategy
-  ]
+  providers: [AuthService, LocalStrategy, JwtStrategy],
 })
 export class AuthModule {}

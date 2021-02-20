@@ -6,19 +6,19 @@ import env from '../config/env';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(private readonly userService: UsersService) {
-        super({
-             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-             ignoreExpiration: false,
-             secretOrKey: env.JWT_PRIVATE_KEY,
-        });
-    }
+  constructor(private readonly userService: UsersService) {
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ignoreExpiration: false,
+      secretOrKey: env.JWT_PRIVATE_KEY,
+    });
+  }
 
-    async validate(payload: any) {
-        const user = await this.userService.findOneById(payload.id);
-        if (!user) {
-            throw new UnauthorizedException();
-        }
-        return payload;
+  async validate(payload: any) {
+    const user = await this.userService.findOneById(payload.id);
+    if (!user) {
+      throw new UnauthorizedException();
     }
+    return payload;
+  }
 }
