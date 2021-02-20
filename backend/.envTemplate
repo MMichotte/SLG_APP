@@ -1,0 +1,25 @@
+## Backend
+NODE_ENV=dev
+PORT=8000
+JWT_PRIVATE_KEY=xxxxxxx
+
+## --------------------------------------- ##
+
+## DATABASES:
+
+### ------ DEV ------ ###
+DB_DIALECT=xxxxxxx
+DB_NAME=xxxxxxx
+DB_USER=xxxxxxx
+DB_PASSWORD=xxxxxxx
+DB_HOST=xxxxxxx
+DB_PORT=xxxxxxx
+
+### ------ PROD ------ ###
+# RPI:
+#DATABASE_URL=xxxxxxx
+
+# Heroku:
+DATABASE_URL=xxxxxxx
+
+## --------------------------------------- ##
