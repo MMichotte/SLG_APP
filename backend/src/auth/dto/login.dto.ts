@@ -1,1 +1,15 @@
-export class CreateAuthDto {}
+import { Exclude, Expose } from 'class-transformer';
+import { ApiProperty } from "@nestjs/swagger";
+
+@Exclude()
+export class LoginDTO {
+   
+  @Expose()
+  @ApiProperty()
+  email: string;  
+ 
+  @Expose()
+  @ApiProperty()
+  password: string;  
+
+}

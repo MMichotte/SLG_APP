@@ -20,7 +20,6 @@ export class UserDTO {
   @ApiProperty()
   email: string;  
 
-
   @Expose()
   @ApiProperty({
     enum: EUserRoles,

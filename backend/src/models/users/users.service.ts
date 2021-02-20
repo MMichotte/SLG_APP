@@ -12,15 +12,17 @@ export class UsersService {
     @Inject('USERS_REPOSITORY') private userRepository: typeof User
   ) {}
 
-  findAll(): UserDTO {
-    const users = this.userRepository.findAll<User>();
-    const dto = plainToClass(UserDTO, users);
-    console.log(dto);
-    return dto;
+  async findAll(): Promise<UserDTO[]> {
+    const users: User[] = await this.userRepository.findAll<User>();
+    return plainToClass(UserDTO, users);
   }
 
-  findOne(email: string) {
-    return this.userRepository.findOne<User>({where: { email }})
+  async findOneByEmail(email: string): Promise<User> {
+    return await this.userRepository.findOne<User>({where: { email }})
+  }
+
+  async findOneById(id: number): Promise<User> {
+    return await this.userRepository.findOne<User>({where: { id }})
   }
 
 }

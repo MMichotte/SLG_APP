@@ -2,6 +2,7 @@
 NODE_ENV=dev
 PORT=8000
 JWT_PRIVATE_KEY=xxxxxxx
+TOKEN_EXPIRATION=xh
 
 ## --------------------------------------- ##
 
