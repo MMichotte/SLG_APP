@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   constructor (private auth: AuthService, private router: Router) { }
 
     loginForm = new FormGroup({
-      username: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
     })
 
@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit (): void {
+      console.log(this.loginForm.value);
       this.auth.loginUser(this.loginForm.value).subscribe(
         (res: any) => {
           this.auth.setLogin(res.token);

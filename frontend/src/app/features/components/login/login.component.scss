@@ -1,33 +1,24 @@
+.main {
+    width: 100vw;
+    height: 100vh;
+    //background-color: var(--slgGreen);
+}
+
 form {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    color: white;
-    background-color: var(--slgGreen);
-    border-radius: 10px;
-    width: 20rem;
-    padding: 3em;
-
-    * {
-        display:block;
-    }
-
-    label {
-        font-size: 1.5rem;
-    }
-
-    input {
-        font-size: 1rem;
-        height: 1.5rem;
-        width: 100%;
-        margin: 0.5rem 0 1rem 0;
-    }
-
-    button {
-        margin: 2rem auto 0 auto;
-    }
-
-    small {
-        width: 100%;
-        margin: 0;
-    }
+    width: 30rem;
+    padding: 3rem;
     
+
+    .field {
+        width: 60%;
+        margin: 0;
+
+        .control .button {
+            display: block;
+            margin: 0 auto;
+        }
+    }
 }

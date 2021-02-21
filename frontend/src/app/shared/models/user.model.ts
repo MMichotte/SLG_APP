@@ -7,10 +7,13 @@ export enum EUserRoles {
 }
 
 export interface IUser {
-  username: string
+  firstName: string,
+  lastName: string,
+  email: string,
+  password?: string,
 }
 
 export interface ILoginUser {
-  username: string,
+  email: string,
   password: string
 }
