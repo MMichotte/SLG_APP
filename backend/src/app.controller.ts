@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { Controller, Get, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 
@@ -7,7 +8,7 @@ export class AppController {
 
   @Get()
   sendApplication(@Res() res) {
-    res.sendFile('index.html');
+    res.sendFile(join(__dirname, '../public/dist/index.html'));
   }
   
 }
