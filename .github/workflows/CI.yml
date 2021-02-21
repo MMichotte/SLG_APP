@@ -66,7 +66,7 @@ jobs:
         working-directory: ./frontend
         run: |
           npm run build --prod
-          #mkdir ../backend/public
+          mkdir ../backend/public
           mv ./dist ../backend/public
       - name: replace backend .gitignore 
         working-directory: ./
@@ -77,6 +77,7 @@ jobs:
       - name: Commit changes
         working-directory: ./
         run: |
+          ls -la ./backend
           git config --global user.name "MMichotte"
           git config --global user.email "martin.michotte@gmail.com"
           git add .

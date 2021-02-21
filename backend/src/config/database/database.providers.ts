@@ -1,16 +1,17 @@
 import { Sequelize } from 'sequelize-typescript';
 import { User } from '../../models/users/entities/user.entity';
-import { SEQUELIZE, DEVELOPMENT, TEST, PRODUCTION } from '../constants';
 import env from '../env';
 const consola = require('consola');
 
 export const databaseProviders = [
   {
-    provide: SEQUELIZE,
+    provide: 'SEQUELIZE',
     useFactory: async () => {
-      let sequelize;
-      switch (process.env.NODE_ENV) {
-      case DEVELOPMENT:
+      let sequelize :any;
+
+      switch (env.NODE_ENV) {
+
+      case 'dev':
         sequelize = new Sequelize(
           env.DB_NAME,
           env.DB_USER,
@@ -19,16 +20,10 @@ export const databaseProviders = [
             host: env.DB_HOST,
             dialect: 'postgres',
             logging: false,
-            pool: {
-              max: 5,
-              min: 0,
-              acquire: 30000,
-              idle: 10000
-            }
-          }
-        );
+          });
         break;
-      case TEST:
+
+      case 'test':
         new Sequelize(
           'slg_db_test',
           'postgres',
@@ -37,19 +32,11 @@ export const databaseProviders = [
             host: 'localhost',
             dialect: 'postgres',
             logging: false,
-            pool: {
-              max: 5,
-              min: 0,
-              acquire: 30000,
-              idle: 10000
-            },
-            define: {
-              freezeTableName: true
-            }
           }
         );
         break;
-      case PRODUCTION:
+
+      case 'prod':
         sequelize = new Sequelize(
           env.DATABASE_URL,
           {
@@ -59,12 +46,10 @@ export const databaseProviders = [
                 require: true,
                 rejectUnauthorized: false
               }
-            },
-            define: {
-              freezeTableName: true
             }
           });
         break;
+
       default:
         sequelize = new Sequelize(
           env.DB_NAME,
@@ -74,12 +59,6 @@ export const databaseProviders = [
             host: env.DB_HOST,
             dialect: 'postgres',
             logging: false,
-            pool: {
-              max: 5,
-              min: 0,
-              acquire: 30000,
-              idle: 10000
-            }
           }
         );
       }
@@ -104,7 +83,7 @@ export const databaseProviders = [
         );
 
       sequelize.addModels([User]); //! TODO
-
+      
       await sequelize.sync();
       return sequelize;
     },
