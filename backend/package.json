@@ -91,7 +91,7 @@
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-      "project": "backend/tsconfig.json",
+      "project": "tsconfig.json",
       "sourceType": "module"
     },
     "plugins": [
@@ -109,7 +109,8 @@
     },
     "ignorePatterns": [
       ".eslintrc.js",
-      "**/public/**/*.js"
+      "**/dist/**/*",
+      "**/public/**/*"
     ],
     "rules": {
       "@typescript-eslint/interface-name-prefix": "off",

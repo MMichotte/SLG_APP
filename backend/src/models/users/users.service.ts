@@ -17,7 +17,7 @@ export class UsersService {
 
   async findAll(): Promise<UserDTO[]> {
     const users: User[] = await this.userRepository.findAll<User>();
-    const noDevUsers: User[] = users.filter( (user) => {return user.role !== EUserRoles.DEV} );
+    const noDevUsers: User[] = users.filter( (user) => {return user.role !== EUserRoles.DEV;} );
     return plainToClass(UserDTO, noDevUsers);
   }
 
