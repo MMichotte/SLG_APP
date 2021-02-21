@@ -30,6 +30,8 @@ jobs:
   
   unit-tests-backend:
       runs-on: ubuntu-latest
+      env:
+        JWT_PRIVATE_KEY: ${{secrets.JWT_PRIVATE_KEY}}
       steps:
         - uses: actions/checkout@v2
         - name: Setup Node ${{ env.node-version }}
