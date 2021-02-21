@@ -28,37 +28,6 @@ jobs:
           run: |
             npm run test:unit:headless
   
-  integration-tests-backend:
-      runs-on: ubuntu-latest
-      services:
-        postgres:
-          image: postgres:12
-          env:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-            POSTGRES_DB: slg_db_test
-          ports:
-            - 5432:5432
-          options: >-
-            --health-cmd pg_isready
-            --health-interval 10s
-            --health-timeout 5s
-            --health-retries 5
-      steps:
-        - uses: actions/checkout@v2
-        - name: Setup Node ${{ env.node-version }}
-          uses: actions/setup-node@v1
-          with:
-            node-version: ${{ env.node-version }}
-        - name: npm install
-          working-directory: ./backend
-          run: |
-            npm install
-        - name: run tests
-          working-directory: ./backend
-          run: |
-            npm run test:integration
-  
   unit-tests-backend:
       runs-on: ubuntu-latest
       steps:
@@ -74,7 +43,7 @@ jobs:
         - name: run tests
           working-directory: ./backend
           run: |
-            npm run test:unit
+            npm run test
   
   build-to-Heroku:
     runs-on: ubuntu-latest
@@ -94,7 +63,7 @@ jobs:
       - name: build frontend & move to backend
         working-directory: ./frontend
         run: |
-          npm run build
+          npm run build --prod
           #mkdir ../backend/public
           mv ./dist ../backend/public
       - name: replace backend .gitignore 
@@ -120,3 +89,4 @@ jobs:
         env:
           HD_NODE_ENV: "prod"
           HD_JWT_PRIVATE_KEY: ${{secrets.JWT_PRIVATE_KEY}}
+          HD_TOKEN_EXPIRATION: "48h"
