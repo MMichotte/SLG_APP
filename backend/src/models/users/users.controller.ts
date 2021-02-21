@@ -4,11 +4,11 @@ import { UsersService } from './users.service';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { SimpleUserDTO } from './dto/simmple-user.dto';
 import { User } from './entities/user.entity';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { Roles } from 'src/common/decorators/roles.decorator';
+import { RolesGuard } from '../../common/guards/roles.guard';
+import { Roles } from '../../common/decorators/roles.decorator';
 import { EUserRoles } from './constants/user-roles.enum';
 
 @Controller('users')
@@ -54,7 +54,6 @@ export class UsersController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     const user: User | undefined = await this.usersService.findOneById(+id);
-    console.log(user);
     if (user == undefined) throw new NotFoundException;
     if (user.role === EUserRoles.DEV) throw new HttpException('You are not allowed to delete a `dev` user!', HttpStatus.UNAUTHORIZED);
     await this.usersService.remove(+id);

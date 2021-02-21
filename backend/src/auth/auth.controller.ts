@@ -2,7 +2,7 @@ import { LoginDTO } from './dto/login.dto';
 import { Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard } from 'src/common/guards/local-auth.guard';
+import { LocalAuthGuard } from '../common/guards/local-auth.guard';
 
 @ApiTags('authenticate')
 @Controller('login')

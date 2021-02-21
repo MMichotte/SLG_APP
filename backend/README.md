@@ -1,8 +1,8 @@
 todo: 
 
 - [x] jwt route protection
-- [ ] jwt role based protection 
-- [ ] dont list dev user on get users
+- [x] jwt role based protection 
+- [x] dont list dev user on get users
 - [ ] helmet security : 
   ```js
   this.helmetSecurity = (helmet) => {

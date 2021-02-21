@@ -42,7 +42,6 @@ let UsersController = class UsersController {
     }
     async remove(id) {
         const user = await this.usersService.findOneById(+id);
-        console.log(user);
         if (user == undefined)
             throw new common_1.NotFoundException;
         if (user.role === user_roles_enum_1.EUserRoles.DEV)

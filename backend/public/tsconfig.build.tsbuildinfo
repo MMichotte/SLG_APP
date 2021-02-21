@@ -3522,7 +3522,7 @@
         "affectsGlobalScope": false
       },
       "../src/common/guards/roles.guard.ts": {
-        "version": "8b119ca2993d9fc1bfcd4c9fc665d270bb1fab7dc658596179cd4fd3cfee638f",
+        "version": "47e42deb76104a7298a5cf8ec65a896faacef7c358066974e54b8dc7933ac042",
         "signature": "d4d03a2e8f7fba83cc06b557c8bbe67fcb20b20cd9a77c4df173e0148d333c77",
         "affectsGlobalScope": false
       },
@@ -3532,7 +3532,7 @@
         "affectsGlobalScope": false
       },
       "../src/models/users/users.controller.ts": {
-        "version": "a8430cbc0293060a9bd8d5af94231e2f64e7e4cde3ebdfa72a5267453b5372a1",
+        "version": "1e38d83bccd8f72092bb2ec7187f5be6b9ddc51629df2b990cef6725615f84db",
         "signature": "e51d7626f4a2bbaba8273b5c92086c168b712a55576e1a2874ec0bc3d5fcf723",
         "affectsGlobalScope": false
       },

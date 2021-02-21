@@ -7,7 +7,7 @@ import { AuthController } from './auth.controller';
 import { UsersModule } from '../models/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { BcryptService } from '../common/helpers/bcrypt.service';
-import { JwtTokenService } from 'src/common/helpers/jwt-token.service';
+import { JwtTokenService } from '../common/helpers/jwt-token.service';
 import env from '../config/env';
 
 @Module({
@@ -25,6 +25,7 @@ import env from '../config/env';
     BcryptService,
     JwtTokenService,
     LocalStrategy,
-    JwtStrategy],
+    JwtStrategy
+  ],
 })
 export class AuthModule {}

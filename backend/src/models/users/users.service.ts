@@ -5,7 +5,7 @@ import { CreateUserDTO } from './dto/create-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { plainToClass } from 'class-transformer';
 import { EUserRoles } from './constants/user-roles.enum';
-import { BcryptService } from 'src/common/helpers/bcrypt.service';
+import { BcryptService } from '../../common/helpers/bcrypt.service';
 import { SimpleUserDTO } from './dto/simmple-user.dto';
 
 @Injectable()
