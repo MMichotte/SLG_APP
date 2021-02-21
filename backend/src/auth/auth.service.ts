@@ -1,15 +1,16 @@
+import { BcryptService } from '../common/helpers/bcrypt.service';
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
 import { User } from '../models/users/entities/user.entity';
 import { UsersService } from '../models/users/users.service';
 import { LoginDTO } from './dto/login.dto';
+import { JwtTokenService } from 'src/common/helpers/jwt-token.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UsersService,
-    private readonly jwtService: JwtService,
+    private readonly bcryptService: BcryptService,
+    private readonly jwtService: JwtTokenService,
   ) {}
 
   async validateUser(userCredentials: LoginDTO) {
@@ -18,7 +19,7 @@ export class AuthService {
       return null;
     }
 
-    const match = await this.comparePassword(
+    const match = await this.bcryptService.comparePassword(
       userCredentials.password,
       user.password,
     );
@@ -31,21 +32,8 @@ export class AuthService {
   }
 
   public async login(user: User) {
-    const token: string = await this.generateToken(user);
+    const token: string = await this.jwtService.generateToken(user);
     return token;
   }
 
-  private async generateToken(user: User) {
-    const token = await this.jwtService.signAsync({
-      id: user.id,
-      email: user.email,
-      role: user.role,
-    });
-    return token;
-  }
-
-  private async comparePassword(enteredPassword: string, dbPassword: string) {
-    const match = await bcrypt.compare(enteredPassword, dbPassword);
-    return match;
-  }
 }

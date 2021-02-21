@@ -40,15 +40,12 @@ export class User extends Model<User> {
     type: DataType.STRING,
     unique: false,
     allowNull: false,
-    validate: {
-      is: /^[0-9a-f]{64}$/i,
-    },
+    //! todo validate it is a hash
   })
   password: string;
 
   @Column({
     type: DataType.ENUM,
-    // values: ['accounting', 'user', 'admin', 'dev'],
     values: Object.values(EUserRoles),
     unique: false,
     allowNull: false,
