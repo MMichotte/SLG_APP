@@ -33,7 +33,7 @@ export class AuthService {
 
   public async login(user: User) {
     const token: string = await this.jwtService.generateToken(user);
-    return token;
+    return {token: token};
   }
 
 }

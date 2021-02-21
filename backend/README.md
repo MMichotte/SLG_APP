@@ -3,6 +3,10 @@ todo:
 - [x] jwt route protection
 - [x] jwt role based protection 
 - [x] dont list dev user on get users
+- [x] tests (headleas) 
+- [ ] update doc
+
+
 - [ ] helmet security : 
   ```js
   this.helmetSecurity = (helmet) => {
@@ -24,7 +28,7 @@ todo:
       }
     }));
   ```
-- [ ] tests (headleas) 
+
 - [ ] serve frontend - routing : 
   ```js
   this.addRouting = route => {
@@ -58,4 +62,4 @@ todo:
 
   ```
 
-- [ ] update doc 
+ 
