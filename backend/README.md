@@ -7,4 +7,4 @@
 - [x] serve frontend - routing : 
 - [x] Deploy
 - [ ] add security and middlewares
-- [ ] update doc
+- [x] update doc
