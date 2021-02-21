@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit (): void {
-      console.log(this.loginForm.value);
       this.auth.loginUser(this.loginForm.value).subscribe(
         (res: any) => {
           this.auth.setLogin(res.token);
