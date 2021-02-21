@@ -20,5 +20,6 @@ export const databaseConfig: IDatabaseConfig = {
   },
   prod: {
     urlDatabase: env.DATABASE_URL,
+    dialect: env.DB_DIALECT
   },
 };
