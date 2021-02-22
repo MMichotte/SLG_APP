@@ -10,8 +10,8 @@ import { EUserRoles } from 'src/app/shared/models/user.model';
 })
 export class AuthService {
 
-  private isLogin: boolean = false;
-  private roleAs: string = '';
+  isLogin: boolean = false;
+  roleAs: string = '';
 
   constructor (private httpClient: HttpClient) { }
 
