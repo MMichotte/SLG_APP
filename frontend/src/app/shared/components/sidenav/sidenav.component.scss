@@ -3,8 +3,10 @@
   transition: width 450ms ease;
   width: 3.5rem;
   height: 100vh;
-  
+
   .navbar-nav {
+    display: flex;
+    flex-direction: column;
     width: 100%;
     margin-top: 1rem;
 
@@ -22,8 +24,8 @@
     }
 
     .nav-content {
-      height: 95%;
       display: flex;
+      flex-grow: 1;
       flex-direction: column;
       
       .nav-item {
@@ -49,9 +51,10 @@
         }
       }
 
-      .nav-item:hover {
-        //background-color: gray;
+      .nav-item:hover,
+      .nav-item.active {
         border-left: 5px solid white;
+        outline: none;
       }
 
       .nav-item:last-child {
@@ -63,8 +66,7 @@
 
   .fas {
     width: 3rem;
-    color: var(--slgGreen);
-    color: greenyellow;
+    color: var(--menuGreen);
     font-size: x-large;
   
     .fa-arrow-right {
