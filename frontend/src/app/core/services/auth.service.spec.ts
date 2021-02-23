@@ -1,4 +1,4 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { EUserRoles } from 'src/app/shared/models/user.model';
 
@@ -6,16 +6,46 @@ import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
+      providers: [AuthService]
     });
     service = TestBed.inject(AuthService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+  
+  describe('logging in a user', () => {
+    it('should return a JWT token', () => {
+      const dummyToken: any = {
+        token: 'azerty123456'
+      };
+
+      const dummyUserCredentials = {
+        email: 'toto@gmail.com',
+        password: '1234'
+      };
+
+      service.loginUser(dummyUserCredentials).subscribe(token => {
+        expect(token).toEqual(dummyToken);
+      });
+
+      const req = httpMock.expectOne('/api/login');
+      expect(req.request.method).toBe('POST');
+      req.flush(dummyToken);
+
+    }); 
+
   });
 
   describe('hasMinAccess of dev user', () => {
