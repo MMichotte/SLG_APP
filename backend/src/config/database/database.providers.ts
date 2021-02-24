@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize-typescript';
 
-import { User } from '../../models/users/entities/user.entity';
+import { User } from '../../modules/users/entities/user.entity';
 import env from '../env';
 const consola = require('consola');
 

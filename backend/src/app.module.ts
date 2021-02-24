@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { DatabaseModule } from './config/database/database.module';
-import { UsersModule } from './models/users/users.module';
-import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import dbConnectionOptions from 'ormconfig';
 
 @Module({
   imports: [
-    DatabaseModule,
+    TypeOrmModule.forRoot(dbConnectionOptions),
     AuthModule,
     UsersModule
   ],
