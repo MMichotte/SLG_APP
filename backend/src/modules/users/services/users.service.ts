@@ -1,7 +1,6 @@
+import { UserRepository } from './../repositories/users.repository';
 import { UserDTO } from '../dto/user.dto';
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
 import { CreateUserDTO } from '../dto/create-user.dto';
 import { UpdateUserDTO } from '../dto/update-user.dto';
@@ -13,7 +12,7 @@ import { SimpleUserDTO } from '../dto/simmple-user.dto';
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User) private userRepository: Repository<User>,
+    private userRepository: UserRepository,
     private readonly bcryptService: BcryptService
   ) {}
 
@@ -34,7 +33,7 @@ export class UsersService {
   async create(user: CreateUserDTO): Promise<SimpleUserDTO> {
     // todo -> changer le any du create ?
     user.password = await this.bcryptService.hashPassword(user.password);
-    const createdUser = await this.userRepository.create(user); 
+    const createdUser = await this.userRepository.save(user); 
     return {id: createdUser.id};
   }
   

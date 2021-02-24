@@ -26,8 +26,6 @@ async function bootstrap() {
     .setTitle('SLG-app API')
     .setDescription('This description needs to be updated!')
     .setVersion('1.0')
-    .addTag('authenticate')
-    .addTag('users')
     .addBearerAuth()
     .build();
 

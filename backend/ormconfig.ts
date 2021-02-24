@@ -16,7 +16,7 @@ if (env.NODE_ENV === 'dev') {
     username: env.DB_USER,
     password: env.DB_PASSWORD,
     database: env.DB_NAME,
-    logging: true
+    logging: false
   };
 }
 else if (env.NODE_ENV === 'test') {
