@@ -12,7 +12,7 @@ async function bootstrap() {
    * Serve static files from the ../public/dist directory
    * (angular app will reside in there)
    */
-  app.useStaticAssets(join(__dirname, '../public/dist'));
+  app.useStaticAssets(join(__dirname, '../../public/dist'));
 
   /**
    * Set base URL to be url/api 
