@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { EUserRoles } from 'src/app/shared/models/user.model';
+import { EUserRoles } from '../enums/user-roles.enum';
 
 import { AuthService } from './auth.service';
 

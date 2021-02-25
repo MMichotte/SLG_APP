@@ -1,4 +1,5 @@
 import { BcryptService } from '../../../core/helpers/bcrypt.service';
+import { UserRepository } from './../repositories/users.repository';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 
@@ -9,6 +10,7 @@ describe('UsersService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
+        UserRepository,
         BcryptService
       ],
     }).compile();

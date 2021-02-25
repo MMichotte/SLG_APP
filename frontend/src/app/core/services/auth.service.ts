@@ -3,7 +3,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 // eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode';
-import { EUserRoles } from 'src/app/shared/models/user.model';
+import { EUserRoles } from '../enums/user-roles.enum';
 
 @Injectable({
   providedIn: 'root'

@@ -1,8 +1,8 @@
-import { usersProviders } from '../users.providers';
 import { BcryptService } from '../../../core/helpers/bcrypt.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
 import { UsersService } from '../services/users.service';
+import { UserRepository } from '../repositories/users.repository';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -12,8 +12,8 @@ describe('UsersController', () => {
       controllers: [UsersController],
       providers: [
         UsersService,
-        BcryptService,
-        ...usersProviders
+        UserRepository,
+        BcryptService
       ],
     }).compile();
 
