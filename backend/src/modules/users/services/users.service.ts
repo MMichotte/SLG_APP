@@ -12,7 +12,7 @@ import { SimpleUserDTO } from '../dto/simmple-user.dto';
 @Injectable()
 export class UsersService {
   constructor(
-    private userRepository: UserRepository,
+    private readonly userRepository: UserRepository,
     private readonly bcryptService: BcryptService
   ) {}
 
@@ -31,10 +31,9 @@ export class UsersService {
   }
 
   async create(user: CreateUserDTO): Promise<SimpleUserDTO> {
-    // todo -> changer le any du create ?
     user.password = await this.bcryptService.hashPassword(user.password);
     const createdUser = await this.userRepository.save(user); 
-    return {id: createdUser.id};
+    return plainToClass(SimpleUserDTO, createdUser);
   }
   
   async update(id: number, user: UpdateUserDTO) {

@@ -7,29 +7,19 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({
-    length: 255
-  })
+  @Column({name: 'firstName', type: 'varchar', length: 255})
   firstName: string;
 
-  @Column({
-    length: 255
-  })
+  @Column({name: 'lastName', type: 'varchar', length: 255})
   lastName: string;
 
-  @Column({
-    unique: true,
-    length:255
-  })
+  @Column({name: 'email', type: 'varchar', length: 255, unique: true})
   email: string;
 
-  @Column()
+  @Column({name: 'password', type: 'varchar'})
   password: string;
 
-  @Column({
-    type: 'enum',
-    enum: EUserRoles
-  })
+  @Column({name: 'role', type: 'enum', enum: EUserRoles})
   role: string;
 
   @CreateDateColumn()
