@@ -11,11 +11,23 @@
     margin-top: 1rem;
 
     .nav-toggle {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
       display: flex;
       justify-content: center;
       justify-content: flex-end;
       margin-right: 1rem;
+
+      .title {
+        color: white;
+        color: var(--mainGreen);
+        font-size:x-large;
+        white-space: nowrap;
+        margin: 0;
+        margin-left: 0.8rem;
+        width: 100%;
+        text-align: left;
+        overflow: hidden;
+      }
 
       .fas {
         width:max-content;
@@ -25,12 +37,24 @@
 
     .nav-content {
       display: flex;
-      flex-grow: 1;
       flex-direction: column;
+      height: 100%;
       
+      .bottom {
+        display: flex;
+        flex-direction: column;
+        margin-top: auto;
+        
+        li:last-child {
+          margin-top: 1rem;
+        }
+      }
+
       .nav-item {
-        margin: 1rem 0;
+        margin: 0.5rem 0;
+        padding: 0.5rem 0;
         border-left: 5px solid transparent;
+        transition: 0.3s;
 
         .nav-link {
           margin-left: 0.5rem;
@@ -58,23 +82,46 @@
       }
 
       .nav-item:last-child {
-        margin-top: auto; 
-        margin-bottom: 2rem; 
+        margin: 0 !important;
+        margin-bottom: 1rem !important; 
       }
     }
   }
 
   .fas {
     width: 3rem;
-    color: var(--menuGreen);
+    color: var(--mainGreen);
     font-size: x-large;
   
     .fa-arrow-right {
       font-size: xx-large;
     }
   }
+
+  hr {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    border: none;
+    border: 1px solid var(--mainGreen);
+  }
 }
 
-.expanded {
-  
+@keyframes slide-in {
+  0%   {padding-right: 200px;}
+  100% {padding-right: 0;}
+}
+@keyframes slide-out {
+  0%   {padding-right: 0;}
+  100% {padding-right: 200px;}
+}
+
+.slideIn {
+  animation-name: slide-in;
+  animation-duration: 2s;
+  padding-right: 0;
+}
+.slideOut {
+  animation-name: slide-out;
+  animation-duration: 0.5s;
+  padding-right: 200px;
 }

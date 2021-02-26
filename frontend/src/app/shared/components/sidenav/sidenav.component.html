@@ -2,11 +2,12 @@
   <ul class="navbar-nav">
 
     <li class="nav-toggle">
+      <span class="title" [ngClass]="(expandSideNav || keepExpanded)? 'slideIn' : 'slideOut'">SLG-tools</span>
       <a class="nav-link" (click)="keepExpanded = !keepExpanded">
         <i class="fas fa-arrow-right" [ngStyle]="(expandSideNav || keepExpanded) && {'transform': 'rotate(180deg)'}"></i>
       </a>
     </li>
-
+    <hr>
     <div class="nav-content" (mouseenter)="expandSideNav = !expandSideNav" (mouseleave)="expandSideNav = !expandSideNav">
       
       <li class="nav-item" routerLinkActive="active" routerLink='products'>
@@ -81,15 +82,25 @@
         </a>
       </li>
       
-
-      <li class="nav-item" *ngIf="auth.isLoggedIn()" (click)="onLogout()">
-        <a class="nav-link">
-          <span class="nav-icon">
-            <i class="fas fa-sign-out-alt"></i>
-          </span>
-          <span class="link-text">Log Out</span>
-        </a>
-      </li>
+      <div class="bottom">
+        <li class="nav-item" routerLinkActive="active" routerLink='users'>
+          <a class="nav-link">
+            <span class="nav-icon">
+              <i class="fas fa-users"></i>
+            </span>
+            <span class="link-text">Users</span>
+          </a>
+        </li>
+        <hr>
+        <li class="nav-item" *ngIf="auth.isLoggedIn()" (click)="onLogout()">
+          <a class="nav-link">
+            <span class="nav-icon">
+              <i class="fas fa-sign-out-alt"></i>
+            </span>
+            <span class="link-text">Log Out</span>
+          </a>
+        </li>
+      </div>
       
     </div>
 

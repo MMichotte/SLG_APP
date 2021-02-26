@@ -1,0 +1,16 @@
+import { ClientsComponent } from './pages/clients.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { ClientsRoutingModule } from './clients-routing.module';
+
+@NgModule({
+  declarations: [
+    ClientsComponent
+  ],
+  imports: [
+    CommonModule,
+    ClientsRoutingModule
+  ]
+})
+export class ClientsModule { }
