@@ -16,5 +16,6 @@ DB_HOST=xxxxxxx
 DB_PORT=xxxxxxx
 
 ### PROD
+PROD_DB="Heroku" #Heroku or ...
 #### Heroku:
 DATABASE_URL=xxxxxxx

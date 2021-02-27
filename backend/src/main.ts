@@ -4,15 +4,16 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { join } from 'path';
 import { AppModule } from './app.module';
 import env from './config/env';
+import { FrontendMiddleware } from './core/middlewares/frontend.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  
+
   /**
-   * Serve static files from the ../public/dist directory
+   * Use a middleware to load angular app for unknown routes
    * (angular app will reside in there)
    */
-  app.useStaticAssets(join(__dirname, '../../public/dist'));
+  app.use(FrontendMiddleware);
 
   /**
    * Set base URL to be url/api 
@@ -30,7 +31,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerOptions);
-  SwaggerModule.setup('api-docs', app, document);
+  SwaggerModule.setup('/api-docs', app, document);
 
   /**
    * Serve application

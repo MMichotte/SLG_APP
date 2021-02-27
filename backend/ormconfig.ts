@@ -1,5 +1,5 @@
 import env from './src/config/env';
-import { ConnectionOptions, createConnection } from 'typeorm';
+import { ConnectionOptions } from 'typeorm';
 
 const getMigrationDirectory = () => {
   const dir = env.MIGRATION_ENV === 'migration' ? '.' : `${__dirname}`;
@@ -30,13 +30,17 @@ else if (env.NODE_ENV === 'test') {
   };
 }
 else if (env.NODE_ENV === 'prod') {
+  let ssl: any = false;
+  if (env.PROD_DB === 'Heroku') {
+    ssl = {
+      require: true,
+      rejectUnauthorized: false,
+    };
+  }
   dbConnectionOptions = {
     type: 'postgres',
     url: env.DATABASE_URL,
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    }
+    ssl: ssl
   };
 }
 
