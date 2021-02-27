@@ -16,6 +16,7 @@ DB_HOST=xxxxxxx
 DB_PORT=xxxxxxx
 
 ### PROD
-PROD_DB="Heroku" #Heroku or ...
+#### RPI:
+RPI_DATABASE_URL=xxxxx
 #### Heroku:
 DATABASE_URL=xxxxxxx 

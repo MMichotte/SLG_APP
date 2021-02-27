@@ -30,16 +30,19 @@ else if (env.NODE_ENV === 'test') {
   };
 }
 else if (env.NODE_ENV === 'prod') {
-  let ssl: any = false;
-  if (env.PROD_DB === 'Heroku') {
-    ssl = {
-      require: true,
-      rejectUnauthorized: false,
-    };
+  let dbUrl: string = env.DATABASE_URL;
+  let ssl: any = {
+    require: true,
+    rejectUnauthorized: false,
+  };
+
+  if (env.RPI_DATABASE_URL){
+    dbUrl = env.RPI_DATABASE_URL;
+    ssl = false;
   }
   dbConnectionOptions = {
     type: 'postgres',
-    url: env.DATABASE_URL,
+    url: dbUrl,
     ssl: ssl
   };
 }
