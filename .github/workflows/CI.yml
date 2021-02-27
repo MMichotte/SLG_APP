@@ -90,6 +90,6 @@ jobs:
           appdir: "backend"
         env:
           HD_NODE_ENV: "prod"
+          HD_PROD_DB: "Rpi"
           HD_JWT_PRIVATE_KEY: ${{secrets.JWT_PRIVATE_KEY}}
           HD_TOKEN_EXPIRATION: "48h"
-          HD_DATABASE_URL: ${{secrets.RPI_DB}}
