@@ -23,7 +23,7 @@ export class RolesGuard implements CanActivate {
 
   private matchRoles(roles: string[], role: string): boolean {
     const hasRole = roles.find((r) => { return r === role; });
-    if (hasRole.length !== 0) return true;
+    if (hasRole) return true;
     return false;
   }
 

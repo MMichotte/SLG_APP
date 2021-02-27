@@ -7,10 +7,10 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({name: 'firstName', type: 'varchar', length: 255})
+  @Column({name: 'first_name', type: 'varchar', length: 255})
   firstName: string;
 
-  @Column({name: 'lastName', type: 'varchar', length: 255})
+  @Column({name: 'last_name', type: 'varchar', length: 255})
   lastName: string;
 
   @Column({name: 'email', type: 'varchar', length: 255, unique: true})

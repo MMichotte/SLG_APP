@@ -36,9 +36,10 @@ export class UsersService {
     return plainToClass(SimpleUserDTO, createdUser);
   }
   
-  async update(id: number, user: UpdateUserDTO) {
-    // todo
-    return `This action updates a #${id} user`;
+  async update(id: number, user: UpdateUserDTO): Promise<SimpleUserDTO> {
+    user.password = await this.bcryptService.hashPassword(user.password);
+    const updatedUser: any = await this.userRepository.update(id, user);  //TODO change type
+    return plainToClass(SimpleUserDTO, updatedUser);
   }
 
   async remove(id: number) {

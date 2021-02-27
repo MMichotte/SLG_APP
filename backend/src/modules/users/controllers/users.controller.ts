@@ -30,6 +30,7 @@ export class UsersController {
   }
 
   @Post()
+  @Roles(EUserRoles.ADMIN)
   @ApiResponse({
     status: 201,
     type: SimpleUserDTO,
@@ -43,6 +44,7 @@ export class UsersController {
   }
   
   @Patch(':id')
+  @Roles(EUserRoles.ADMIN)
   @ApiResponse({
     status: 200,
     type: SimpleUserDTO,
@@ -52,6 +54,7 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @Roles(EUserRoles.ADMIN)
   async remove(@Param('id') id: string) {
     const user: User | undefined = await this.usersService.findOneById(+id);
     if (user == undefined) throw new NotFoundException;
