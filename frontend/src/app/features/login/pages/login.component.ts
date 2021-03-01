@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     displayError: boolean = false
 
     ngOnInit (): void {
+      this.auth.logout();
     }
 
     onSubmit (): void {
