@@ -43,52 +43,9 @@ html, body {
 }
 
 
-h1 {
-    font-size: 2.5rem;
-    font-weight: 500;
-}
-
 .formError {
-    color: rgb(218, 0, 0);
+    color: rgba(218, 0, 0, 0.781);
     font-size: 1.1rem;
     text-align: center;
-}
-
-.button {
-    color: white;
-    border-color: transparent;
-    border-radius: 6px;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-    font-size: 1.2rem;
-    padding: 0.5rem 1.2rem;
-    width: auto;
-    cursor: pointer;
-}
- 
-.button:hover:not([disabled]) {
-    filter: brightness(90%);
-}
-
-.button:disabled,
-.button[disabled]{
-    border: 1px solid #999999;
-    background-color: #cccccc;
-    color: #666666;
-    cursor: default;
-}
-
-.button-success {
-    background: rgb(28, 184, 65);
-}
-
-.button-error {
-    background: rgb(202, 60, 60);
-}
-
-.button-warning {
-    background: rgb(223, 117, 20);
-}
-
-.button-secondary {
-    background: rgb(66, 184, 221);
+    margin: 0;
 }
