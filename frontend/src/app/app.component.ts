@@ -10,4 +10,10 @@ export class AppComponent {
 
   constructor (public auth: AuthService) { 
   }
+
+  isExpanded: boolean = false; 
+
+  setExpand (isExpanded: boolean) {
+    this.isExpanded = isExpanded;
+  }
 }

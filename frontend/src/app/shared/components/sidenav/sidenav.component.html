@@ -3,12 +3,12 @@
 
     <li class="nav-toggle">
       <span class="title" [ngClass]="(expandSideNav || keepExpanded)? 'slideIn' : 'slideOut'">SLG tools</span>
-      <a class="nav-link" (click)="keepExpanded = !keepExpanded">
+      <a class="nav-link" (click)="setKeepExpanded()">
         <i class="fas fa-arrow-right" [ngStyle]="(expandSideNav || keepExpanded) && {'transform': 'rotate(180deg)'}"></i>
       </a>
     </li>
     <hr>
-    <div class="nav-content" (mouseenter)="expandSideNav = !expandSideNav" (mouseleave)="expandSideNav = !expandSideNav">
+    <div class="nav-content" (mouseenter)="setExpanded()" (mouseleave)="setExpanded()">
       
       <li class="nav-item" routerLinkActive="active" routerLink='products'>
         <a class="nav-link">

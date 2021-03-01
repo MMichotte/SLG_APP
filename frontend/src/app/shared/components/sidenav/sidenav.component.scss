@@ -1,8 +1,12 @@
+$baseWidth: 3.5rem;
+$expandedWidth: 12rem;
+
 .navbar {
   background-color: #1a1a1a;
   transition: width 450ms ease;
-  width: 3.5rem;
+  width: $baseWidth;
   height: 100vh;
+  position: fixed;
 
   .navbar-nav {
     display: flex;

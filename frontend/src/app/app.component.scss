@@ -1,8 +1,22 @@
-.main-content{
+$baseWidth: 3.5rem;
+$expandedWidth: 12rem;
+
+.main-container{
   display: flex;
 
-  app-sidenav {
+  .sideNav {
     background-color: #1a1a1a;
   }
 
+  .main-content {
+    transition: margin-left 450ms ease;
+    margin-left: $baseWidth;
+  }
+
+}
+
+.main-container.expanded {
+  .main-content {
+    margin-left: $expandedWidth;
+  }
 }
