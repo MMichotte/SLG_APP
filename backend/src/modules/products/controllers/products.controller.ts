@@ -2,13 +2,15 @@ import { SimpleProductDTO } from './../dto/simple-product.dto';
 import { ProductDTO } from './../dto/product';
 import { Roles } from '../../../core/decorators/roles.decorator';
 import { EUserRoles } from '../../users/enums/user-roles.enum';
-import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards, Patch } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards, Patch, NotFoundException, ConflictException } from '@nestjs/common';
 import { ProductsService } from '../services/products.service';
 import { CreateProductDTO } from '../dto/create-product.dto';
 import { UpdateProductDTO } from '../dto/update-product.dto';
 import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../core/guards/roles.guard';
+import { Product } from '../entities/product.entity';
+import { plainToClass } from 'class-transformer';
 
 @Controller('products')
 @UseGuards(RolesGuard)
@@ -24,8 +26,14 @@ export class ProductsController {
     status: 200,
     type: ProductDTO,
   })
-  findAll() {
-    return this.productsService.findAll();
+  async findAll(): Promise<ProductDTO[]> {
+    let products: Product[] = await this.productsService.findAll();
+    //TODO calc reserved quant based on active worksheets
+    products = products.map( (p: any) => {
+      p.reservedQuantity = 0; //TODO calc reserved quant based on active worksheets
+      return p;
+    });
+    return plainToClass(ProductDTO,products);
   }
 
   @Get(':id')
@@ -34,8 +42,9 @@ export class ProductsController {
     status: 200,
     type: ProductDTO,
   })
-  findOne(@Param('id') id: string) {
-    return this.productsService.findOneById(+id);
+  async findOne(@Param('id') id: string): Promise<ProductDTO>  {
+    const product: Product = await this.productsService.findOneById(+id);
+    return plainToClass(ProductDTO,product);
   }
 
   @Post()
@@ -44,8 +53,11 @@ export class ProductsController {
     status: 201,
     type: SimpleProductDTO,
   })
-  create(@Body() createProductDto: CreateProductDTO) {
-    return this.productsService.create(createProductDto);
+  async create(@Body() createProductDto: CreateProductDTO): Promise<SimpleProductDTO>  {
+    const existingProd: Product = await this.productsService.findOneByRef(createProductDto.reference);
+    if (existingProd) throw new ConflictException;
+    const createdProduct: Product = await this.productsService.create(createProductDto);
+    return plainToClass(SimpleProductDTO,createdProduct);
   }
 
   @Patch(':id')
@@ -54,13 +66,20 @@ export class ProductsController {
     status: 200,
     type: SimpleProductDTO,
   })
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDTO) {
-    return this.productsService.update(+id, updateProductDto);
+  async update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDTO): Promise<SimpleProductDTO> {
+    const product: Product | undefined = await this.productsService.findOneById(+id);
+    if (product == undefined) throw new NotFoundException;
+    const existingProd: Product = await this.productsService.findOneByRef(updateProductDto.reference);
+    if (existingProd) if (existingProd.id !== product.id) throw new ConflictException;
+    const updatedProduct: Product = await this.productsService.update(+id, updateProductDto);
+    return plainToClass(SimpleProductDTO,updatedProduct);
   }
 
   @Delete(':id')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
+    const product: Product | undefined = await this.productsService.findOneById(+id);
+    if (product == undefined) throw new NotFoundException;
     return this.productsService.remove(+id);
   }
 }

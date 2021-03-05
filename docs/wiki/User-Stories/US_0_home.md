@@ -45,8 +45,8 @@ Bien évidemment, afin de répondre à ses besoins, une série d'US intermédiai
 
 ## User Stories Triées par priorité
 > Les US marquée d'un ✔️ ont été implémentée. 
-1. [ ] G01 - Connexion utilisateur
-2. [ ] ST01 - Onglet Stock
+1. [x] G01 - Connexion utilisateur
+2. [x] ST01 - Onglet Stock
 3. [ ] ST02 - Consulter le stock
 4. [ ] ST03 - Ajouter nouvel article dans le stock
 5. [ ] MO01 - Onglet Main d'oeuvres

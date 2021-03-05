@@ -10,6 +10,7 @@ import { User } from '../entities/user.entity';
 import { RolesGuard } from '../../../core/guards/roles.guard';
 import { Roles } from '../../../core/decorators/roles.decorator';
 import { EUserRoles } from '../enums/user-roles.enum';
+import { plainToClass } from 'class-transformer';
 
 @Controller('users')
 @UseGuards(RolesGuard)
@@ -25,8 +26,9 @@ export class UsersController {
     status: 200,
     type: UserDTO,
   })
-  async findAll() {
-    return await this.usersService.findAll();
+  async findAll(): Promise<UserDTO[]>{
+    const users: User[] = await this.usersService.findAll();
+    return plainToClass(UserDTO, users);
   }
 
   @Post()
@@ -39,8 +41,8 @@ export class UsersController {
     //check if email already exists.
     const existingUser: User = await this.usersService.findOneByEmail(user.email);
     if (existingUser) throw new HttpException('Email already taken', HttpStatus.UNAUTHORIZED);
-
-    return await this.usersService.create(user);
+    const createdUser = await this.usersService.create(user);
+    return plainToClass(SimpleUserDTO, createdUser);
   }
   
   @Patch(':id')
@@ -49,8 +51,9 @@ export class UsersController {
     status: 200,
     type: SimpleUserDTO,
   })
-  async update(@Param('id') id: string, @Body() user: UpdateUserDTO) {
-    return await this.usersService.update(+id, user);
+  async update(@Param('id') id: string, @Body() user: UpdateUserDTO): Promise<SimpleUserDTO> {
+    const updatedUser = await this.usersService.update(+id, user);
+    return plainToClass(SimpleUserDTO, updatedUser);
   }
 
   @Delete(':id')

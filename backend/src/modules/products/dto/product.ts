@@ -30,10 +30,10 @@ export class ProductDTO {
   @Expose()
   @ApiProperty()
   quantity: number;
-
+  
   @Expose()
   @ApiProperty()
-  quantityReserved: number;
+  reservedQuantity: number;
 
   @Expose()
   @ApiProperty()

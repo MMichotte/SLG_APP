@@ -1,5 +1,11 @@
 import env from './src/config/env';
 import { ConnectionOptions } from 'typeorm';
+const consola = require('consola');
+
+function sleep(miliseconds) {
+  const currentTime = new Date().getTime();
+  while (currentTime + miliseconds >= new Date().getTime()) { const foo = null; }
+}
 
 const getMigrationDirectory = () => {
   const dir = env.MIGRATION_ENV === 'migration' ? '.' : `${__dirname}`;
@@ -9,6 +15,7 @@ const getMigrationDirectory = () => {
 let dbConnectionOptions: ConnectionOptions;
 
 if (env.NODE_ENV === 'dev') {
+  consola.info('Connecting to development DB.\n');
   dbConnectionOptions = {
     type: 'postgres',
     host: env.DB_HOST,
@@ -20,6 +27,7 @@ if (env.NODE_ENV === 'dev') {
   };
 }
 else if (env.NODE_ENV === 'test') {
+  consola.info('Connecting to test DB.\n');
   dbConnectionOptions = {
     type: 'postgres',
     host: 'localhost',
@@ -30,6 +38,9 @@ else if (env.NODE_ENV === 'test') {
   };
 }
 else if (env.NODE_ENV === 'prod') {
+  consola.warn('Connecting to PRODUCTION DB!');
+  consola.warn('You have 5s to abort before init continues.\n');
+  sleep(5000);
   let dbUrl: string = env.DATABASE_URL;
   let ssl: any = {
     require: true,

@@ -34,11 +34,6 @@ export class CreateProductDTO {
   quantity: number;
 
   @ApiProperty()
-  @IsNumber()
-  @IsNotEmpty()
-  quantityReserved: number;
-
-  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   note: string;

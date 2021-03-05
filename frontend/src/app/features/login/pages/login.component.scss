@@ -15,10 +15,15 @@ form {
     .field {
         width: 80%;
         margin: 0;
-
+        
         .control .button {
             display: block;
             margin: 0 auto;
+        }
+
+        .spinner{
+            display: flex;
+            justify-content: center;
         }
     }
 

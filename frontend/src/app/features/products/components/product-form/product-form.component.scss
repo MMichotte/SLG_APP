@@ -1,0 +1,19 @@
+
+.form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  .p-grid {
+    * {
+      margin: 0.2rem 0.5rem;
+    }
+  }
+
+  footer {
+    justify-content: flex-end;
+    button {
+      margin: 0 0.5rem;
+    }
+  }
+}

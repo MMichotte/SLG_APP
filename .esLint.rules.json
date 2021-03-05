@@ -18,6 +18,7 @@
     "no-unused-expressions": "warn",
     "no-useless-constructor": "off",
     "no-trailing-spaces" : "off",
+    "space-before-function-paren": "off",
     "padded-blocks" : "off"
   }
 }

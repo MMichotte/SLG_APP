@@ -5,7 +5,7 @@ export class Product {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({name: 'reference', type: 'varchar', length: 255})
+  @Column({name: 'reference', type: 'varchar', length: 255, unique: true})
   @Index()
   reference: string;
 
@@ -24,9 +24,6 @@ export class Product {
 
   @Column({name: 'quantity', type: 'integer'})
   quantity: number;
-
-  @Column({name: 'quantity_reserved', type: 'integer'})
-  quantityReserved: number;
 
   @Column({name: 'note', type: 'text'})
   note: string;

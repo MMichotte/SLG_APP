@@ -17,13 +17,15 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', Validators.required)
     })
 
-    displayError: boolean = false
+    displayError: boolean = false;
+    displaySpinner: boolean = false;
 
     ngOnInit (): void {
       this.auth.logout();
     }
 
     onSubmit (): void {
+      this.displaySpinner = true;
       this.auth.loginUser(this.loginForm.value).subscribe(
         (res: any) => {
           this.auth.setLogin(res.token);
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
         },
         error => {
           this.displayError = true;
+          this.displaySpinner = false;
           console.log(error);
         }
       );

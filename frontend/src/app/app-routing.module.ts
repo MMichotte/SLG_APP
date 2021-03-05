@@ -2,17 +2,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
-/*
-import { BillingComponent } from './features/billing/billing.component';
-import { CarsComponent } from './features/cars/cars.component';
-import { ClientsComponent } from './features/clients/clients.component';
-import { LoginComponent } from './features/login/login.component';
-import { OrdersComponent } from './features/orders/orders.component';
-import { ProductsComponent } from './features/products/products.component';
-import { SuppliersComponent } from './features/suppliers/suppliers.component';
-import { WorkforcesComponent } from './features/workforces/workforces.component';
-import { WorksheetsComponent } from './features/worksheets/worksheets.component';
-*/
 
 const routes: Routes = [
   {

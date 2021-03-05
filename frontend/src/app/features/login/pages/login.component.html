@@ -24,9 +24,12 @@
         
         <div class="field">
             <p class="control">
-                <button class="button is-success" type="submit" [disabled]="!loginForm.valid">
+                <button class="button is-success" type="submit" [disabled]="!loginForm.valid" *ngIf="!displaySpinner">
                     Login
                 </button>
+                <span class="spinner">
+                    <app-spinner [size]="'4rem'" *ngIf="displaySpinner"></app-spinner>
+                </span>
             </p>
         </div>
     
