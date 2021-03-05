@@ -16,7 +16,7 @@ describe('ProductService', () => {
         RouterTestingModule,
         ReactiveFormsModule,
         FormsModule
-      ],
+      ]
     });
     service = TestBed.inject(ProductService);
   });
