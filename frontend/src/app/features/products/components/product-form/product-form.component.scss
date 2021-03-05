@@ -1,13 +1,9 @@
 
 .form {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  
 
-  .p-grid {
-    * {
-      margin: 0.2rem 0.5rem;
-    }
+  label {
+    white-space: nowrap;
   }
 
   footer {
