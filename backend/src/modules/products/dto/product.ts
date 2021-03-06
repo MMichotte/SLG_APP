@@ -1,5 +1,5 @@
 import { Exclude, Expose } from 'class-transformer';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 @Exclude()
 export class ProductDTO {
@@ -36,7 +36,7 @@ export class ProductDTO {
   reservedQuantity: number;
 
   @Expose()
-  @ApiProperty()
-  note: string;
+  @ApiPropertyOptional()
+  note?: string;
   
 }

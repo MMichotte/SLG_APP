@@ -25,8 +25,8 @@ export class Product {
   @Column({name: 'quantity', type: 'integer'})
   quantity: number;
 
-  @Column({name: 'note', type: 'text'})
-  note: string;
+  @Column({name: 'note', type: 'text', nullable: true})
+  note?: string;
 
   @CreateDateColumn()
   createdAt: Date;

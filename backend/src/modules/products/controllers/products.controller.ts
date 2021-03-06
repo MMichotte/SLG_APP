@@ -25,6 +25,7 @@ export class ProductsController {
   @ApiResponse({
     status: 200,
     type: ProductDTO,
+    isArray: true
   })
   async findAll(): Promise<ProductDTO[]> {
     let products: Product[] = await this.productsService.findAll();
