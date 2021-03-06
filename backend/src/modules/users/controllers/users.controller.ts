@@ -25,6 +25,7 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     type: UserDTO,
+    isArray: true
   })
   async findAll(): Promise<UserDTO[]>{
     const users: User[] = await this.usersService.findAll();
