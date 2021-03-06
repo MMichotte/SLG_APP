@@ -2,7 +2,7 @@ import { SimpleProductDTO } from './../dto/simple-product.dto';
 import { ProductDTO } from './../dto/product';
 import { Roles } from '../../../core/decorators/roles.decorator';
 import { EUserRoles } from '../../users/enums/user-roles.enum';
-import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards, Patch, NotFoundException, ConflictException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Patch, NotFoundException, ConflictException } from '@nestjs/common';
 import { ProductsService } from '../services/products.service';
 import { CreateProductDTO } from '../dto/create-product.dto';
 import { UpdateProductDTO } from '../dto/update-product.dto';
