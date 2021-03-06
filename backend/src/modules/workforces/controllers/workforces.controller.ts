@@ -5,10 +5,10 @@ import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, U
 import { WorkforcesService } from '../services/workforces.service';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
-import { Roles } from 'src/core/decorators/roles.decorator';
-import { EUserRoles } from 'src/modules/users/enums/user-roles.enum';
-import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/core/guards/roles.guard';
+import { Roles } from '../../../core/decorators/roles.decorator';
+import { EUserRoles } from '../../users/enums/user-roles.enum';
+import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../core/guards/roles.guard';
 import { CreateWorkforceDTO } from '../dto/create-workforce.dto';
 import { UpdateWorkforceDTO } from '../dto/update-workforce.dto';
 
