@@ -21,13 +21,13 @@
             (onInput)="calcAvailableQuant()" (keyup)="calcAvailableQuant()"></p-inputNumber>
         </div>
 
-        <div class="p-col-3">
+        <div class="p-col-3" *ngIf="isUpdate">
           <label for="availableQuantity">Available quantity</label>
           <p-inputNumber id="availableQuantity" [showButtons]="false" formControlName="availableQuantity">
           </p-inputNumber>
         </div>
 
-        <div class="p-col-3 ">
+        <div class="p-col-3" *ngIf="isUpdate">
           <label for="reservedQuantity">Reserved quantity</label>
           <p-inputNumber id="reservedQuantity" [showButtons]="false" formControlName="reservedQuantity"></p-inputNumber>
         </div>
@@ -35,28 +35,28 @@
       <div class="p-grid p-fluid">
         <div class="p-col-3 ">
           <label for="purchasePriceHT">Purchase price (HT)</label>
-          <p-inputNumber id="purchasePriceHT" mode="currency" currency="EUR" locale="be-BE"
-            formControlName="purchasePriceHT" min="0" (focus)="$event.target.select()" (click)="$event.target.select()"
+          <p-inputNumber id="purchasePriceHT" mode="currency" currency="EUR" locale="en-US"
+            formControlName="purchasePriceHT" min="0" (onFocus)="$event.target.select()" (click)="$event.target.select()"
             (keyup)="onPurchasePriceInput($event.target.value)"></p-inputNumber>
         </div>
 
         <div class="p-col-3">
           <label for="salePriceHT">Sale price (HT)</label>
-          <p-inputNumber id="salePriceHT" mode="currency" currency="EUR" locale="be-BE" formControlName="salePriceHT"
-            min="0" (focus)="$event.target.select()" (click)="$event.target.select()"
+          <p-inputNumber id="salePriceHT" mode="currency" currency="EUR" locale="en-US" formControlName="salePriceHT"
+            min="0" (onFocus)="$event.target.select()" (click)="$event.target.select()"
             (keyup)="onSalePriceInput($event.target.value)"></p-inputNumber>
         </div>
 
         <div class="p-col-3 ">
           <label for="salePriceTTC">Sale price (TTC)</label>
-          <p-inputNumber id="salePriceTTC" mode="currency" currency="EUR" locale="be-BE" formControlName="salePriceTTC"
-            min="0" (focus)="$event.target.select()" (click)="$event.target.select()"></p-inputNumber>
+          <p-inputNumber id="salePriceTTC" mode="currency" currency="EUR" locale="en-US" formControlName="salePriceTTC"
+            min="0" (onFocus)="$event.target.select()" (click)="$event.target.select()"></p-inputNumber>
         </div>
 
         <div class="p-col-3">
           <label for="margin">Margin</label>
-          <p-inputNumber id="margin" mode="currency" currency="EUR" locale="be-BE" formControlName="margin"
-            (click)="$event.target.select()" (click)="$event.target.select()"
+          <p-inputNumber id="margin" mode="currency" currency="EUR" locale="en-US" formControlName="margin"
+            (onFocus)="$event.target.select()" (click)="$event.target.select()"
             (keyup)="onMarginInput($event.target.value)"></p-inputNumber>
         </div>
       </div>

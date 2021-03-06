@@ -15,6 +15,7 @@ export class ProductsComponent implements OnInit {
   cols: any[];
   products: Product[] = [];
   selectedProduct: Product;
+  loadingData: boolean;
 
   constructor(
     private readonly productService: ProductService,
@@ -38,6 +39,7 @@ export class ProductsComponent implements OnInit {
   }
 
   refreshProducts(): void {
+    this.loadingData = true;
     this.productService.getAll().subscribe(
       (products: Product[]) => {
         products.map((p: Product) => {
@@ -48,6 +50,7 @@ export class ProductsComponent implements OnInit {
         this.products = products;
         this.selectedProduct = null;
         this.cd.detectChanges();
+        this.loadingData = false;
       }
     );
   }
@@ -57,8 +60,8 @@ export class ProductsComponent implements OnInit {
       header: 'New Product',
       width: '80%'
     });
-    ref.onClose.subscribe(() => {
-      this.refreshProducts();
+    ref.onClose.subscribe((prodId?: boolean) => {
+      if (prodId) this.refreshProducts();
     });
   }
 

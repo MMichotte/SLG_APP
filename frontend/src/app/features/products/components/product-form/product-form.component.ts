@@ -81,7 +81,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
         (res: any) => {
           this._resetForm();
           this.toast.show(EToastSeverities.SUCCESS, 'Product created');
-          this.ref.close();
+          this.ref.close(res.id);
         },
         (error: any) => {
           console.log(error);

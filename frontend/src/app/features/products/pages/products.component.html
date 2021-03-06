@@ -29,7 +29,9 @@
             (sortFunction)="customSort($event)"
             selectionMode="single"
             [(selection)]="selectedProduct" 
-            styleClass="p-datatable-sm">
+            styleClass="p-datatable-sm"
+            [loading]="loadingData"
+            >
 
             <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -48,9 +50,5 @@
             </ng-template>
             
         </p-table>
-        
-        <div class="spinner">
-            <app-spinner [size]="'5rem'" *ngIf="!products.length"></app-spinner>
-        </div>
     </div>
 </div>
