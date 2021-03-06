@@ -1,18 +1,14 @@
 import { ProductsService } from './../../products/services/products.service';
-import { Product } from './../../products/entities/product.entity';
-import { UpdateStockUpdateDTO } from './../dto/update-stock-update.dto';
-import { CreateStockUpdateDTO } from './../dto/create-stock-update.dto';
 import { StockUpdate } from './../entities/stock-update.entity';
 import { StockUpdateDTO } from './../dto/stock-update.dto';
-import { Body, Controller, Get, Param, UseGuards, Post, Patch, NotFoundException, Delete } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards, NotFoundException, Delete } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/core/guards/roles.guard';
+import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../core/guards/roles.guard';
 import { StockUpdateService } from '../services/stock-update.service';
 import { plainToClass } from 'class-transformer';
-import { Roles } from 'src/core/decorators/roles.decorator';
-import { EUserRoles } from 'src/modules/users/enums/user-roles.enum';
-import { SimpleStockUpdateDTO } from '../dto/simple-stock-update.dto';
+import { Roles } from '../../../core/decorators/roles.decorator';
+import { EUserRoles } from '../../../modules/users/enums/user-roles.enum';
 
 @Controller('stock-updates')
 @UseGuards(RolesGuard)
