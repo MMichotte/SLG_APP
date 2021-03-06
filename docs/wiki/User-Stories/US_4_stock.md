@@ -118,7 +118,6 @@ body    :
     "sale_price_HT": 0,
     "sale_price_TTC": 0,
     "quantity": 0,
-    "quantity_reserved": 0,
     "note": "...note..."
 }
 ```
@@ -143,10 +142,20 @@ body    :
 
 ---
 
+<!--us-->
+<!--title-->
 ### (ST04) Consulter/modifier le détail d'un article
-> En tant qu'utilisateur j'aimerais pouvoir double-cliquer sur un article afin de pouvoir consulter et modifier toutes ses informations.
+<!--/title-->
+<!--description-->
+> En tant qu'utilisateur j'aimerais pouvoir cliquer sur un article afin de pouvoir consulter et modifier toutes ses informations.
 
-ATTENTION : modifier manuellement la quantité d'un article implique d'ajouter une facture fictive uniquement dans le tableau d'entrées/sorties. 
+#### <u>⚠️ Contraintes spéciales :</u>
+<!--checklist: "⚠️ Contraintes spéciales"-->
+- Modifier manuellement la quantité d'un article implique d'ajouter une facture fictive uniquement dans le tableau d'entrées/sorties. 
+<!--/checklist-->
+
+<!--/description-->
+<!--/us-->
 
 ---
 
@@ -168,8 +177,14 @@ Pour chaque ligne, les éléments suivant doivent apparaître:
   
 ---
 
+<!--us-->
+<!--title-->
 ### (ST07) Rechercher un article
-> En tant qu'utilisateur j'aimerais pouvoir rechercher un article sur base de critères tel que le nom de le référence de l'article ou sa désignation afin de pouvoir retrouver plus facilement un véhicule en particulier.
+<!--/title-->
+<!--description-->
+> En tant qu'utilisateur j'aimerais pouvoir rechercher un article sur base de critères tel que le nom de le référence de l'article ou sa désignation afin de pouvoir retrouver plus facilement un article en particulier.
+<!--/description-->
+<!--/us-->
 
 ---
 
@@ -178,7 +193,13 @@ Pour chaque ligne, les éléments suivant doivent apparaître:
 
 ---
 
+<!--us-->
+<!--title-->
 ### (ST09) Supprimer un article
+<!--/title-->
+<!--description-->
 > En tant qu'utilisateur j'aimerais pouvoir supprimer un article de manière définitive afin de ne pas encombrer la liste des articles avec des articles dont je n'ai plus besoin de garder une trâce ou qui n'existent plus.
+<!--/description-->
+<!--/us-->
 
 ---

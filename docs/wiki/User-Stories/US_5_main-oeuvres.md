@@ -131,3 +131,36 @@ body    :
 <!--/us-->
 
 ---
+
+<!--us-->
+<!--title-->
+### (MO04) Consulter/Modifier le détail d'un main d'oeuvre
+<!--/title-->
+<!--description-->
+> En tant qu'utilisateur j'aimerais pouvoir cliquer sur une main d'oeuvres afin de pouvoir consulter et modifier toutes ses informations.
+<!--/description-->
+<!--/us-->
+
+---
+
+<!--us-->
+<!--title-->
+### (MO05) Rechercher un main d'oeuvre
+<!--/title-->
+<!--description-->
+> En tant qu'utilisateur j'aimerais pouvoir rechercher une main d'ouvre afin de pouvoir retrouver plus facilement une main d'oeuvre en particulier.
+<!--/description-->
+<!--/us-->
+
+---
+
+<!--us-->
+<!--title-->
+### (MO06) Supprimer une main d'oeuvre
+<!--/title-->
+<!--description-->
+> En tant qu'utilisateur j'aimerais pouvoir supprimer une main d'oeuvre de manière définitive afin de ne pas encombrer la liste des main d'oeuvres inutilement.
+<!--/description-->
+<!--/us-->
+
+---

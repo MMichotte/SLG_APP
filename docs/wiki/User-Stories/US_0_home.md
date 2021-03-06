@@ -47,22 +47,28 @@ Bien évidemment, afin de répondre à ses besoins, une série d'US intermédiai
 > Les US marquée d'un ✔️ ont été implémentée. 
 1. [x] G01 - Connexion utilisateur
 2. [x] ST01 - Onglet Stock
-3. [ ] ST02 - Consulter le stock
-4. [ ] ST03 - Ajouter nouvel article dans le stock
-5. [ ] MO01 - Onglet Main d'oeuvres
-6. [ ] MO02 - Consulter la liste des main d'oeuvres
-7. [ ] MO03 - Ajouter un nouveau tarif de main d'oeuvre
-8. [ ] CL01 - Onglet Clients
-9. [ ] CL02 - Consulter liste clients
-10. [ ] CL03 - Ajout nouveau client
-11. [ ] VE01 - Onglet Véhicules
-12. [ ] VE02 - Consulter tous les véhicules
-13. [ ] VE03 - Ajouter nouveau véhicule
-14. [ ] FT01 - Onglet Fiches de travail
-15. [ ] 🔸 //TODO -> fiches de travailles (consulter, ajouter, detail/modifier, gen devis, gen facture)
-16. [ ] FA01 - Onglet Factures
-17. [ ] FA02 - Consulter les factures
-18. [ ] FA03 - Consulter le détail d'une facture 
-19. [ ] FA04 - Télécharger la facture en pdf
-20. [ ] 🔸 //TODO -> fournisseur (onglet, consulter, ajouter)
-21. [ ] 🔸 //TODO -> commandes (...)
+3. [x] ST02 - Consulter le stock
+4. [x] ST03 - Ajouter nouvel article dans le stock
+5. [x] ST04 - Consulter/modifier le détail d'un article
+6. [x] ST07 - Rechercher un article
+7. [x] ST09 - Supprimer un article
+8. [x] MO01 - Onglet Main d'oeuvres
+9. [ ] MO02 - Consulter la liste des main d'oeuvres
+10. [ ] MO03 - Ajouter un nouveau tarif de main d'oeuvre
+11. [ ] MO04 - Consulter/Modifier le détail d'un main d'oeuvre
+12. [ ] MO05 - Rechercher un main d'oeuvre
+13. [ ] MO06 - Supprimer une main d'oeuvre
+14. [x] CL01 - Onglet Clients
+15. [ ] CL02 - Consulter liste clients
+16. [ ] CL03 - Ajout nouveau client
+17. [x] VE01 - Onglet Véhicules
+18. [ ] VE02 - Consulter tous les véhicules
+19. [ ] VE03 - Ajouter nouveau véhicule
+20. [x] FT01 - Onglet Fiches de travail
+21. [ ] 🔸 //TODO -> fiches de travailles (consulter, ajouter, detail/modifier, gen devis, gen facture)
+22. [x] FA01 - Onglet Factures
+23. [ ] FA02 - Consulter les factures
+24. [ ] FA03 - Consulter le détail d'une facture 
+25. [ ] FA04 - Télécharger la facture en pdf
+26. [ ] 🔸 //TODO -> fournisseur (onglet, consulter, ajouter)
+27. [ ] 🔸 //TODO -> commandes (...)

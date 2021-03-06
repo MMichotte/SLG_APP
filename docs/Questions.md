@@ -22,6 +22,21 @@ Ce document contient une liste de questions à poser ou posées au client ou au 
 4. **Un client peut-il avoir plusieurs adresses? (facturation/livraison/...)**
 
 
+5. **Faut-il garder une trace (dans l'historique) des rectifications du stock (qtty, prix, ...) d'un article?**
+
+
+6. **Une fiche de travail peut-être convertie en plusieurs factures? Comment gérer cela?**
+
+
+7. **Comment se passe la réception d'une commande? (création d'une facture (IN)? avec un champ faisant référence au num. de la facture du fournisseur?)**
+
+
+8. **Au niveau du stock, afin d'éviter de charger les 30k produits, ne partirions nous pas sur:**
+   - l'affichage des x produits les plus recherchés/édités 
+   - un système de recherche plus performant avec des filtres (ref, label, quant, ... ?)
+ 
+9. **Faut-il pouvoir encoder si un facture à été payée ou non?**
+
 ---
 ## Questions rapporteur-Ephec
 
@@ -30,6 +45,3 @@ Ce document contient une liste de questions à poser ou posées au client ou au 
 
    Poser la question, c’est un peu y répondre.
    Il faut vraiment mettre la priorité sur ce qui est utilisable (MVP) mais d’un point de vue du client. Il faut donc mettre la priorité sur ce qu’il te demande mais que ce soit opérationnel, sinon cela ne sert à rien.
-
-2. **Quel niveau de détail faut-il dans une DB? -> Jusqu'a quel point faut il décortiquer les différents tables?**
-
