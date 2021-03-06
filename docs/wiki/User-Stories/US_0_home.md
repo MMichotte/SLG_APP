@@ -53,11 +53,11 @@ Bien évidemment, afin de répondre à ses besoins, une série d'US intermédiai
 6. [x] ST07 - Rechercher un article
 7. [x] ST09 - Supprimer un article
 8. [x] MO01 - Onglet Main d'oeuvres
-9. [ ] MO02 - Consulter la liste des main d'oeuvres
-10. [ ] MO03 - Ajouter un nouveau tarif de main d'oeuvre
-11. [ ] MO04 - Consulter/Modifier le détail d'un main d'oeuvre
-12. [ ] MO05 - Rechercher un main d'oeuvre
-13. [ ] MO06 - Supprimer une main d'oeuvre
+9. [x] MO02 - Consulter la liste des main d'oeuvres
+10. [x] MO03 - Ajouter un nouveau tarif de main d'oeuvre
+11. [x] MO04 - Consulter/Modifier le détail d'un main d'oeuvre
+12. [x] MO05 - Rechercher un main d'oeuvre
+13. [x] MO06 - Supprimer une main d'oeuvre
 14. [x] CL01 - Onglet Clients
 15. [ ] CL02 - Consulter liste clients
 16. [ ] CL03 - Ajout nouveau client
