@@ -5,6 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './modules/products/products.module';
 import { WorkforcesModule } from './modules/workforces/workforces.module';
+import { StockUpdateModule } from './modules/stock-update/stock-update.module';
 import dbConnectionOptions from 'ormconfig';
 
 @Module({
@@ -13,7 +14,8 @@ import dbConnectionOptions from 'ormconfig';
     AuthModule,
     UsersModule,
     ProductsModule,
-    WorkforcesModule
+    WorkforcesModule,
+    StockUpdateModule
   ],
   controllers: [AppController],
   providers: [],
