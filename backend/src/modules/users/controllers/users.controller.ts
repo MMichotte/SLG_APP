@@ -52,15 +52,16 @@ export class UsersController {
     status: 200,
     type: SimpleUserDTO,
   })
-  async update(@Param('id') id: string, @Body() user: UpdateUserDTO): Promise<SimpleUserDTO> {
-    const updatedUser = await this.usersService.update(+id, user);
+  async update(@Param('id') id: number, @Body() user: UpdateUserDTO): Promise<SimpleUserDTO> {
+    const updatedUser = await this.usersService.update(id, user);
+    updatedUser.id = id;
     return plainToClass(SimpleUserDTO, updatedUser);
   }
 
   @Delete(':id')
   @Roles(EUserRoles.ADMIN)
-  async remove(@Param('id') id: string) {
-    const user: User | undefined = await this.usersService.findOneById(+id);
+  async remove(@Param('id') id: number) {
+    const user: User | undefined = await this.usersService.findOneById(id);
     if (user == undefined) throw new NotFoundException;
     if (user.role === EUserRoles.DEV) throw new HttpException('You are not allowed to delete a `dev` user!', HttpStatus.UNAUTHORIZED);
     await this.usersService.remove(+id);
