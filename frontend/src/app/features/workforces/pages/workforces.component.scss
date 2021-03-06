@@ -1,0 +1,29 @@
+.page {
+  margin: 1rem 2rem;
+
+  h1 {
+    color: var(--mainBlue);
+    padding-bottom: 0.5rem;
+    font-weight: bold;
+    font-size: xx-large;
+    border-bottom: 2px solid var(--mainBlue);
+  }
+
+  .control {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+
+    input {
+      width: 20rem;
+    }
+  }
+
+  .dtable {
+    margin: 1rem 0;
+  }
+
+}
+

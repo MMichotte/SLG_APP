@@ -1,0 +1,13 @@
+.form {
+
+  label {
+    white-space: nowrap;
+  }
+
+  footer {
+    justify-content: flex-end;
+    button {
+      margin: 0 0.5rem;
+    }
+  }
+}

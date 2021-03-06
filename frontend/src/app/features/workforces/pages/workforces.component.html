@@ -1,1 +1,52 @@
-<p>workforces works!</p>
+<div class="page">
+  <h1>WORKFORCE</h1>
+  
+  <div class="control">
+      <div class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Search Workforce"/>
+      </div>
+      <button pButton pRipple type="button" icon="pi pi-plus" label="New workforce" (click)="showNewWorkforceModal()"></button>
+  </div>
+
+  <p-panel header="Edit workforce" class="form" [toggleable]="true">
+      <app-workforce-form [currentWorkforce]="selectedWorkforce" [isUpdate]=true (refreshTable)="refreshWorkforces()"></app-workforce-form>
+  </p-panel>
+  
+  <div class="dtable">
+      <p-table #dt 
+          [columns]="cols"
+          [value]="workforces"
+          [autoLayout]="true"
+          [scrollable]="true"
+          [paginator]="true"
+          [rows]="10"
+          [rowsPerPageOptions]="[10,25,50]" 
+          [globalFilterFields]="['label']"
+          [sortField]="cols[0].field"
+          selectionMode="single"
+          [(selection)]="selectedWorkforce" 
+          styleClass="p-datatable-sm"
+          [loading]="loadingData"
+          >
+
+          <ng-template pTemplate="header" let-columns>
+              <tr>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
+                      {{col.header}}
+                      <p-sortIcon [field]="col.field"></p-sortIcon>
+                  </th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr [pSelectableRow]="rowData">
+                  <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                      {{rowData[col.field]}}
+                  </td>
+              </tr>
+          </ng-template>
+          
+      </p-table>
+  </div>
+</div>
