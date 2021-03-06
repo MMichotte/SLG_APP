@@ -4,6 +4,7 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from './modules/products/products.module';
+import { WorkforcesModule } from './modules/workforces/workforces.module';
 import dbConnectionOptions from 'ormconfig';
 
 @Module({
@@ -11,7 +12,8 @@ import dbConnectionOptions from 'ormconfig';
     TypeOrmModule.forRoot(dbConnectionOptions),
     AuthModule,
     UsersModule,
-    ProductsModule
+    ProductsModule,
+    WorkforcesModule
   ],
   controllers: [AppController],
   providers: [],
