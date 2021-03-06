@@ -67,20 +67,21 @@ export class ProductsController {
     status: 200,
     type: SimpleProductDTO,
   })
-  async update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDTO): Promise<SimpleProductDTO> {
-    const product: Product | undefined = await this.productsService.findOneById(+id);
+  async update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDTO): Promise<SimpleProductDTO> {
+    const product: Product | undefined = await this.productsService.findOneById(id);
     if (product == undefined) throw new NotFoundException;
     const existingProd: Product = await this.productsService.findOneByRef(updateProductDto.reference);
     if (existingProd) if (existingProd.id !== product.id) throw new ConflictException;
-    const updatedProduct: Product = await this.productsService.update(+id, updateProductDto);
+    const updatedProduct: Product = await this.productsService.update(id, updateProductDto);
+    updatedProduct.id = id;
     return plainToClass(SimpleProductDTO,updatedProduct);
   }
 
   @Delete(':id')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: number) {
     const product: Product | undefined = await this.productsService.findOneById(+id);
     if (product == undefined) throw new NotFoundException;
-    return this.productsService.remove(+id);
+    return this.productsService.remove(id);
   }
 }
