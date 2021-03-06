@@ -6,23 +6,25 @@ import { UpdateProductDTO } from '../dto/update-product.dto';
 @Injectable()
 export class ProductService {
 
+  endpoint: string = '/api/products';
+
   constructor (
     private readonly httpClient: HttpClient
   ) { }
 
   getAll (): any {
-    return this.httpClient.get('/api/products');
+    return this.httpClient.get(this.endpoint);
   }
 
   create (product: CreateProductDTO): any {
-    return this.httpClient.post('/api/products', product);
+    return this.httpClient.post(this.endpoint, product);
   }
 
   update (prodId: number, product: UpdateProductDTO): any {
-    return this.httpClient.patch(`/api/products/${prodId}`, product);
+    return this.httpClient.patch(`${this.endpoint}/${prodId}`, product);
   }
 
   delete (id: number): any {
-    return this.httpClient.delete(`/api/products/${id}`);
+    return this.httpClient.delete(`${this.endpoint}/${id}`);
   }
 }
