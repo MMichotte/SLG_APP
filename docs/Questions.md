@@ -21,21 +21,27 @@ Ce document contient une liste de questions à poser ou posées au client ou au 
 
 4. **Un client peut-il avoir plusieurs adresses? (facturation/livraison/...)**
 
+   Non
 
 5. **Faut-il garder une trace (dans l'historique) des rectifications du stock (qtty, prix, ...) d'un article?**
-
+    
+    oui, mais pes besoin de créer une facture pour cela. Il faut juste pouvoir encoder:
+      - le type de rectification (inventaire, perte, casse, qualité insuffisante)
+      - la quantité (+/-)
+      - une note
+      - la date 
 
 6. **Une fiche de travail peut-être convertie en plusieurs factures? Comment gérer cela?**
-
+   
+   Non, une fiche par facture et une facture par fiche.
 
 7. **Comment se passe la réception d'une commande? (création d'une facture (IN)? avec un champ faisant référence au num. de la facture du fournisseur?)**
 
-
-8. **Au niveau du stock, afin d'éviter de charger les 30k produits, ne partirions nous pas sur:**
-   - l'affichage des x produits les plus recherchés/édités 
-   - un système de recherche plus performant avec des filtres (ref, label, quant, ... ?)
+   Création d'une facture fournisseur.
  
-9. **Faut-il pouvoir encoder si un facture à été payée ou non?**
+8. **Faut-il pouvoir encoder si un facture à été payée ou non?**
+   
+   Oui et il faut pouvoir encoder le type de paiement utilisé. 
 
 ---
 ## Questions rapporteur-Ephec
