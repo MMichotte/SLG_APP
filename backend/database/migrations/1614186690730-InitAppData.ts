@@ -1,5 +1,5 @@
-import { UserSeed } from '../seeds/users/user.seed';
 import { getRepository, MigrationInterface, QueryRunner } from "typeorm";
+import { UserSeed } from '../seeds/users/user.seed';
 import { ProductSeed_0 } from '../seeds/products/product.seed.all_0';
 import { ProductSeed_1 } from '../seeds/products/product.seed.all_1';
 import { ProductSeed_2 } from '../seeds/products/product.seed.all_2';
@@ -7,6 +7,7 @@ import { ProductSeed_3 } from '../seeds/products/product.seed.all_3';
 import { ProductSeed_4 } from '../seeds/products/product.seed.all_4';
 import { ProductSeed_5 } from '../seeds/products/product.seed.all_5';
 import { ProductSeed_6 } from '../seeds/products/product.seed.all_6';
+import { WorkforceSeed } from '../seeds/workforces/workforce.seed';
 
 
 export class InitAppData1614186690730 implements MigrationInterface {
@@ -21,6 +22,7 @@ export class InitAppData1614186690730 implements MigrationInterface {
         await queryRunner.manager.getRepository('product').save(ProductSeed_4);
         await queryRunner.manager.getRepository('product').save(ProductSeed_5);
         await queryRunner.manager.getRepository('product').save(ProductSeed_6);
+        await queryRunner.manager.getRepository('workforce').save(WorkforceSeed);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
