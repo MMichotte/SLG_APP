@@ -118,7 +118,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
         return true;
       })
       .catch((error: any) => {
-        console.log('nok')
+        console.log('nok');
         console.log(error);
         return false;
       });    

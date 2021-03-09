@@ -8,9 +8,9 @@ describe('StockUpdateFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StockUpdateFormComponent ]
+      declarations: [StockUpdateFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
