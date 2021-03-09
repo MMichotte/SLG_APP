@@ -7,9 +7,9 @@ services:
     container_name: slg-db
     restart: unless-stopped
     ports:
-      - 5432:5432
+      - 5434:5432
     env_file:
-      - ./database/slg_db.env
+      - ./database/.env
     networks:
       slg-network:
         ipv4_address: 192.168.10.5
