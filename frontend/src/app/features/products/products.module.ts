@@ -1,7 +1,8 @@
 import { SharedModule } from './../../shared/shared.module';
 import { ToastService } from './../../core/services/toast.service';
+import { ProductsComponent } from './pages/products-list/products.component';
+import { ProductInfoComponent } from './pages/product-info/product-info.component';
 import { ProductService } from './services/product.service';
-import { ProductsComponent } from './pages/products.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -10,15 +11,16 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { PanelModule } from 'primeng/panel';
 import { DynamicDialogModule, DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ConfirmDialogService } from '../../core/services/confirm-dialog.service';
+import { StockUpdateFormComponent } from './components/stock-update-form/stock-update-form.component';
 
 @NgModule({
-  declarations: [ProductsComponent, ProductFormComponent],
+  declarations: [ProductsComponent, ProductFormComponent, ProductInfoComponent, StockUpdateFormComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -27,6 +29,7 @@ import { ConfirmDialogService } from '../../core/services/confirm-dialog.service
     TableModule,
     InputTextModule,
     ButtonModule,
+    SelectButtonModule,
     InputNumberModule,
     InputTextareaModule,
     PanelModule,

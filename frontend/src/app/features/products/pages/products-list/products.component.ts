@@ -1,26 +1,34 @@
-import { ProductFormComponent } from './../components/product-form/product-form.component';
-import { Product } from '../models/product.model';
-import { ProductService } from './../services/product.service';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ProductFormComponent } from '../../components/product-form/product-form.component';
+import { Product } from '../../models/product.model';
+import { ProductService } from '../../services/product.service';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { SortEvent } from 'primeng/api';
+import { Router } from '@angular/router';
+import { Table } from 'primeng/table';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./../../../style.scss', './products.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductsComponent implements OnInit {
+
+  @ViewChild(Table) private dt: Table;
 
   cols: any[];
   products: Product[] = [];
   selectedProduct: Product;
   loadingData: boolean;
+  exactMatch: boolean = false;
+  previousSearchVal: string = '';
 
   constructor(
     private readonly productService: ProductService,
     public dialogService: DialogService,
-    private readonly cd: ChangeDetectorRef
+    private readonly cd: ChangeDetectorRef,
+    private readonly router: Router
   ) { }
 
   ngOnInit(): void {
@@ -63,6 +71,21 @@ export class ProductsComponent implements OnInit {
     ref.onClose.subscribe((prodId?: boolean) => {
       if (prodId) this.refreshProducts();
     });
+  }
+
+  showProductInfoPage(product: Product): void {
+    this.router.navigate([`products/${product.id}/info`], { state: { product: product } });
+  }
+
+  search(val?: string) {
+    const value = (!val) ? this.previousSearchVal : val;
+    if (this.exactMatch) {
+      this.dt.filterGlobal(value, 'equals');
+    } else {
+      this.dt.filterGlobal(value, 'contains');
+    }
+    this.previousSearchVal = value;
+
   }
 
   customSort(event: SortEvent) {

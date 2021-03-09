@@ -1,0 +1,95 @@
+<div class="page">
+  <h1>PRODUCT INFORMATION</h1>
+
+  <div class="content" *ngIf="product">
+
+    <p-panel class="product-general-panel" header="General information" [toggleable]="true">
+      <div class="product-general">
+        <div>
+          <div class="inline">
+            <div>Reference:</div>
+            <div>{{product?.reference}}</div>
+          </div>
+          <div class="inline">
+            <div>Label:</div>
+            <div>{{product?.label}}</div>
+          </div>
+          <div class="inline">
+            <div></div>
+            <div></div>
+          </div>
+          <div class="inline">
+            <div>Id:</div>
+            <div>{{product?.id}}</div>
+          </div>
+        </div>
+        <div>
+          <div class="inline">
+            <div>Available Quantity:</div>
+            <div>{{product?.quantity - product?.reservedQuantity}}</div>
+          </div>
+          <div class="inline">
+            <div>Total quantity: </div>
+            <div>{{product?.quantity}}</div>
+          </div>
+          <div class="inline">
+            <div>eserved quantity:</div>
+            <div>{{product?.reservedQuantity}}</div>
+          </div>
+        </div>
+        <div>
+          <div class="inline">
+            <div>Purchase price HT:</div>
+            <div>{{product?.purchasePriceHT}} €</div>
+          </div>
+          <div class="inline">
+            <div>Sale price HT:</div>
+            <div>{{product?.salePriceHT}} €</div>
+          </div>
+          <div class="inline">
+            <div>ale price TTC:</div>
+            <div>{{product?.salePriceTTC}} €</div>
+          </div>
+          <div class="inline">
+            <div>Margin:</div>
+            <div>{{product?.salePriceHT - product?.purchasePriceHT}} €</div>
+          </div>
+        </div>
+        <div>
+          <div id="note">Note:</div>
+          <textarea pInputTextarea [rows]="5" [cols]="40" disabled="true">{{product?.note}}</textarea>
+        </div>
+      </div>
+    </p-panel>
+
+    <p-panel class="product-history" header="Transaction history" [toggleable]="true">
+      <p-table #dt [columns]="transactionCols" [value]="transactions" [autoLayout]="true" [scrollable]="true"
+        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [sortField]="transactionCols[0].field"
+        styleClass="p-datatable-sm" [loading]="loadingData">
+
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+              {{rowData[col.field]}}
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </p-panel>
+
+    <div class="worksheets">
+      <p-panel class="product-current-worksheets" header="Current worksheets"></p-panel>
+      <p-panel class="product-all-worksheets" header="All worksheets"></p-panel>
+    </div>
+
+  </div>
+</div>

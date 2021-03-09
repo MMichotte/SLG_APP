@@ -7,7 +7,7 @@ import { WorkforceFormComponent } from '../components/workforce-form/workforce-f
 @Component({
   selector: 'app-workforces',
   templateUrl: './workforces.component.html',
-  styleUrls: ['./workforces.component.scss']
+  styleUrls: ['./../../style.scss', './workforces.component.scss']
 })
 export class WorkforcesComponent implements OnInit {
 

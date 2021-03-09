@@ -13,20 +13,20 @@
           <input id="label" type="text" pInputText formControlName="label">
         </div>
       </div>
-      <div class="p-grid p-fluid">
+      <div class="p-grid p-fluid" *ngIf="isUpdate">
         <div class="p-col-3">
           <label for="quantity">Total quantity</label>
           <p-inputNumber id="quantity" [showButtons]="true" formControlName="quantity"
             (onInput)="calcAvailableQuant()" (keyup)="calcAvailableQuant()"></p-inputNumber>
         </div>
 
-        <div class="p-col-3" *ngIf="isUpdate">
+        <div class="p-col-3">
           <label for="availableQuantity">Available quantity</label>
           <p-inputNumber id="availableQuantity" [showButtons]="false" formControlName="availableQuantity">
           </p-inputNumber>
         </div>
 
-        <div class="p-col-3" *ngIf="isUpdate">
+        <div class="p-col-3">
           <label for="reservedQuantity">Reserved quantity</label>
           <p-inputNumber id="reservedQuantity" [showButtons]="false" formControlName="reservedQuantity"></p-inputNumber>
         </div>
@@ -70,11 +70,11 @@
 
 
   <footer class="p-grid">
-    <button pButton pRipple type="button" label="Cancel" class="p-button-secondary p-col-1" (click)="onCancel()"
+    <button pButton pRipple type="button" label="Cancel" class="p-button-secondary" (click)="onCancel()"
       *ngIf="!isUpdate"></button>
     <button pButton pRipple type="submit" icon="pi pi-save" label="Save"
       [disabled]="productForm.invalid || (!currentProduct && isUpdate)"></button>
-    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-col-1" *ngIf="currentProduct"
+    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger" *ngIf="currentProduct"
       (click)="deleteProduct()"></button>
   </footer>
 </form>

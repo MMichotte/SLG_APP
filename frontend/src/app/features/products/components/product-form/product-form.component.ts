@@ -5,7 +5,8 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../../models/product.model';
 import { EToastSeverities } from 'src/app/core/enums/toast-severity.enum';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { StockUpdateFormComponent } from '../stock-update-form/stock-update-form.component';
 
 @Component({
   selector: 'app-product-form',
@@ -23,6 +24,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
     private readonly productService: ProductService,
     private readonly toast: ToastService,
     private readonly confirmDialog: ConfirmDialogService,
+    public dialogService: DialogService,
     public ref: DynamicDialogRef
   ) { }
 
@@ -57,12 +59,19 @@ export class ProductFormComponent implements OnInit, OnChanges {
     }
   }
 
-  submitForm (): void {
+  async submitForm (): Promise<void> {
     const product: Product = this.productForm.value;
     delete product.availableQuantity;
     delete product.margin;
     if (this.isUpdate) {
       // update
+      if (product.quantity !== this.currentProduct.quantity) {
+        const quantUpdated = await this.showStockUpdateModal();
+        if (!quantUpdated) {
+          this.toast.show(EToastSeverities.ERROR, 'An error occurred. The product was not updated');
+          return;
+        }
+      }
       this.productService.update(this.currentProduct.id, product).subscribe(
         (res: any) => {
           this._resetForm();
@@ -92,6 +101,29 @@ export class ProductFormComponent implements OnInit, OnChanges {
     }
   }
 
+  async showStockUpdateModal(): Promise<boolean> {
+    const ref2 = this.dialogService.open(StockUpdateFormComponent, {
+      header: 'Update Quantity',
+      width: '50%'
+    });
+    ref2.onClose.subscribe((stockId?: boolean) => {
+      console.log('ok');
+      if (stockId) this.refreshTable.emit();
+    });
+    //! NOT WORKING
+    return ref2.onClose.toPromise()
+      .then((res: any) => {
+        console.log('promise resolved');
+        console.log(res);
+        return true;
+      })
+      .catch((error: any) => {
+        console.log('nok')
+        console.log(error);
+        return false;
+      });    
+  }
+  
   async deleteProduct (): Promise<void> {
     if (this.currentProduct) {
       const confirm = await this.confirmDialog.show(`Are you sure you want to delete the following product:

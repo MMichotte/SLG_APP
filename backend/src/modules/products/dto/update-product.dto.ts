@@ -1,3 +1,5 @@
 import { CreateProductDTO } from './create-product.dto';
 
-export class UpdateProductDTO extends CreateProductDTO {}
+export class UpdateProductDTO extends CreateProductDTO {
+
+}

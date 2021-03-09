@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ConfirmDialogService } from 'src/app/core/services/confirm-dialog.service';
 import { ToastService } from 'src/app/core/services/toast.service';
-import { ProductService } from '../services/product.service';
+import { ProductService } from '../../services/product.service';
 
 import { ProductsComponent } from './products.component';
 

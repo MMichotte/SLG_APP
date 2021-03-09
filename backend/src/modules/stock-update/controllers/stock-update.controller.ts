@@ -46,6 +46,7 @@ export class StockUpdateController {
     return plainToClass(StockUpdateDTO,stUp);
   }
   
+  /*
   @Delete(':id')
   @Roles(EUserRoles.ADMIN)
   async remove(@Param('id') id: number) {
@@ -54,5 +55,5 @@ export class StockUpdateController {
     await this.stockUpdateService.remove(+id);
     return [];
   }
-
+  */
 }

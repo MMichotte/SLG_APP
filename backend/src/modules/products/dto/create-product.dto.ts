@@ -28,16 +28,14 @@ export class CreateProductDTO {
   @IsNotEmpty()
   salePriceTTC: number;
 
-  @ApiProperty()
-  @IsNumber()
-  @IsNotEmpty()
-  quantity: number;
-
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
   note?: string;
 
+  quantity = 0;
+  
   createdAt?: Date = new Date();
   updatedAt?: Date = new Date();
+
 }

@@ -1,5 +1,5 @@
 import { SimpleStockUpdateDTO } from './../../stock-update/dto/simple-stock-update.dto';
-import { Body, Controller, Get, NotFoundException, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, InternalServerErrorException, NotFoundException, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { Roles } from '../../../core/decorators/roles.decorator';
@@ -13,6 +13,7 @@ import { CreateStockUpdateDTO } from '../../../modules/stock-update/dto/create-s
 import { UpdateStockUpdateDTO } from '../../../modules/stock-update/dto/update-stock-update.dto';
 import { Product } from '../entities/product.entity';
 import { ProductsService } from '../services/products.service';
+import { UpdateProductDTO } from '../dto/update-product.dto';
 
 @Controller('products')
 @UseGuards(RolesGuard)
@@ -45,13 +46,21 @@ export class ProductsStockUpdateController {
     type: SimpleStockUpdateDTO,
   })
   async create(@Param('id') id: number, @Body() createStUp: CreateStockUpdateDTO): Promise<SimpleStockUpdateDTO>  {
+    // Create Stock-update
     const product: Product = await this.productsService.findOneById(id);
     if (!product) throw new NotFoundException;
     createStUp.product = product;
     const createdStUp: StockUpdate = await this.stockUpdateService.create(createStUp);
+    // Update product quantity:
+    const updProd: UpdateProductDTO = plainToClass(UpdateProductDTO,product);
+    updProd.quantity += createStUp.quantity;
+    const updatedProduct = await this.productsService.update(id, updProd);
+    if (!updatedProduct) throw new InternalServerErrorException; //TODO -> better exception!
+
     return plainToClass(SimpleStockUpdateDTO,createdStUp);
   }
 
+  /*
   @Patch(':prodId/stock-updates/:id')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
   @ApiResponse({
@@ -67,4 +76,5 @@ export class ProductsStockUpdateController {
     updatedStUp.id = id;
     return plainToClass(SimpleStockUpdateDTO,updatedStUp);
   }
+  */
 }

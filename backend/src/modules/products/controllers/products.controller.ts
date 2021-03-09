@@ -72,11 +72,12 @@ export class ProductsController {
     if (product == undefined) throw new NotFoundException;
     const existingProd: Product = await this.productsService.findOneByRef(updateProductDto.reference);
     if (existingProd) if (existingProd.id !== product.id) throw new ConflictException;
+    updateProductDto.quantity = product.quantity;
     const updatedProduct: Product = await this.productsService.update(id, updateProductDto);
     updatedProduct.id = id;
     return plainToClass(SimpleProductDTO,updatedProduct);
   }
-
+  
   @Delete(':id')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
   async remove(@Param('id') id: number) {

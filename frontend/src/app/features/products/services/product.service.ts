@@ -27,4 +27,8 @@ export class ProductService {
   delete (id: number): any {
     return this.httpClient.delete(`${this.endpoint}/${id}`);
   }
+
+  getAllStockUpdates(id: number): any {
+    return this.httpClient.get(`${this.endpoint}/${id}/stock-updates`);
+  }
 }

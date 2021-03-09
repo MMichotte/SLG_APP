@@ -1,0 +1,43 @@
+.content {
+  display: flex;
+  flex-direction: column;
+
+  > * {
+    margin: 1rem 0;
+  }
+
+  .product-general-panel {
+    
+    .product-general {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    
+      > div {
+        margin: 0 1rem;
+      }  
+      
+      .inline {
+        display: flex;
+        margin: 0.5rem 0;
+      
+        div:first-child {
+          width: 10rem;
+          font-weight: 800;
+        }
+      }
+
+      #note {
+        font-weight: 800;
+      }
+    }
+  }
+
+  .worksheets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+  }
+
+}

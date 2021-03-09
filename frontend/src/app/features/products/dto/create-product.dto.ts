@@ -4,6 +4,5 @@ export class CreateProductDTO {
   purchasePriceHT: number;
   salePriceHT: number;
   salePriceTTC: number;
-  quantity: number;
   note?: string;
 }

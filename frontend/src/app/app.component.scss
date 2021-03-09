@@ -11,6 +11,7 @@ $expandedWidth: 12rem;
   .main-content {
     transition: margin-left 450ms ease;
     margin-left: $baseWidth;
+    flex-grow: 1;
   }
 
 }
@@ -18,5 +19,6 @@ $expandedWidth: 12rem;
 .main-container.expanded {
   .main-content {
     margin-left: $expandedWidth;
+    flex-grow: 1;
   }
 }

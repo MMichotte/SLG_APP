@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+
+  slg-db:
+    image: postgres:12.6
+    container_name: slg-db
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    env_file:
+      - ./database/slg_db.env
+    networks:
+      slg-network:
+        ipv4_address: 192.168.10.5
+
+  slg-app:
+    depends_on: 
+      - slg-db
+    image: node:14.15.1
+    container_name: slg-app
+    restart: unless-stopped
+    volumes:
+      - ./www:/var/www
+    ports:
+      - 80:8080
+    networks:
+      slg-network:
+        ipv4_address: 192.168.10.6
+    command: bash -c "cd /var/www && npm i --prod && node ./dist/src/main"
+
+#--------------------
+
+networks:
+
+    slg-network:
+      driver: bridge
+      ipam:
+        config:
+          - subnet: 192.168.10.0/24
+            gateway: 192.168.10.1
