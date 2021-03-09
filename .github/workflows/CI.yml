@@ -1,98 +1,104 @@
 name: Continuous Integration
 on: 
   push:
-    branches-ignore:
-      - '**'
-    #branches:
-    #  - master
-    #paths:
-    #  - 'backend/**'
-    #  - 'frontend/**'
+    branches:
+      - master
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
 
 env:
   node-version: 14.15.1
-      
+
 jobs:
+
   unit-tests-frontend:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-        - name: Setup Node ${{ env.node-version }}
-          uses: actions/setup-node@v1
-          with:
-            node-version: ${{ env.node-version }}
-        - name: npm install
-          working-directory: ./frontend
-          run: |
-            npm install
-        - name: run tests
-          working-directory: ./frontend
-          run: |
-            npm run test:unit:headless
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node ${{ env.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.node-version }}
+      - name: npm install
+        working-directory: ./frontend
+        run: |
+          npm install
+      - name: run tests
+        working-directory: ./frontend
+        run: |
+          npm run test:unit:headless
   
   unit-tests-backend:
-      runs-on: ubuntu-latest
-      env:
-        JWT_PRIVATE_KEY: ${{secrets.JWT_PRIVATE_KEY}}
-      steps:
-        - uses: actions/checkout@v2
-        - name: Setup Node ${{ env.node-version }}
-          uses: actions/setup-node@v1
-          with:
-            node-version: ${{ env.node-version }}
-        - name: npm install
-          working-directory: ./backend
-          run: |
-            npm install
-        - name: run tests
-          working-directory: ./backend
-          run: |
-            npm run test
+    runs-on: ubuntu-latest
+    env:
+      JWT_PRIVATE_KEY: ${{secrets.JWT_PRIVATE_KEY}}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node ${{ env.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ env.node-version }}
+      - name: npm install
+        working-directory: ./backend
+        run: |
+          npm install
+      - name: run tests
+        working-directory: ./backend
+        run: |
+          npm run test
   
-  build-to-Heroku:
+  Build-and-send-to-VPS:
     runs-on: ubuntu-latest
     needs: [unit-tests-frontend, unit-tests-backend]
     steps:
       - uses: actions/checkout@v2
-      - name: Node ${{ env.node-version }}
+      - name: Setup Node ${{ env.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ env.node-version }}
 
-      - name: npm install
-        working-directory: ./
+      - name: Build application
+        working-directory: .
         run: |
-          cd ./backend && npm install
-          cd ../frontend && npm install
-      - name: build frontend & move to backend
-        working-directory: ./frontend
+          chmod +x .build.sh
+          ./.build.sh
+
+      - name: create .env files
         run: |
-          npm run build --prod
-          mkdir ../backend/public
-          mv ./dist ../backend/public
-      - name: replace backend .gitignore 
-        working-directory: ./
+          touch ./app/www/.env
+          echo "NODE_ENV=prod" >> ./app/www/.env
+          echo "PORT=8080" >> ./app/www/.env
+          echo "JWT_PRIVATE_KEY="${{secrets.JWT_PRIVATE_KEY}} >> ./app/www/.env
+          echo "TOKEN_EXPIRATION=48h" >> ./app/www/.env
+          echo "RPI_DATABASE_URL="${{secrets.DATABASE_URL}} >> ./app/www/.env
+          touch ./app/database/.env
+          echo "POSTGRES_USER="${{secrets.POSTGRES_USER}} >> ./app/database/.env
+          echo "POSTGRES_PASSWORD="${{secrets.POSTGRES_PASSWORD}} >> ./app/database/.env
+          echo "POSTGRES_DB="${{secrets.POSTGRES_DB}} >> ./app/database/.env
+
+      - name: Add docker-compose and caddy file to app
         run: |
-          rm ./backend/.gitignore
-          cp .gitignore ./backend
+          cp ./docker/docker-compose.yml ./app
+          cp ./docker/caddy/Caddyfile ./app/caddy
           
-      - name: Commit changes
-        working-directory: ./
-        run: |
-          git config --global user.name "MMichotte"
-          git config --global user.email "martin.michotte@gmail.com"
-          git add .
-          git commit -m "passed tests & build"
-    
-      - uses: akhileshns/heroku-deploy@v3.6.8
+      - name: Copy app folder content to remote
+        uses: garygrossgarten/github-action-scp@release
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "slg-app"
-          heroku_email: "martin.michotte@gmail.com"
-          appdir: "backend"
-        env:
-          HD_NODE_ENV: "prod"
-          HD_JWT_PRIVATE_KEY: ${{secrets.JWT_PRIVATE_KEY}}
-          HD_TOKEN_EXPIRATION: "48h"
-          HD_RPI_DATABASE_URL: ${{secrets.RPI_DB}}
-          
+          local: app
+          remote: slg-app
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT}}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+
+      - name: Restart services
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          port: ${{ secrets.VPS_PORT}}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          script: |
+            cd slg-app
+            docker-compose down && docker-compose up -d
