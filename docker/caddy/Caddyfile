@@ -1,0 +1,7 @@
+{
+  email martin.michotte@gmail.com
+}
+
+app.slgcars.be {
+  reverse_proxy 192.168.10.6:8080
+}

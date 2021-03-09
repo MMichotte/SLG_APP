@@ -5,6 +5,7 @@ mkdir ./app
 mkdir ./app/www
 mkdir ./app/www/public
 mkdir ./app/database
+mkdir ./app/caddy
 
 echo -e "\n\033[32m2. Building frontend\033[0m"
 cd ./frontend 

@@ -1,11 +1,13 @@
-name: Continous Integration
+name: Continuous Integration
 on: 
   push:
-    branches:
-      - master
-    paths:
-      - 'backend/**'
-      - 'frontend/**'
+    branches-ignore:
+      - '**'
+    #branches:
+    #  - master
+    #paths:
+    #  - 'backend/**'
+    #  - 'frontend/**'
 
 env:
   node-version: 14.15.1
