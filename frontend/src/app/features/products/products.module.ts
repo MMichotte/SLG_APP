@@ -12,6 +12,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ButtonModule } from 'primeng/button';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { DropdownModule } from 'primeng/dropdown';
 import { PanelModule } from 'primeng/panel';
 import { DynamicDialogModule, DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductsRoutingModule } from './products-routing.module';
@@ -30,6 +31,7 @@ import { StockUpdateFormComponent } from './components/stock-update-form/stock-u
     InputTextModule,
     ButtonModule,
     SelectButtonModule,
+    DropdownModule,
     InputNumberModule,
     InputTextareaModule,
     PanelModule,

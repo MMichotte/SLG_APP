@@ -23,6 +23,8 @@
       
         div:first-child {
           width: 10rem;
+        }
+        div:last-child {
           font-weight: 800;
         }
       }
@@ -30,6 +32,22 @@
       #note {
         font-weight: 800;
       }
+    }
+  }
+
+  .product-history {
+    .manual-update{
+      background-color: rgba(150, 200, 250, 0.1);
+    }
+
+    .addition {
+      color: green;
+      font-weight: 500;
+    }
+
+    .deletion {
+      color: orange;
+      font-weight: 500;
     }
   }
 

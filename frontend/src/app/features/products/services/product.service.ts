@@ -1,3 +1,4 @@
+import { CreateStockUpdateDTO } from './../dto/create-stock-update.dto';
 import { CreateProductDTO } from './../dto/create-product.dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -30,5 +31,9 @@ export class ProductService {
 
   getAllStockUpdates(id: number): any {
     return this.httpClient.get(`${this.endpoint}/${id}/stock-updates`);
+  }
+  
+  createStockUpdate(id:number, dto: CreateStockUpdateDTO): any {
+    return this.httpClient.post(`${this.endpoint}/${id}/stock-updates`, dto);
   }
 }

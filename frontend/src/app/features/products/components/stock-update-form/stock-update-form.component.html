@@ -1,1 +1,24 @@
-<p>stock-update-form works!</p>
+<form [formGroup]="stockUpdateForm" (ngSubmit)="submitForm()">
+  <div class="p-grid p-formgrid p-fluid">
+    <div class="p-col-12 p-mb-3">
+      <label for="quantity">Add/remove quantity</label>
+      <p-inputNumber id="quantity" [showButtons]="true" formControlName="quantity"></p-inputNumber>
+    </div>
+
+    <div class="p-col-12 p-mb-3">
+      <label for="quantity">Update reason</label>
+      <p-dropdown appendTo="body" [options]="type" optionLabel="value" optionValue="value" formControlName="type" placeholder="Select Type"></p-dropdown>
+    </div>
+
+    <div class="p-col-12 p-mb-3">
+      <label for="note">Note</label>
+      <textarea id="note" pInputTextarea formControlName="note" [rows]="5" autoResize="autoResize"></textarea>
+    </div>
+  </div>
+
+  <footer class="p-grid">
+    <button pButton pRipple type="button" label="Cancel" class="p-button-secondary" (click)="ref.close()"></button>
+    <button pButton pRipple type="submit" icon="pi pi-save" label="Save"
+      [disabled]="stockUpdateForm.invalid"></button>
+  </footer>
+</form>

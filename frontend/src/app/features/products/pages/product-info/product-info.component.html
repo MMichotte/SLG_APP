@@ -1,6 +1,8 @@
 <div class="page">
   <h1>PRODUCT INFORMATION</h1>
 
+  <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-sm p-button-info" (click)="router.navigate(['products']);"></button>
+
   <div class="content" *ngIf="product">
 
     <p-panel class="product-general-panel" header="General information" [toggleable]="true">
@@ -57,7 +59,7 @@
         </div>
         <div>
           <div id="note">Note:</div>
-          <textarea pInputTextarea [rows]="5" [cols]="40" disabled="true">{{product?.note}}</textarea>
+          <textarea pInputTextarea [rows]="5" [cols]="40" disabled="true" autoResize="autoResize">{{product?.note}}</textarea>
         </div>
       </div>
     </p-panel>
@@ -76,8 +78,12 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
-          <tr [pSelectableRow]="rowData">
-            <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+          <tr [ngClass]="{'manual-update': rowData.type != null}">
+            <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}"
+            [ngClass]="{
+              'addition': (col.field === 'quantity' && rowData[col.field] > 0),
+              'deletion': (col.field === 'quantity' && rowData[col.field] < 0)
+            }">
               {{rowData[col.field]}}
             </td>
           </tr>
@@ -86,10 +92,11 @@
       </p-table>
     </p-panel>
 
+    <!--
     <div class="worksheets">
       <p-panel class="product-current-worksheets" header="Current worksheets"></p-panel>
       <p-panel class="product-all-worksheets" header="All worksheets"></p-panel>
     </div>
-
+    -->
   </div>
 </div>

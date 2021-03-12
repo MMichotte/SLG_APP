@@ -7,6 +7,7 @@ import { Product } from '../../models/product.model';
 import { EToastSeverities } from 'src/app/core/enums/toast-severity.enum';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { StockUpdateFormComponent } from '../stock-update-form/stock-update-form.component';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-form',
@@ -60,17 +61,26 @@ export class ProductFormComponent implements OnInit, OnChanges {
   }
 
   async submitForm (): Promise<void> {
-    const product: Product = this.productForm.value;
+    const product: Product = new Product(this.productForm.value);
     delete product.availableQuantity;
     delete product.margin;
     if (this.isUpdate) {
       // update
       if (product.quantity !== this.currentProduct.quantity) {
-        const quantUpdated = await this.showStockUpdateModal();
-        if (!quantUpdated) {
+        const quantUpdated = await this.showStockUpdateModal(product.quantity - this.currentProduct.quantity);
+        if (quantUpdated === -1) {
           this.toast.show(EToastSeverities.ERROR, 'An error occurred. The product was not updated');
           return;
+        } else if (quantUpdated === 0) {
+          product.quantity = this.currentProduct.quantity; // reset quant for next check! -> if the quant was changed it will be set in the backend
+          this.productForm.controls.quantity.setValue(product.quantity);
+          this.calcAvailableQuant();
         }
+        
+      }
+      if (product.equals(this.currentProduct)) {
+        this.toast.show(EToastSeverities.INFO, 'Nothing to update!');
+        return;
       }
       this.productService.update(this.currentProduct.id, product).subscribe(
         (res: any) => {
@@ -101,27 +111,19 @@ export class ProductFormComponent implements OnInit, OnChanges {
     }
   }
 
-  async showStockUpdateModal(): Promise<boolean> {
-    const ref2 = this.dialogService.open(StockUpdateFormComponent, {
+  async showStockUpdateModal(quantityDiff: number): Promise<number> {
+    const ref = this.dialogService.open(StockUpdateFormComponent, {
       header: 'Update Quantity',
-      width: '50%'
+      data: {
+        quantityDiff: quantityDiff,
+        prodId: this.currentProduct.id
+      },
+      width: '30%'
     });
-    ref2.onClose.subscribe((stockId?: boolean) => {
-      console.log('ok');
-      if (stockId) this.refreshTable.emit();
-    });
-    //! NOT WORKING
-    return ref2.onClose.toPromise()
-      .then((res: any) => {
-        console.log('promise resolved');
-        console.log(res);
-        return true;
-      })
-      .catch((error: any) => {
-        console.log('nok');
-        console.log(error);
-        return false;
-      });    
+    const dialogResp: any = await ref.onClose.pipe(take(1)).toPromise();
+    if (!dialogResp) return 0; // quant update canceled
+    else if (dialogResp === -1) return -1; // quant update failed
+    return 1; // quant update succeeded
   }
   
   async deleteProduct (): Promise<void> {

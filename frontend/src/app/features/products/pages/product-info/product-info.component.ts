@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation, ɵɵtrustConstantResourceUrl } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../../models/product.model';
+import { ProductTransaction } from '../../models/product-transaction.model';
 import { ProductService } from '../../services/product.service';
 
 @Component({
@@ -12,19 +13,18 @@ import { ProductService } from '../../services/product.service';
 export class ProductInfoComponent implements OnInit {
 
   product: Product;
-  transactions: any[] = [];
-
+  transactions: ProductTransaction[] = [];
+  
   transactionCols: any[];
   loadingData: boolean;
 
   constructor(
     private readonly productService: ProductService,
-    private readonly router: Router,
+    public readonly router: Router,
     private readonly cd: ChangeDetectorRef
   ) { 
     try {
       this.product = this.router.getCurrentNavigation().extras.state.product;
-      this.getStockUpdates();
     } catch (e) {
       console.log(e);
       this.router.navigate(['products']);
@@ -32,21 +32,29 @@ export class ProductInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getStockUpdates();
     this.transactionCols = [
       { field: 'updatedAt', header: 'Date' },
-      { field: 'id', header: 'Bill n°' },
+      { field: 'billId', header: 'Bill n°' },
       { field: 'type', header: 'Type' },
-      { field: 'quantity', header: 'Total quantity' },
+      { field: 'quantity', header: 'Quantity' },
       { field: 'price', header: 'Price' },
       { field: 'note', header: 'Note' }
     ];
   }
 
   getStockUpdates(): void {
+    this.loadingData = true;
     this.productService.getAllStockUpdates(this.product.id).subscribe(
       (res: any) => {
-        console.log(res);
-        // this.cd.detectChanges();
+        res.map((tr: any) => { 
+          tr.updatedAt = tr.updatedAt.split('T')[0];
+          tr.quantity = (tr.quantity > 0) ? `+${tr.quantity}` : tr.quantity;
+          return tr;
+        });
+        this.transactions = [...this.transactions, ...res];
+        this.cd.detectChanges();
+        this.loadingData = false;
       },
       (error: any) => {
         console.log(error);
