@@ -29,7 +29,6 @@ export class ProductsController {
   })
   async findAll(): Promise<ProductDTO[]> {
     let products: Product[] = await this.productsService.findAll();
-    //TODO calc reserved quant based on active worksheets
     products = products.map( (p: any) => {
       p.reservedQuantity = 0; //TODO calc reserved quant based on active worksheets
       return p;

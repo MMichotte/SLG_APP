@@ -1,6 +1,6 @@
 import { EStockUpdateType } from './../enums/stock-update-type.enum';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 
 @Exclude()
 export class StockUpdateDTO {
@@ -10,6 +10,7 @@ export class StockUpdateDTO {
   id: number;
   
   @Expose()
+  @Transform(({ obj }) => obj.product.id)
   @ApiProperty()
   productId: number;
 
@@ -24,5 +25,8 @@ export class StockUpdateDTO {
   @Expose()
   @ApiPropertyOptional()
   note?: string;
-
+  
+  @Expose()
+  @ApiProperty()
+  updatedAt: Date;
 }

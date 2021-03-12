@@ -1,7 +1,7 @@
 import { ProductsService } from './../../products/services/products.service';
 import { StockUpdate } from './../entities/stock-update.entity';
 import { StockUpdateDTO } from './../dto/stock-update.dto';
-import { Controller, Get, Param, UseGuards, NotFoundException, Delete } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards, Delete } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../core/guards/roles.guard';
