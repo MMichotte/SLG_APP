@@ -10,4 +10,13 @@
       margin: 0 0.5rem;
     }
   }
+
+  .dialog-flex {
+    display: flex;
+    flex-direction: column;
+    
+    > div {
+      width: 100%;
+    }
+  }
 }

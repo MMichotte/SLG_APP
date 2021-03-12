@@ -66,7 +66,7 @@ export class ProductsComponent implements OnInit {
   showNewProductModal(): void {
     const ref = this.dialogService.open(ProductFormComponent, {
       header: 'New Product',
-      width: '80%'
+      width: '50%'
     });
     ref.onClose.subscribe((prodId?: boolean) => {
       if (prodId) this.refreshProducts();
