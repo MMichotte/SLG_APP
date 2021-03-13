@@ -30,5 +30,6 @@ echo -e "\n\033[32m3. Adding configuration files\033[0m"
 cd ..
 cp ./docker/docker-compose.yml ./app
 cp ./docker/caddy/Caddyfile ./app/caddy
+cp -r ./vps-config/backups ./app
 
 echo -e "\n\033[42m Done! \033[0m\n"
