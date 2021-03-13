@@ -5,12 +5,12 @@ import { ProductTransaction } from '../../models/product-transaction.model';
 import { ProductService } from '../../services/product.service';
 
 @Component({
-  selector: 'app-product-info',
-  templateUrl: './product-info.component.html',
-  styleUrls: ['./../../../style.scss', './product-info.component.scss'],
+  selector: 'app-product-detail',
+  templateUrl: './product-detail.component.html',
+  styleUrls: ['./../../../style.scss', './product-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ProductInfoComponent implements OnInit {
+export class ProductDetailComponent implements OnInit {
 
   product: Product;
   transactions: ProductTransaction[] = [];

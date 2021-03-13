@@ -1,7 +1,7 @@
 import { SharedModule } from './../../shared/shared.module';
 import { ToastService } from './../../core/services/toast.service';
 import { ProductsComponent } from './pages/products-list/products.component';
-import { ProductInfoComponent } from './pages/product-info/product-info.component';
+import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ProductService } from './services/product.service';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +21,7 @@ import { ConfirmDialogService } from '../../core/services/confirm-dialog.service
 import { StockUpdateFormComponent } from './components/stock-update-form/stock-update-form.component';
 
 @NgModule({
-  declarations: [ProductsComponent, ProductFormComponent, ProductInfoComponent, StockUpdateFormComponent],
+  declarations: [ProductsComponent, ProductFormComponent, ProductDetailComponent, StockUpdateFormComponent],
   imports: [
     CommonModule,
     SharedModule,
