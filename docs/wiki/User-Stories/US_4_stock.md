@@ -166,7 +166,11 @@ body    :
 
 ---
 
+<!--us-->
+<!--title-->
 ### (ST06) Consulter récapitulatif entrée/sortie d'un article
+<!--/title-->
+<!--description-->
 > En tant qu'utilisateur j'aimerais pouvoir consulter un récapitulatif des entrées/sorties de stock de cet article.
 
 Pour chaque ligne, les éléments suivant doivent apparaître: 
@@ -174,7 +178,9 @@ Pour chaque ligne, les éléments suivant doivent apparaître:
   - n° de la facture (client ou fournisseur) associée 
   - Prix d'achat/vente 
   - Date de l'ajout
-  
+<!--/description-->
+<!--/us-->
+
 ---
 
 <!--us-->

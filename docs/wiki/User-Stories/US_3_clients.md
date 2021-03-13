@@ -1,16 +1,32 @@
 ## Clients (CL)
 
+<!--us-->
+<!--title-->
 ### (CL01) Onglet Clients
+<!--/title-->
+<!--description-->
 > En tant qu'utilisateur j'aimerais avoir un onglet `Clients` afin de pouvoir y gérer tout ce qui concerne mes données clients. 
+<!--/description-->
+<!--/us-->
 
 ---
 
+<!--us-->
+<!--title-->
 ### (CL02) Consulter liste clients
+<!--/title-->
+<!--description-->
 > En tant qu'utilisateur j'aimerais pouvoir consulter une liste des clients enregistrés sous forme d'un tableau afin d'avoir un résumé des informations de chaque client.
+<!--/description-->
+<!--/us-->
 
 ---
 
+<!--us-->
+<!--title-->
 ### (CL03) Ajout nouveau client
+<!--/title-->
+<!--description-->
 > En tant qu'utilisateur j'aimerais pouvoir ajouter un nouveau client et encoder les informations ci-dessous afin de pouvoir créer une fiche-client de celui-ci.
 
 informations à encoder :
@@ -23,11 +39,19 @@ informations à encoder :
   - Email 
   - Tel Fixe
   - Tel Portable 
+<!--/description-->
+<!--/us-->
 
 ---
 
+<!--us-->
+<!--title-->
 ### (CL04) Consulter/modifier détail d'un client
+<!--/title-->
+<!--description-->
 > En tant qu'utilisateur j'aimerais pouvoir double-cliquer sur un client afin de pouvoir consulter et modifier toutes ses informations.
+<!--/description-->
+<!--/us-->
 
 ---
 
@@ -73,12 +97,24 @@ informations à encoder :
 
 ---
 
+<!--us-->
+<!--title-->
 ### (CL09) Rechercher un client 
-> En tant qu'utilisateur j'aimerais pouvoir rechercher un client sur base de critères tel que le nom, le prénom, la société, n° de TVA et l'adresse email afin de pouvoir retrouver plus facilement un client en particulier.
+<!--/title-->
+<!--description-->
+> En tant qu'utilisateur j'aimerais pouvoir rechercher un client sur base de critères tel que le nom, le prénom, la société, n° de TVA et l'adresse email afin de pouvoir retrouver plus facilement un client en particulier. 
+<!--/description-->
+<!--/us-->
 
 ---
-  
+
+<!--us-->
+<!--title-->
 ### (CL10) Supprimer un client
+<!--/title-->
+<!--description-->
 > En tant qu'utilisateur j'aimerais pouvoir supprimer un client de manière définitive afin de ne pas encombrer la liste des clients avec des clients dont je n'ai plus besoin de garder une trâce.
+<!--/description-->
+<!--/us-->
 
 ---
