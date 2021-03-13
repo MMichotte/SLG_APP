@@ -25,7 +25,6 @@ export class StockUpdate {
   @ManyToOne(() => Product, {nullable: false})
   @JoinColumn({ name: 'id_product' })
   product: Product;
-
   productId: number;
 
 }

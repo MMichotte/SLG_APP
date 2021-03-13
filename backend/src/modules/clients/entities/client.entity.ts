@@ -1,0 +1,42 @@
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne, Index } from 'typeorm';
+import { ECivility } from './../enums/ECivility.enum';
+import { Address } from './../../adresses/entities/address.entity';
+
+@Entity({ name: 'client' })
+export class Client {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column({name: 'civility', type: 'enum', enum: ECivility})
+  civility: ECivility;
+
+  @Column({name: 'first_name', type: 'varchar', length: 255})
+  firstName: string;
+  
+  @Column({name: 'last_name', type: 'varchar', length: 255})
+  @Index()
+  lastName: string;
+  
+  @Column({name: 'email', type: 'varchar', length: 255, unique: true})
+  @Index()
+  email: string;
+  
+  @Column({name: 'phone', type: 'varchar', length: 255, nullable: true})
+  phone?: string;
+  
+  @Column({name: 'mobile', type: 'varchar', length: 255, nullable: true})
+  mobile?: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @OneToOne(() => Address, {nullable: true, cascade: ['insert', 'update'], onDelete: 'CASCADE'})
+  @JoinColumn({ name: 'id_address' })
+  address?: Address;
+
+  addressId?: number;
+
+}
