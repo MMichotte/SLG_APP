@@ -20,6 +20,7 @@ sudo timedatectl set-timezone $TZ
 sudo useradd -m $NEW_USER
 sudo passwd $NEW_USER 
   #! Enter new pwd ...
+sudo usermod --shell /bin/bash $NEW_USER
 sudo usermod -a -G sudo,netdev,docker $NEW_USER
 
 # Switching user
@@ -27,9 +28,9 @@ sudo su $NEW_USER
   #! Enter pwd ...
 
 ## Changing default ssh port and removing root access:
-sudo echo "Port 62222" >> /etc/ssh/sshd_config
-sudo echo "PermitRootLogin no" >> /etc/ssh/sshd_config
-sudo echo "StrictModes yes" >> /etc/ssh/sshd_config
+echo "Port 62222" | sudo tee -a /etc/ssh/sshd_config
+echo "PermitRootLogin no" | sudo tee -a /etc/ssh/sshd_config
+echo "StrictModes yes" | sudo tee -a /etc/ssh/sshd_config
 sudo systemctl restart sshd
 
 ## Adding fail2ban 
