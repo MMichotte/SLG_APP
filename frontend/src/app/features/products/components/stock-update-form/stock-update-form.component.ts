@@ -29,7 +29,7 @@ export class StockUpdateFormComponent implements OnInit {
   ngOnInit(): void {
     this.stockUpdateForm = new FormGroup({
       type: new FormControl(null, Validators.required),
-      quantity: new FormControl(this.config.data.quantityDiff, Validators.required),
+      quantity: new FormControl(this.config.data?.quantityDiff, Validators.required),
       note: new FormControl('')
     });
   }
