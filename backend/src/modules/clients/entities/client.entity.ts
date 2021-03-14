@@ -33,7 +33,7 @@ export class Client {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => Address, {nullable: true, cascade: ['insert', 'update'], onDelete: 'CASCADE'})
+  @OneToOne(() => Address, {nullable: true, cascade: ['insert', 'update']})
   @JoinColumn({ name: 'id_address' })
   address?: Address;
 

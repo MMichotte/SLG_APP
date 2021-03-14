@@ -3,6 +3,7 @@ import { CreateClientDTO } from './../dto/create-client.dto';
 import { ClientRepository } from './../repositories/client.repository';
 import { Injectable } from '@nestjs/common';
 import { Client } from '../entities/client.entity';
+import { Not } from 'typeorm';
 
 @Injectable()
 export class ClientsService {
@@ -16,11 +17,15 @@ export class ClientsService {
   }
 
   findOneById(id: number): Promise<Client> {
-    return this.clientRepository.findOne({ where: { id } });
+    return this.clientRepository.findOne({ where: { id }, relations: ['address'] });
   }
 
   findOneByEmail(email: string): Promise<Client> {
-    return this.clientRepository.findOne({ where: { email } });
+    return this.clientRepository.findOne({ where: { email }, relations: ['address'] });
+  }
+  
+  findOtherByEmail(myId: number, email: string): Promise<Client> {
+    return this.clientRepository.findOne({ where: { email, id: Not(myId) }, relations: ['address'] });
   }
 
   create(client: CreateClientDTO): Promise<Client> {

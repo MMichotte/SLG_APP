@@ -44,7 +44,7 @@ export class Company {
   client: Client;
   clientId: number;
 
-  @OneToOne(() => Address, {nullable: true, cascade: ['insert', 'update'], onDelete: 'CASCADE'})
+  @OneToOne(() => Address, {nullable: true,  cascade: ['insert', 'update']})
   @JoinColumn({ name: 'id_address' })
   address: Address;
   addressId: number;

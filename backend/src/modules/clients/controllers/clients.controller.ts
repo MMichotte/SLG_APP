@@ -1,3 +1,4 @@
+import { AddressesService } from './../../adresses/services/addresses.service';
 import { UpdateClientDTO } from './../dto/update-client.dto';
 import { CreateClientDTO } from './../dto/create-client.dto';
 import { SimpleClientDTO } from './../dto/simple-client.dto';
@@ -9,8 +10,9 @@ import { ClientsService } from '../services/clients.service';
 import { ClientDTO } from './../dto/client.dto';
 import { Client } from '../entities/client.entity';
 import { plainToClass } from 'class-transformer';
-import { JwtAuthGuard } from 'src/core/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/core/guards/roles.guard';
+import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../core/guards/roles.guard';
+import { Address } from '../../adresses/entities/address.entity';
 
 @Controller('clients')
 @UseGuards(RolesGuard)
@@ -18,7 +20,10 @@ import { RolesGuard } from 'src/core/guards/roles.guard';
 @ApiTags('clients')
 @ApiBearerAuth()
 export class ClientsController {
-  constructor(private readonly clientsService: ClientsService) {}
+  constructor(
+    private readonly clientsService: ClientsService,
+    private readonly addressService: AddressesService
+  ) {}
 
   @Get()
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
@@ -65,8 +70,24 @@ export class ClientsController {
   async update(@Param('id') id: number, @Body() dto: UpdateClientDTO): Promise<SimpleClientDTO>  {
     const existingClient: Client = await this.clientsService.findOneById(id);
     if (!existingClient) throw new NotFoundException;
+    const emailConflict = await this.clientsService.findOtherByEmail(id, dto.email);
+    if (emailConflict) throw new ConflictException;
+
+    if (existingClient.address && dto.address) {
+      //update address
+      const addr: Address = await this.addressService.findOneById(existingClient.address.id);
+      for (const [prop, val] of Object.entries(dto.address)){
+        addr[prop] = val;
+      }
+      await this.addressService.update(addr.id, addr);
+    } else if (!existingClient.address && dto.address) {
+      //create address
+      const addrId = await this.addressService.create(dto.address);
+      dto.address = addrId;
+    }
     const updatedClient: Client = await this.clientsService.update(id, dto);
     updatedClient.id = id;
+    
     return plainToClass(SimpleClientDTO,updatedClient);
   }
 
@@ -75,6 +96,8 @@ export class ClientsController {
   async remove(@Param('id') id: number) {
     const client: Client | undefined = await this.clientsService.findOneById(id);
     if (client == undefined) throw new NotFoundException;
-    return this.clientsService.remove(id);
+    this.clientsService.remove(id);
+    if (client.address) this.addressService.remove(client.address.id);
+    return [];
   }
 }

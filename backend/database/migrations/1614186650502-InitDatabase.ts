@@ -21,9 +21,9 @@ export class InitDatabase1614186650502 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "user" ("id" SERIAL NOT NULL, "first_name" character varying(255) NOT NULL, "last_name" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "password" character varying NOT NULL, "role" "user_role_enum" NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_e12875dfb3b1d92d7d7c5377e22" UNIQUE ("email"), CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "workforce" ("id" SERIAL NOT NULL, "label" character varying(255) NOT NULL, "price_HT" numeric NOT NULL, "price_TTC" numeric NOT NULL, "note" text, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_0284a6d21d24b590cb1ab29d684" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE INDEX "IDX_6abc4ccb7388a55e23d28284bb" ON "workforce" ("label") `);
-        await queryRunner.query(`ALTER TABLE "client" ADD CONSTRAINT "FK_636f7d7df571a8731f1b6bc5778" FOREIGN KEY ("id_address") REFERENCES "address"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "client" ADD CONSTRAINT "FK_636f7d7df571a8731f1b6bc5778" FOREIGN KEY ("id_address") REFERENCES "address"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "company" ADD CONSTRAINT "FK_b43ddae06306ffdcadfbe964925" FOREIGN KEY ("id_client") REFERENCES "client"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-        await queryRunner.query(`ALTER TABLE "company" ADD CONSTRAINT "FK_f91edb8e73faf3ead32d4b90b74" FOREIGN KEY ("id_address") REFERENCES "address"("id") ON DELETE CASCADE ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "company" ADD CONSTRAINT "FK_f91edb8e73faf3ead32d4b90b74" FOREIGN KEY ("id_address") REFERENCES "address"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "stock_update" ADD CONSTRAINT "FK_16927d5c7f51cb9dcd522701f9f" FOREIGN KEY ("id_product") REFERENCES "product"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
     }
 

@@ -3,6 +3,8 @@ import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateAddressDTO {
   
+  id?: number;
+  
   @ApiProperty()
   @IsString()
   @IsNotEmpty()

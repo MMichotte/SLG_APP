@@ -1,7 +1,10 @@
+import { ClientDTO } from './../../clients/dto/client.dto';
+import { AddressDTO } from './../../adresses/dto/address.dto';
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Address } from 'node:cluster';
 import { Client } from 'src/modules/clients/entities/client.entity';
+import { IsOptional } from 'class-validator';
 
 @Exclude()
 export class CompanyDTO {
@@ -27,26 +30,32 @@ export class CompanyDTO {
 
   @Expose()
   @ApiPropertyOptional()
+  @IsOptional()
   phone1: string;
   
   @Expose()
   @ApiPropertyOptional()
+  @IsOptional()
   phone2: string;
 
   @Expose()
   @ApiPropertyOptional()
+  @IsOptional()
   mobile: string;
   
   @Expose()
   @ApiPropertyOptional()
+  @IsOptional()
   website: string;
 
   @Expose()
-  @ApiPropertyOptional()
-  client: Client;
+  @ApiPropertyOptional({type: ClientDTO})
+  @IsOptional()
+  client: ClientDTO;
 
   @Expose()
-  @ApiPropertyOptional()
-  address: Address;
+  @ApiPropertyOptional({type: AddressDTO})
+  @IsOptional()
+  address: AddressDTO;
   
 }

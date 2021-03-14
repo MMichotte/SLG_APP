@@ -1,7 +1,9 @@
+import { AddressDTO } from './../../adresses/dto/address.dto';
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ECivility } from '../enums/ECivility.enum';
-import { Address } from 'node:cluster';
+import { Address } from '../../adresses/entities/address.entity';
+import { IsOptional } from 'class-validator';
 
 @Exclude()
 export class ClientDTO {
@@ -27,14 +29,17 @@ export class ClientDTO {
 
   @Expose()
   @ApiPropertyOptional()
+  @IsOptional()
   phone: string;
 
   @Expose()
   @ApiPropertyOptional()
+  @IsOptional()
   mobile: string;
 
   @Expose()
-  @ApiPropertyOptional()
-  address: Address;
+  @ApiPropertyOptional({type: AddressDTO})
+  @IsOptional()
+  address: AddressDTO;
   
 }
