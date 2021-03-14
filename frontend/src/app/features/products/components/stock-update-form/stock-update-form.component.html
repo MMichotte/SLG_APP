@@ -1,12 +1,12 @@
 <form [formGroup]="stockUpdateForm" (ngSubmit)="submitForm()">
   <div class="p-grid p-formgrid p-fluid">
     <div class="p-col-12 p-mb-3">
-      <label for="quantity">Add/remove quantity</label>
+      <label for="quantity" class="label-required">Add/remove quantity</label>
       <p-inputNumber id="quantity" [showButtons]="true" formControlName="quantity"></p-inputNumber>
     </div>
 
     <div class="p-col-12 p-mb-3">
-      <label for="type">Update reason</label>
+      <label for="type" class="label-required">Update reason</label>
       <p-dropdown id="type" appendTo="body" [options]="type" optionLabel="value" optionValue="value" formControlName="type" placeholder="Select Type"></p-dropdown>
     </div>
 

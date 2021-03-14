@@ -4,3 +4,8 @@ footer {
     margin: 0 0.5rem;
   }
 }
+
+.label-required:after{
+  content: " *";
+  color: red;
+}
