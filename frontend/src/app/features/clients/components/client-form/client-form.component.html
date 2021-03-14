@@ -1,0 +1,97 @@
+<form class="form" [formGroup]="clientForm" (ngSubmit)="submitForm()">
+
+  <div class="p-grid nested-grid p-fluid">
+    <div class="p-col-12 p-sm-12 p-md-12 p-xl-6">
+      <h2>Client information</h2>
+
+      <div class="p-grid p-fluid">
+        <div class="p-col-4">
+          <label for="civility" class="label-required">Civility</label>
+          <p-dropdown id="civility" appendTo="body" [options]="civility" optionLabel="value" optionValue="value"
+            formControlName="civility" placeholder="Select Civility"></p-dropdown>
+        </div>
+
+        <div class="p-col-8">
+          <label for="email" class="label-required">Email</label>
+          <input id="email" type="email" aria-describedby="email-help" pInputText formControlName="email">
+          <small *ngIf="false" id="email-help" class="p-error">Username is not available.</small>
+        </div>
+      </div>
+
+      <div class="p-grid p-fluid">
+        <div class="p-col-6">
+          <label for="firstName" class="label-required">First name</label>
+          <input id="firstName" type="text" pInputText formControlName="firstName">
+        </div>
+
+        <div class="p-col-6">
+          <label for="lastName" class="label-required">Last name</label>
+          <input id="lastName" type="text" pInputText formControlName="lastName">
+        </div>
+      </div>
+
+      <div class="p-grid p-fluid">
+        <div class="p-col-6">
+          <label for="phone">Phone</label>
+          <input id="phone" type="text" pInputText formControlName="phone">
+        </div>
+
+        <div class="p-col-6">
+          <label for="mobile">Mobile</label>
+          <input id="mobile" type="text" pInputText formControlName="mobile">
+        </div>
+      </div>
+    </div>
+
+    <div class="p-col-12 p-sm-12 p-md-12 p-xl-6">
+      <form class="form" [formGroup]="addressForm">
+
+        <h2>Client Address</h2>
+        <div class="p-grid p-fluid">
+          <div class="p-col-4">
+            <label for="country" [ngClass]="{'label-required': addressFormRequired}">Country</label>
+            <p-autoComplete appendTo="body" formControlName="country" [suggestions]="countries" field="name" dataKey="name"
+              (completeMethod)="searchCountry($event)" [dropdown]="true" placeholder="Select Country" (keyup)="onAddressCompletion()">
+              <ng-template let-country pTemplate="item">
+                <div class="country-item">
+                  <img src={{country.flag}} class="flag"/>
+                  <span>{{country.name}}</span>
+                </div>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <div class="p-grid p-fluid">
+          <div class="p-col-6">
+            <label for="city" [ngClass]="{'label-required': addressFormRequired}">City</label>
+            <input id="city" type="text" pInputText formControlName="city" (keyup)="onAddressCompletion()">
+          </div>
+
+          <div class="p-col-6">
+            <label for="zipCode" [ngClass]="{'label-required': addressFormRequired}">Zip Code</label>
+            <input id="zipCode" type="text" pInputText formControlName="zipCode" (keyup)="onAddressCompletion()">
+          </div>
+        </div>
+
+        <div class="p-grid p-fluid">
+          <div class="p-col-12">
+            <label for="streetAddress" [ngClass]="{'label-required': addressFormRequired}">Street Address</label>
+            <input id="streetAddress" type="text" pInputText formControlName="streetAddress" (keyup)="onAddressCompletion()">
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <footer class="p-grid">
+    <button pButton pRipple type="button" label="Cancel" class="p-button-secondary" (click)="onCancel()"
+      *ngIf="!isUpdate"></button>
+    <button pButton pRipple type="submit" icon="pi pi-save" label="Save"
+      [disabled]="clientForm.invalid || ((addressFormRequired)? addressForm.invalid : false) || (!currentClient && isUpdate)"></button>
+    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger" *ngIf="currentClient"
+      (click)="deleteClient()"></button>
+  </footer>
+</form>

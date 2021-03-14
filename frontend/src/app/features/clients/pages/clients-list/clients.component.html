@@ -5,13 +5,13 @@
       <div class="p-input-icon-left">
           <i class="pi pi-search"></i>
           <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-              placeholder="Search Client"/>
+              placeholder="Search Client" (click)="selectedClient=null; cd.detectChanges();"/>
       </div>
       <button pButton pRipple type="button" icon="pi pi-plus" label="New Client" (click)="showNewClientModal()"></button>
   </div>
 
   <p-panel header="Edit Client" class="form" [toggleable]="true">
-      <!--<app-workforce-form [currentWorkforce]="selectedWorkforce" [isUpdate]=true (refreshTable)="refreshWorkforces()"></app-workforce-form>-->
+      <app-client-form [currentClient]="selectedClient" [isUpdate]=true (refreshTable)="refreshClients()"></app-client-form>
   </p-panel>
   
   <div class="dtable">

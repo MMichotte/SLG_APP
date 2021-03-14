@@ -74,7 +74,7 @@ export class ProductsComponent implements OnInit {
   }
 
   showProductInfoPage(product: Product): void {
-    this.router.navigate([`products/${product.id}/info`], { state: { product: product } });
+    this.router.navigate([`products/${product.id}/detail`], { state: { product: product } });
   }
 
   search(val?: string): void {

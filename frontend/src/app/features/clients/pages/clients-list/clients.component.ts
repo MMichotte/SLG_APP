@@ -1,7 +1,9 @@
+import { ClientFormComponent } from './../../components/client-form/client-form.component';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Client } from '../../models/client.model';
 import { ClientService } from '../../services/client.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clients',
@@ -18,7 +20,8 @@ export class ClientsComponent implements OnInit {
   constructor (
     private readonly clientService: ClientService,
     public dialogService: DialogService,
-    private readonly cd: ChangeDetectorRef
+    private readonly cd: ChangeDetectorRef,
+    private readonly router: Router
   ) { }
 
   ngOnInit (): void {
@@ -45,11 +48,17 @@ export class ClientsComponent implements OnInit {
   }
 
   showNewClientModal(): void {
-
+    const ref = this.dialogService.open(ClientFormComponent, {
+      header: 'New Client',
+      width: '80%'
+    });
+    ref.onClose.subscribe((clientId?: boolean) => {
+      if (clientId) this.refreshClients();
+    });
   }
 
   showClientDetailPage(client: Client): void {
-    
+    this.router.navigate([`clients/${client.id}/detail`], { state: { client: client } });
   }
 
 }

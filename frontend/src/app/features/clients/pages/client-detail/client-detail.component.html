@@ -1,1 +1,22 @@
-<p>client-detail works!</p>
+<div class="page">
+  <h1>CLIENT DETAIL</h1>
+
+  <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-sm p-button-info" (click)="router.navigate(['clients']);"></button>
+
+  <div class="content" *ngIf="client">
+
+    <p-panel class="client-general-panel" header="General information" [toggleable]="true">
+    </p-panel>
+    
+    <p-panel class="client-cars-panel" header="Cars" [toggleable]="true">
+    </p-panel>
+    
+    <p-panel class="client-worksheets-panel" header="Worksheets" [toggleable]="true">
+    </p-panel>
+    
+    <p-panel class="client-Bills-panel" header="Bills" [toggleable]="true">
+    </p-panel>
+
+  </div>
+  
+</div>

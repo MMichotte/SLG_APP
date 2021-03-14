@@ -1,3 +1,4 @@
+import { CountriesService } from './../../core/services/countries.service';
 import { ClientService } from './services/client.service';
 import { ClientsComponent } from './pages/clients-list/clients.component';
 import { NgModule } from '@angular/core';
@@ -10,16 +11,21 @@ import { DynamicDialogModule, DialogService, DynamicDialogRef, DynamicDialogConf
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DropdownModule } from 'primeng/dropdown';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
 import { ConfirmDialogService } from '../../core/services/confirm-dialog.service';
 import { ToastService } from '../../core/services/toast.service';
 import { SharedModule } from '../../shared/shared.module';
+import { ClientFormComponent } from './components/client-form/client-form.component';
 
 @NgModule({
   declarations: [
     ClientsComponent,
-    ClientDetailComponent
+    ClientDetailComponent,
+    ClientFormComponent
   ],
   imports: [
     CommonModule,
@@ -29,12 +35,15 @@ import { SharedModule } from '../../shared/shared.module';
     TableModule,
     InputTextModule,
     ButtonModule,
+    SelectButtonModule,
+    DropdownModule,
+    AutoCompleteModule,
     InputNumberModule,
     InputTextareaModule,
     PanelModule,
     DynamicDialogModule,
     ClientsRoutingModule
   ],
-  providers: [ClientService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
+  providers: [ClientService, CountriesService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
 })
 export class ClientsModule { }
