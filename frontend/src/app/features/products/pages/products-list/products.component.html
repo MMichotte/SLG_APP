@@ -6,7 +6,7 @@
             <div class="p-inputgroup">
                 <div class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="search($event.target.value)" placeholder="Search Product" />
+                    <input pInputText type="text" (input)="search($event.target.value)" placeholder="Search Product" (click)="selectedProduct=null"/>
                 </div>
                 <p-selectButton [options]="[{name: 'contains', code: false},{name: 'match', code: true}]" class="searchMatchToggle"
                     [(ngModel)]="exactMatch" optionLabel="name" optionValue="code" (onChange)="search()"></p-selectButton>

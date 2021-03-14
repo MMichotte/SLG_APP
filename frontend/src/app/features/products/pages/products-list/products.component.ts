@@ -77,7 +77,11 @@ export class ProductsComponent implements OnInit {
     this.router.navigate([`products/${product.id}/info`], { state: { product: product } });
   }
 
-  search(val?: string) {
+  search(val?: string): void {
+    if (val === '') {
+      this.dt.filterGlobal('', 'contains');
+      return;
+    }
     const value = (!val) ? this.previousSearchVal : val;
     if (this.exactMatch) {
       this.dt.filterGlobal(value, 'equals');
@@ -85,7 +89,6 @@ export class ProductsComponent implements OnInit {
       this.dt.filterGlobal(value, 'contains');
     }
     this.previousSearchVal = value;
-
   }
 
   customSort(event: SortEvent) {
