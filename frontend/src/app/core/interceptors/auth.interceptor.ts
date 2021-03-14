@@ -17,7 +17,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor (private auth: AuthService, private router: Router) { }
 
   intercept (request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    if (this.auth.isLoggedIn()) {
+    if (this.auth.isLoggedIn() && request.url.startsWith('/api')) {
       request = request.clone({
         setHeaders: {
           'Content-Type': 'application/json',
