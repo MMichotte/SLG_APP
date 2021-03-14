@@ -4,20 +4,20 @@
     <div class="p-col-12 p-sm-12 p-md-12 p-xl-8 ">
       <div class="p-grid p-fluid">
         <div class="p-col-8">
-          <label for="label">Label</label>
+          <label for="label" class="label-required">Label</label>
           <input id="label" type="text" pInputText formControlName="label">
         </div>
       </div>
       <div class="p-grid p-fluid">
         <div class="p-col-3">
-          <label for="priceHT">Price (HT)</label>
+          <label for="priceHT" class="label-required">Price (HT)</label>
           <p-inputNumber id="priceHT" mode="currency" currency="EUR" locale="en-US" formControlName="priceHT"
             min="0" (onFocus)="$event.target.select()" (click)="$event.target.select()">
           </p-inputNumber>
         </div>
 
         <div class="p-col-3 ">
-          <label for="priceTTC">Price (TTC)</label>
+          <label for="priceTTC" class="label-required">Price (TTC)</label>
           <p-inputNumber id="priceTTC" mode="currency" currency="EUR" locale="en-US" formControlName="priceTTC"
             min="0" (onFocus)="$event.target.select()" (click)="$event.target.select()">
           </p-inputNumber>

@@ -4,6 +4,11 @@
     white-space: nowrap;
   }
 
+  .label-required:after{
+    content: " *";
+    color: red;
+  }
+  
   footer {
     justify-content: flex-end;
     button {
