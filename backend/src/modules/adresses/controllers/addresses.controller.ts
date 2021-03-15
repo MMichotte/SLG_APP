@@ -18,7 +18,7 @@ export class AddressesController {
   constructor(private readonly addressesService: AddressesService) {}
   
   @Get()
-  @Roles(EUserRoles.ADMIN)
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiResponse({
     status: 200,
     type: AddressDTO,
