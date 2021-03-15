@@ -10,6 +10,8 @@ services:
       - 5434:5432
     env_file:
       - ./database/.env
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
     networks:
       slg-network:
         ipv4_address: 192.168.10.5
