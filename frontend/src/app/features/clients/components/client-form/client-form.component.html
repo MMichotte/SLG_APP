@@ -88,10 +88,10 @@
 
   <footer class="p-grid">
     <button pButton pRipple type="button" label="Cancel" class="p-button-secondary" (click)="onCancel()"
-      *ngIf="!isUpdate"></button>
-    <button pButton pRipple type="submit" icon="pi pi-save" label="Save"
+      *ngIf="!isUpdate && auth.hasMinAccess(EUserRoles.USER)"></button>
+    <button pButton pRipple type="submit" icon="pi pi-save" label="Save" *ngIf="auth.hasMinAccess(EUserRoles.USER)"
       [disabled]="clientForm.invalid || ((addressFormRequired)? addressForm.invalid : false) || (!currentClient && isUpdate)"></button>
-    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger" *ngIf="currentClient"
+    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger" *ngIf="currentClient && auth.hasMinAccess(EUserRoles.USER)"
       (click)="deleteClient()"></button>
   </footer>
 </form>

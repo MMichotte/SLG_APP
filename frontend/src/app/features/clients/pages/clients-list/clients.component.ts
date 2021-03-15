@@ -4,6 +4,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { Client } from '../../models/client.model';
 import { ClientService } from '../../services/client.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../../core/services/auth.service';
+import { EUserRoles } from '../../../../core/enums/user-roles.enum';
 
 @Component({
   selector: 'app-clients',
@@ -12,12 +14,15 @@ import { Router } from '@angular/router';
 })
 export class ClientsComponent implements OnInit {
 
+  public EUserRoles = EUserRoles;
+
   cols: any[];
   clients: Client[] = [];
   selectedClient: Client;
   loadingData: boolean;
 
   constructor (
+    public readonly auth: AuthService,
     private readonly clientService: ClientService,
     public readonly dialogService: DialogService,
     public readonly cd: ChangeDetectorRef,

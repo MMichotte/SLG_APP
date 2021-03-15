@@ -7,7 +7,7 @@
           <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
               placeholder="Search Workforce"/>
       </div>
-      <button pButton pRipple type="button" icon="pi pi-plus" label="New workforce" (click)="showNewWorkforceModal()"></button>
+      <button pButton pRipple type="button" icon="pi pi-plus" label="New workforce" (click)="showNewWorkforceModal()" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
   </div>
 
   <p-panel header="Edit workforce" class="form" [toggleable]="true">

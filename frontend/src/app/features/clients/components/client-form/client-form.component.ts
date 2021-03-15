@@ -9,8 +9,10 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { ClientService } from './../../services/client.service';
 import { Client } from '../../models/client.model';
 import { ECivility } from '../../enums/ECivility.enum';
-import { enumToObjArray } from 'src/app/core/helpers/enum-to-obj-array';
-import { EToastSeverities } from 'src/app/core/enums/toast-severity.enum';
+import { enumToObjArray } from '../../../../core/helpers/enum-to-obj-array';
+import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
+import { AuthService } from '../../../../core/services/auth.service';
+import { EUserRoles } from '../../../../core/enums/user-roles.enum';
 
 @Component({
   selector: 'app-client-form',
@@ -24,12 +26,15 @@ export class ClientFormComponent implements OnInit, OnChanges {
 
   @Output() refreshTable?= new EventEmitter<any>();
 
+  public EUserRoles = EUserRoles;
+
   public ECivility = ECivility;
   civility: any[];
   countries: Country[];
   addressFormRequired: boolean = false;
 
   constructor(
+    public readonly auth: AuthService,
     private readonly countriesService: CountriesService,
     private readonly clientService: ClientService,
     private readonly toast: ToastService,
@@ -66,8 +71,10 @@ export class ClientFormComponent implements OnInit, OnChanges {
         const control = this.clientForm.get(field);
         control.setValue(this.currentClient[field]);
       }
-      this.clientForm.enable();
-      this.addressForm.enable();
+      if (this.auth.hasMinAccess(EUserRoles.USER)) {
+        this.clientForm.enable();
+        this.addressForm.enable();
+      }
     } else {
       this._resetForms();
       this.clientForm.disable();

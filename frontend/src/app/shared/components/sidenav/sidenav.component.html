@@ -83,7 +83,7 @@
       </li>
       
       <div class="bottom">
-        <li class="nav-item" routerLinkActive="active" routerLink='users'>
+        <li class="nav-item" routerLinkActive="active" routerLink='users' *ngIf="auth.hasOnlyAccess(EUserRoles.ADMIN)">
           <a class="nav-link">
             <span class="nav-icon">
               <i class="fas fa-users"></i>

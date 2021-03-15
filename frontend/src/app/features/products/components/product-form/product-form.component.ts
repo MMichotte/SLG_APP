@@ -8,6 +8,10 @@ import { EToastSeverities } from 'src/app/core/enums/toast-severity.enum';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { StockUpdateFormComponent } from '../stock-update-form/stock-update-form.component';
 import { take } from 'rxjs/operators';
+import { AuthService } from '../../../../core/services/auth.service';
+import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+
+// auth.hasMinAccess(EUserRoles.USER)
 
 @Component({
   selector: 'app-product-form',
@@ -21,7 +25,10 @@ export class ProductFormComponent implements OnInit, OnChanges {
 
   @Output() refreshTable? = new EventEmitter<any>();
 
+  public EUserRoles = EUserRoles;
+
   constructor (
+    public readonly auth: AuthService,
     private readonly productService: ProductService,
     private readonly toast: ToastService,
     private readonly confirmDialog: ConfirmDialogService,
@@ -44,16 +51,18 @@ export class ProductFormComponent implements OnInit, OnChanges {
 
   ngOnInit (): void {
   }
-
+  
   ngOnChanges ():void {
     if (this.currentProduct) {
       for (const field in this.productForm.controls) {
         const control = this.productForm.get(field);
         control.setValue(this.currentProduct[field]);
       }
-      this.productForm.enable();
-      this.productForm.controls.reservedQuantity.disable();
-      this.productForm.controls.availableQuantity.disable();
+      if (this.auth.hasMinAccess(EUserRoles.USER)) {
+        this.productForm.enable();
+        this.productForm.controls.reservedQuantity.disable();
+        this.productForm.controls.availableQuantity.disable();
+      }
     } else {
       this.productForm.disable();
       this._resetForm();

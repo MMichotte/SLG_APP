@@ -1,6 +1,7 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { EUserRoles } from './core/enums/user-roles.enum';
 import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
@@ -59,6 +60,7 @@ const routes: Routes = [
       { 
         path: 'users',
         canActivate: [AuthGuard],
+        data: { role: [EUserRoles.DEV, EUserRoles.ADMIN] },
         loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule)
       }
     ] 

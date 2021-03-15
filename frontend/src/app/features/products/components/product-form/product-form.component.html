@@ -71,10 +71,10 @@
 
   <footer class="p-grid">
     <button pButton pRipple type="button" label="Cancel" class="p-button-secondary" (click)="onCancel()"
-      *ngIf="!isUpdate"></button>
+      *ngIf="!isUpdate && auth.hasMinAccess(EUserRoles.USER)"></button>
     <button pButton pRipple type="submit" icon="pi pi-save" label="Save"
-      [disabled]="productForm.invalid || (!currentProduct && isUpdate)"></button>
-    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger" *ngIf="currentProduct"
+      [disabled]="productForm.invalid || (!currentProduct && isUpdate)" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
+    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger" *ngIf="currentProduct && auth.hasMinAccess(EUserRoles.USER)"
       (click)="deleteProduct()"></button>
   </footer>
 </form>

@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { EToastSeverities } from 'src/app/core/enums/toast-severity.enum';
+import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { AuthService } from '../../../../core/services/auth.service';
 import { ConfirmDialogService } from 'src/app/core/services/confirm-dialog.service';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Workforce } from '../../models/workforce.model';
@@ -19,7 +21,10 @@ export class WorkforceFormComponent implements OnInit {
 
   @Output() refreshTable? = new EventEmitter<any>();
 
+  public EUserRoles = EUserRoles;
+
   constructor(
+    public readonly auth: AuthService,
     private readonly workforceService: WorkforceService,
     private readonly toast: ToastService,
     private readonly confirmDialog: ConfirmDialogService,
@@ -42,7 +47,9 @@ export class WorkforceFormComponent implements OnInit {
         const control = this.workforceForm.get(field);
         control.setValue(this.currentWorkforce[field]);
       }
-      this.workforceForm.enable();
+      if (this.auth.hasMinAccess(EUserRoles.USER)) {
+        this.workforceForm.enable();
+      }
     } else {
       this.workforceForm.disable();
       this._resetForm();

@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, ViewEncapsulation, EventEmitter, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/services/auth.service';
+import { EUserRoles } from '../../../core/enums/user-roles.enum';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -12,10 +13,15 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   @Output() isExpanded = new EventEmitter<boolean>();
 
+  public EUserRoles = EUserRoles;
+  
   expandSideNav = false;
   keepExpanded = false;
   
-  constructor (public auth: AuthService, private router: Router) {}
+  constructor (
+    public readonly auth: AuthService,
+    private readonly router: Router
+  ) {}
 
   ngOnInit(): void {
   }

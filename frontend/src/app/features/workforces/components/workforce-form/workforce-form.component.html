@@ -35,10 +35,10 @@
 
   <footer class="p-grid">
     <button pButton pRipple type="button" label="Cancel" class="p-button-secondary p-col-1" (click)="onCancel()"
-      *ngIf="!isUpdate"></button>
+      *ngIf="!isUpdate && auth.hasMinAccess(EUserRoles.USER)"></button>
     <button pButton pRipple type="submit" icon="pi pi-save" label="Save"
-      [disabled]="workforceForm.invalid || (!currentWorkforce && isUpdate)"></button>
-    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-col-1" *ngIf="currentWorkforce"
+      [disabled]="workforceForm.invalid || (!currentWorkforce && isUpdate)" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
+    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-col-1" *ngIf="currentWorkforce && auth.hasMinAccess(EUserRoles.USER)"
       (click)="deleteWorkforce()"></button>
   </footer>
 </form>

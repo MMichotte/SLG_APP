@@ -3,6 +3,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { WorkforceService } from '../services/workforce.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { WorkforceFormComponent } from '../components/workforce-form/workforce-form.component';
+import { AuthService } from '../../../core/services/auth.service';
+import { EUserRoles } from '../../../core/enums/user-roles.enum';
 
 @Component({
   selector: 'app-workforces',
@@ -11,12 +13,15 @@ import { WorkforceFormComponent } from '../components/workforce-form/workforce-f
 })
 export class WorkforcesComponent implements OnInit {
 
+  public EUserRoles = EUserRoles;
+
   cols: any[];
   workforces: Workforce[] = [];
   selectedWorkforce: Workforce;
   loadingData: boolean;
 
   constructor (
+    public readonly auth: AuthService,
     private readonly workforceService: WorkforceService,
     public dialogService: DialogService,
     private readonly cd: ChangeDetectorRef

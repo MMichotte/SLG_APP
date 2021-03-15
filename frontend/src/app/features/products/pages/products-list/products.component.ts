@@ -6,6 +6,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { SortEvent } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
+import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-products',
@@ -17,6 +19,8 @@ export class ProductsComponent implements OnInit {
 
   @ViewChild(Table) private dt: Table;
 
+  public EUserRoles = EUserRoles;
+  
   cols: any[];
   products: Product[] = [];
   selectedProduct: Product;
@@ -25,6 +29,7 @@ export class ProductsComponent implements OnInit {
   previousSearchVal: string = '';
 
   constructor(
+    public readonly auth: AuthService,
     private readonly productService: ProductService,
     public dialogService: DialogService,
     private readonly cd: ChangeDetectorRef,

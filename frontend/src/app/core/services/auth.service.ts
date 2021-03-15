@@ -13,13 +13,13 @@ export class AuthService {
   isLogin: boolean = false;
   roleAs: string = '';
 
-  constructor (private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
-  loginUser (userCredentials:any): Observable<HttpResponse<any>> {
+  loginUser(userCredentials: any): Observable<HttpResponse<any>> {
     return this.httpClient.post<any>('/api/login', userCredentials);
   }
 
-  setLogin (token: string) {
+  setLogin(token: string) {
     try {
       const curentUser: any = jwt_decode(token);
       this.isLogin = true;
@@ -33,7 +33,7 @@ export class AuthService {
     }
   }
 
-  logout () {
+  logout() {
     this.isLogin = false;
     this.roleAs = '';
     localStorage.setItem('TOKEN', '');
@@ -41,36 +41,70 @@ export class AuthService {
     localStorage.setItem('ROLE', '');
   }
 
-  isLoggedIn (): boolean {
+  isLoggedIn(): boolean {
     const loggedIn = localStorage.getItem('STATE');
     this.isLogin = (loggedIn === 'true');
     return this.isLogin;
   }
 
-  getRole (): string {
+  getRole(): string {
     this.roleAs = localStorage.getItem('ROLE') || '';
     return this.roleAs;
   }
 
-  hasMinAccess (role: string): boolean {
+  hasMinAccess(role: string): boolean {
     switch (role) {
     case EUserRoles.DEV:
-      return (this.roleAs === EUserRoles.DEV); 
-      
+      return (this.roleAs === EUserRoles.DEV);
+
     case EUserRoles.ADMIN:
-      return !!((this.roleAs === EUserRoles.ADMIN ||
-                this.roleAs === EUserRoles.DEV));   
-      
+      return !!((
+        this.roleAs === EUserRoles.ADMIN ||
+        this.roleAs === EUserRoles.DEV
+      ));
+
     case EUserRoles.USER:
-      return !!((this.roleAs === EUserRoles.USER ||
-                this.roleAs === EUserRoles.ADMIN ||
-                this.roleAs === EUserRoles.DEV));  
-    
+      return !!((
+        this.roleAs === EUserRoles.USER ||
+        this.roleAs === EUserRoles.ADMIN ||
+        this.roleAs === EUserRoles.DEV
+      ));
+
     case EUserRoles.ACCOUNTING:
-      return !!((this.roleAs === EUserRoles.ACCOUNTING ||
-                this.roleAs === EUserRoles.USER ||
-                this.roleAs === EUserRoles.ADMIN ||
-                this.roleAs === EUserRoles.DEV));  
+      return !!((
+        this.roleAs === EUserRoles.ACCOUNTING ||
+        this.roleAs === EUserRoles.USER ||
+        this.roleAs === EUserRoles.ADMIN ||
+        this.roleAs === EUserRoles.DEV
+      ));
+
+    default:
+      return false;
+    }
+  }
+
+  hasOnlyAccess(role: string): boolean {
+    switch (role) {
+    case EUserRoles.DEV:
+      return (this.roleAs === EUserRoles.DEV);
+
+    case EUserRoles.ADMIN:
+      return !!((
+        this.roleAs === EUserRoles.ADMIN ||
+        this.roleAs === EUserRoles.DEV
+      ));
+
+    case EUserRoles.USER:
+      return !!((
+        this.roleAs === EUserRoles.USER ||
+        this.roleAs === EUserRoles.DEV
+      ));
+
+    case EUserRoles.ACCOUNTING:
+      return !!((
+        this.roleAs === EUserRoles.ACCOUNTING ||
+        this.roleAs === EUserRoles.DEV
+      ));
 
     default:
       return false;
