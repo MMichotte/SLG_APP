@@ -12,6 +12,12 @@ cd ./frontend
 npm i --produdction
 npm run build --produdction
 mv ./dist ../app/www/public/
+if [ $? -eq 0 ]
+then
+  echo echo -e "\n\033[34mFrontend successfully built.\033[0m"
+else
+  exit 1
+fi
 
 echo -e "\n\033[32m3. Building backend\033[0m"
 cd ../backend
@@ -25,6 +31,12 @@ cp ./package.json ../app/www
 cp ./tsconfig.build.json ../app/www
 mv ./ormconfig.ts ./ormconfig.prod.ts
 mv ./temp.txt ./ormconfig.ts
+if [ $? -eq 0 ]
+then
+  echo echo -e "\n\033[34mBackend successfully built.\033[0m"
+else
+  exit 1
+fi
 
 echo -e "\n\033[32m3. Adding configuration files\033[0m"
 cd ..

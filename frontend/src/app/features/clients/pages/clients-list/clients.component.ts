@@ -19,8 +19,8 @@ export class ClientsComponent implements OnInit {
 
   constructor (
     private readonly clientService: ClientService,
-    public dialogService: DialogService,
-    private readonly cd: ChangeDetectorRef,
+    public readonly dialogService: DialogService,
+    public readonly cd: ChangeDetectorRef,
     private readonly router: Router
   ) { }
 
