@@ -1,3 +1,4 @@
+import { ECommonErrors } from './../../../core/enums/common-errors.enum';
 import { AuthService } from '../../../core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', Validators.required)
     })
 
+    errorMsg: string;
     displayError: boolean = false;
     displaySpinner: boolean = false;
 
@@ -32,6 +34,11 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         },
         error => {
+          if (error.status === 401) {
+            this.errorMsg = 'Incorrect email or password';
+          } else {
+            this.errorMsg = ECommonErrors.E_500;
+          }
           this.displayError = true;
           this.displaySpinner = false;
           console.log(error);
