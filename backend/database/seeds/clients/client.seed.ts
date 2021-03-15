@@ -1085,7 +1085,7 @@ export const ClientSeed: CreateClientDTO[] = [
   {
     civility: ECivility.MME,
     firstName: 'Tadeo',
-    lastName: "O'Clery",
+    lastName: 'O\'Clery',
     email: 'toclery25@google.cn',
     phone: '+48 (508) 447-6328',
     mobile: '+62 (815) 243-5026',
