@@ -7,7 +7,7 @@ import { RolesGuard } from '../../../core/guards/roles.guard';
 import { EUserRoles } from '../../../modules/users/enums/user-roles.enum';
 import { AddressesService } from '../services/addresses.service';
 import { Address } from '../entities/address.entity';
-import { Roles } from 'src/core/decorators/roles.decorator';
+import { Roles } from '../../../core/decorators/roles.decorator';
 
 @Controller('addresses')
 @UseGuards(RolesGuard)
