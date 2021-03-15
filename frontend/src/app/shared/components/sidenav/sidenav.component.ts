@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, ViewEncapsulation, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, ViewEncapsulation, EventEmitter, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./sidenav.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit, OnDestroy {
 
   @Output() isExpanded = new EventEmitter<boolean>();
 
@@ -17,26 +17,29 @@ export class SidenavComponent implements OnInit {
   
   constructor (public auth: AuthService, private router: Router) {}
 
-  ngOnInit (): void {
+  ngOnInit(): void {
   }
 
-  onLogout () {
+  onLogout() {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
 
-  setKeepExpanded ():void {
+  setKeepExpanded():void {
     this.keepExpanded = !this.keepExpanded;
     this.notifyParent();
   }
   
-  setExpanded ():void {
+  setExpanded():void {
     this.expandSideNav = !this.expandSideNav;
     this.notifyParent();
   }
 
-  notifyParent ():void {
+  notifyParent():void {
     this.isExpanded.emit((this.expandSideNav || this.keepExpanded));
   }
 
+  ngOnDestroy(): void {
+    this.isExpanded.emit(false);
+  }
 }
