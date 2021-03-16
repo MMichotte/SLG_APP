@@ -23,7 +23,7 @@ $expandedWidth: 12rem;
 
       .title {
         color: white;
-        color: var(--mainGreen);
+        color: var(--mainColor1);
         font-size:x-large;
         white-space: nowrap;
         margin: 0;
@@ -85,7 +85,7 @@ $expandedWidth: 12rem;
         outline: none;
       }
 
-      .nav-item:last-child {
+      .last-child {
         margin: 0 !important;
         margin-bottom: 1rem !important; 
       }
@@ -94,7 +94,7 @@ $expandedWidth: 12rem;
 
   .fas {
     width: 3rem;
-    color: var(--mainGreen);
+    color: var(--mainColor1);
     font-size: x-large;
   
     .fa-arrow-right {
@@ -106,7 +106,7 @@ $expandedWidth: 12rem;
     margin: 0;
     margin-bottom: 0.5rem;
     border: none;
-    border: 1px solid var(--mainGreen);
+    border: 1px solid var(--mainColor1);
   }
 }
 

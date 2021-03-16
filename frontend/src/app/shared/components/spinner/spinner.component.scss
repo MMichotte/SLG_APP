@@ -5,13 +5,13 @@
 @keyframes custom-progress-spinner-color {
   100%,
   0% {
-    stroke: var(--mainBlue);
+    stroke: var(--secColor1);
   }
   33% {
-    stroke: var(--secBlue);
+    stroke: var(--secColor2);
   }
   66% {
-    stroke: var(--sec2Blue);
+    stroke: var(--secColor3);
   }
 }
 
