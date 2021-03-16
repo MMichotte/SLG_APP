@@ -1,61 +1,54 @@
 <div class="page">
-  <h1>CLIENTS</h1>
-  
-  <div class="control">
-      <div class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-              placeholder="Search Client" (click)="selectedClient=null; cd.detectChanges();"/>
-      </div>
-      <button pButton pRipple type="button" icon="pi pi-plus" label="New Client" (click)="showNewClientModal()" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
-  </div>
+    <h1>CLIENTS</h1>
 
-  <p-panel header="Edit Client" class="form" [toggleable]="true">
-      <app-client-form [currentClient]="selectedClient" [isUpdate]=true (refreshTable)="refreshClients()"></app-client-form>
-  </p-panel>
-  
-  <div class="dtable">
-      <p-table #dt 
-          [columns]="cols"
-          [value]="clients"
-          [autoLayout]="true"
-          [scrollable]="true"
-          [paginator]="true"
-          [rows]="10"
-          [rowsPerPageOptions]="[10,25,50]" 
-          [globalFilterFields]="['id','full_name','email']"
-          [sortField]="cols[0].field"
-          selectionMode="single"
-          [(selection)]="selectedClient" 
-          styleClass="p-datatable-sm"
-          [loading]="loadingData"
-          >
+    <div class="control">
+        <div class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Search Client" (click)="selectedClient=null; cd.detectChanges();" />
+        </div>
+        <button pButton pRipple type="button" icon="pi pi-plus" label="New Client"
+            (click)="showNewClientModal()"></button>
+    </div>
 
-          <ng-template pTemplate="header" let-columns>
-              <tr>
-                  <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
-                      {{col.header}}
-                      <p-sortIcon [field]="col.field"></p-sortIcon>
-                  </th>
-              </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-rowData let-columns="columns">
-              <tr [pSelectableRow]="rowData">
-                  <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
-                      {{
-                        (col.field === 'fullName')? 
-                          rowData['civility'] + ' ' + rowData['firstName'] + ' ' + rowData['lastName'] : 
-                          rowData[col.field]
-                      }}
-                  </td>
-                  <td style="width: 3rem;">
-                    <button pButton pRipple type="button" icon="pi pi-info" class="p-button-info p-button-sm"
-                        title="Detailed information (history, ...) "
-                        (click)="showClientDetailPage(rowData)"></button>
-                </td>
-              </tr>
-          </ng-template>
-          
-      </p-table>
-  </div>
+    <p-panel header="Edit Client" class="form" [toggleable]="true">
+        <app-client-form [currentClient]="selectedClient" [isUpdate]=true (refreshTable)="refreshClients()">
+        </app-client-form>
+    </p-panel>
+
+    <div class="dtable">
+        <p-table #dt [columns]="cols" [value]="clients" [autoLayout]="true" [scrollable]="true" [paginator]="true"
+            [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['id','full_name','email']"
+            [sortField]="cols[0].field" selectionMode="single" [(selection)]="selectedClient"
+            styleClass="p-datatable-sm" [loading]="loadingData">
+
+            <ng-template pTemplate="header" let-rowData let-columns>
+                <tr>
+                    <th style="width: 2rem;"></th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                    <th style="width: 3rem;"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                    <td style="width: 2rem;">
+                        <i class="fas fa-building" *ngIf="rowData.isCompany"></i>
+                        <i class="fas fa-user" *ngIf="!rowData.isCompany"></i>
+                    </td>
+                    <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                        {{rowData[col.field]}}
+                    </td>
+                    <td style="width: 3rem;">
+                        <button pButton pRipple type="button" icon="pi pi-info" class="p-button-info p-button-sm"
+                            title="Detailed information (history, ...) "
+                            (click)="showClientDetailPage(rowData)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+
+        </p-table>
+    </div>
 </div>

@@ -1,7 +1,7 @@
-import { ClientService } from './../../services/client.service';
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Client } from '../../models/client.model';
 import { Router } from '@angular/router';
+import { ClientsController } from '../../controllers/clients.controller';
+import { Client } from '../../models/client.model';
 
 @Component({
   selector: 'app-client-detail',
@@ -16,7 +16,6 @@ export class ClientDetailComponent implements OnInit {
   loadingData: boolean;
 
   constructor(
-    private readonly clientService: ClientService,
     public readonly router: Router,
     private readonly cd: ChangeDetectorRef
   ) {

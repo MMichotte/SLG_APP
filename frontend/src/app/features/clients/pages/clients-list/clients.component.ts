@@ -1,11 +1,11 @@
+import { Client } from './../../models/client.model';
 import { ClientFormComponent } from './../../components/client-form/client-form.component';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
-import { Client } from '../../models/client.model';
-import { ClientService } from '../../services/client.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { ClientsController } from '../../controllers/clients.controller';
 
 @Component({
   selector: 'app-clients',
@@ -23,7 +23,7 @@ export class ClientsComponent implements OnInit {
 
   constructor (
     public readonly auth: AuthService,
-    private readonly clientService: ClientService,
+    private readonly clientsController: ClientsController,
     public readonly dialogService: DialogService,
     public readonly cd: ChangeDetectorRef,
     private readonly router: Router
@@ -32,17 +32,17 @@ export class ClientsComponent implements OnInit {
   ngOnInit (): void {
     this.refreshClients();
     this.cols = [
-      { field: 'id', header: 'Id', width: '10%' },
-      { field: 'fullName', header: 'Full name' }, // civility - firstName - lastName -> see html
+      { field: 'name', header: 'Full name' },
       { field: 'email', header: 'Email' },
       { field: 'phone', header: 'Phone' },
-      { field: 'mobile', header: 'Mobile' }
+      { field: 'mobile', header: 'Mobile' },
+      { field: 'VAT', header: 'VAT' }
     ];
   }
 
   refreshClients(): void {
     this.loadingData = true;
-    this.clientService.getAll().subscribe(
+    this.clientsController.getAll().then(
       (clients: Client[]) => {
         this.clients = clients;
         this.selectedClient = null;
@@ -63,7 +63,7 @@ export class ClientsComponent implements OnInit {
   }
 
   showClientDetailPage(client: Client): void {
-    this.router.navigate([`clients/${client.id}/detail`], { state: { client: client } });
+    this.router.navigate([`clients/${client.type.id}/detail`], { state: { client: client } });
   }
 
 }
