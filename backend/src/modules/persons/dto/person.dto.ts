@@ -1,12 +1,11 @@
-import { AddressDTO } from './../../adresses/dto/address.dto';
+import { AddressDTO } from '../../adresses/dto/address.dto';
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ECivility } from '../enums/ECivility.enum';
-import { Address } from '../../adresses/entities/address.entity';
 import { IsOptional } from 'class-validator';
 
 @Exclude()
-export class ClientDTO {
+export class PersonDTO {
   @Expose()
   @ApiProperty()
   id: number;

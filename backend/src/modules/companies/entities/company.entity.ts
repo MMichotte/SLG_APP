@@ -1,5 +1,6 @@
-import { Client } from './../../clients/entities/client.entity';
+import { ECompanyType } from './../enums/company-type.enum';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne, Index, ManyToOne } from 'typeorm';
+import { Person } from '../../persons/entities/person.entity';
 import { Address } from '../../adresses/entities/address.entity';
 
 @Entity({ name: 'company' })
@@ -7,8 +8,8 @@ export class Company {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({name: 'is_supplier', type: 'boolean'})
-  isSupplier: boolean;
+  @Column({name: 'type', type: 'enum', enum: ECompanyType})
+  type: ECompanyType;
 
   @Column({name: 'name', type: 'varchar', length: 255})
   name: string;
@@ -39,10 +40,10 @@ export class Company {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => Client, {nullable: true})
-  @JoinColumn({ name: 'id_client' })
-  client: Client;
-  clientId: number;
+  @ManyToOne(() => Person, {nullable: true})
+  @JoinColumn({ name: 'id_person' })
+  person: Person;
+  personId: number;
 
   @OneToOne(() => Address, {nullable: true,  cascade: ['insert', 'update']})
   @JoinColumn({ name: 'id_address' })

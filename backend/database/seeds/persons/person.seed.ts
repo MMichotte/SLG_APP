@@ -1,9 +1,9 @@
-import { ECivility } from '../../../src/modules/clients/enums/ECivility.enum';
-import { CreateClientDTO } from './../../../src/modules/clients/dto/create-client.dto';
+import { ECivility } from '../../../src/modules/persons/enums/ECivility.enum';
+import { CreatePersonDTO } from '../../../src/modules/persons/dto/create-person.dto';
 
 // data generated with: https://www.mockaroo.com
 
-export const ClientSeed: CreateClientDTO[] = [
+export const PersonSeed: CreatePersonDTO[] = [
   {
     civility: ECivility.MLLE,
     firstName: 'Mikkel',

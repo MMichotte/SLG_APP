@@ -8,7 +8,7 @@ import { ProductSeed_4 } from '../seeds/products/product.seed.all_4';
 import { ProductSeed_5 } from '../seeds/products/product.seed.all_5';
 import { ProductSeed_6 } from '../seeds/products/product.seed.all_6';
 import { WorkforceSeed } from '../seeds/workforces/workforce.seed';
-import { ClientSeed } from './../seeds/clients/client.seed';
+import { PersonSeed } from '../seeds/persons/person.seed';
 import { CompanySeed } from './../seeds/companies/company.seed';
 
 
@@ -25,7 +25,7 @@ export class InitAppData1614186690730 implements MigrationInterface {
         await queryRunner.manager.getRepository('product').save(ProductSeed_5);
         await queryRunner.manager.getRepository('product').save(ProductSeed_6);
         await queryRunner.manager.getRepository('workforce').save(WorkforceSeed);
-        await queryRunner.manager.getRepository('client').save(ClientSeed);
+        await queryRunner.manager.getRepository('person').save(PersonSeed);
         await queryRunner.manager.getRepository('company').save(CompanySeed);
     }
 

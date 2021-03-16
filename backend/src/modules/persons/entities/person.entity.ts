@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne, Index } from 'typeorm';
-import { ECivility } from './../enums/ECivility.enum';
-import { Address } from './../../adresses/entities/address.entity';
+import { ECivility } from '../enums/ECivility.enum';
+import { Address } from '../../adresses/entities/address.entity';
 
-@Entity({ name: 'client' })
-export class Client {
+@Entity({ name: 'person' })
+export class Person {
   @PrimaryGeneratedColumn()
   id: number;
 

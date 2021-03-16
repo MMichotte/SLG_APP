@@ -1,14 +1,15 @@
-import { Client } from './../../clients/entities/client.entity';
+import { ECompanyType } from './../enums/company-type.enum';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString, IsNumber, IsBoolean } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsNumber, IsEnum } from 'class-validator';
 import { CreateAddressDTO } from 'src/modules/adresses/dto/create-address.dto';
+import { Person } from '../../persons/entities/person.entity';
 
 export class CreateCompanyDTO {
   
-  @ApiProperty()
-  @IsBoolean()
+  @ApiProperty({ enum: ECompanyType })
+  @IsEnum(ECompanyType)
   @IsNotEmpty()
-  isSupplier: boolean;
+  type: ECompanyType;
 
   @ApiProperty()
   @IsString()
@@ -48,8 +49,8 @@ export class CreateCompanyDTO {
   @ApiPropertyOptional()
   @IsNumber()
   @IsOptional()
-  clientId?: number;
-  client?: Client;
+  personId?: number;
+  person?: Person;
 
   @ApiPropertyOptional()
   @IsOptional()
