@@ -1,18 +1,13 @@
-import { Address } from './../../../../core/models/address.model';
-import { Country } from './../../../../core/models/country.model';
-import { CountriesService } from './../../../../core/services/countries.service';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
 import { ToastService } from '../../../../core/services/toast.service';
-import { ClientService } from './../../services/client.service';
-import { Client } from '../../models/client.model';
-import { ECivility } from '../../enums/ECivility.enum';
-import { enumToObjArray } from '../../../../core/helpers/enum-to-obj-array';
 import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
 import { AuthService } from '../../../../core/services/auth.service';
 import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { ClientsController } from '../../controllers/clients.controller';
+import { Client } from '../../models/client.model';
 
 @Component({
   selector: 'app-client-form',
@@ -28,24 +23,19 @@ export class ClientFormComponent implements OnInit, OnChanges {
 
   public EUserRoles = EUserRoles;
 
-  public ECivility = ECivility;
-  civility: any[];
-  countries: Country[];
   addressFormRequired: boolean = false;
 
   constructor(
     public readonly auth: AuthService,
-    private readonly countriesService: CountriesService,
-    private readonly clientService: ClientService,
+    private readonly clientsController: ClientsController,
     private readonly toast: ToastService,
     private readonly confirmDialog: ConfirmDialogService,
     public dialogService: DialogService,
     public ref: DynamicDialogRef
   ) {
-    this.civility = enumToObjArray(this.ECivility);
   }
 
-  clientForm = new FormGroup({
+  personForm = new FormGroup({
     civility: new FormControl(null, Validators.required),
     firstName: new FormControl(null, Validators.required),
     lastName: new FormControl(null, Validators.required),
@@ -67,17 +57,17 @@ export class ClientFormComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     this._resetForms();
     if (this.currentClient) {
-      for (const field in this.clientForm.controls) {
-        const control = this.clientForm.get(field);
-        control.setValue(this.currentClient[field]);
+      for (const field in this.personForm.controls) {
+        const control = this.personForm.get(field);
+        control.setValue(this.currentClient.type[field]);
       }
       if (this.auth.hasMinAccess(EUserRoles.USER)) {
-        this.clientForm.enable();
+        this.personForm.enable();
         this.addressForm.enable();
       }
     } else {
       this._resetForms();
-      this.clientForm.disable();
+      this.personForm.disable();
       this.addressForm.disable();
       return;
     }
@@ -93,14 +83,14 @@ export class ClientFormComponent implements OnInit, OnChanges {
   }
 
   async submitForm(): Promise<void> {
-    const client: Client = this.clientForm.getRawValue();
+    const client: any = this.personForm.getRawValue();
     const address: any = this.addressForm.getRawValue();
     address.country = (address.country) ? address.country.name : null;
     client.address = (this.addressFormRequired) ? address : null;
-    
+    /*
     if (this.isUpdate) {
       // update
-      this.clientService.update(this.currentClient.id, client).subscribe(
+      this.clientsController.update(client).subscribe(
         (res: any) => {
           this._resetForms();
           this.refreshTable.emit();
@@ -114,7 +104,7 @@ export class ClientFormComponent implements OnInit, OnChanges {
       );
     } else {
       // create
-      this.clientService.create(client).subscribe(
+      this.clientsController.create(client).subscribe(
         (res: any) => {
           this._resetForms();
           this.toast.show(EToastSeverities.SUCCESS, 'Client created');
@@ -127,49 +117,16 @@ export class ClientFormComponent implements OnInit, OnChanges {
         }
       );
     }
-  }
-
-  searchCountry(event: any): void {
-    if (event) {
-      if (event.query !== '') {
-        this.countriesService.getByName(event.query).subscribe(
-          (res: Country[]) => {
-            this.countries = res;
-          },
-          (error: any) => {
-            console.log(error);
-          }
-        );
-        return;
-      }
-    }
-    this.countriesService.getAll().subscribe(
-      (res: Country[]) => {
-        this.countries = res;
-      },
-      (error: any) => {
-        console.log(error);
-      }
-    );
-  }
-
-  onAddressCompletion(): void {
-    const addressFormData = this.addressForm.getRawValue();
-    this.addressFormRequired = !Object.values(addressFormData).every(val => { return val === null || val === ''; });
-    for (const field in this.addressForm.controls) {
-      const control = this.addressForm.get(field);
-      control.setValidators((this.addressFormRequired) ? Validators.required : null);
-      control.updateValueAndValidity();
-    }
+    */
   }
 
   async deleteClient(): Promise<void> {
     if (this.currentClient) {
       const confirm = await this.confirmDialog.show(`Are you sure you want to delete the following client:
-      \n<b> ${this.currentClient.firstName} - ${this.currentClient.lastName}</b>`);
+      \n<b> ${this.currentClient.name}</b>`);
 
       if (confirm) {
-        this.clientService.delete(this.currentClient.id).subscribe(
+        this.clientsController.delete(this.currentClient).subscribe(
           (res: any) => {
             this._resetForms();
             this.refreshTable.emit();
@@ -185,7 +142,7 @@ export class ClientFormComponent implements OnInit, OnChanges {
   }
 
   private _resetForms(): void {
-    this.clientForm.reset();
+    this.personForm.reset();
     this.addressForm.reset();
   }
 

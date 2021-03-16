@@ -1,0 +1,41 @@
+<form class="form" [formGroup]="personForm">
+  <h2>Client information</h2>
+
+  <div class="p-grid p-fluid">
+    <div class="p-col-4">
+      <label for="civility" class="label-required">Civility</label>
+      <p-dropdown id="civility" appendTo="body" [options]="civility" optionLabel="value" optionValue="value"
+        formControlName="civility" placeholder="Select Civility"></p-dropdown>
+    </div>
+
+    <div class="p-col-8">
+      <label for="email" class="label-required">Email</label>
+      <input id="email" type="email" aria-describedby="email-help" pInputText formControlName="email">
+      <small *ngIf="false" id="email-help" class="p-error">Username is not available.</small>
+    </div>
+  </div>
+
+  <div class="p-grid p-fluid">
+    <div class="p-col-6">
+      <label for="firstName" class="label-required">First name</label>
+      <input id="firstName" type="text" pInputText formControlName="firstName">
+    </div>
+
+    <div class="p-col-6">
+      <label for="lastName" class="label-required">Last name</label>
+      <input id="lastName" type="text" pInputText formControlName="lastName">
+    </div>
+  </div>
+
+  <div class="p-grid p-fluid">
+    <div class="p-col-6">
+      <label for="phone">Phone</label>
+      <input id="phone" type="text" pInputText formControlName="phone">
+    </div>
+
+    <div class="p-col-6">
+      <label for="mobile">Mobile</label>
+      <input id="mobile" type="text" pInputText formControlName="mobile">
+    </div>
+  </div>
+</form>
