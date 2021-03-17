@@ -106,10 +106,15 @@ export class CompaniesController {
         addr[prop] = val;
       }
       await this.addressService.update(addr.id, addr);
+      dto.address.id = addr.id;
     } else if (!existingCompany.address && dto.address) {
       //create address
       const addrId = await this.addressService.create(dto.address);
       dto.address = addrId;
+    } else if (existingCompany.address && !dto.address) {
+      // remove address
+      const addr: Address = await this.addressService.findOneById(existingCompany.address.id);
+      this.addressService.remove(addr.id);
     }
     const updatedCompany: Company = await this.companiesService.update(id, dto);
     updatedCompany.id = id;
