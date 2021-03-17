@@ -74,16 +74,21 @@ export class PersonsController {
     if (emailConflict) throw new ConflictException;
 
     if (existingPerson.address && dto.address) {
-      //update address
+      // update address
       const addr: Address = await this.addressService.findOneById(existingPerson.address.id);
       for (const [prop, val] of Object.entries(dto.address)){
         addr[prop] = val;
       }
       await this.addressService.update(addr.id, addr);
+      dto.address.id = addr.id;
     } else if (!existingPerson.address && dto.address) {
-      //create address
+      // create address
       const addrId = await this.addressService.create(dto.address);
       dto.address = addrId;
+    } else if (existingPerson.address && !dto.address) {
+      // remove address
+      const addr: Address = await this.addressService.findOneById(existingPerson.address.id);
+      this.addressService.remove(addr.id);
     }
     const updatedPerson: Person = await this.personsService.update(id, dto);
     updatedPerson.id = id;

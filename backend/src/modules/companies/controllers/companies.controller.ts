@@ -37,6 +37,18 @@ export class CompaniesController {
     return plainToClass(CompanyDTO,companies);
   }
 
+  @Get('clients')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiResponse({
+    status: 200,
+    type: CompanyDTO,
+    isArray: true
+  })
+  async findAllClients(): Promise<CompanyDTO[]> {
+    const companies: Company[] = await this.companiesService.findAllClients();
+    return plainToClass(CompanyDTO,companies);
+  }
+
   @Get('suppliers')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiResponse({

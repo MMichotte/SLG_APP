@@ -12,7 +12,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'blangrish0@skyrock.com',
     phone1: '+357-690-878-4462',
     mobile: '+970-642-651-5938',
-    website: 'buzzfeed.com',
+    website: 'www.buzzfeed.com',
     personId: null,
     address: {
       country: 'Uzbekistan',
@@ -28,7 +28,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'ctyrer1@spiegel.de',
     phone1: '+7-294-523-6001',
     mobile: '+52-975-169-7602',
-    website: 'sciencedirect.com',
+    website: 'www.sciencedirect.com',
     personId: null,
     address: {
       country: 'China',
@@ -44,7 +44,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'rjenny2@mail.ru',
     phone1: '+234-437-133-2476',
     mobile: '+86-187-419-6490',
-    website: 'netvibes.com',
+    website: 'www.netvibes.com',
     personId: 46,
     address: {
       country: 'Sweden',
@@ -60,7 +60,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'gbenfield3@marketwatch.com',
     phone1: '+86-478-975-4156',
     mobile: '+81-165-599-8917',
-    website: 'ezinearticles.com',
+    website: 'www.ezinearticles.com',
     personId: null,
     address: {
       country: 'China',
@@ -76,7 +76,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'dilyasov4@berkeley.edu',
     phone1: '+55-584-263-9054',
     mobile: '+52-982-767-2604',
-    website: 'liveinternet.ru',
+    website: 'www.liveinternet.ru',
     personId: null,
     address: {
       country: 'China',
@@ -92,7 +92,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'abutchard5@ox.ac.uk',
     phone1: '+86-100-851-7142',
     mobile: '+249-306-825-4747',
-    website: 'tumblr.com',
+    website: 'www.tumblr.com',
     personId: null,
     address: {
       country: 'Philippines',
@@ -108,7 +108,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'cbadsey6@goo.gl',
     phone1: '+62-419-340-5189',
     mobile: '+86-573-244-5228',
-    website: 'chronoengine.com',
+    website: 'www.chronoengine.com',
     personId: null,
     address: {
       country: 'China',
@@ -124,7 +124,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'sbazylets7@ihg.com',
     phone1: '+62-485-107-4835',
     mobile: '+234-993-564-2250',
-    website: 'washingtonpost.com',
+    website: 'www.washingtonpost.com',
     personId: null,
     address: {
       country: 'Portugal',
@@ -140,7 +140,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'pmaskell8@google.com',
     phone1: '+86-563-871-6777',
     mobile: '+86-415-895-3590',
-    website: 'senate.gov',
+    website: 'www.senate.gov',
     personId: null,
     address: {
       country: 'Latvia',
@@ -156,7 +156,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'wrecord9@macromedia.com',
     phone1: '+62-166-105-7854',
     mobile: '+33-842-120-4127',
-    website: 'un.org',
+    website: 'www.un.org',
     personId: null,
     address: {
       country: 'Uzbekistan',
@@ -172,7 +172,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'sgrimsteada@dell.com',
     phone1: '+53-929-611-9655',
     mobile: '+33-464-164-7442',
-    website: 'godaddy.com',
+    website: 'www.godaddy.com',
     personId: null,
     address: {
       country: 'Brazil',
@@ -188,7 +188,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'bkeyworthb@people.com.cn',
     phone1: '+7-782-375-6338',
     mobile: '+86-483-457-8371',
-    website: 'irs.gov',
+    website: 'www.irs.gov',
     personId: null,
     address: {
       country: 'China',
@@ -204,7 +204,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'rdecourcyc@bloomberg.com',
     phone1: '+258-966-272-0193',
     mobile: '+55-222-125-5230',
-    website: 'storify.com',
+    website: 'www.storify.com',
     personId: null,
     address: {
       country: 'Indonesia',
@@ -220,7 +220,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'bvedikhovd@xinhuanet.com',
     phone1: '+62-679-949-1969',
     mobile: '+1-630-751-6422',
-    website: 'webs.com',
+    website: 'www.webs.com',
     personId: null,
     address: {
       country: 'Russia',
@@ -236,7 +236,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'cscade@canalblog.com',
     phone1: '+55-742-452-7285',
     mobile: '+1-574-786-4366',
-    website: 'narod.ru',
+    website: 'www.narod.ru',
     personId: null,
     address: {
       country: 'China',
@@ -252,7 +252,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'jbrowettf@psu.edu',
     phone1: '+63-144-930-0379',
     mobile: '+63-597-710-9960',
-    website: 't.co',
+    website: 'www.t.co',
     personId: null,
     address: {
       country: 'Indonesia',
@@ -268,7 +268,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'alinckeg@newyorker.com',
     phone1: '+992-739-826-5960',
     mobile: '+86-883-780-6806',
-    website: 'cafepress.com',
+    website: 'www.cafepress.com',
     personId: null,
     address: {
       country: 'Brazil',
@@ -284,7 +284,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'udronh@utexas.edu',
     phone1: '+380-309-852-1976',
     mobile: '+33-308-133-1572',
-    website: 'wikipedia.org',
+    website: 'www.wikipedia.org',
     personId: null,
     address: {
       country: 'Japan',
@@ -300,7 +300,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'riannuzzellii@hexun.com',
     phone1: '+234-196-888-5771',
     mobile: '+86-679-684-7042',
-    website: 'tuttocitta.it',
+    website: 'www.tuttocitta.it',
     personId: 24,
     address: {
       country: 'Turkmenistan',
@@ -316,7 +316,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'mambrosolij@walmart.com',
     phone1: '+358-856-219-3358',
     mobile: '+30-776-344-2876',
-    website: 'java.com',
+    website: 'www.java.com',
     personId: null,
     address: {
       country: 'Hungary',
@@ -332,7 +332,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'shearonsk@cam.ac.uk',
     phone1: '+351-804-177-5200',
     mobile: '+254-293-990-3571',
-    website: 'drupal.org',
+    website: 'www.drupal.org',
     personId: null,
     address: {
       country: 'China',
@@ -348,7 +348,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'sbiersl@over-blog.com',
     phone1: '+86-816-186-8818',
     mobile: '+57-184-366-1395',
-    website: 'dell.com',
+    website: 'www.dell.com',
     personId: null,
     address: {
       country: 'China',
@@ -364,7 +364,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'litzigm@biblegateway.com',
     phone1: '+420-579-458-1047',
     mobile: '+86-515-531-7569',
-    website: 'nifty.com',
+    website: 'www.nifty.com',
     personId: null,
     address: {
       country: 'Bulgaria',
@@ -380,7 +380,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'nblockn@g.co',
     phone1: '+251-972-195-3834',
     mobile: '+880-851-112-9018',
-    website: 'slashdot.org',
+    website: 'www.slashdot.org',
     personId: null,
     address: {
       country: 'China',
@@ -396,7 +396,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'bmathisseno@about.me',
     phone1: '+62-684-646-2024',
     mobile: '+7-908-103-2317',
-    website: 'feedburner.com',
+    website: 'www.feedburner.com',
     personId: null,
     address: {
       country: 'Norway',
@@ -412,7 +412,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'bbeardshallp@1688.com',
     phone1: '+86-541-694-2871',
     mobile: '+86-120-588-3177',
-    website: 'nih.gov',
+    website: 'www.nih.gov',
     personId: null,
     address: {
       country: 'China',
@@ -428,7 +428,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'eganfordq@studiopress.com',
     phone1: '+7-211-310-0223',
     mobile: '+62-456-319-6889',
-    website: 'chicagotribune.com',
+    website: 'www.chicagotribune.com',
     personId: null,
     address: {
       country: 'Djibouti',
@@ -444,7 +444,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'phucr@mtv.com',
     phone1: '+52-528-564-6937',
     mobile: '+86-901-957-9483',
-    website: 'github.com',
+    website: 'www.github.com',
     personId: null,
     address: {
       country: 'Uruguay',
@@ -460,7 +460,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'lyantsevs@squidoo.com',
     phone1: '+389-979-964-2249',
     mobile: '+86-263-306-4313',
-    website: 'blinklist.com',
+    website: 'www.blinklist.com',
     personId: null,
     address: {
       country: 'Indonesia',
@@ -476,7 +476,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'uwathant@sourceforge.net',
     phone1: '+389-300-456-8379',
     mobile: '+62-403-669-1854',
-    website: 'sun.com',
+    website: 'www.sun.com',
     personId: null,
     address: {
       country: 'Canada',
@@ -492,7 +492,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'egirardinu@engadget.com',
     phone1: '+976-920-868-8215',
     mobile: '+62-286-166-9072',
-    website: 'nhs.uk',
+    website: 'www.nhs.uk',
     personId: null,
     address: {
       country: 'Luxembourg',
@@ -508,7 +508,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'khartnupv@blogger.com',
     phone1: '+51-923-390-1011',
     mobile: '+351-122-443-6864',
-    website: 'cafepress.com',
+    website: 'www.cafepress.com',
     personId: 16,
     address: {
       country: 'Namibia',
@@ -524,7 +524,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'pfokerw@europa.eu',
     phone1: '+98-357-904-2622',
     mobile: '+351-986-986-7796',
-    website: 'nytimes.com',
+    website: 'www.nytimes.com',
     personId: 47,
     address: {
       country: 'Cameroon',
@@ -540,7 +540,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'vgianninottix@va.gov',
     phone1: '+593-207-429-7826',
     mobile: '+81-942-482-6894',
-    website: 'nih.gov',
+    website: 'www.nih.gov',
     personId: null,
     address: {
       country: 'Brazil',
@@ -556,7 +556,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'rajamy@qq.com',
     phone1: '+86-735-771-1415',
     mobile: '+62-430-495-7183',
-    website: 'hc360.com',
+    website: 'www.hc360.com',
     personId: 93,
     address: {
       country: 'Brazil',
@@ -572,7 +572,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'msharplingz@sbwire.com',
     phone1: '+420-145-608-5473',
     mobile: '+7-497-580-5896',
-    website: 'aol.com',
+    website: 'www.aol.com',
     personId: 56,
     address: {
       country: 'China',
@@ -588,7 +588,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'stootal10@pcworld.com',
     phone1: '+55-548-220-8029',
     mobile: '+62-865-580-4703',
-    website: 'last.fm',
+    website: 'www.last.fm',
     personId: null,
     address: {
       country: 'Brazil',
@@ -604,7 +604,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'imore11@columbia.edu',
     phone1: '+55-520-103-4675',
     mobile: '+1-561-243-2773',
-    website: 'vkontakte.ru',
+    website: 'www.vkontakte.ru',
     personId: null,
     address: {
       country: 'United Kingdom',
@@ -620,7 +620,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'fmerrison12@wix.com',
     phone1: '+63-758-804-5207',
     mobile: '+375-239-922-7715',
-    website: 'sina.com.cn',
+    website: 'www.sina.com.cn',
     personId: null,
     address: {
       country: 'Panama',
@@ -636,7 +636,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'vmccrostie13@live.com',
     phone1: '+62-902-237-9061',
     mobile: '+86-572-564-1882',
-    website: 'answers.com',
+    website: 'www.answers.com',
     personId: 16,
     address: {
       country: 'Thailand',
@@ -652,7 +652,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'ccanwell14@goo.ne.jp',
     phone1: '+1-395-800-0733',
     mobile: '+81-210-432-7443',
-    website: 'ning.com',
+    website: 'www.ning.com',
     personId: null,
     address: {
       country: 'Norway',
@@ -668,7 +668,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'mchampkins15@google.fr',
     phone1: '+1-620-340-4783',
     mobile: '+353-637-374-6193',
-    website: 'pen.io',
+    website: 'www.pen.io',
     personId: null,
     address: {
       country: 'China',
@@ -684,7 +684,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'vmccaughran16@omniture.com',
     phone1: '+598-775-349-9210',
     mobile: '+86-184-456-6801',
-    website: 'kickstarter.com',
+    website: 'www.kickstarter.com',
     personId: null,
     address: {
       country: 'Russia',
@@ -700,7 +700,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'hhoulaghan17@wikimedia.org',
     phone1: '+57-675-392-0838',
     mobile: '+86-548-100-5553',
-    website: 'harvard.edu',
+    website: 'www.harvard.edu',
     personId: null,
     address: {
       country: 'Suriname',
@@ -716,7 +716,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'washbrook18@last.fm',
     phone1: '+86-193-618-9195',
     mobile: '+351-738-224-5035',
-    website: 'auda.org.au',
+    website: 'www.auda.org.au',
     personId: null,
     address: {
       country: 'Argentina',
@@ -732,7 +732,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'mfulger19@tumblr.com',
     phone1: '+963-969-625-9276',
     mobile: '+62-803-126-5166',
-    website: 'msn.com',
+    website: 'www.msn.com',
     personId: null,
     address: {
       country: 'Vietnam',
@@ -748,7 +748,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'fsherington1a@xinhuanet.com',
     phone1: '+48-180-383-9110',
     mobile: '+385-303-523-6087',
-    website: 'sina.com.cn',
+    website: 'www.sina.com.cn',
     personId: null,
     address: {
       country: 'China',
@@ -764,7 +764,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'boldershaw1b@wsj.com',
     phone1: '+420-972-183-9294',
     mobile: '+86-747-201-3813',
-    website: 'oracle.com',
+    website: 'www.oracle.com',
     personId: 71,
     address: {
       country: 'Argentina',
@@ -780,7 +780,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'sdoberer1c@dion.ne.jp',
     phone1: '+255-845-945-9308',
     mobile: '+351-133-764-7653',
-    website: 'i2i.jp',
+    website: 'www.i2i.jp',
     personId: null,
     address: {
       country: 'Russia',
@@ -796,7 +796,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'mkennet1d@bing.com',
     phone1: '+46-238-351-3205',
     mobile: '+55-293-164-1512',
-    website: 'mozilla.org',
+    website: 'www.mozilla.org',
     personId: null,
     address: {
       country: 'Jordan',
@@ -812,7 +812,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'tspratley1e@nytimes.com',
     phone1: '+262-606-174-3228',
     mobile: '+86-575-528-7196',
-    website: 'about.me',
+    website: 'www.about.me',
     personId: null,
     address: {
       country: 'China',
@@ -828,7 +828,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'fworden1f@technorati.com',
     phone1: '+48-281-440-0580',
     mobile: '+86-545-747-1134',
-    website: 'google.it',
+    website: 'www.google.it',
     personId: null,
     address: {
       country: 'United States',
@@ -844,7 +844,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'iloch1g@apple.com',
     phone1: '+351-970-901-7254',
     mobile: '+63-647-562-5759',
-    website: 'reference.com',
+    website: 'www.reference.com',
     personId: null,
     address: {
       country: 'China',
@@ -860,7 +860,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'sbrumbye1h@oakley.com',
     phone1: '+63-930-778-2822',
     mobile: '+86-504-811-9593',
-    website: 'macromedia.com',
+    website: 'www.macromedia.com',
     personId: null,
     address: {
       country: 'Indonesia',
@@ -876,7 +876,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'bdammarell1i@sun.com',
     phone1: '+970-570-815-6204',
     mobile: '+62-250-603-3944',
-    website: 'usnews.com',
+    website: 'www.usnews.com',
     personId: null,
     address: {
       country: 'Norway',
@@ -892,7 +892,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'crentenbeck1j@utexas.edu',
     phone1: '+375-255-221-4398',
     mobile: '+48-281-303-3275',
-    website: 'so-net.ne.jp',
+    website: 'www.so-net.ne.jp',
     personId: null,
     address: {
       country: 'Paraguay',
@@ -908,7 +908,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'vbasterfield1k@creativecommons.org',
     phone1: '+509-778-829-1352',
     mobile: '+46-523-420-8964',
-    website: '4shared.com',
+    website: 'www.4shared.com',
     personId: 67,
     address: {
       country: 'Mongolia',
@@ -924,7 +924,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'ndettmar1l@imageshack.us',
     phone1: '+420-536-764-6244',
     mobile: '+46-548-741-6300',
-    website: 'epa.gov',
+    website: 'www.epa.gov',
     personId: null,
     address: {
       country: 'Indonesia',
@@ -940,7 +940,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'nespada1m@si.edu',
     phone1: '+63-820-854-7610',
     mobile: '+63-944-625-1620',
-    website: 'go.com',
+    website: 'www.go.com',
     personId: 34,
     address: {
       country: 'Japan',
@@ -956,7 +956,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'tcoulling1n@eepurl.com',
     phone1: '+33-417-619-7732',
     mobile: '+221-601-292-6260',
-    website: 'live.com',
+    website: 'www.live.com',
     personId: 49,
     address: {
       country: 'Philippines',
@@ -972,7 +972,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'nleban1o@e-recht24.de',
     phone1: '+86-865-844-9742',
     mobile: '+996-543-269-0372',
-    website: 'hugedomains.com',
+    website: 'www.hugedomains.com',
     personId: 64,
     address: {
       country: 'South Africa',
@@ -988,7 +988,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'rlongmead1p@vk.com',
     phone1: '+234-793-779-2957',
     mobile: '+86-969-487-2457',
-    website: 'dagondesign.com',
+    website: 'www.dagondesign.com',
     personId: null,
     address: {
       country: 'Israel',
@@ -1004,7 +1004,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'ramdohr1q@independent.co.uk',
     phone1: '+86-698-571-9111',
     mobile: '+60-512-430-1098',
-    website: 'state.tx.us',
+    website: 'www.state.tx.us',
     personId: null,
     address: {
       country: 'China',
@@ -1020,7 +1020,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'spentycross1r@amazon.co.uk',
     phone1: '+7-469-285-0436',
     mobile: '+86-574-374-5112',
-    website: 'wikipedia.org',
+    website: 'www.wikipedia.org',
     personId: null,
     address: {
       country: 'Kosovo',
@@ -1036,7 +1036,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'bblancowe1s@youtube.com',
     phone1: '+55-129-660-7442',
     mobile: '+420-621-958-1475',
-    website: 'army.mil',
+    website: 'www.army.mil',
     personId: null,
     address: {
       country: 'Russia',
@@ -1052,7 +1052,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'dgilardengo1t@list-manage.com',
     phone1: '+226-211-267-9025',
     mobile: '+86-370-437-0571',
-    website: 'icq.com',
+    website: 'www.icq.com',
     personId: 9,
     address: {
       country: 'United States',
@@ -1068,7 +1068,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'gtireman1u@microsoft.com',
     phone1: '+63-463-106-5455',
     mobile: '+993-708-863-9837',
-    website: 'microsoft.com',
+    website: 'www.microsoft.com',
     personId: null,
     address: {
       country: 'China',
@@ -1084,7 +1084,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'awoolston1v@whitehouse.gov',
     phone1: '+86-520-963-5364',
     mobile: '+33-983-369-8595',
-    website: 'cafepress.com',
+    website: 'www.cafepress.com',
     personId: null,
     address: {
       country: 'Poland',
@@ -1100,7 +1100,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'prittmeyer1w@devhub.com',
     phone1: '+86-127-453-2501',
     mobile: '+63-759-607-3053',
-    website: 'paginegialle.it',
+    website: 'www.paginegialle.it',
     personId: null,
     address: {
       country: 'China',
@@ -1116,7 +1116,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'sladlow1x@whitehouse.gov',
     phone1: '+57-451-177-3200',
     mobile: '+86-200-601-2670',
-    website: 'wix.com',
+    website: 'www.wix.com',
     personId: null,
     address: {
       country: 'China',
@@ -1132,7 +1132,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'bgiacovelli1y@arizona.edu',
     phone1: '+380-524-399-0740',
     mobile: '+351-425-927-1253',
-    website: 'nyu.edu',
+    website: 'www.nyu.edu',
     personId: null,
     address: {
       country: 'Vietnam',
@@ -1148,7 +1148,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'jgrzelczyk1z@posterous.com',
     phone1: '+62-472-425-8169',
     mobile: '+7-768-864-4922',
-    website: 'google.com.hk',
+    website: 'www.google.com.hk',
     personId: null,
     address: {
       country: 'Argentina',
@@ -1164,7 +1164,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'bgeddis20@parallels.com',
     phone1: '+86-130-850-7464',
     mobile: '+30-621-622-2758',
-    website: 'cbsnews.com',
+    website: 'www.cbsnews.com',
     personId: null,
     address: {
       country: 'Sweden',
@@ -1180,7 +1180,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'gfoakes21@shutterfly.com',
     phone1: '+86-935-484-8896',
     mobile: '+420-517-769-0395',
-    website: 'dot.gov',
+    website: 'www.dot.gov',
     personId: null,
     address: {
       country: 'France',
@@ -1196,7 +1196,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'ceisig22@wisc.edu',
     phone1: '+62-122-266-6261',
     mobile: '+880-599-732-6435',
-    website: 'discovery.com',
+    website: 'www.discovery.com',
     personId: null,
     address: {
       country: 'Portugal',
@@ -1212,7 +1212,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'lpiscopiello23@hatena.ne.jp',
     phone1: '+7-664-112-5763',
     mobile: '+62-403-835-5992',
-    website: 'mail.ru',
+    website: 'www.mail.ru',
     personId: null,
     address: {
       country: 'Brazil',
@@ -1228,7 +1228,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'ijackman24@utexas.edu',
     phone1: '+86-417-766-2751',
     mobile: '+52-554-346-1165',
-    website: 'macromedia.com',
+    website: 'www.macromedia.com',
     personId: null,
     address: {
       country: 'Portugal',
@@ -1244,7 +1244,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'lpritchitt25@drupal.org',
     phone1: '+86-831-319-9894',
     mobile: '+27-932-866-8540',
-    website: 'paginegialle.it',
+    website: 'www.paginegialle.it',
     personId: null,
     address: {
       country: 'Sweden',
@@ -1260,7 +1260,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'ddulin26@dailymotion.com',
     phone1: '+55-581-613-8266',
     mobile: '+970-778-293-8204',
-    website: 'huffingtonpost.com',
+    website: 'www.huffingtonpost.com',
     personId: null,
     address: {
       country: 'China',
@@ -1276,7 +1276,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'kjeffrey27@jimdo.com',
     phone1: '+51-135-775-4590',
     mobile: '+36-157-778-8148',
-    website: 'globo.com',
+    website: 'www.globo.com',
     personId: null,
     address: {
       country: 'Indonesia',
@@ -1292,7 +1292,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'zmaryman28@ihg.com',
     phone1: '+86-619-738-8145',
     mobile: '+51-880-861-0107',
-    website: 'ucoz.com',
+    website: 'www.ucoz.com',
     personId: null,
     address: {
       country: 'France',
@@ -1308,7 +1308,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'gpheazey29@list-manage.com',
     phone1: '+62-600-943-1295',
     mobile: '+53-417-317-4540',
-    website: 'privacy.gov.au',
+    website: 'www.privacy.gov.au',
     personId: null,
     address: {
       country: 'China',
@@ -1324,7 +1324,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'bmacterlagh2a@cargocollective.com',
     phone1: '+86-187-685-9158',
     mobile: '+86-665-800-3406',
-    website: 'upenn.edu',
+    website: 'www.upenn.edu',
     personId: null,
     address: {
       country: 'Philippines',
@@ -1340,7 +1340,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'pmacdonagh2b@wiley.com',
     phone1: '+86-686-802-8851',
     mobile: '+33-853-870-0546',
-    website: 'reddit.com',
+    website: 'www.reddit.com',
     personId: 18,
     address: {
       country: 'Gabon',
@@ -1356,7 +1356,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'gknibley2c@abc.net.au',
     phone1: '+86-314-372-5125',
     mobile: '+62-326-207-7570',
-    website: 'tamu.edu',
+    website: 'www.tamu.edu',
     personId: null,
     address: {
       country: 'Argentina',
@@ -1372,7 +1372,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'gbromley2d@myspace.com',
     phone1: '+258-619-460-5937',
     mobile: '+86-693-493-7058',
-    website: 'domainmarket.com',
+    website: 'www.domainmarket.com',
     personId: null,
     address: {
       country: 'Philippines',
@@ -1388,7 +1388,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'dboydell2e@merriam-webster.com',
     phone1: '+86-563-727-9807',
     mobile: '+380-705-745-3744',
-    website: 'chronoengine.com',
+    website: 'www.chronoengine.com',
     personId: null,
     address: {
       country: 'Panama',
@@ -1404,7 +1404,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'gtidmarsh2f@apache.org',
     phone1: '+86-985-379-8319',
     mobile: '+31-989-245-5030',
-    website: 'merriam-webster.com',
+    website: 'www.merriam-webster.com',
     personId: null,
     address: {
       country: 'Mexico',
@@ -1420,7 +1420,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'amindenhall2g@nyu.edu',
     phone1: '+46-410-792-1881',
     mobile: '+62-865-986-0343',
-    website: 'indiegogo.com',
+    website: 'www.indiegogo.com',
     personId: null,
     address: {
       country: 'Japan',
@@ -1436,7 +1436,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'mblinco2h@npr.org',
     phone1: '+970-859-197-1970',
     mobile: '+86-374-173-5172',
-    website: 'forbes.com',
+    website: 'www.forbes.com',
     personId: null,
     address: {
       country: 'Sweden',
@@ -1452,7 +1452,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'idobbins2i@wix.com',
     phone1: '+33-933-989-2945',
     mobile: '+855-143-363-4320',
-    website: 'studiopress.com',
+    website: 'www.studiopress.com',
     personId: null,
     address: {
       country: 'Russia',
@@ -1468,7 +1468,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'asear2j@yahoo.com',
     phone1: '+679-423-107-3630',
     mobile: '+33-232-238-1862',
-    website: 'ycombinator.com',
+    website: 'www.ycombinator.com',
     personId: null,
     address: {
       country: 'Portugal',
@@ -1484,7 +1484,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'xgealy2k@microsoft.com',
     phone1: '+994-787-547-1458',
     mobile: '+62-586-768-7439',
-    website: 'columbia.edu',
+    website: 'www.columbia.edu',
     personId: null,
     address: {
       country: 'Indonesia',
@@ -1500,7 +1500,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'ajarmaine2l@angelfire.com',
     phone1: '+54-248-589-2096',
     mobile: '+230-708-713-8372',
-    website: 'goo.gl',
+    website: 'www.goo.gl',
     personId: 62,
     address: {
       country: 'Sweden',
@@ -1516,7 +1516,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'dgriffitt2m@quantcast.com',
     phone1: '+47-901-809-5686',
     mobile: '+62-860-659-1495',
-    website: 'cnn.com',
+    website: 'www.cnn.com',
     personId: null,
     address: {
       country: 'Brazil',
@@ -1532,7 +1532,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'jisack2n@miibeian.gov.cn',
     phone1: '+81-350-147-5482',
     mobile: '+380-614-961-0390',
-    website: 'angelfire.com',
+    website: 'www.angelfire.com',
     personId: null,
     address: {
       country: 'Moldova',
@@ -1548,7 +1548,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'dferie2o@un.org',
     phone1: '+98-705-451-7699',
     mobile: '+1-872-686-8932',
-    website: 'google.nl',
+    website: 'www.google.nl',
     personId: null,
     address: {
       country: 'France',
@@ -1564,7 +1564,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'sstear2p@nba.com',
     phone1: '+86-249-350-6771',
     mobile: '+86-130-134-2438',
-    website: 'baidu.com',
+    website: 'www.baidu.com',
     personId: null,
     address: {
       country: 'Russia',
@@ -1580,7 +1580,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'fgrelak2q@studiopress.com',
     phone1: '+48-699-511-4235',
     mobile: '+351-991-453-2378',
-    website: 'wix.com',
+    website: 'www.wix.com',
     personId: null,
     address: {
       country: 'Indonesia',
@@ -1596,7 +1596,7 @@ export const CompanySeed: CreateCompanyDTO[] = [
     email: 'dbarchrameev2r@behance.net',
     phone1: '+7-891-860-7451',
     mobile: '+55-190-866-0707',
-    website: 'dropbox.com',
+    website: 'www.dropbox.com',
     personId: null,
     address: {
       country: 'Russia',
