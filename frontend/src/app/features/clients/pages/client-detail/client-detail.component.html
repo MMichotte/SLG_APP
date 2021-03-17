@@ -36,8 +36,8 @@
           <div class="inline" *ngIf="client.isCompany">
             <div>Owner/contact:</div>
             <div>
-              <a routerLink="/clients/person/{{client.person.id}}/detail">{{client.person.lastName}}
-                {{client.person.firstName}}</a>
+              <a routerLink="/clients/person/{{client.person?.id}}/detail">{{client.person?.lastName}}
+                {{client.person?.firstName}}</a>
             </div>
           </div>
           <div class="inline">

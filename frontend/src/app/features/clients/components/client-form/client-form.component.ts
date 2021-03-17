@@ -78,7 +78,7 @@ export class ClientFormComponent implements OnInit, OnChanges {
     if (this.currentClient) {
       for (const field in this.currentForm.controls) {
         const control = this.currentForm.get(field);
-        if (field === 'person') {
+        if (field === 'person' && this.currentClient.person) {
           const person = new Client(this.currentClient.person);
           control.setValue(person);
         } else {
