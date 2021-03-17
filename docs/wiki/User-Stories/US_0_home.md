@@ -64,7 +64,7 @@ Bien évidemment, afin de répondre à ses besoins, une série d'US intermédiai
 17. [x] CL03 - Ajout nouveau client
 18. [x] CL09 - Rechercher un client 
 19. [x] CL10 - Supprimer un client
-20. [ ] CL04 - Consulter/modifier détail d'un client
+20. [x] CL04 - Consulter/modifier détail d'un client
 21. [x] FO01 - Onglet Fournisseurs
 22. [ ] FO02 - Consulter liste des fournisseurs
 23. [ ] FO03 - Ajouter nouveau fournisseur
