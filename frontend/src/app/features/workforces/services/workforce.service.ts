@@ -17,6 +17,10 @@ export class WorkforceService {
   getAll (): any {
     return this.httpClient.get(this.endpoint);
   }
+  
+  getOne (id: number): any {
+    return this.httpClient.get(`${this.endpoint}/${id}`);
+  }
 
   create (workforce: CreateWorkforceDTO): any {
     return this.httpClient.post(this.endpoint, workforce);

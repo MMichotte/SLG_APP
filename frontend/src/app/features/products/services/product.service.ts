@@ -16,6 +16,10 @@ export class ProductService {
   getAll (): any {
     return this.httpClient.get(this.endpoint);
   }
+  
+  getOne (id: number): any {
+    return this.httpClient.get(`${this.endpoint}/${id}`);
+  }
 
   create (product: CreateProductDTO): any {
     return this.httpClient.post(this.endpoint, product);

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../models/product.model';
 import { ProductTransaction } from '../../models/product-transaction.model';
 import { ProductService } from '../../services/product.service';
@@ -21,17 +21,18 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private readonly productService: ProductService,
     public readonly router: Router,
+    private readonly route: ActivatedRoute,
     private readonly cd: ChangeDetectorRef
-  ) { 
+  ) {}
+
+  async ngOnInit(): Promise<void> {
     try {
-      this.product = this.router.getCurrentNavigation().extras.state.product;
+      const prodId = this.route.snapshot.params.id;
+      this.product = await this.productService.getOne(prodId).toPromise(); // TODO catch if error! 
     } catch (e) {
       console.log(e);
       this.router.navigate(['products']);
     }
-  }
-
-  ngOnInit(): void {
     this.getStockUpdates();
     this.transactionCols = [
       { field: 'updatedAt', header: 'Date' },

@@ -19,6 +19,7 @@ export class ClientsComponent implements OnInit {
   cols: any[];
   clients: Client[] = [];
   selectedClient: Client;
+  personsList: Client[];
   loadingData: boolean;
 
   constructor (
@@ -32,9 +33,9 @@ export class ClientsComponent implements OnInit {
   ngOnInit (): void {
     this.refreshClients();
     this.cols = [
-      { field: 'name', header: 'Full name' },
+      { field: 'displayName', header: 'Full name' },
       { field: 'email', header: 'Email' },
-      { field: 'phone', header: 'Phone' },
+      { field: 'mainPhone', header: 'Phone' },
       { field: 'mobile', header: 'Mobile' },
       { field: 'VAT', header: 'VAT' }
     ];
@@ -45,6 +46,7 @@ export class ClientsComponent implements OnInit {
     this.clientsController.getAll().then(
       (clients: Client[]) => {
         this.clients = clients;
+        this.personsList = this.clients.filter((cL: Client) => { return !cL.isCompany; });        
         this.selectedClient = null;
         this.cd.detectChanges();
         this.loadingData = false;
@@ -63,7 +65,11 @@ export class ClientsComponent implements OnInit {
   }
 
   showClientDetailPage(client: Client): void {
-    this.router.navigate([`clients/${client.type.id}/detail`], { state: { client: client } });
+    if (!client.isCompany) {
+      this.router.navigate([`clients/person/${client.id}/detail`]);
+    } else {
+      this.router.navigate([`clients/company/${client.id}/detail`]);
+    }
   }
 
 }

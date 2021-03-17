@@ -47,5 +47,9 @@
       <label for="website">Website</label>
       <input id="website" type="text" pInputText formControlName="website">
     </div>
+    <div class="p-col-6">
+      <label for="person">Owner/Contact</label>
+      <p-autoComplete [suggestions]="personsListFiltered" field="displayName" (completeMethod)="searchClient($event.query)" formControlName="person" [dropdown]="true"></p-autoComplete>
+    </div>
   </div>
 </form>

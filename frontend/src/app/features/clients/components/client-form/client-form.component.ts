@@ -8,7 +8,6 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { EUserRoles } from '../../../../core/enums/user-roles.enum';
 import { ClientsController } from '../../controllers/clients.controller';
 import { Client } from '../../models/client.model';
-import { Company } from '../../../companies/models/company.model';
 
 @Component({
   selector: 'app-client-form',
@@ -19,6 +18,7 @@ export class ClientFormComponent implements OnInit, OnChanges {
 
   @Input() currentClient?: Client;
   @Input() isUpdate?: boolean;
+  @Input() personsList?: Client[];
 
   @Output() refreshTable?= new EventEmitter<any>();
 
@@ -55,7 +55,8 @@ export class ClientFormComponent implements OnInit, OnChanges {
     phone1: new FormControl(null),
     phone2: new FormControl(null),
     mobile: new FormControl(null),
-    website: new FormControl(null)
+    website: new FormControl(null),
+    person: new FormControl(null)
   });
 
   addressForm = new FormGroup({
@@ -71,13 +72,18 @@ export class ClientFormComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     this._resetForms();
-    this.isCompany = (this.currentClient?.type instanceof Company);
+    this.isCompany = this.currentClient?.isCompany;
     this.currentForm = (this.isCompany) ? this.companyForm : this.personForm;
 
     if (this.currentClient) {
       for (const field in this.currentForm.controls) {
         const control = this.currentForm.get(field);
-        control.setValue(this.currentClient.type[field]);
+        if (field === 'person') {
+          const person = new Client(this.currentClient.person);
+          control.setValue(person);
+        } else {
+          control.setValue(this.currentClient[field]);
+        }
       }
       if (this.auth.hasMinAccess(EUserRoles.USER)) {
         this._enableForms();
@@ -87,13 +93,13 @@ export class ClientFormComponent implements OnInit, OnChanges {
       this._disableForms();
       return;
     }
-    if (this.currentClient.type.address) {
+    if (this.currentClient.address) {
       for (const field in this.addressForm.controls) {
         const control = this.addressForm.get(field);
-        control.setValue(this.currentClient.type.address[field]);
+        control.setValue(this.currentClient.address[field]);
       }
       this.addressForm.patchValue({
-        country: { name: this.currentClient.type.address.country }
+        country: { name: this.currentClient.address.country }
       });
       this.addressFormRequired = true;
     } else {
@@ -107,10 +113,13 @@ export class ClientFormComponent implements OnInit, OnChanges {
     const address: any = this.addressForm.getRawValue();
     address.country = (address.country) ? address.country.name : null;
     client.address = (this.addressFormRequired) ? address : null;
+    if (client.person) {
+      client.personId = client.person.id; 
+    }
     if (this.isUpdate) {
       // update
       const updateClient = (this.isCompany) ? 'updateCompany' : 'updatePerson';
-      this.clientsController[updateClient](this.currentClient.type.id, client).subscribe(
+      this.clientsController[updateClient](this.currentClient.id, client).subscribe(
         (res: any) => {
           this._resetForms();
           this.refreshTable.emit();

@@ -1,5 +1,6 @@
 import { ECompanyType } from './../enums/company-type.enum';
 import { Address } from './../../../core/models/address.model';
+import { Person } from '../../persons/models/person.model';
 
 export class Company {
   id: number;
@@ -11,6 +12,7 @@ export class Company {
   phone2?: string;
   mobile?: string;
   website?: string;
+  person?: Person;
   address?: Address;
 
   constructor(obj?: any) {

@@ -57,10 +57,10 @@ export class ClientsController {
   }
   
   delete (client: Client): any {
-    if (client.type instanceof Person) {
-      return this.personsService.delete(client.type.id);
+    if (!client.isCompany) {
+      return this.personsService.delete(client.id);
     }
-    return this.companiesService.delete(client.type.id);
+    return this.companiesService.delete(client.id);
   }
   
 }

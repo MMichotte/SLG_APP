@@ -8,11 +8,11 @@
                 placeholder="Search Client" (click)="selectedClient=null; cd.detectChanges();" />
         </div>
         <button pButton pRipple type="button" icon="pi pi-plus" label="New Client"
-            (click)="showNewClientModal()"></button>
+            (click)="showNewClientModal()" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
     </div>
 
     <p-panel header="Edit Client" class="form" [toggleable]="true">
-        <app-client-form [currentClient]="selectedClient" [isUpdate]=true (refreshTable)="refreshClients()">
+        <app-client-form [currentClient]="selectedClient" [isUpdate]=true [personsList]="personsList" (refreshTable)="refreshClients()">
         </app-client-form>
     </p-panel>
 

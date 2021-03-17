@@ -1,22 +1,108 @@
 <div class="page">
   <h1>CLIENT DETAIL</h1>
 
-  <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-sm p-button-info" (click)="router.navigate(['clients']);"></button>
+  <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-sm p-button-info"
+    (click)="router.navigate(['clients']);"></button>
 
   <div class="content" *ngIf="client">
 
     <p-panel class="client-general-panel" header="General information" [toggleable]="true">
+      <div class="client-general">
+        <div>
+          <div class="inline" *ngIf="!client.isCompany">
+            <div>Civility:</div>
+            <div>{{client.civility}}</div>
+          </div>
+          <div class="inline" *ngIf="!client.isCompany">
+            <div>First name:</div>
+            <div>{{client.firstName}}</div>
+          </div>
+          <div class="inline" *ngIf="!client.isCompany">
+            <div>Last name:</div>
+            <div>{{client.lastName}}</div>
+          </div>
+          <div class="inline" *ngIf="client.isCompany">
+            <div>Type:</div>
+            <div>{{ECompanyDisplayType[client.type]}}</div>
+          </div>
+          <div class="inline" *ngIf="client.isCompany">
+            <div>Company name:</div>
+            <div>{{client.name}}</div>
+          </div>
+          <div class="inline" *ngIf="client.isCompany">
+            <div>VAT n°:</div>
+            <div>{{client.VAT}}</div>
+          </div>
+          <div class="inline" *ngIf="client.isCompany">
+            <div>Owner/contact:</div>
+            <div>
+              <a routerLink="/clients/person/{{client.person.id}}/detail">{{client.person.lastName}}
+                {{client.person.firstName}}</a>
+            </div>
+          </div>
+          <div class="inline">
+            <div>Id:</div>
+            <div>{{client.id}}</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="inline">
+            <div>Email:</div>
+            <div><a href="mailto:{{client.email}}">{{client.email}}</a></div>
+          </div>
+          <div class="inline" *ngIf="!client.isCompany">
+            <div>Phone:</div>
+            <div>{{client.phone}}</div>
+          </div>
+          <div class="inline" *ngIf="client.isCompany">
+            <div>Phone 1:</div>
+            <div>{{client.phone1}}</div>
+          </div>
+          <div class="inline" *ngIf="client.isCompany">
+            <div>Phone 2:</div>
+            <div>{{client.phone2}}</div>
+          </div>
+          <div class="inline">
+            <div>Mobile phone:</div>
+            <div>{{client.mobile}}</div>
+          </div>
+          <div class="inline" *ngIf="client.isCompany">
+            <div>Website:</div>
+            <div><a href="https://{{client.website}}" target="_blank">{{client.website}}</a></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="inline">
+            <div>Country:</div>
+            <div>{{client.address.country}}</div>
+          </div>
+          <div class="inline">
+            <div>City:</div>
+            <div>{{client.address.city}}</div>
+          </div>
+          <div class="inline">
+            <div>ZIP:</div>
+            <div>{{client.address.zipCode}}</div>
+          </div>
+          <div class="inline">
+            <div>Street:</div>
+            <div>{{client.address.streetAddress}}</div>
+          </div>
+        </div>
+      </div>
     </p-panel>
-    
+
     <p-panel class="client-cars-panel" header="Cars" [toggleable]="true">
     </p-panel>
-    
+
     <p-panel class="client-worksheets-panel" header="Worksheets" [toggleable]="true">
     </p-panel>
-    
+
     <p-panel class="client-Bills-panel" header="Bills" [toggleable]="true">
     </p-panel>
 
   </div>
-  
+
 </div>

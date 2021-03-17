@@ -6,4 +6,30 @@
     margin: 1rem 0;
   }
 
+  .client-general-panel {
+    
+    .client-general {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    
+      > div {
+        margin: 0 1rem;
+      }  
+      
+      .inline {
+        display: flex;
+        margin: 0.5rem 0;
+      
+        div:first-child {
+          width: 10rem;
+        }
+        div:last-child {
+          font-weight: 800;
+        }
+      }
+
+    }
+  }
+
 }

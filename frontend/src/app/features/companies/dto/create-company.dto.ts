@@ -10,5 +10,6 @@ export class CreateCompanyDTO {
   phone2?: string;
   mobile?: string;
   website?: string;
+  personId?: number;
   address?: Address;
 }

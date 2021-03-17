@@ -17,6 +17,10 @@ export class PersonsService {
   getAll(): any {
     return this.httpClient.get(this.endpoint);
   }
+  
+  getOne(id: number): any {
+    return this.httpClient.get(`${this.endpoint}/${id}`);
+  }
 
   create(client: CreatePersonDTO): any {
     return this.httpClient.post(this.endpoint, client);

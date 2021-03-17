@@ -5,7 +5,7 @@
       <app-person-form [formGroup]="personForm"></app-person-form>
     </div>
     <div class="p-col-12 p-sm-12 p-md-12 p-xl-6" *ngIf="isCompany">
-      <app-company-form [formGroup]="companyForm"></app-company-form>
+      <app-company-form [formGroup]="companyForm" [personsList]="personsList"></app-company-form>
     </div>
     <div class="p-col-12 p-sm-12 p-md-12 p-xl-6">
       <app-address-form [formGroup]="addressForm" [(addressFormRequired)]="addressFormRequired"></app-address-form>

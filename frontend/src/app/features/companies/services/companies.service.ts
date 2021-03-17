@@ -18,6 +18,10 @@ export class CompaniesService {
     return this.httpClient.get(this.endpoint);
   }
   
+  getOne(id: number): any {
+    return this.httpClient.get(`${this.endpoint}/${id}`);
+  }
+  
   getAllClients(): any {
     return this.httpClient.get(`${this.endpoint}/clients`);
   }
