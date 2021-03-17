@@ -1,11 +1,13 @@
-import { UpdatePersonDTO } from './../../persons/dto/update-person.dto';
-import { CreatePersonDTO } from './../../persons/dto/create-person.dto';
 import { Injectable } from '@angular/core';
 import { Client } from './../models/client.model';
 import { Person } from '../../persons/models/person.model';
 import { PersonsService } from '../../persons/services/persons.service';
+import { CreatePersonDTO } from './../../persons/dto/create-person.dto';
+import { UpdatePersonDTO } from './../../persons/dto/update-person.dto';
 import { Company } from '../../companies/models/company.model';
 import { CompaniesService } from '../../companies/services/companies.service';
+import { CreateCompanyDTO } from '../../companies/dto/create-company.dto';
+import { UpdateCompanyDTO } from './../../companies/dto/update-company.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +30,7 @@ export class ClientsController {
       }
     );
 
-    const companies: Company[] = await this.companiesService.getAll().toPromise();
+    const companies: Company[] = await this.companiesService.getAllClients().toPromise();
     companies.forEach(
       (c: Company) => {
         clients.push(new Client(new Company(c)));
@@ -44,6 +46,14 @@ export class ClientsController {
   
   updatePerson(id: number, dto: UpdatePersonDTO): any {
     return this.personsService.update(id, dto);
+  }
+
+  createCompany(dto: CreateCompanyDTO): any {
+    return this.companiesService.create(dto);
+  }
+  
+  updateCompany(id: number, dto: UpdateCompanyDTO): any {
+    return this.companiesService.update(id, dto);
   }
   
   delete (client: Client): any {

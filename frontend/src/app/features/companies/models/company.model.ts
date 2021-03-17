@@ -7,11 +7,11 @@ export class Company {
   name: string;
   email: string;
   VAT: string;
-  phone1: string;
-  phone2: string;
-  mobile: string;
-  website: string;
-  address: Address;
+  phone1?: string;
+  phone2?: string;
+  mobile?: string;
+  website?: string;
+  address?: Address;
 
   constructor(obj?: any) {
     Object.assign(this, obj);

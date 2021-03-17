@@ -22,6 +22,7 @@ import { CountriesService } from './../../core/services/countries.service';
 import { PersonFormComponent } from './components/client-form/components/person-form/person-form.component';
 import { CompanyFormComponent } from './components/client-form/components/company-form/company-form.component';
 import { AddressFormComponent } from './components/client-form/components/address-form/address-form.component';
+import { ClientsController } from './controllers/clients.controller';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,6 @@ import { AddressFormComponent } from './components/client-form/components/addres
     DynamicDialogModule,
     ClientsRoutingModule
   ],
-  providers: [CountriesService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
+  providers: [ClientsController, CountriesService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
 })
 export class ClientsModule { }

@@ -8,6 +8,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { EUserRoles } from '../../../../core/enums/user-roles.enum';
 import { ClientsController } from '../../controllers/clients.controller';
 import { Client } from '../../models/client.model';
+import { Company } from '../../../companies/models/company.model';
 
 @Component({
   selector: 'app-client-form',
@@ -23,6 +24,8 @@ export class ClientFormComponent implements OnInit, OnChanges {
 
   public EUserRoles = EUserRoles;
 
+  isCompany: boolean = false;
+  currentForm: FormGroup;
   addressFormRequired: boolean = false;
 
   constructor(
@@ -43,6 +46,17 @@ export class ClientFormComponent implements OnInit, OnChanges {
     phone: new FormControl(null),
     mobile: new FormControl(null)
   });
+  
+  companyForm = new FormGroup({
+    type: new FormControl(null, Validators.required),
+    name: new FormControl(null, Validators.required),
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    VAT: new FormControl(null, Validators.required),
+    phone1: new FormControl(null),
+    phone2: new FormControl(null),
+    mobile: new FormControl(null),
+    website: new FormControl(null)
+  });
 
   addressForm = new FormGroup({
     country: new FormControl(null, Validators.required),
@@ -52,45 +66,51 @@ export class ClientFormComponent implements OnInit, OnChanges {
   });
 
   ngOnInit(): void {
+    this.currentForm = this.personForm;
   }
 
   ngOnChanges(): void {
     this._resetForms();
+    this.isCompany = (this.currentClient?.type instanceof Company);
+    this.currentForm = (this.isCompany) ? this.companyForm : this.personForm;
+
     if (this.currentClient) {
-      for (const field in this.personForm.controls) {
-        const control = this.personForm.get(field);
+      for (const field in this.currentForm.controls) {
+        const control = this.currentForm.get(field);
         control.setValue(this.currentClient.type[field]);
       }
       if (this.auth.hasMinAccess(EUserRoles.USER)) {
-        this.personForm.enable();
-        this.addressForm.enable();
+        this._enableForms();
       }
     } else {
       this._resetForms();
-      this.personForm.disable();
-      this.addressForm.disable();
+      this._disableForms();
       return;
     }
-    if (this.currentClient.address) {
+    if (this.currentClient.type.address) {
       for (const field in this.addressForm.controls) {
         const control = this.addressForm.get(field);
-        control.setValue(this.currentClient.address[field]);
+        control.setValue(this.currentClient.type.address[field]);
       }
       this.addressForm.patchValue({
-        country: { name: this.currentClient.address.country }
+        country: { name: this.currentClient.type.address.country }
       });
+      this.addressFormRequired = true;
+    } else {
+      this.addressFormRequired = false;
     }
+    
   }
 
   async submitForm(): Promise<void> {
-    const client: any = this.personForm.getRawValue();
+    const client: any = this.currentForm.getRawValue();
     const address: any = this.addressForm.getRawValue();
     address.country = (address.country) ? address.country.name : null;
     client.address = (this.addressFormRequired) ? address : null;
-    /*
     if (this.isUpdate) {
       // update
-      this.clientsController.update(client).subscribe(
+      const updateClient = (this.isCompany) ? 'updateCompany' : 'updatePerson';
+      this.clientsController[updateClient](this.currentClient.type.id, client).subscribe(
         (res: any) => {
           this._resetForms();
           this.refreshTable.emit();
@@ -104,7 +124,8 @@ export class ClientFormComponent implements OnInit, OnChanges {
       );
     } else {
       // create
-      this.clientsController.create(client).subscribe(
+      const createClient = (this.isCompany) ? 'createCompany' : 'createPerson';
+      this.clientsController[createClient](client).subscribe(
         (res: any) => {
           this._resetForms();
           this.toast.show(EToastSeverities.SUCCESS, 'Client created');
@@ -117,7 +138,7 @@ export class ClientFormComponent implements OnInit, OnChanges {
         }
       );
     }
-    */
+    
   }
 
   async deleteClient(): Promise<void> {
@@ -143,7 +164,24 @@ export class ClientFormComponent implements OnInit, OnChanges {
 
   private _resetForms(): void {
     this.personForm.reset();
+    this.companyForm.reset();
     this.addressForm.reset();
+  }
+
+  private _enableForms(): void {
+    this.personForm.enable();
+    this.companyForm.enable();
+    this.addressForm.enable();
+  }
+  
+  private _disableForms(): void {
+    this.personForm.disable();
+    this.companyForm.disable();
+    this.addressForm.disable();
+  }
+
+  onSelectFormClick(): void {
+    this.currentForm = (this.isCompany) ? this.companyForm : this.personForm;
   }
 
   onCancel(): void {

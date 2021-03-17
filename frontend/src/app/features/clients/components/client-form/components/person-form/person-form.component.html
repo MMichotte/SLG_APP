@@ -1,5 +1,5 @@
 <form class="form" [formGroup]="personForm">
-  <h2>Client information</h2>
+  <h2>Person information</h2>
 
   <div class="p-grid p-fluid">
     <div class="p-col-4">
@@ -10,8 +10,7 @@
 
     <div class="p-col-8">
       <label for="email" class="label-required">Email</label>
-      <input id="email" type="email" aria-describedby="email-help" pInputText formControlName="email">
-      <small *ngIf="false" id="email-help" class="p-error">Username is not available.</small>
+      <input id="email" type="email" pInputText formControlName="email">
     </div>
   </div>
 

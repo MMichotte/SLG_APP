@@ -1,8 +1,11 @@
-<form class="form" [formGroup]="personForm" (ngSubmit)="submitForm()">
+<form class="form" (ngSubmit)="submitForm()">
 
   <div class="p-grid nested-grid p-fluid">
-    <div class="p-col-12 p-sm-12 p-md-12 p-xl-6">
+    <div class="p-col-12 p-sm-12 p-md-12 p-xl-6" *ngIf="!isCompany">
       <app-person-form [formGroup]="personForm"></app-person-form>
+    </div>
+    <div class="p-col-12 p-sm-12 p-md-12 p-xl-6" *ngIf="isCompany">
+      <app-company-form [formGroup]="companyForm"></app-company-form>
     </div>
     <div class="p-col-12 p-sm-12 p-md-12 p-xl-6">
       <app-address-form [formGroup]="addressForm" [(addressFormRequired)]="addressFormRequired"></app-address-form>
@@ -10,11 +13,15 @@
   </div>
 
   <footer class="p-grid">
+    <p-selectButton [options]="[{name: 'New Person', code: false},{name: 'New Company', code: true}]" class="formSelect"
+      [(ngModel)]="isCompany" optionLabel="name" optionValue="code" name='selectBtn' (click)="onSelectFormClick()"
+      *ngIf="!isUpdate"></p-selectButton>
+
     <button pButton pRipple type="button" label="Cancel" class="p-button-secondary" (click)="onCancel()"
       *ngIf="!isUpdate && auth.hasMinAccess(EUserRoles.USER)"></button>
     <button pButton pRipple type="submit" icon="pi pi-save" label="Save" *ngIf="auth.hasMinAccess(EUserRoles.USER)"
-      [disabled]="personForm.invalid || ((addressFormRequired)? addressForm.invalid : false) || (!currentClient && isUpdate)"></button>
-    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger" *ngIf="currentClient && auth.hasMinAccess(EUserRoles.USER)"
-      (click)="deleteClient()"></button>
+      [disabled]="currentForm.invalid || ((addressFormRequired)? addressForm.invalid : false) || (!currentClient && isUpdate)"></button>
+    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger"
+      *ngIf="currentClient && auth.hasMinAccess(EUserRoles.USER)" (click)="deleteClient()"></button>
   </footer>
 </form>
