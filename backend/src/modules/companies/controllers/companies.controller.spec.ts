@@ -1,3 +1,5 @@
+import { PersonRepository } from './../../persons/repositories/person.repository';
+import { PersonsService } from './../../persons/services/persons.service';
 import { CompanyRepository } from './../repositories/company.repository';
 import { Test, TestingModule } from '@nestjs/testing';
 import { CompaniesController } from './companies.controller';
@@ -11,7 +13,7 @@ describe('CompaniesController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CompaniesController],
-      providers: [CompaniesService, CompanyRepository, AddressesService, AddressRepository],
+      providers: [CompaniesService, CompanyRepository, PersonsService, PersonRepository, AddressesService, AddressRepository],
     }).compile();
 
     controller = module.get<CompaniesController>(CompaniesController);
