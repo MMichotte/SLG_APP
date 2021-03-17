@@ -1,3 +1,4 @@
+import { PersonsService } from './../../persons/services/persons.service';
 import { UpdateCompanyDTO } from './../dto/update-company.dto';
 import { CreateCompanyDTO } from './../dto/create-company.dto';
 import { SimpleCompanyDTO } from './../dto/simple-company.dto';
@@ -13,6 +14,7 @@ import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../core/guards/roles.guard';
 import { plainToClass } from 'class-transformer';
 import { Address } from '../../adresses/entities/address.entity';
+import { Person } from '../../persons/entities/person.entity';
 
 @Controller('companies')
 @UseGuards(RolesGuard)
@@ -22,6 +24,7 @@ import { Address } from '../../adresses/entities/address.entity';
 export class CompaniesController {
   constructor(
     private readonly companiesService: CompaniesService,
+    private readonly personsService: PersonsService,
     private readonly addressService: AddressesService
   ) {}
 
@@ -81,6 +84,11 @@ export class CompaniesController {
   async create(@Body() dto: CreateCompanyDTO): Promise<SimpleCompanyDTO>  {
     const existingCompany: Company = await this.companiesService.findOneByEmailOrVAT(dto.email, dto.VAT);
     if (existingCompany) throw new ConflictException; //TODO better exception (add info)
+    if (dto.personId) {
+      const person: Person = await this.personsService.findOneById(dto.personId);
+      if (!person) throw new NotFoundException;
+      dto.person = person;
+    }
     const newCompany: Company = await this.companiesService.create(dto);
     return plainToClass(SimpleCompanyDTO,newCompany);
   }
@@ -116,6 +124,14 @@ export class CompaniesController {
       const addr: Address = await this.addressService.findOneById(existingCompany.address.id);
       this.addressService.remove(addr.id);
     }
+
+    if (dto.personId) {
+      const person: Person = await this.personsService.findOneById(dto.personId);
+      if (!person) throw new NotFoundException;
+      dto.person = person;
+      delete dto.personId;
+    }
+
     const updatedCompany: Company = await this.companiesService.update(id, dto);
     updatedCompany.id = id;
     
