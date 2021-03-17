@@ -12,7 +12,7 @@ import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../core/guards/roles.guard';
 import { plainToClass } from 'class-transformer';
-import { Address } from 'src/modules/adresses/entities/address.entity';
+import { Address } from '../../adresses/entities/address.entity';
 
 @Controller('companies')
 @UseGuards(RolesGuard)
