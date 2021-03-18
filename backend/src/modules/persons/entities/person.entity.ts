@@ -27,6 +27,10 @@ export class Person {
   @Column({name: 'mobile', type: 'varchar', length: 255, nullable: true})
   mobile?: string;
 
+  @Column({name: 'vat_num', type: 'varchar', length: 255, nullable: true })
+  @Index()
+  VAT: string;
+
   @CreateDateColumn()
   createdAt: Date;
 

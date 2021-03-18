@@ -37,6 +37,11 @@ export class PersonDTO {
   mobile: string;
 
   @Expose()
+  @ApiPropertyOptional()
+  @IsOptional()
+  VAT: string;
+
+  @Expose()
   @ApiPropertyOptional({type: AddressDTO})
   @IsOptional()
   address: AddressDTO;

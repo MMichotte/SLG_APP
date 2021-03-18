@@ -18,7 +18,7 @@ export class Company {
   @Index()
   email: string;
   
-  @Column({name: 'vat_num', type: 'varchar', length: 255})
+  @Column({name: 'vat_num', type: 'varchar', length: 255, nullable: true })
   @Index()
   VAT: string;
 

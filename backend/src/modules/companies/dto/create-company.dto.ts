@@ -18,8 +18,8 @@ export class CreateCompanyDTO {
 
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
-  VAT: string;
+  @IsOptional()
+  VAT?: string;
   
   @ApiProperty()
   @IsString()

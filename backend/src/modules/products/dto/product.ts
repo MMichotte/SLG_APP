@@ -39,4 +39,7 @@ export class ProductDTO {
   @ApiPropertyOptional()
   note?: string;
   
+  constructor(obj?: ProductDTO) {
+    Object.assign(this, obj);
+  }
 }

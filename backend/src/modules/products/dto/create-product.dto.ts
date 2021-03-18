@@ -38,4 +38,8 @@ export class CreateProductDTO {
   createdAt?: Date = new Date();
   updatedAt?: Date = new Date();
 
+  constructor(obj?: CreateProductDTO) {
+    Object.assign(this, obj);
+  }
+
 }

@@ -34,6 +34,11 @@ export class CreatePersonDTO {
   @IsString()
   @IsOptional()
   mobile?: string;
+
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  VAT?: string;
   
   @ApiPropertyOptional()
   @IsOptional()

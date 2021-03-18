@@ -24,7 +24,8 @@ export class CompanyDTO {
   email: string;
 
   @Expose()
-  @ApiProperty()
+  @ApiPropertyOptional()
+  @IsOptional()
   VAT: string;
 
   @Expose()
