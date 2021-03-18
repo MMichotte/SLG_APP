@@ -4,6 +4,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { ToastService } from './services/toast.service';
 
 @NgModule({
   declarations: [],
@@ -13,6 +14,6 @@ import { MessageService, ConfirmationService } from 'primeng/api';
     ToastModule,
     ConfirmDialogModule
   ],
-  providers: [HttpClient, MessageService, ConfirmationService]
+  providers: [HttpClient, ToastService, MessageService, ConfirmationService]
 })
 export class CoreModule { }

@@ -29,7 +29,7 @@
             <div>Company name:</div>
             <div>{{client.name}}</div>
           </div>
-          <div class="inline" *ngIf="client.isCompany">
+          <div class="inline" *ngIf="client.VAT">
             <div>VAT n°:</div>
             <div>{{client.VAT}}</div>
           </div>
@@ -76,19 +76,19 @@
         <div>
           <div class="inline">
             <div>Country:</div>
-            <div>{{client.address.country}}</div>
+            <div>{{client.address?.country}}</div>
           </div>
           <div class="inline">
             <div>City:</div>
-            <div>{{client.address.city}}</div>
+            <div>{{client.address?.city}}</div>
           </div>
           <div class="inline">
             <div>ZIP:</div>
-            <div>{{client.address.zipCode}}</div>
+            <div>{{client.address?.zipCode}}</div>
           </div>
           <div class="inline">
             <div>Street:</div>
-            <div>{{client.address.streetAddress}}</div>
+            <div>{{client.address?.streetAddress}}</div>
           </div>
         </div>
       </div>

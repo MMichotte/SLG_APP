@@ -44,14 +44,15 @@ export class ClientFormComponent implements OnInit, OnChanges {
     lastName: new FormControl(null, Validators.required),
     email: new FormControl(null, [Validators.required, Validators.email]),
     phone: new FormControl(null),
-    mobile: new FormControl(null)
+    mobile: new FormControl(null),
+    VAT: new FormControl(null)
   });
   
   companyForm = new FormGroup({
     type: new FormControl(null, Validators.required),
     name: new FormControl(null, Validators.required),
     email: new FormControl(null, [Validators.required, Validators.email]),
-    VAT: new FormControl(null, Validators.required),
+    VAT: new FormControl(null),
     phone1: new FormControl(null),
     phone2: new FormControl(null),
     mobile: new FormControl(null),

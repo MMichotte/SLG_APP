@@ -9,9 +9,10 @@ export class Person {
   email: string;
   phone?: string;
   mobile?: string;
+  VAT?: string;
   address?: Address;
 
-  constructor(obj?: any) {
+  constructor(obj?: Person) {
     Object.assign(this, obj);
   }
 }

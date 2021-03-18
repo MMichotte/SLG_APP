@@ -28,6 +28,13 @@
       width: 1.5rem;
       height: 1.5rem;
     }
+
+    td {
+      // word-break:break-all; //either this or the code below.
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
   }
 
 }

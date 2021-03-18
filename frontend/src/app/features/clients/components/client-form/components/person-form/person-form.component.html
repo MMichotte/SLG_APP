@@ -2,27 +2,32 @@
   <h2>Person information</h2>
 
   <div class="p-grid p-fluid">
-    <div class="p-col-4">
+    <div class="p-col-2">
       <label for="civility" class="label-required">Civility</label>
       <p-dropdown id="civility" appendTo="body" [options]="civility" optionLabel="value" optionValue="value"
         formControlName="civility" placeholder="Select Civility"></p-dropdown>
     </div>
 
-    <div class="p-col-8">
-      <label for="email" class="label-required">Email</label>
-      <input id="email" type="email" pInputText formControlName="email">
-    </div>
-  </div>
-
-  <div class="p-grid p-fluid">
-    <div class="p-col-6">
+    <div class="p-col-5">
       <label for="firstName" class="label-required">First name</label>
       <input id="firstName" type="text" pInputText formControlName="firstName">
     </div>
 
-    <div class="p-col-6">
+    <div class="p-col-5">
       <label for="lastName" class="label-required">Last name</label>
       <input id="lastName" type="text" pInputText formControlName="lastName">
+    </div>
+  </div>
+  
+  <div class="p-grid p-fluid">
+    <div class="p-col-6">
+      <label for="email" class="label-required">Email</label>
+      <input id="email" type="email" pInputText formControlName="email">
+    </div>
+
+    <div class="p-col-6">
+      <label for="VAT">VAT n°</label>
+      <input id="VAT" type="text" pInputText formControlName="VAT">
     </div>
   </div>
 

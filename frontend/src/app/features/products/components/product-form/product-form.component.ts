@@ -73,6 +73,9 @@ export class ProductFormComponent implements OnInit, OnChanges {
     const product: Product = new Product(this.productForm.value);
     delete product.availableQuantity;
     delete product.margin;
+    product.purchasePriceHT = +product.purchasePriceHT;
+    product.salePriceHT = +product.salePriceHT;
+    product.salePriceTTC = +product.salePriceTTC;
     if (this.isUpdate) {
       // update
       if (product.quantity !== this.currentProduct.quantity) {

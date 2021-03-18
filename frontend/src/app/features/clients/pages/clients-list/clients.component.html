@@ -17,8 +17,8 @@
     </p-panel>
 
     <div class="dtable">
-        <p-table #dt [columns]="cols" [value]="clients" [autoLayout]="true" [scrollable]="true" [paginator]="true"
-            [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['name', 'email', 'VAT']"
+        <p-table #dt [columns]="cols" [value]="clients" [paginator]="true"
+            [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['displayName','phone', 'phone1', 'phone2', 'mobile', 'email', 'VAT']"
             [sortField]="cols[0].field" selectionMode="single" [(selection)]="selectedClient"
             styleClass="p-datatable-sm" [loading]="loadingData">
 

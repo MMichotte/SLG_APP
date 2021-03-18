@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
           if (error.status === 401) {
             this.errorMsg = 'Incorrect email or password';
           } else {
-            this.errorMsg = ECommonErrors.E_500;
+            this.errorMsg = ECommonErrors.E_50X;
           }
           this.displayError = true;
           this.displaySpinner = false;

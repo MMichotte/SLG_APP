@@ -5,7 +5,7 @@ export class CreateCompanyDTO {
   type: ECompanyType;
   name: string;
   email: string;
-  VAT: string;
+  VAT?: string;
   phone1?: string;
   phone2?: string;
   mobile?: string;

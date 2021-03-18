@@ -7,7 +7,7 @@ export class Company {
   type: ECompanyType;
   name: string;
   email: string;
-  VAT: string;
+  VAT?: string;
   phone1?: string;
   phone2?: string;
   mobile?: string;
@@ -15,7 +15,7 @@ export class Company {
   person?: Person;
   address?: Address;
 
-  constructor(obj?: any) {
+  constructor(obj?: Company) {
     Object.assign(this, obj);
   }
 }

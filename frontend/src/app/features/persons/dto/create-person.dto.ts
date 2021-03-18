@@ -8,5 +8,6 @@ export class CreatePersonDTO {
   email: string;
   phone?: string;
   mobile?: string;
+  VAT?: string;
   address?: Address;
 }

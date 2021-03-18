@@ -40,7 +40,7 @@ export class ProductsComponent implements OnInit {
     this.refreshProducts();
     this.cols = [
       { field: 'reference', header: 'Reference' },
-      { field: 'label', header: 'Label', width: '25%' },
+      { field: 'label', header: 'Label', width: '20%' },
       { field: 'availableQuantity', header: 'Available quantity' },
       { field: 'quantity', header: 'Total quantity' },
       { field: 'reservedQuantity', header: 'Reserved quantity' },

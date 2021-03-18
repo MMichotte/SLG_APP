@@ -16,6 +16,7 @@ export class Client {
   id?: number;
   email: string;
   mobile?: string;
+  VAT?: string;
   address?: Address;
 
   // Person specific attributes
@@ -27,7 +28,6 @@ export class Client {
   // Company specific attributes
   type?: ECompanyType;
   name?: string;
-  VAT?: string;
   phone1?: string;
   phone2?: string;
   website?: string;
@@ -41,12 +41,12 @@ export class Client {
     this.id = child.id;
     this.email = child.email;
     this.mobile = child.mobile; 
+    this.VAT = child.VAT;
     this.address = child.address;
 
     if (this.isCompany) {
       this.type = (<Company>child).type;
       this.name = (<Company>child).name;
-      this.VAT = (<Company>child).VAT;
       this.phone1 = (<Company>child).phone1;
       this.phone2 = (<Company>child).phone2;
       this.website = (<Company>child).website;
