@@ -1,0 +1,39 @@
+<form class="form" [formGroup]="addressForm">
+
+  <h2>Client Address</h2>
+  <div class="p-grid p-fluid">
+    <div class="p-col-6">
+      <label for="country" [ngClass]="{'label-required': addressFormRequired}">Country</label>
+      <p-autoComplete appendTo="body" formControlName="country" [suggestions]="countries" field="name" dataKey="name"
+        (completeMethod)="searchCountry($event)" [dropdown]="true" placeholder="Select Country"
+        (keyup)="onAddressCompletion()">
+        <ng-template let-country pTemplate="item">
+          <div class="country-item">
+            <img src={{country.flag}} class="flag" />
+            <span>{{country.name}}</span>
+          </div>
+        </ng-template>
+      </p-autoComplete>
+    </div>
+  </div>
+
+  <div class="p-grid p-fluid">
+    <div class="p-col-6">
+      <label for="city" [ngClass]="{'label-required': addressFormRequired}">City</label>
+      <input id="city" type="text" pInputText formControlName="city" (keyup)="onAddressCompletion()">
+    </div>
+
+    <div class="p-col-6">
+      <label for="zipCode" [ngClass]="{'label-required': addressFormRequired}">Zip Code</label>
+      <input id="zipCode" type="text" pInputText formControlName="zipCode" (keyup)="onAddressCompletion()">
+    </div>
+  </div>
+
+  <div class="p-grid p-fluid">
+    <div class="p-col-12">
+      <label for="streetAddress" [ngClass]="{'label-required': addressFormRequired}">Street Address</label>
+      <input id="streetAddress" type="text" pInputText formControlName="streetAddress" (keyup)="onAddressCompletion()">
+    </div>
+
+  </div>
+</form>
