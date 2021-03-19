@@ -22,7 +22,7 @@
     </p-panel>
 
     <div class="dtable">
-        <p-table #dt [columns]="cols" [value]="products" [autoLayout]="true" [paginator]="true"
+        <p-table #dt [columns]="cols" [value]="products" [autoLayout]="true" [paginator]="true" [scrollable]="true"
             [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['reference','label']"
             [customSort]="true" [sortField]="cols[0].field" (sortFunction)="customSort($event)" selectionMode="single"
             [(selection)]="selectedProduct" styleClass="p-datatable-sm" [loading]="loadingData">
