@@ -11,7 +11,7 @@ import { Client } from '../../../../../clients/models/client.model';
 })
 export class CompanyFormComponent implements OnInit {
 
-  @Input() personsList?: Client[];
+  @Input() personsList?: Client[] = [];
   public companyForm: FormGroup;
   public ECompanyType = ECompanyType;
 

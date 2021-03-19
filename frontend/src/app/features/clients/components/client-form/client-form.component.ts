@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
@@ -34,8 +34,12 @@ export class ClientFormComponent implements OnInit, OnChanges {
     private readonly toast: ToastService,
     private readonly confirmDialog: ConfirmDialogService,
     public dialogService: DialogService,
-    public ref: DynamicDialogRef
+    public ref: DynamicDialogRef,
+    public config: DynamicDialogConfig
   ) {
+    if (config.data?.personsList) {
+      this.personsList = config.data.personsList;
+    }
   }
 
   personForm = new FormGroup({

@@ -49,7 +49,7 @@
     </div>
     <div class="p-col-6">
       <label for="person">Owner/Contact</label>
-      <p-autoComplete [suggestions]="personsListFiltered" field="displayName" (completeMethod)="searchClient($event.query)" formControlName="person" [dropdown]="true"></p-autoComplete>
+      <p-autoComplete appendTo="body" [suggestions]="personsListFiltered" field="displayName" (completeMethod)="searchClient($event.query)" formControlName="person" [dropdown]="true"></p-autoComplete>
     </div>
   </div>
 </form>

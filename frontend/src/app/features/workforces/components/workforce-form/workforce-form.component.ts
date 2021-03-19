@@ -58,6 +58,8 @@ export class WorkforceFormComponent implements OnInit {
 
   submitForm (): void {
     const workforce: Workforce = this.workforceForm.value;
+    workforce.priceHT = +workforce.priceHT;
+    workforce.priceTTC = +workforce.priceTTC;
     if (this.isUpdate) {
       this.workforceService.update(this.currentWorkforce.id, workforce).subscribe(
         (res: any) => {

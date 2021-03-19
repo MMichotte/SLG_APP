@@ -57,6 +57,9 @@ export class ClientsComponent implements OnInit {
   showNewClientModal(): void {
     const ref = this.dialogService.open(ClientFormComponent, {
       header: 'New Client',
+      data: {
+        personsList: this.personsList
+      },
       width: '80%'
     });
     ref.onClose.subscribe((clientId?: boolean) => {
