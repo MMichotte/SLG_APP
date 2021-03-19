@@ -1,0 +1,44 @@
+import { ProductDTO } from './../../../products/dto/product';
+import { Exclude, Expose, Transform } from 'class-transformer';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { EProductOrderStatus } from '../enums/product-order-status.enum';
+
+@Exclude()
+export class ProductOrderDTO {
+  @Expose()
+  @ApiProperty()
+  id: number;
+  
+  @Expose()
+  @ApiProperty({type: ProductDTO})
+  product: ProductDTO;
+  
+  @Expose()
+  @Transform(({ obj }) => obj.order.id)
+  @ApiProperty()
+  orderId: number;
+
+  @Expose()
+  @ApiPropertyOptional()
+  note?: string;
+
+  @Expose()
+  @ApiProperty()
+  quantityOrdered: number;
+  
+  @Expose()
+  @ApiPropertyOptional()
+  quantityReceived: number;
+  
+  @Expose()
+  @ApiPropertyOptional()
+  purchasePriceHTAtDate?: number;
+  
+  @Expose()
+  @ApiProperty({enum: EProductOrderStatus})
+  status: EProductOrderStatus;
+  
+  constructor(obj?: ProductOrderDTO) {
+    Object.assign(this, obj);
+  }
+}
