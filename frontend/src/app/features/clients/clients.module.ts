@@ -18,10 +18,7 @@ import { ConfirmDialogService } from '../../core/services/confirm-dialog.service
 import { ToastService } from '../../core/services/toast.service';
 import { SharedModule } from '../../shared/shared.module';
 import { ClientFormComponent } from './components/client-form/client-form.component';
-import { CountriesService } from './../../core/services/countries.service';
 import { PersonFormComponent } from './components/client-form/components/person-form/person-form.component';
-import { CompanyFormComponent } from './components/client-form/components/company-form/company-form.component';
-import { AddressFormComponent } from './components/client-form/components/address-form/address-form.component';
 import { ClientsController } from './controllers/clients.controller';
 
 @NgModule({
@@ -29,9 +26,7 @@ import { ClientsController } from './controllers/clients.controller';
     ClientsComponent,
     ClientDetailComponent,
     ClientFormComponent,
-    PersonFormComponent,
-    CompanyFormComponent,
-    AddressFormComponent
+    PersonFormComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +45,6 @@ import { ClientsController } from './controllers/clients.controller';
     DynamicDialogModule,
     ClientsRoutingModule
   ],
-  providers: [ClientsController, CountriesService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
+  providers: [ClientsController, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
 })
 export class ClientsModule { }
