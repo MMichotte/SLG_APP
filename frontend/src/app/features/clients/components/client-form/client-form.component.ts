@@ -118,8 +118,10 @@ export class ClientFormComponent implements OnInit, OnChanges {
     const address: any = this.addressForm.getRawValue();
     address.country = (address.country) ? address.country.name : null;
     client.address = (this.addressFormRequired) ? address : null;
-    if (client.person) {
+    if (client.person && client.person !== '') {
       client.personId = client.person.id; 
+    } else {
+      client.person = null;
     }
     if (this.isUpdate) {
       // update

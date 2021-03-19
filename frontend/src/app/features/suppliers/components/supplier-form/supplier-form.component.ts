@@ -102,8 +102,10 @@ export class SupplierFormComponent implements OnInit {
     const address: any = this.addressForm.getRawValue();
     address.country = (address.country) ? address.country.name : null;
     supplier.address = (this.addressFormRequired) ? address : null;
-    if (supplier.person) {
+    if (supplier.person && supplier.person !== '') {
       supplier.personId = supplier.person.id; 
+    } else {
+      supplier.person = null;
     }
     if (this.isUpdate) {
       // update
