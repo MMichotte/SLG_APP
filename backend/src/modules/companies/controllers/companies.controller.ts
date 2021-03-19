@@ -89,11 +89,21 @@ export class CompaniesController {
 
     const existingCompany: Company = await this.companiesService.findOneByEmailOrVAT(dto.email, dto.VAT);
     if (existingCompany) throw new ConflictException; //TODO better exception (add info)
-    if (dto.personId) {
+
+    if (typeof dto.personId === 'string' || dto.personId === undefined) throw new BadRequestException;
+    if (dto.personId) {  
       const person: Person = await this.personsService.findOneById(dto.personId);
       if (!person) throw new NotFoundException;
       dto.person = person;
+      delete dto.personId;
+    } else {
+      const person: Person = await this.personsService.findOneById(existingCompany.person?.id);
+      if (person) {
+        dto.person = null;
+      }
+      delete dto.personId;
     }
+    
     const newCompany: Company = await this.companiesService.create(dto);
     return plainToClass(SimpleCompanyDTO,newCompany);
   }
