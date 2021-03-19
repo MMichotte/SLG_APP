@@ -13,6 +13,7 @@ import { AddressesModule } from '../adresses/addresses.module';
     PersonsModule
   ],
   controllers: [CompaniesController],
-  providers: [CompaniesService]
+  providers: [CompaniesService],
+  exports: [CompaniesService]
 })
 export class CompaniesModule {}
