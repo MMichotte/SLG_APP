@@ -32,7 +32,7 @@ export class ProductsComponent implements OnInit {
     public readonly auth: AuthService,
     private readonly productService: ProductService,
     public dialogService: DialogService,
-    private readonly cd: ChangeDetectorRef,
+    public readonly cd: ChangeDetectorRef,
     private readonly router: Router
   ) { }
 

@@ -38,8 +38,7 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr [pSelectableRow]="rowData" (dblclick)=showProductInfoPage(rowData)>
-                    <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}"
-                        (dblClick)="showProductInfoPage(rowData)">
+                    <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
                         {{rowData[col.field]}}
                     </td>
                     <td style="width: 3rem;">

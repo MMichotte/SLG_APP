@@ -1,0 +1,19 @@
+
+.orderStatus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5rem;
+  height: 1.5rem;
+  font-weight: 800;
+  color: white;
+  border-radius: 20px;
+}
+
+.openOrder {
+  background-color: green;
+}
+
+.closedOrder {
+  background-color: orange;
+}
