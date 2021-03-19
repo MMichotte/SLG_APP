@@ -34,7 +34,7 @@ export class CompaniesService {
   }
   
   findOneByEmailOrVAT(email: string, VAT: string): Promise<Company> {
-    return this.companyRepository.findOne({ where: [{ email }, { VAT }], relations: ['address'] });
+    return this.companyRepository.findOne({ where: [{ email }, { VAT }], relations: ['person','address'] });
   }
   
   findOtherByEmail(myId: number, email: string): Promise<Company> {

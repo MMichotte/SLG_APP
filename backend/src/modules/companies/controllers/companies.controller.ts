@@ -133,14 +133,20 @@ export class CompaniesController {
       const addr: Address = await this.addressService.findOneById(existingCompany.address.id);
       this.addressService.remove(addr.id);
     }
-
-    if (dto.personId) {
+    
+    if (typeof dto.personId === 'string' || dto.personId === undefined) throw new BadRequestException;
+    if (dto.personId) {  
       const person: Person = await this.personsService.findOneById(dto.personId);
       if (!person) throw new NotFoundException;
       dto.person = person;
       delete dto.personId;
+    } else {
+      const person: Person = await this.personsService.findOneById(existingCompany.person?.id);
+      if (person) {
+        dto.person = null;
+      }
+      delete dto.personId;
     }
-
     const updatedCompany: Company = await this.companiesService.update(id, dto);
     updatedCompany.id = id;
     
