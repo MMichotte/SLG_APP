@@ -1,0 +1,20 @@
+<form class="form" (ngSubmit)="submitForm()">
+
+  <div class="p-grid nested-grid p-fluid">
+    <div class="p-col-12 p-sm-12 p-md-12 p-xl-6">
+      <app-company-form [formGroup]="companyForm" [personsList]="personsList"></app-company-form>
+    </div>
+    <div class="p-col-12 p-sm-12 p-md-12 p-xl-6">
+      <app-address-form [formGroup]="addressForm" [(addressFormRequired)]="addressFormRequired"></app-address-form>
+    </div>
+  </div>
+
+  <footer class="p-grid">
+    <button pButton pRipple type="button" label="Cancel" class="p-button-secondary" (click)="onCancel()"
+      *ngIf="!isUpdate && auth.hasMinAccess(EUserRoles.USER)"></button>
+    <button pButton pRipple type="submit" icon="pi pi-save" label="Save" *ngIf="auth.hasMinAccess(EUserRoles.USER)"
+      [disabled]="companyForm.invalid || ((addressFormRequired)? addressForm.invalid : false) || (!currentSupplier && isUpdate)"></button>
+    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger"
+      *ngIf="currentSupplier && auth.hasMinAccess(EUserRoles.USER)" (click)="deleteSupplier()"></button>
+  </footer>
+</form>

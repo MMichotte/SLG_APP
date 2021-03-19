@@ -1,0 +1,53 @@
+<div class="page">
+  <h1>SUPPLIERS</h1>
+
+  <div class="control">
+      <div class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+              placeholder="Search Supplier" (click)="selectedSupplier=null; cd.detectChanges();" />
+      </div>
+      <button pButton pRipple type="button" icon="pi pi-plus" label="New Supplier"
+          (click)="showNewSupplierModal()" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
+  </div>
+
+  <p-panel header="Edit Supplier" class="form" [toggleable]="true">
+      <app-supplier-form [currentSupplier]="selectedSupplier" [isUpdate]=true [personsList]="personsList" (refreshTable)="refreshSuppliers()">
+      </app-supplier-form>
+  </p-panel>
+
+  <div class="dtable">
+      <p-table #dt [columns]="cols" [value]="suppliers" [paginator]="true" [autoLayout]="true" [scrollable]="true"
+          [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['name', 'phone1', 'phone2', 'mobile', 'email', 'VAT']"
+          [sortField]="cols[0].field" selectionMode="single" [(selection)]="selectedSupplier"
+          styleClass="p-datatable-sm" [loading]="loadingData">
+
+          <ng-template pTemplate="header" let-rowData let-columns>
+              <tr>
+                  <th style="width: 2rem;"></th>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
+                      {{col.header}}
+                      <p-sortIcon [field]="col.field"></p-sortIcon>
+                  </th>
+                  <th style="width: 3rem;"></th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr [pSelectableRow]="rowData">
+                  <td style="width: 2rem;">
+                      <i class="fas fa-building"></i>
+                  </td>
+                  <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                      {{rowData[col.field]}}
+                  </td>
+                  <td style="width: 3rem;">
+                      <button pButton pRipple type="button" icon="pi pi-info" class="p-button-info p-button-sm"
+                          title="Detailed information (history, ...) "
+                          (click)="showSupplierDetailPage(rowData)"></button>
+                  </td>
+              </tr>
+          </ng-template>
+
+      </p-table>
+  </div>
+</div>

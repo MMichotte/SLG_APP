@@ -1,0 +1,86 @@
+<div class="page">
+  <h1>SUPPLIER DETAIL</h1>
+
+  <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-sm p-button-info"
+    (click)="router.navigate(['suppliers']);"></button>
+
+  <div class="content" *ngIf="supplier">
+
+    <p-panel class="supplier-general-panel" header="General information" [toggleable]="true">
+      <div class="supplier-general">
+        <div>
+          <div class="inline">
+            <div>Type:</div>
+            <div>{{ECompanyDisplayType[supplier.type]}}</div>
+          </div>
+          <div class="inline">
+            <div>Company name:</div>
+            <div>{{supplier.name}}</div>
+          </div>
+          <div class="inline">
+            <div>VAT n°:</div>
+            <div>{{supplier.VAT}}</div>
+          </div>
+          <div class="inline">
+            <div>Owner/contact:</div>
+            <div>
+              <a routerLink="/clients/person/{{supplier.person?.id}}/detail">{{supplier.person?.lastName}}
+                {{supplier.person?.firstName}}</a>
+            </div>
+          </div>
+          <div class="inline">
+            <div>Id:</div>
+            <div>{{supplier.id}}</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="inline">
+            <div>Email:</div>
+            <div><a href="mailto:{{supplier.email}}">{{supplier.email}}</a></div>
+          </div>
+          <div class="inline">
+            <div>Phone 1:</div>
+            <div>{{supplier.phone1}}</div>
+          </div>
+          <div class="inline">
+            <div>Phone 2:</div>
+            <div>{{supplier.phone2}}</div>
+          </div>
+          <div class="inline">
+            <div>Mobile phone:</div>
+            <div>{{supplier.mobile}}</div>
+          </div>
+          <div class="inline">
+            <div>Website:</div>
+            <div><a href="https://{{supplier.website}}" target="_blank">{{supplier.website}}</a></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="inline">
+            <div>Country:</div>
+            <div>{{supplier.address?.country}}</div>
+          </div>
+          <div class="inline">
+            <div>City:</div>
+            <div>{{supplier.address?.city}}</div>
+          </div>
+          <div class="inline">
+            <div>ZIP:</div>
+            <div>{{supplier.address?.zipCode}}</div>
+          </div>
+          <div class="inline">
+            <div>Street:</div>
+            <div>{{supplier.address?.streetAddress}}</div>
+          </div>
+        </div>
+      </div>
+    </p-panel>
+
+    <p-panel class="supplier-Bills-panel" header="Bills" [toggleable]="true">
+    </p-panel>
+
+  </div>
+
+</div>
