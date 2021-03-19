@@ -9,6 +9,9 @@ import { StockUpdateModule } from './modules/stock-update/stock-update.module';
 import { AddressesModule } from './modules/adresses/addresses.module';
 import { PersonsModule } from './modules/persons/persons.module';
 import { CompaniesModule } from './modules/companies/companies.module';
+import { OrdersModule } from './modules/orders/orders/orders.module';
+import { ProductOrderModule } from './modules/orders/product-order/product-order.module';
+import { BillSupplierModule } from './modules/bills/bill-supplier/bill-supplier.module';
 import dbConnectionOptions from 'ormconfig';
 
 @Module({
@@ -21,7 +24,10 @@ import dbConnectionOptions from 'ormconfig';
     StockUpdateModule,
     AddressesModule,
     PersonsModule,
-    CompaniesModule
+    CompaniesModule,
+    OrdersModule,
+    ProductOrderModule,
+    BillSupplierModule
   ],
   controllers: [AppController],
   providers: [],
