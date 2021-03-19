@@ -71,13 +71,19 @@ Bien évidemment, afin de répondre à ses besoins, une série d'US intermédiai
 24. [x] FO04 - Consulter/Modifier le détail d'un fournisseur
 25. [x] FO06 - Rechercher un fournisseur
 26. [x] FO07 - Supprimer un fournisseur
-27. [ ] 🔸 //TODO -> commandes (...)
-28. [x] FA01 - Onglet Factures
-29. [ ] FA02 - Consulter les factures
-30. [ ] FA03 - Consulter le détail d'une facture 
-31. [ ] FA04 - Télécharger la facture en pdf
-32. [x] VE01 - Onglet Véhicules
-33. [ ] VE02 - Consulter tous les véhicules
-34. [ ] VE03 - Ajouter nouveau véhicule
-35. [x] FT01 - Onglet Fiches de travail
-36. [ ] 🔸 //TODO -> fiches de travailles (consulter, ajouter, detail/modifier, gen devis, gen facture)
+27. [ ] CO01 - Onglet Commandes
+28. [ ] CO02 - Consulter la liste des commandes
+29. [ ] CO03 - Créer une nouvelle commande
+30. [ ] CO04 - Consulter le détail d'une commande
+31. [ ] CO05 - Rechercher une commande
+32. [ ] CO06 - Supprimer une commande
+33. [ ] CO07 - Réceptionner une commande
+34. [x] FA01 - Onglet Factures
+35. [ ] FA02 - Consulter les factures
+36. [ ] FA03 - Consulter le détail d'une facture 
+37. [ ] FA04 - Télécharger la facture en pdf
+38. [x] VE01 - Onglet Véhicules
+39. [ ] VE02 - Consulter tous les véhicules
+40. [ ] VE03 - Ajouter nouveau véhicule
+41. [x] FT01 - Onglet Fiches de travail
+42. [ ] 🔸 //TODO -> fiches de travailles (consulter, ajouter, detail/modifier, gen devis, gen facture)
