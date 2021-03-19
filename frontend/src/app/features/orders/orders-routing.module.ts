@@ -1,4 +1,4 @@
-import { OrdersComponent } from './pages/orders.component';
+import { OrdersComponent } from './pages/orders-list/orders.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

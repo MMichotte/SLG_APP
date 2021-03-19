@@ -33,7 +33,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
-                <tr [pSelectableRow]="rowData">
+                <tr [pSelectableRow]="rowData" (dblclick)=showClientDetailPage(rowData)>
                     <td style="width: 2rem;">
                         <i class="fas fa-building" *ngIf="rowData.isCompany"></i>
                         <i class="fas fa-user" *ngIf="!rowData.isCompany"></i>

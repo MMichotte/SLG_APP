@@ -37,7 +37,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
-                <tr [pSelectableRow]="rowData">
+                <tr [pSelectableRow]="rowData" (dblclick)=showProductInfoPage(rowData)>
                     <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}"
                         (dblClick)="showProductInfoPage(rowData)">
                         {{rowData[col.field]}}
