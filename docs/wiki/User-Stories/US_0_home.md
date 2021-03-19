@@ -66,11 +66,11 @@ Bien évidemment, afin de répondre à ses besoins, une série d'US intermédiai
 19. [x] CL10 - Supprimer un client
 20. [x] CL04 - Consulter/modifier détail d'un client
 21. [x] FO01 - Onglet Fournisseurs
-22. [ ] FO02 - Consulter liste des fournisseurs
-23. [ ] FO03 - Ajouter nouveau fournisseur
-24. [ ] FO04 - Consulter/Modifier le détail d'un fournisseur
-25. [ ] FO06 - Rechercher un fournisseur
-26. [ ] FO07 - Supprimer un fournisseur
+22. [x] FO02 - Consulter liste des fournisseurs
+23. [x] FO03 - Ajouter nouveau fournisseur
+24. [x] FO04 - Consulter/Modifier le détail d'un fournisseur
+25. [x] FO06 - Rechercher un fournisseur
+26. [x] FO07 - Supprimer un fournisseur
 27. [ ] 🔸 //TODO -> commandes (...)
 28. [x] FA01 - Onglet Factures
 29. [ ] FA02 - Consulter les factures
