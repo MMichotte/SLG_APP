@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber } from 'class-validator';
 import { Company } from '../../../companies/entities/company.entity';
+import { EOrderStatus } from '../enums/order-status.enum';
 
 export class CreateOrderDTO {
 
@@ -10,6 +11,7 @@ export class CreateOrderDTO {
   supplierId: number
   supplier?: Company
 
+  status?: EOrderStatus = EOrderStatus.OPEN;
   createdAt?: Date = new Date();
   updatedAt?: Date = new Date();
 

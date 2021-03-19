@@ -14,7 +14,8 @@ export class InitDatabase1614186650502 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE "company" ("id" SERIAL NOT NULL, "type" "company_type_enum" NOT NULL, "name" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "vat_num" character varying(255), "phone_1" character varying(50), "phone_2" character varying(50), "mobile" character varying(50), "website" character varying(255), "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "id_person" integer, "id_address" integer, CONSTRAINT "UQ_b0fc567cf51b1cf717a9e8046a1" UNIQUE ("email"), CONSTRAINT "REL_f91edb8e73faf3ead32d4b90b7" UNIQUE ("id_address"), CONSTRAINT "PK_056f7854a7afdba7cbd6d45fc20" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE INDEX "IDX_b0fc567cf51b1cf717a9e8046a" ON "company" ("email") `);
         await queryRunner.query(`CREATE INDEX "IDX_41eed8812eb95bc4624172c802" ON "company" ("vat_num") `);
-        await queryRunner.query(`CREATE TABLE "order" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "id_company" integer NOT NULL, CONSTRAINT "PK_1031171c13130102495201e3e20" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TYPE "order_status_enum" AS ENUM('Open', 'Closed')`);
+        await queryRunner.query(`CREATE TABLE "order" ("id" SERIAL NOT NULL, "status" "order_status_enum" NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "id_company" integer NOT NULL, CONSTRAINT "PK_1031171c13130102495201e3e20" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TABLE "product" ("id" SERIAL NOT NULL, "reference" character varying(255) NOT NULL, "label" character varying(255) NOT NULL, "purchase_price_HT" numeric NOT NULL, "sale_price_HT" numeric NOT NULL, "sale_price_TTC" numeric NOT NULL, "quantity" integer NOT NULL, "note" text, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "UQ_0d99c5ecda0104bc04f6780ccff" UNIQUE ("reference"), CONSTRAINT "PK_bebc9158e480b949565b4dc7a82" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE INDEX "IDX_0d99c5ecda0104bc04f6780ccf" ON "product" ("reference") `);
         await queryRunner.query(`CREATE INDEX "IDX_90bc7a8e481cfa0d826e997813" ON "product" ("label") `);
@@ -55,6 +56,7 @@ export class InitDatabase1614186650502 implements MigrationInterface {
         await queryRunner.query(`DROP INDEX "IDX_0d99c5ecda0104bc04f6780ccf"`);
         await queryRunner.query(`DROP TABLE "product"`);
         await queryRunner.query(`DROP TABLE "order"`);
+        await queryRunner.query(`DROP TYPE "order_status_enum"`);
         await queryRunner.query(`DROP INDEX "IDX_41eed8812eb95bc4624172c802"`);
         await queryRunner.query(`DROP INDEX "IDX_b0fc567cf51b1cf717a9e8046a"`);
         await queryRunner.query(`DROP TABLE "company"`);
