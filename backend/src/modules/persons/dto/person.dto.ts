@@ -46,4 +46,8 @@ export class PersonDTO {
   @IsOptional()
   address: AddressDTO;
   
+  constructor(obj?: PersonDTO) {
+    Object.assign(this, obj);
+  }
+
 }

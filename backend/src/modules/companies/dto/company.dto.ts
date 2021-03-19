@@ -58,4 +58,7 @@ export class CompanyDTO {
   @IsOptional()
   address: AddressDTO;
   
+  constructor(obj?: CompanyDTO) {
+    Object.assign(this, obj);
+  }
 }

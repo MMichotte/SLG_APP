@@ -23,4 +23,7 @@ export class WorkforceDTO {
   @ApiPropertyOptional()
   note: string;
   
+  constructor(obj?: WorkforceDTO) {
+    Object.assign(this, obj);
+  }
 }

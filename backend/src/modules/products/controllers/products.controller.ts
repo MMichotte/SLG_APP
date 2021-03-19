@@ -55,13 +55,13 @@ export class ProductsController {
     type: SimpleProductDTO,
   })
   async create(@Body() createProductDto: CreateProductDTO): Promise<SimpleProductDTO>  {
+    const errors = await validate(createProductDto);
+    if(errors.length) throw new BadRequestException;
+
     createProductDto = new CreateProductDTO(createProductDto);
     const existingProd: Product = await this.productsService.findOneByRef(createProductDto.reference);
     if (existingProd) throw new ConflictException;
     
-    const errors = await validate(createProductDto);
-    if(errors.length) throw new BadRequestException;
-
     const createdProduct: Product = await this.productsService.create(createProductDto);
     return plainToClass(SimpleProductDTO,createdProduct);
   }
@@ -74,15 +74,14 @@ export class ProductsController {
   })
   async update(@Param('id') id: number, @Body() updateProductDto: UpdateProductDTO): Promise<SimpleProductDTO> {
     updateProductDto = new UpdateProductDTO(updateProductDto);
+    const errors = await validate(updateProductDto);
+    if(errors.length) throw new BadRequestException;
 
     const product: Product | undefined = await this.productsService.findOneById(id);
     if (product == undefined) throw new NotFoundException;
     const existingProd: Product = await this.productsService.findOneByRef(updateProductDto.reference);
     if (existingProd) if (existingProd.id !== product.id) throw new ConflictException;
     updateProductDto.quantity = product.quantity;
-
-    const errors = await validate(updateProductDto);
-    if(errors.length) throw new BadRequestException;
 
     const updatedProduct: Product = await this.productsService.update(id, updateProductDto);
     updatedProduct.id = id;

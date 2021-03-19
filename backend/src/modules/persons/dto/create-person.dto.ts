@@ -47,4 +47,8 @@ export class CreatePersonDTO {
   createdAt?: Date = new Date();
   updatedAt?: Date = new Date();
 
+  constructor(obj?: CreatePersonDTO) {
+    Object.assign(this, obj);
+  }
+
 }

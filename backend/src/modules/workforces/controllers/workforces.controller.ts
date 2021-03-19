@@ -1,7 +1,7 @@
 import { SimpleWorkforceDTO } from './../dto/simple-workforce.dto';
 import { Workforce } from './../entities/workforce.entity';
 import { WorkforceDTO } from './../dto/workforce.dto';
-import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, UseGuards, BadRequestException } from '@nestjs/common';
 import { WorkforcesService } from '../services/workforces.service';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
@@ -11,6 +11,7 @@ import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../core/guards/roles.guard';
 import { CreateWorkforceDTO } from '../dto/create-workforce.dto';
 import { UpdateWorkforceDTO } from '../dto/update-workforce.dto';
+import { validate } from 'class-validator';
 
 @Controller('workforces')
 @UseGuards(RolesGuard)
@@ -50,6 +51,10 @@ export class WorkforcesController {
     type: SimpleWorkforceDTO,
   })
   async create(@Body() createWorkforceDto: CreateWorkforceDTO): Promise<SimpleWorkforceDTO>  {
+    createWorkforceDto = new CreateWorkforceDTO(createWorkforceDto);
+    const errors = await validate(createWorkforceDto);
+    if (errors.length) throw new BadRequestException;
+
     const createdWorkforce: Workforce = await this.workforcesService.create(createWorkforceDto);
     return plainToClass(SimpleWorkforceDTO,createdWorkforce);
   }
@@ -61,6 +66,10 @@ export class WorkforcesController {
     type: SimpleWorkforceDTO,
   })
   async update(@Param('id') id: number, @Body() updateWorkforceDTO: UpdateWorkforceDTO): Promise<SimpleWorkforceDTO> {
+    updateWorkforceDTO = new UpdateWorkforceDTO(updateWorkforceDTO);
+    const errors = await validate(updateWorkforceDTO);
+    if (errors.length) throw new BadRequestException;
+    
     const workforce: Workforce | undefined = await this.workforcesService.findOneById(id);
     if (workforce == undefined) throw new NotFoundException;
     const updatedWorkforce: Workforce = await this.workforcesService.update(id, updateWorkforceDTO);

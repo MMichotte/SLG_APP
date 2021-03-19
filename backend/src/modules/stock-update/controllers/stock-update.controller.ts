@@ -45,15 +45,5 @@ export class StockUpdateController {
     stUp.productId = stUp.product.id;
     return plainToClass(StockUpdateDTO,stUp);
   }
-  
-  /*
-  @Delete(':id')
-  @Roles(EUserRoles.ADMIN)
-  async remove(@Param('id') id: number) {
-    const stUp: StockUpdate | undefined = await this.stockUpdateService.findOneById(id);
-    if (stUp == undefined) throw new NotFoundException;
-    await this.stockUpdateService.remove(+id);
-    return [];
-  }
-  */
+
 }

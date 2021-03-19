@@ -59,4 +59,7 @@ export class CreateCompanyDTO {
   createdAt?: Date = new Date();
   updatedAt?: Date = new Date();
 
+  constructor(obj?: CreateCompanyDTO) {
+    Object.assign(this, obj);
+  }
 }

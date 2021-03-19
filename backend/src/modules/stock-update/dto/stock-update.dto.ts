@@ -29,4 +29,8 @@ export class StockUpdateDTO {
   @Expose()
   @ApiProperty()
   updatedAt: Date;
+
+  constructor(obj?: StockUpdateDTO) {
+    Object.assign(this, obj);
+  }
 }

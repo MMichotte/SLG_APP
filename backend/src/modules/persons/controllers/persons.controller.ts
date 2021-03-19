@@ -2,7 +2,7 @@ import { AddressesService } from '../../adresses/services/addresses.service';
 import { UpdatePersonDTO } from '../dto/update-person.dto';
 import { CreatePersonDTO } from '../dto/create-person.dto';
 import { SimplePersonDTO } from '../dto/simple-person.dto';
-import { Body, Controller, Delete, Get, Param, Post, UseGuards, ConflictException, NotFoundException, Patch } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards, ConflictException, NotFoundException, Patch, BadRequestException } from '@nestjs/common';
 import { Roles } from '../../../core/decorators/roles.decorator';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { EUserRoles } from '../../users/enums/user-roles.enum';
@@ -13,6 +13,7 @@ import { plainToClass } from 'class-transformer';
 import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../core/guards/roles.guard';
 import { Address } from '../../adresses/entities/address.entity';
+import { validate } from 'class-validator';
 
 @Controller('persons')
 @UseGuards(RolesGuard)
@@ -55,6 +56,10 @@ export class PersonsController {
     type: SimplePersonDTO,
   })
   async create(@Body() dto: CreatePersonDTO): Promise<SimplePersonDTO>  {
+    dto = new CreatePersonDTO(dto);
+    const errors = await validate(dto);
+    if (errors.length) throw new BadRequestException;
+
     const existingPerson: Person = await this.personsService.findOneByEmail(dto.email);
     if (existingPerson) throw new ConflictException;
     const newPerson: Person = await this.personsService.create(dto);
@@ -68,6 +73,10 @@ export class PersonsController {
     type: SimplePersonDTO,
   })
   async update(@Param('id') id: number, @Body() dto: UpdatePersonDTO): Promise<SimplePersonDTO>  {
+    dto = new UpdatePersonDTO(dto);
+    const errors = await validate(dto);
+    if (errors.length) throw new BadRequestException;
+
     const existingPerson: Person = await this.personsService.findOneById(id);
     if (!existingPerson) throw new NotFoundException;
     const emailConflict = await this.personsService.findOtherByEmail(id, dto.email);

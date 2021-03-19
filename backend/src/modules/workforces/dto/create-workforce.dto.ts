@@ -26,4 +26,7 @@ export class CreateWorkforceDTO {
   createdAt?: Date = new Date();
   updatedAt?: Date = new Date();
 
+  constructor(obj?: CreateWorkforceDTO) {
+    Object.assign(this, obj);
+  }
 }

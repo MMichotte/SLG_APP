@@ -6,7 +6,7 @@ import { Company } from './../entities/company.entity';
 import { EUserRoles } from './../../users/enums/user-roles.enum';
 import { CompanyDTO } from './../dto/company.dto';
 import { Roles } from './../../../core/decorators/roles.decorator';
-import { Body, Controller, Get, Param, Post, UseGuards, ConflictException, Delete, NotFoundException, Patch } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards, ConflictException, Delete, NotFoundException, Patch, BadRequestException } from '@nestjs/common';
 import { AddressesService } from './../../adresses/services/addresses.service';
 import { CompaniesService } from '../services/companies.service';
 import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
@@ -15,6 +15,7 @@ import { RolesGuard } from '../../../core/guards/roles.guard';
 import { plainToClass } from 'class-transformer';
 import { Address } from '../../adresses/entities/address.entity';
 import { Person } from '../../persons/entities/person.entity';
+import { validate } from 'class-validator';
 
 @Controller('companies')
 @UseGuards(RolesGuard)
@@ -82,6 +83,10 @@ export class CompaniesController {
     type: SimpleCompanyDTO,
   })
   async create(@Body() dto: CreateCompanyDTO): Promise<SimpleCompanyDTO>  {
+    dto = new CreateCompanyDTO(dto);
+    const errors = await validate(dto);
+    if (errors.length) throw new BadRequestException;
+
     const existingCompany: Company = await this.companiesService.findOneByEmailOrVAT(dto.email, dto.VAT);
     if (existingCompany) throw new ConflictException; //TODO better exception (add info)
     if (dto.personId) {
@@ -100,6 +105,10 @@ export class CompaniesController {
     type: SimpleCompanyDTO,
   })
   async update(@Param('id') id: number, @Body() dto: UpdateCompanyDTO): Promise<SimpleCompanyDTO>  {
+    dto = new UpdateCompanyDTO(dto);
+    const errors = await validate(dto);
+    if (errors.length) throw new BadRequestException;
+
     const existingCompany: Company = await this.companiesService.findOneByEmailOrVAT(dto.email, dto.VAT);
     if (!existingCompany) throw new NotFoundException;
     const emailConflict = await this.companiesService.findOtherByEmail(id, dto.email);

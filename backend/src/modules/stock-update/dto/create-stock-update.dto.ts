@@ -21,4 +21,8 @@ export class CreateStockUpdateDTO {
   note?: string;
 
   product: Product;
+
+  constructor(obj?: CreateStockUpdateDTO) {
+    Object.assign(this, obj);
+  }
 }
