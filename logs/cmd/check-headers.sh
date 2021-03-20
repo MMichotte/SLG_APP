@@ -1,5 +1,5 @@
 #!/bin/bash
 
-URL="https://slg-app.herokuapp.com"
+URL="https://app.slgcars.be"
 
 npx check-my-headers $URL > ../headers.log 

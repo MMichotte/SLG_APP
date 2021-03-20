@@ -13,10 +13,15 @@ import { OrdersModule } from './modules/orders/orders/orders.module';
 import { ProductOrderModule } from './modules/orders/product-order/product-order.module';
 import { BillSupplierModule } from './modules/bills/bill-supplier/bill-supplier.module';
 import dbConnectionOptions from 'ormconfig';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(dbConnectionOptions),
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    }),
     AuthModule,
     UsersModule,
     ProductsModule,

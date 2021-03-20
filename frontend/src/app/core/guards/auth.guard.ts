@@ -2,13 +2,20 @@ import { AuthService } from './../services/auth.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, CanDeactivate, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ToastService } from '../services/toast.service';
+import { EToastSeverities } from '../enums/toast-severity.enum';
+import { ECommonErrors } from '../enums/common-errors.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad {
 
-  constructor (private auth: AuthService, private router: Router) {}
+  constructor (
+    private auth: AuthService,
+    private router: Router,
+    private readonly toast: ToastService
+  ) {}
 
   canActivate (
     route: ActivatedRouteSnapshot,
@@ -42,6 +49,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
       if (route.data.role && route.data.role.indexOf(userRole) === -1) {
         this.router.navigate(['/login']);
         this.auth.logout();
+        this.toast.show(EToastSeverities.ERROR, ECommonErrors.E_401);
         return false;
       }
       return true;

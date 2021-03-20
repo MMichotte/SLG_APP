@@ -1,13 +1,25 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { join } from 'path';
 import { AppModule } from './app.module';
+import * as helmet from 'helmet';
+import * as csurf from 'csurf';
 import env from './config/env';
 import { FrontendMiddleware } from './core/middlewares/frontend.middleware';
 
+
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  /**
+   * 
+   */
+  app.use(helmet()); // TODO -> configure
+
+  /**
+   * 
+   */
+  //app.use(csurf()); // TODO -> configure
 
   /**
    * Use a middleware to load angular app for unknown routes

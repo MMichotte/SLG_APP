@@ -38,6 +38,8 @@ export class AuthInterceptor implements HttpInterceptor {
           if (err.status === 401) {
             this.auth.logout();
             this.router.navigate(['/login']);
+          } else if (err.status === 429) {
+            this.toast.show(EToastSeverities.ERROR, ECommonErrors.E_429);
           } else if (Math.floor(err.status / 10) === 50) {
             this.toast.show(EToastSeverities.ERROR, ECommonErrors.E_50X);
           }
