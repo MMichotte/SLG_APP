@@ -16,6 +16,7 @@ import { plainToClass } from 'class-transformer';
 import { Address } from '../../adresses/entities/address.entity';
 import { Person } from '../../persons/entities/person.entity';
 import { validate } from 'class-validator';
+import { LightCompanyDTO } from '../dto/light-company.dto';
 
 @Controller('companies')
 @UseGuards(RolesGuard)
@@ -63,6 +64,18 @@ export class CompaniesController {
   async findAllSuppliers(): Promise<CompanyDTO[]> {
     const companies: Company[] = await this.companiesService.findAllSuppliers();
     return plainToClass(CompanyDTO,companies);
+  }
+  
+  @Get('suppliers-light')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiResponse({
+    status: 200,
+    type: LightCompanyDTO,
+    isArray: true
+  })
+  async findAllSuppliersLight(): Promise<LightCompanyDTO[]> {
+    const companies: Company[] = await this.companiesService.findAllSuppliers();
+    return plainToClass(LightCompanyDTO,companies);
   }
 
   @Get(':id')

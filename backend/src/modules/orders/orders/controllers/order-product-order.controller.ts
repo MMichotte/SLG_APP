@@ -105,12 +105,13 @@ export class OrderProductOrderController {
     if (!product) throw new NotFoundException;
 
     const existingProduct: ProductOrder = await this.productOrderService.findOneByProdId(dto.productId);
-    if (existingProduct) throw new HttpException('The product is already in this order!', HttpStatus.NOT_ACCEPTABLE);
+    if (!existingProduct) throw new NotFoundException;
 
     dto.order = order;
     dto.product = product;
+    delete dto.productId;
 
-    const updatedProductOrder: ProductOrder = await this.productOrderService.update(id, dto);
+    const updatedProductOrder: ProductOrder = await this.productOrderService.update(prodId, dto);
     updatedProductOrder.id = id;
 
     return plainToClass(SimpleProductOrderDTO, updatedProductOrder);

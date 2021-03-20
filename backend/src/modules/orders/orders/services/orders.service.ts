@@ -1,3 +1,4 @@
+import { UpdateOrderDTO } from './../dto/update-order.dto';
 import { CreateOrderDTO } from './../dto/create-order.dto';
 import { OrderRepository } from './../repositories/order.repository';
 import { Injectable } from '@nestjs/common';
@@ -21,6 +22,10 @@ export class OrdersService {
     return this.orderRepository.save(order);
   }
   
+  update(id: number, order: UpdateOrderDTO): Promise<any> {
+    return this.orderRepository.update(id, order);
+  }
+
   remove(id: number) {
     return this.orderRepository.delete(id);
   }

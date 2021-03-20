@@ -3,7 +3,7 @@ import { Company } from './../../../companies/entities/company.entity';
 import { ProductOrder } from './../../product-order/entities/product-order.entity';
 import { CreateOrderDTO } from './../dto/create-order.dto';
 import { SimpleOrderDTO } from './../dto/simple.order.dto';
-import { BadRequestException, Body, Controller, Delete, ForbiddenException, Get, NotFoundException, Param, Post, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, ForbiddenException, Get, NotFoundException, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { Order } from './../entities/order.entity';
@@ -17,6 +17,7 @@ import { ProductOrderService } from '../../product-order/services/product-order.
 import { EProductOrderStatus } from '../../product-order/enums/product-order-status.enum';
 import { validate } from 'class-validator';
 import { ECompanyType } from 'src/modules/companies/enums/company-type.enum';
+import { UpdateOrderDTO } from '../dto/update-order.dto';
 
 @Controller('orders')
 @UseGuards(RolesGuard)
@@ -72,6 +73,31 @@ export class OrdersController {
     dto.supplier = supplier;
     const newOrder: Order = await this.ordersService.create(dto);
     return plainToClass(SimpleOrderDTO,newOrder);
+  }
+  
+  @Patch(':id')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER)
+  @ApiResponse({
+    status: 201,
+    type: SimpleOrderDTO,
+  })
+  async update(@Param('id') id: number, @Body() dto: UpdateOrderDTO): Promise<SimpleOrderDTO> {
+    dto = new UpdateOrderDTO(dto);
+    const errors = await validate(dto);
+    if (errors.length) throw new BadRequestException;
+
+    const order: Order = await this.ordersService.findOneById(id);
+    if (!order) throw new NotFoundException;
+
+    const supplier: Company = await this.companiesService.findOneById(dto.supplierId);
+    if (!supplier) throw new NotFoundException;
+    if (supplier.type !== ECompanyType.SUPPLIER && supplier.type !== ECompanyType.SUPP_AND_CLI) throw new ForbiddenException;
+
+    dto.supplier = supplier;
+    delete dto.supplierId;
+    const updatedOrder: Order = await this.ordersService.update(id, dto);
+    updatedOrder.id = id;
+    return plainToClass(SimpleOrderDTO,updatedOrder);
   }
 
   @Delete(':id')

@@ -38,6 +38,14 @@ export class ProductOrderDTO {
   @ApiProperty({enum: EProductOrderStatus})
   status: EProductOrderStatus;
   
+  @Expose()
+  @ApiProperty()
+  createdAt: Date;
+  
+  @Expose()
+  @ApiProperty()
+  updatedAt: Date;
+  
   constructor(obj?: ProductOrderDTO) {
     Object.assign(this, obj);
   }

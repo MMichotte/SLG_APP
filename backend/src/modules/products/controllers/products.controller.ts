@@ -1,12 +1,13 @@
+import { LightProductDTO } from './../dto/light-product.dto';
 import { SimpleProductDTO } from './../dto/simple-product.dto';
 import { ProductDTO } from './../dto/product';
 import { Roles } from '../../../core/decorators/roles.decorator';
 import { EUserRoles } from '../../users/enums/user-roles.enum';
-import { Controller, Get, Post, Body, Param, Delete, UseGuards, Patch, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, UseGuards, Patch, NotFoundException, ConflictException, BadRequestException, Query } from '@nestjs/common';
 import { ProductsService } from '../services/products.service';
 import { CreateProductDTO } from '../dto/create-product.dto';
 import { UpdateProductDTO } from '../dto/update-product.dto';
-import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../core/guards/roles.guard';
 import { Product } from '../entities/product.entity';
@@ -35,6 +36,33 @@ export class ProductsController {
       return p;
     });
     return plainToClass(ProductDTO,products);
+  }
+  
+  @Get('light')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiQuery({
+    name: 'searchProduct',
+    type: String,
+    required: false
+  })
+  @ApiResponse({
+    status: 200,
+    type: LightProductDTO,
+    isArray: true
+  })
+  async findAllLights(@Query() searchProduct?: any): Promise<LightProductDTO[]> {
+    let products: Product[];
+    if (searchProduct.searchProduct) {
+      products = await this.productsService.findAll(searchProduct.searchProduct);
+    }  else {
+      products = await this.productsService.findAll();
+    }
+    
+    products = products.map( (p: any) => {
+      p.reservedQuantity = 0; //TODO calc reserved quant based on active worksheets
+      return p;
+    });
+    return plainToClass(LightProductDTO,products);
   }
 
   @Get(':id')

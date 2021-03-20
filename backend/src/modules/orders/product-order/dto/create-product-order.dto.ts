@@ -24,7 +24,7 @@ export class CreateProductOrderDTO {
   @IsNotEmpty()
   quantityOrdered: number;
 
-  status?: EProductOrderStatus = EProductOrderStatus.ORDERED;
+  status?: EProductOrderStatus = EProductOrderStatus.PENDING;
   
   constructor(obj?: CreateProductOrderDTO) {
     Object.assign(this, obj);
