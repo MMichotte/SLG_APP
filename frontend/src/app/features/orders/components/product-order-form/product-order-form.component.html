@@ -1,0 +1,29 @@
+<form class="form" [formGroup]="productForm" (ngSubmit)="submitForm()">
+
+  <div class="p-grid p-fluid">
+    <div class="p-col-5">
+      <label for="productSelect" class="label-required">Product</label>
+      <p-autoComplete appendTo="body" [(ngModel)]="selectedProduct" [suggestions]="productsFiltered"
+        [ngModelOptions]="{standalone: true}" (completeMethod)="searchProduct($event.query)" field="displayName" minLength=2
+        name="productSelect" (onSelect)="onSelectProduct()" (click)="onSelectClick()">
+      </p-autoComplete>
+    </div>
+
+    <div class="p-col-5">
+      <label for="note">Note</label>
+      <textarea id="note" pInputTextarea [rows]="1" formControlName="note" autoResize="autoResize"></textarea>
+    </div>
+
+    <div class="p-col-2">
+      <label for="quantityOrdered" class="label-required">Quantity</label>
+      <p-inputNumber id="quantityOrdered" [showButtons]="true" formControlName="quantityOrdered" [min]=1></p-inputNumber>
+    </div>
+  </div>
+
+  <footer class="p-grid">
+    <button pButton pRipple type="submit" icon="pi pi-save" label="Add" *ngIf="auth.hasMinAccess(EUserRoles.USER) && !isUpdate"
+      [disabled]="productForm.invalid"></button>
+    <button class="p-button-warning" pButton pRipple type="submit" icon="pi pi-save" label="Update" *ngIf="auth.hasMinAccess(EUserRoles.USER) && isUpdate"
+      [disabled]="productForm.invalid"></button>
+  </footer>
+</form>

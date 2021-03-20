@@ -1,6 +1,6 @@
 <div class="form">
   <div class="p-grid p-fluid">
-    <div class="p-col-12 p-sm-12 p-md-12 p-xl-6">
+    <div class="p-col-12 selector">
       <p-autoComplete appendTo="body" [(ngModel)]="selectedLightSupplier" [suggestions]="lightSuppliersFiltered"
         (completeMethod)="searchSupplier($event.query)" field="name" [dropdown]="true">
       </p-autoComplete>

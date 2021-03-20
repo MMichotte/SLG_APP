@@ -1,3 +1,4 @@
+import { SuppliersModule } from './../suppliers/suppliers.module';
 import { OrderService } from './services/order.service';
 import { OrdersComponent } from './pages/orders-list/orders.component';
 import { NgModule } from '@angular/core';
@@ -18,9 +19,12 @@ import { SharedModule } from '../../shared/shared.module';
 import { ConfirmDialogService } from '../../core/services/confirm-dialog.service';
 import { ToastService } from '../../core/services/toast.service';
 import { PanelModule } from 'primeng/panel';
+import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
+import { NewOrderFormComponent } from './components/new-order-form/new-order-form.component';
+import { ProductOrderFormComponent } from './components/product-order-form/product-order-form.component';
 
 @NgModule({
-  declarations: [OrdersComponent],
+  declarations: [OrdersComponent, OrderDetailComponent, NewOrderFormComponent, ProductOrderFormComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -36,7 +40,8 @@ import { PanelModule } from 'primeng/panel';
     InputNumberModule,
     InputTextareaModule,
     DynamicDialogModule,
-    OrdersRoutingModule
+    OrdersRoutingModule,
+    SuppliersModule
   ],
   providers: [OrderService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
 })

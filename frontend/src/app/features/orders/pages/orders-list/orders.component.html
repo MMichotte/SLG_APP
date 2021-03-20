@@ -16,7 +16,7 @@
 
   <div class="dtable">
     <p-table #dt [columns]="cols" [value]="orders" [autoLayout]="true" [paginator]="true" [scrollable]="true"
-      [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['id','supplier.name', 'createdAt', 'updatedAt']"
+      [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['id','supplierName', 'createdAt', 'updatedAt']"
       [sortField]="cols[3].field" [sortOrder]="-1" selectionMode="single"
       [(selection)]="selectedOrder" styleClass="p-datatable-sm" [loading]="loadingData">
 
@@ -35,8 +35,10 @@
           <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
             <span [ngClass]="{
               'orderStatus': (col.field === 'status'),
-              'openOrder': (col.field === 'status' && rowData[col.field] === EOrderStatus.OPEN),
-              'closedOrder': (col.field === 'status' && rowData[col.field] === EOrderStatus.CLOSED)
+              'order-status-open': (col.field === 'status' && rowData[col.field] === EOrderStatus.OPEN),
+              'order-status-ordered': (col.field === 'status' && rowData[col.field] === EOrderStatus.ORDERED),
+              'order-status-PD': (col.field === 'status' && rowData[col.field] === EOrderStatus.PD),
+              'order-status-closed': (col.field === 'status' && rowData[col.field] === EOrderStatus.CLOSED)
             }">{{rowData[col.field]}}</span>        
           </td>
           <td style="width: 6rem;">

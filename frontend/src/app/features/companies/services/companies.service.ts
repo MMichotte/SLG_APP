@@ -30,6 +30,10 @@ export class CompaniesService {
     return this.httpClient.get(`${this.endpoint}/suppliers`);
   }
   
+  getAllLightSuppliers(): any {
+    return this.httpClient.get(`${this.endpoint}/suppliers-light`);
+  }
+  
   create(client: CreateCompanyDTO): any {
     return this.httpClient.post(this.endpoint, client);
   }

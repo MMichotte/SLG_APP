@@ -13,6 +13,14 @@ export class SuppliersController {
   getAll(): any {
     return this.companiesService.getAllSuppliers();
   }
+  
+  getAllLights(): any {
+    return this.companiesService.getAllLightSuppliers();
+  }
+
+  getOne(id: number): any {
+    return this.companiesService.getOne(id);
+  }
 
   createCompany(dto: CreateCompanyDTO): any {
     return this.companiesService.create(dto);

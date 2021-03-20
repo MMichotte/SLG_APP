@@ -1,0 +1,27 @@
+.orderStatus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5rem;
+  height: 1.5rem;
+  font-weight: 800;
+  color: white;
+  border-radius: 20px;
+}
+
+.order-status-open {
+  background-color: var(--mainColor1);
+}
+
+.order-status-ordered {
+  background-color: var(--secColor1);
+}
+
+.order-status-PD {
+  width: 10rem;
+  background-color: orange;
+}
+
+.order-status-closed {
+  background-color: rgb(170, 170, 170);
+}
