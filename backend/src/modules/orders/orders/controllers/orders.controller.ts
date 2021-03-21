@@ -3,7 +3,7 @@ import { Company } from './../../../companies/entities/company.entity';
 import { ProductOrder } from './../../product-order/entities/product-order.entity';
 import { CreateOrderDTO } from './../dto/create-order.dto';
 import { SimpleOrderDTO } from './../dto/simple.order.dto';
-import { BadRequestException, Body, Controller, Delete, ForbiddenException, Get, NotFoundException, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, ForbiddenException, Get, NotFoundException, Param, Patch, Post, UseGuards, ConflictException } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { Order } from './../entities/order.entity';
@@ -106,11 +106,15 @@ export class OrdersController {
     const order: Order | undefined = await this.ordersService.findOneById(id);
     if (!order) throw new NotFoundException;
     
-    const receivedOrderProducts: ProductOrder[] = (await this.productOrderService.findAllByOrderId(id))
-      .filter(
-        (pO: ProductOrder) => pO.status === EProductOrderStatus.RECEIVED
-      );
-    if (receivedOrderProducts.length) throw new ForbiddenException;
+    const orderProducts: ProductOrder[] = await this.productOrderService.findAllByOrderId(id);
+    const receivedProducts: ProductOrder[] = orderProducts.filter(
+      (pO: ProductOrder) => pO.status === EProductOrderStatus.RECEIVED
+    );
+    if (receivedProducts.length) throw new ConflictException;
+    
+    orderProducts.forEach(async (pO: ProductOrder) => {
+      await this.productOrderService.remove(pO.id);
+    });
 
     await this.ordersService.remove(id);
     return [];
