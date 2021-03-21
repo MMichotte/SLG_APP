@@ -19,6 +19,11 @@ export class ProductOrderDTO {
   orderId: number;
 
   @Expose()
+  @Transform(({ obj }) => obj.billSupplier.id)
+  @ApiPropertyOptional()
+  billSupplierId: number
+
+  @Expose()
   @ApiPropertyOptional()
   note?: string;
 
@@ -32,7 +37,11 @@ export class ProductOrderDTO {
   
   @Expose()
   @ApiPropertyOptional()
-  purchasePriceHTAtDate?: number;
+  pcInvoicePrice?: number;
+  
+  @Expose()
+  @ApiPropertyOptional()
+  pcPurchasePriceHTAtDate?: number;
   
   @Expose()
   @ApiProperty({enum: EProductOrderStatus})

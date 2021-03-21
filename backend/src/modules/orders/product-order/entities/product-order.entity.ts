@@ -1,3 +1,4 @@
+import { BillSupplier } from './../../../bills/bill-supplier/entities/bill-supplier.entity';
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne, Column } from 'typeorm';
 import { Order } from './../../orders/entities/order.entity';
 import { Product } from './../../../products/entities/product.entity';
@@ -27,11 +28,19 @@ export class ProductOrder {
   @Column({name: 'quantity_received', type: 'integer', nullable: true})
   quantityReceived: number;
 
-  @Column({name: 'purchase_price_HT_at_date', type: 'decimal', nullable: true})
-  purchasePriceHTAtDate: number;
+  @Column({name: 'pc_invoice_price', type: 'decimal', nullable: true})
+  pcInvoicePrice: number;
+
+  @Column({name: 'pc_purchase_price_HT_at_date', type: 'decimal', nullable: true})
+  pcPurchasePriceHTAtDate: number;
 
   @Column({name: 'status', type: 'enum', enum: EProductOrderStatus})
   status: EProductOrderStatus;
+
+  @ManyToOne(() => BillSupplier, {nullable: true})
+  @JoinColumn({ name: 'id_bill_supplier' })
+  billSupplier: BillSupplier;
+  billSupplierId: number;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -5,6 +5,7 @@ export class InitDatabase1614186650502 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "address" ("id" SERIAL NOT NULL, "country" character varying(255) NOT NULL, "city" character varying(255) NOT NULL, "zip_code" character varying(50) NOT NULL, "street_address" character varying(255) NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_d92de1f82754668b5f5f5dd4fd5" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "bill_supplier" ("id" SERIAL NOT NULL, "invoice_number" character varying, "shipping_fees" numeric, "debited_amount" numeric NOT NULL, "note" text, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), CONSTRAINT "PK_b33b14dcdec6d0ed8a242ab3197" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TYPE "person_civility_enum" AS ENUM('Mr.', 'Mme.', 'Mlle.')`);
         await queryRunner.query(`CREATE TABLE "person" ("id" SERIAL NOT NULL, "civility" "person_civility_enum" NOT NULL, "first_name" character varying(255) NOT NULL, "last_name" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "phone" character varying(255), "mobile" character varying(255), "vat_num" character varying(255), "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "id_address" integer, CONSTRAINT "UQ_d2d717efd90709ebd3cb26b936c" UNIQUE ("email"), CONSTRAINT "REL_b9c17cf5f6008b696fc821e11c" UNIQUE ("id_address"), CONSTRAINT "PK_5fdaf670315c4b7e70cce85daa3" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE INDEX "IDX_2ca81951428219072c6fa72eff" ON "person" ("last_name") `);
@@ -20,7 +21,7 @@ export class InitDatabase1614186650502 implements MigrationInterface {
         await queryRunner.query(`CREATE INDEX "IDX_0d99c5ecda0104bc04f6780ccf" ON "product" ("reference") `);
         await queryRunner.query(`CREATE INDEX "IDX_90bc7a8e481cfa0d826e997813" ON "product" ("label") `);
         await queryRunner.query(`CREATE TYPE "product_order_status_enum" AS ENUM('Pending', 'Ordered', 'Received', 'Back-order')`);
-        await queryRunner.query(`CREATE TABLE "product_order" ("id" SERIAL NOT NULL, "note" text, "quantity_ordered" integer NOT NULL, "quantity_received" integer, "purchase_price_HT_at_date" numeric, "status" "product_order_status_enum" NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "id_product" integer NOT NULL, "id_order" integer NOT NULL, CONSTRAINT "PK_9849f0d8ce095e50e752616f691" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "product_order" ("id" SERIAL NOT NULL, "note" text, "quantity_ordered" integer NOT NULL, "quantity_received" integer, "pc_invoice_price" numeric, "pc_purchase_price_HT_at_date" numeric, "status" "product_order_status_enum" NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "id_product" integer NOT NULL, "id_order" integer NOT NULL, "id_bill_supplier" integer, CONSTRAINT "PK_9849f0d8ce095e50e752616f691" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TYPE "stock_update_type_enum" AS ENUM('inventory', 'loss', 'broken', 'quality')`);
         await queryRunner.query(`CREATE TABLE "stock_update" ("id" SERIAL NOT NULL, "type" "stock_update_type_enum" NOT NULL, "quantity" integer NOT NULL, "note" text, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "id_product" integer NOT NULL, CONSTRAINT "PK_ea5ee48672c7158139d89ce08c3" PRIMARY KEY ("id"))`);
         await queryRunner.query(`CREATE TYPE "user_role_enum" AS ENUM('accounting', 'user', 'admin', 'dev')`);
@@ -33,11 +34,13 @@ export class InitDatabase1614186650502 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE "order" ADD CONSTRAINT "FK_c547690f25a975eaaea9c033743" FOREIGN KEY ("id_company") REFERENCES "company"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "product_order" ADD CONSTRAINT "FK_6e63555b63b7c1f35ecade5b164" FOREIGN KEY ("id_product") REFERENCES "product"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "product_order" ADD CONSTRAINT "FK_0f4c478ef80839f3a42e6a83c72" FOREIGN KEY ("id_order") REFERENCES "order"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "product_order" ADD CONSTRAINT "FK_50237438ba81812296d1aa8519a" FOREIGN KEY ("id_bill_supplier") REFERENCES "bill_supplier"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE "stock_update" ADD CONSTRAINT "FK_16927d5c7f51cb9dcd522701f9f" FOREIGN KEY ("id_product") REFERENCES "product"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`ALTER TABLE "stock_update" DROP CONSTRAINT "FK_16927d5c7f51cb9dcd522701f9f"`);
+        await queryRunner.query(`ALTER TABLE "product_order" DROP CONSTRAINT "FK_50237438ba81812296d1aa8519a"`);
         await queryRunner.query(`ALTER TABLE "product_order" DROP CONSTRAINT "FK_0f4c478ef80839f3a42e6a83c72"`);
         await queryRunner.query(`ALTER TABLE "product_order" DROP CONSTRAINT "FK_6e63555b63b7c1f35ecade5b164"`);
         await queryRunner.query(`ALTER TABLE "order" DROP CONSTRAINT "FK_c547690f25a975eaaea9c033743"`);
@@ -66,6 +69,7 @@ export class InitDatabase1614186650502 implements MigrationInterface {
         await queryRunner.query(`DROP INDEX "IDX_2ca81951428219072c6fa72eff"`);
         await queryRunner.query(`DROP TABLE "person"`);
         await queryRunner.query(`DROP TYPE "person_civility_enum"`);
+        await queryRunner.query(`DROP TABLE "bill_supplier"`);
         await queryRunner.query(`DROP TABLE "address"`);
     }
 
