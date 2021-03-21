@@ -5,9 +5,10 @@
     (click)="router.navigate(['orders']);"></button>
 
   <div class="control">
-    <div class="inline">
+    <div class="supplier inline">
       <label class="myLabel">Supplier:</label>
-      <p-autoComplete appendTo="body" [(ngModel)]="selectedLightSupplier" [suggestions]="lightSuppliersFiltered"
+      <span class="supplier-name" *ngIf="order?.status !== EOrderStatus.OPEN || !auth.hasMinAccess(EUserRoles.USER)">{{selectedLightSupplier?.name}}</span>
+      <p-autoComplete *ngIf="order?.status === EOrderStatus.OPEN && auth.hasMinAccess(EUserRoles.USER)" appendTo="body" [(ngModel)]="selectedLightSupplier" [suggestions]="lightSuppliersFiltered"
         (completeMethod)="searchSupplier($event.query)" field="name" [dropdown]="true" (onSelect)="onChangeSupplier()">
       </p-autoComplete>
     </div>
@@ -15,27 +16,31 @@
     <div class="inline">
       <label class="myLabel">Status:</label>
       <span class="orderStatus" [ngClass]="{
-        'order-status-open':  (order?.status === EOrderStatus.OPEN),
-        'order-status-ordered':  (order?.status === EOrderStatus.ORDERED),
+        'order-status-open': (order?.status === EOrderStatus.OPEN),
+        'order-status-ordered': (order?.status === EOrderStatus.ORDERED),
         'order-status-PD': (order?.status === EOrderStatus.PD),
-        'order-status-closed':       (order?.status === EOrderStatus.CLOSED)
+        'order-status-closed': (order?.status === EOrderStatus.CLOSED)
       }">{{order?.status}}</span>
     </div>
 
-    <div class="btns">
-      <button pButton pRipple type="button" icon="pi pi-print" label="Print" (click)="print()"></button>
-      <button pButton pRipple type="button" icon="pi pi-file-pdf" label="PDF" (click)="true"></button>
+    <div>
+      <div class="btns" *ngIf="auth.hasMinAccess(EUserRoles.USER)">
+        <button *ngIf="order?.status === EOrderStatus.OPEN" pButton pRipple type="button" icon="pi pi-file-pdf" label="Generate Order"
+          (click)="onGenerateOrder()"></button>
+        <button *ngIf="order?.status === EOrderStatus.ORDERED" pButton pRipple type="button" icon="pi pi-tag" label="Process Order"
+          (click)="onProcessOrder()"></button>
+      </div>
     </div>
   </div>
 
   <p-panel header="Add Product" class="form">
-    <app-product-order-form [orderId]="order?.id" [(currentProduct)]="selectedProductOrder"
+    <app-product-order-form [order]="order" [(currentProduct)]="selectedProductOrder"
       [existingProducts]="productOrders" (refreshTable)="refreshProducts()"></app-product-order-form>
   </p-panel>
 
   <div class="dtable">
     <p-table #dt [columns]="cols" [value]="productOrders" [autoLayout]="true" [paginator]="true" [scrollable]="true"
-      [rows]="10" [rowsPerPageOptions]="[10,25,50]" [sortField]="cols[5].field" [sortOrder]="-1" selectionMode="single"
+      [rows]="25" [rowsPerPageOptions]="[25,50,100]" [sortField]="cols[4].field" [sortOrder]="-1" selectionMode="single"
       [(selection)]="selectedProductOrder" styleClass="p-datatable-sm" [loading]="loadingData">
 
       <ng-template pTemplate="header" let-columns>
@@ -62,7 +67,7 @@
           <td style="width: 6rem;">
             <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-button-sm"
               title="Remove product" (click)="removeProduct(rowData)"
-              *ngIf="rowData.status !== EProductOrderStatus.RECEIVED"></button>
+              *ngIf="rowData.status !== EProductOrderStatus.RECEIVED && order?.status !== EOrderStatus.ORDERED && auth.hasMinAccess(EUserRoles.USER)"></button>
           </td>
         </tr>
       </ng-template>
@@ -71,3 +76,9 @@
   </div>
 
 </div>
+
+<p-confirmDialog key="local_confirm" [style]="{width: '30%'}" acceptLabel="Place order" acceptIcon="pi pi-send"
+  rejectLabel="Only generate pdf" rejectIcon="pi pi-file-pdf" rejectButtonStyleClass="p-button-info"
+  defaultFocus="accept"></p-confirmDialog>
+
+  <!--*ngIf="auth.hasMinAccess(EUserRoles.USER)"-->

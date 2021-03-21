@@ -22,6 +22,7 @@ import { PanelModule } from 'primeng/panel';
 import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 import { NewOrderFormComponent } from './components/new-order-form/new-order-form.component';
 import { ProductOrderFormComponent } from './components/product-order-form/product-order-form.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @NgModule({
   declarations: [OrdersComponent, OrderDetailComponent, NewOrderFormComponent, ProductOrderFormComponent],
@@ -41,6 +42,7 @@ import { ProductOrderFormComponent } from './components/product-order-form/produ
     InputTextareaModule,
     DynamicDialogModule,
     OrdersRoutingModule,
+    ConfirmDialogModule,
     SuppliersModule
   ],
   providers: [OrderService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]

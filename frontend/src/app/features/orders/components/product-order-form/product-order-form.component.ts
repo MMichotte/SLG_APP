@@ -1,3 +1,5 @@
+import { EOrderStatus } from './../../enums/order-status.enum';
+import { Order } from './../../models/order.model';
 import { OrderService } from './../../services/order.service';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -13,13 +15,14 @@ import { LightProduct } from '../../models/light-product';
 })
 export class ProductOrderFormComponent implements OnInit, OnChanges {
 
-  @Input() orderId: number;
+  @Input() order?: Order;
   @Input() currentProduct: ProductOrder;
   @Output() currentProductChange = new EventEmitter<ProductOrder>();
   @Input() existingProducts?: ProductOrder[];
-  @Output() refreshTable?= new EventEmitter<any>();
+  @Output() refreshTable= new EventEmitter<any>();
 
   public EUserRoles = EUserRoles;
+  public EOrderStatus = EOrderStatus;
 
   products: LightProduct[];
   productsFiltered: LightProduct[];
@@ -49,7 +52,7 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
     const productOrder = this.productForm.getRawValue();
     productOrder.quantityOrdered = +productOrder.quantityOrdered;
     if (!this.isUpdate) {
-      this.orderService.addProduct(this.orderId, productOrder).subscribe(
+      this.orderService.addProduct(this.order?.id, productOrder).subscribe(
         (res: any) => {
           this.refreshTable.emit();
           this._resetForm();
@@ -57,7 +60,7 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
       );
     } else {
       productOrder.status = this.currentProduct.status;
-      this.orderService.updateProduct(this.orderId, this.currentProduct.id, productOrder).subscribe(
+      this.orderService.updateProduct(this.order?.id, this.currentProduct.id, productOrder).subscribe(
         (res: any) => {
           this.refreshTable.emit();
           this._resetForm();
@@ -106,7 +109,13 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
+    if (this.order?.status !== EOrderStatus.OPEN || !this.auth.hasMinAccess(EUserRoles.USER)) {
+      this.productForm.disable();
+    } else {
+      this.productForm.enable();
+    }
     if (this.currentProduct) {
+      this.isUpdate = true;
       this.selectedProduct = this.products.find(p => p.id === this.currentProduct.product.id);
       this.productForm.controls.productId.setValue(this.currentProduct.product.id);
       this.productForm.controls.quantityOrdered.setValue(this.currentProduct.quantityOrdered);

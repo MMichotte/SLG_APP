@@ -2,7 +2,7 @@
   <div class="p-grid p-fluid">
     <div class="p-col-12 selector">
       <p-autoComplete appendTo="body" [(ngModel)]="selectedLightSupplier" [suggestions]="lightSuppliersFiltered"
-        (completeMethod)="searchSupplier($event.query)" field="name" [dropdown]="true">
+        (completeMethod)="searchSupplier($event.query)" field="name" [dropdown]="true" placeholder="Select Supplier">
       </p-autoComplete>
     </div>
   </div>

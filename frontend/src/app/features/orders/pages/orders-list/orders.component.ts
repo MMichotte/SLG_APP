@@ -80,7 +80,7 @@ export class OrdersComponent implements OnInit {
 
   async deleteOrder(order: Order): Promise<void> {
     this.selectedOrder = order;
-    const confirm = await this.confirmDialog.show('Are you sure you want to delete the selected order?');
+    const confirm = await this.confirmDialog.show('Are you sure you want to delete the selected order?<br><br>This action can not be undone and will automatically remove all products of this order!');
     if (confirm) {
       this.orderService.delete(order.id).subscribe(
         (res: any) => {

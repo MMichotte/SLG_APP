@@ -43,11 +43,11 @@
           </td>
           <td style="width: 6rem;">
             <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-info p-button-sm"
-              title="Open order" (click)="showOrderPage(rowData)" *ngIf="rowData.status === EOrderStatus.OPEN"></button>
+              title="Open order" (click)="showOrderPage(rowData)" *ngIf="rowData.status !== EOrderStatus.CLOSED && auth.hasMinAccess(EUserRoles.USER)"></button>
             <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-info p-button-sm"
-              title="Open order" (click)="showOrderPage(rowData)" *ngIf="rowData.status === EOrderStatus.CLOSED"></button>
+              title="Open order" (click)="showOrderPage(rowData)" *ngIf="rowData.status === EOrderStatus.CLOSED || auth.hasOnlyAccess(EUserRoles.ACCOUNTING)"></button>
             <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-button-sm"
-              title="Delete order" (click)="deleteOrder(rowData)" *ngIf="rowData.status === EOrderStatus.OPEN"></button>
+              title="Delete order" (click)="deleteOrder(rowData)" *ngIf="rowData.status === EOrderStatus.OPEN && auth.hasMinAccess(EUserRoles.USER)"></button>
           </td>
         </tr>
       </ng-template>

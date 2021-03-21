@@ -5,7 +5,7 @@
       <label for="productSelect" class="label-required">Product</label>
       <p-autoComplete appendTo="body" [(ngModel)]="selectedProduct" [suggestions]="productsFiltered"
         [ngModelOptions]="{standalone: true}" (completeMethod)="searchProduct($event.query)" field="displayName" minLength=2
-        name="productSelect" (onSelect)="onSelectProduct()" (click)="onSelectClick()">
+        name="productSelect" (onSelect)="onSelectProduct()" (click)="onSelectClick()" placeholder="Search Product" [disabled]="order?.status !== EOrderStatus.OPEN || !auth.hasMinAccess(EUserRoles.USER)">
       </p-autoComplete>
     </div>
 
@@ -20,7 +20,7 @@
     </div>
   </div>
 
-  <footer class="p-grid">
+  <footer class="p-grid" *ngIf="order?.status === EOrderStatus.OPEN">
     <button pButton pRipple type="submit" icon="pi pi-save" label="Add" *ngIf="auth.hasMinAccess(EUserRoles.USER) && !isUpdate"
       [disabled]="productForm.invalid"></button>
     <button class="p-button-warning" pButton pRipple type="submit" icon="pi pi-save" label="Update" *ngIf="auth.hasMinAccess(EUserRoles.USER) && isUpdate"

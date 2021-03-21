@@ -8,11 +8,11 @@ export class ConfirmDialogService {
     private confirmationService: ConfirmationService
   ) { }
 
-  show (message: string): Promise<boolean> {
+  show (message: string, key: string = 'global_confirm', header: string = 'Delete Confirmation'): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       this.confirmationService.confirm({
         message: message,
-        header: 'Delete Confirmation',
+        header: header,
         icon: 'pi pi-info-circle',
         accept: () => {
           return resolve(true);
@@ -20,7 +20,7 @@ export class ConfirmDialogService {
         reject: () => {
           return resolve(false);
         },
-        key: 'global_confirm'
+        key: key
       });
     });
   }

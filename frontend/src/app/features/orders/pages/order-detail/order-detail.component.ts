@@ -12,7 +12,7 @@ import { OrderService } from './../../services/order.service';
 import { LightSupplier } from '../../../suppliers/models/light-supplier.model';
 import { Order } from './../../models/order.model';
 import { SuppliersController } from '../../../suppliers/controllers/suppliers-controller';
-import { EToastSeverities } from 'src/app/core/enums/toast-severity.enum';
+import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
 
 @Component({
   selector: 'app-order-detail',
@@ -35,6 +35,8 @@ export class OrderDetailComponent implements OnInit {
   lightSuppliersFiltered: LightSupplier[];
   selectedLightSupplier: LightSupplier;
 
+  isReadonly: boolean = false;
+
   constructor(
     public readonly auth: AuthService,
     public readonly router: Router,
@@ -50,7 +52,6 @@ export class OrderDetailComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.cols = [
-      { field: 'id', header: 'Id', width: '8%' },
       { field: 'productDisplayName', header: 'Product', width: '30%' },
       { field: 'quantityOrdered', header: 'Quantity ordered' },
       { field: 'quantityReceived', header: 'Quantity received' },
@@ -61,6 +62,7 @@ export class OrderDetailComponent implements OnInit {
     try {
       const orderId = this.route.snapshot.params.id;
       this.order = await this.orderService.getOne(orderId).toPromise();
+      this.isReadonly = (this.order.status === EOrderStatus.CLOSED);
       this.refreshProducts();
     } catch (e) {
       console.log(e);
@@ -110,7 +112,7 @@ export class OrderDetailComponent implements OnInit {
   }
 
   async onChangeSupplier(): Promise<void> {
-    const confirm = await this.confirmDialog.show('Are you sure you want to change the supplier for this order?');
+    const confirm = await this.confirmDialog.show('Are you sure you want to <b>change the supplier</b> for this order?');
     if (confirm) {
       const dto: UpdateOrderDTO = new UpdateOrderDTO();
       dto.supplierId = this.selectedLightSupplier.id;
@@ -131,7 +133,7 @@ export class OrderDetailComponent implements OnInit {
 
   async removeProduct(prod: ProductOrder): Promise<void> {
     this.selectedProductOrder = prod;
-    const confirm = await this.confirmDialog.show('Are you sure you want to delete the selected product?');
+    const confirm = await this.confirmDialog.show('Are you sure you want to <b>delete</b> the selected product?');
     if (confirm) {
       this.orderService.removeProduct(this.order.id, prod.id).subscribe(
         (res: any) => {
@@ -145,7 +147,27 @@ export class OrderDetailComponent implements OnInit {
     }
   }
 
-  print(): void {
-    console.log(this.selectedProductOrder);
+  async onGenerateOrder(): Promise<void> {
+    const confirm = await this.confirmDialog.show('Do you wish to <b>place the order</b> or only <b>generate the PDF</b>?', 'local_confirm', 'Generate order');
+    if (confirm) {
+      // placing order
+      const updateOrder: UpdateOrderDTO = new UpdateOrderDTO();
+      updateOrder.supplierId = this.order.supplier.id;
+      updateOrder.status = EOrderStatus.ORDERED;
+      this.orderService.update(this.order.id, updateOrder).subscribe(
+        (res: any) => {
+          this.toast.show(EToastSeverities.SUCCESS, 'Order placed, status changed to <b>Ordered</b>');
+          this.cd.detectChanges();
+        }
+      );
+    
+    } else {
+      // only generating pdf
+    }
   }
+
+  onProcessOrder(): void {
+
+  }
+
 }
