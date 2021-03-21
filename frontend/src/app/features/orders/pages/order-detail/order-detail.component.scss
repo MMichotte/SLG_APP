@@ -1,31 +1,4 @@
 
-.productStatus {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 7rem;
-  height: 1.5rem;
-  font-weight: 800;
-  color: white;
-  border-radius: 20px;
-}
-
-.status-pending {
-  background-color: rgb(170, 170, 170);
-}
-
-.status-ordered {
-  background-color: var(--secColor1);
-}
-
-.status-received {
-  background-color: var(--mainColor1);
-}
-
-.status-BO {
-  background-color: orange;
-}
-
 .control {
 
   > div {

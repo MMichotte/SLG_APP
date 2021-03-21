@@ -32,10 +32,8 @@ export class OrderDetailComponent implements OnInit {
   loadingData: boolean;
 
   lightSuppliers: LightSupplier[];
-  lightSuppliersFiltered: LightSupplier[];
+  lightSuppliersFiltered: LightSupplier[] = [];
   selectedLightSupplier: LightSupplier;
-
-  isReadonly: boolean = false;
 
   constructor(
     public readonly auth: AuthService,
@@ -46,9 +44,7 @@ export class OrderDetailComponent implements OnInit {
     public readonly cd: ChangeDetectorRef,
     private readonly orderService: OrderService,
     private readonly suppliersController: SuppliersController
-  ) {
-    this.lightSuppliersFiltered = [];
-  }
+  ) { }
 
   async ngOnInit(): Promise<void> {
     this.cols = [
@@ -62,7 +58,6 @@ export class OrderDetailComponent implements OnInit {
     try {
       const orderId = this.route.snapshot.params.id;
       this.order = await this.orderService.getOne(orderId).toPromise();
-      this.isReadonly = (this.order.status === EOrderStatus.CLOSED);
       this.refreshProducts();
     } catch (e) {
       console.log(e);
@@ -167,7 +162,7 @@ export class OrderDetailComponent implements OnInit {
   }
 
   onProcessOrder(): void {
-    this.router.navigate([`orders/${this.order.id}/processing`]);
+    this.router.navigate([`orders/${this.order.id}/generate-bill`]);
   }
 
 }

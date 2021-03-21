@@ -15,7 +15,7 @@ const routes: Routes = [
     component: OrderDetailComponent
   },
   {
-    path: ':id/processing',
+    path: ':id/generate-bill',
     component: OrderProcessComponent,
     data: { role: [EUserRoles.DEV, EUserRoles.ADMIN, EUserRoles.USER] }
   }

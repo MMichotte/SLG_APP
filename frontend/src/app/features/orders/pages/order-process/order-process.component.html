@@ -1,7 +1,108 @@
 <div class="page">
   <h1>PROCESS ORDER</h1>
 
-  <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-sm p-button-info"
-    (click)="router.navigate(['orders']);"></button>
+  <div class="control">
+    <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-sm p-button-info"
+      (click)="back()"></button>
+    <button pButton pRipple type="button" icon="pi pi-save" label="Create bill"></button>
+  </div>
+
+  <div class="order-form">
+    <form class="form" [formGroup]="billForm">
+
+      <h2>Billing information</h2>
+
+      <div class="p-grid p-fluid">
+        <div class="p-col-2">
+          <label for="shipping" class="label-required">Shipping fees</label>
+          <p-inputNumber id="shipping" mode="decimal" [minFractionDigits]="2" locale="en-US"
+            formControlName="shippingFees" (onFocus)="$event.target.select()" (click)="$event.target.select()" (ngModelChange)="calcPrice()">
+          </p-inputNumber>
+        </div>
+
+        <div class="p-col-2">
+          <label for="debit" class="label-required">Debited amount (€)</label>
+          <p-inputNumber id="debit" mode="decimal" [minFractionDigits]="2" locale="en-US"
+            formControlName="debitedAmount" (onFocus)="$event.target.select()" (click)="$event.target.select()" (ngModelChange)="calcPrice()">
+          </p-inputNumber>
+        </div>
+
+        <div class="p-col-4">
+          <label for="invoice">Invoice n°</label>
+          <input id="invoice" type="text" pInputText formControlName="invoiceNumber">
+        </div>
+
+        <div class="p-col-4">
+          <label for="note">Note</label>
+          <textarea id="note" pInputTextarea [rows]="1" formControlName="note" autoResize="autoResize"></textarea>
+        </div>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="product-form">
+
+    <h2>Products information</h2>
+
+    <div class="dtable">
+      <p-table #dt [value]="productOrders" [autoLayout]="true" [paginator]="true" [scrollable]="true" [rows]="25"
+        [rowsPerPageOptions]="[25,50,100]" [sortField]="" [sortOrder]="-1" selectionMode="single"
+        [(selection)]="selectedProductOrder" styleClass="p-datatable-sm" [loading]="loadingData">
+
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 30%;">Product</th>
+            <th>Status</th>
+            <th>Quantity Received</th>
+            <th>Invoice Price /pc.</th>
+            <th>Purchase Price /pc. (€)</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData>
+          <tr [pSelectableRow]="rowData">
+            <td style="width: 30%;">
+              {{rowData.productDisplayName}}
+            </td>
+            <td>
+              <span class="productStatus" [ngClass]="{
+                'status-pending': rowData.status === EProductOrderStatus.PENDING,
+                'status-ordered': rowData.status === EProductOrderStatus.ORDERED,
+                'status-received': rowData.status === EProductOrderStatus.RECEIVED,
+                'status-BO': rowData.status === EProductOrderStatus.BO
+                }">
+                {{rowData.status}}
+              </span>
+            </td>
+            <td>
+              <div class="p-fluid">
+                <p-inputNumber [min]="0" (keyup)="setProdQuantity(rowData,$event.target?.value)"></p-inputNumber>
+              </div>
+            </td>
+            <td>
+              <div class="p-fluid">
+                <p-inputNumber mode="decimal" [minFractionDigits]="2" locale="en-US"
+                  (keyup)="setProdInvPrice(rowData,$event.target?.value)"></p-inputNumber>
+              </div>
+            </td>
+            <td>
+              {{rowData.pcPurchasePriceHTAtDate}}
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <tr>
+            <td style="width: 30%;">
+            <td></td>
+            <td class="totalCheck"><b>Total :</b></td>
+            <td>{{totalInvoiceAmount}}</td>
+            <td></td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+  </div>
 
 </div>

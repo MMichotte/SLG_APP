@@ -9,7 +9,8 @@ export class ProductOrder {
   note?: string;
   quantityOrdered: number;
   quantityReceived?: number;
-  purchasePriceHTAtDate: number;
+  pcInvoicePrice?: number;
+  pcPurchasePriceHTAtDate?: number;
   status: EProductOrderStatus;
   createdAt: Date | string;
   updatedAt: Date | string;
