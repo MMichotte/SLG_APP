@@ -111,7 +111,7 @@ export class PersonsController {
     const person: Person | undefined = await this.personsService.findOneById(id);
     if (person == undefined) throw new NotFoundException;
     this.personsService.remove(id);
-    if (person.address) this.addressService.remove(person.address.id);
+    if (person.address) await this.addressService.remove(person.address.id);
     return [];
   }
 }

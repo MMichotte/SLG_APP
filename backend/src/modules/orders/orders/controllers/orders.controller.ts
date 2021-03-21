@@ -112,7 +112,7 @@ export class OrdersController {
       );
     if (receivedOrderProducts.length) throw new ForbiddenException;
 
-    this.ordersService.remove(id);
+    await this.ordersService.remove(id);
     return [];
   }
 

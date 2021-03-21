@@ -129,7 +129,7 @@ export class OrderProductOrderController {
     const productOrderIsReceived: boolean = (await this.productOrderService.findOneById(prodId)).status === EProductOrderStatus.RECEIVED;
     if (productOrderIsReceived) throw new NotAcceptableException;
 
-    this.productOrderService.remove(prodId);
+    await this.productOrderService.remove(prodId);
     return [];
   }
 

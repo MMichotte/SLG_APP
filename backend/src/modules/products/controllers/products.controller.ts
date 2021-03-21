@@ -121,6 +121,6 @@ export class ProductsController {
   async remove(@Param('id') id: number) {
     const product: Product | undefined = await this.productsService.findOneById(+id);
     if (product == undefined) throw new NotFoundException;
-    return this.productsService.remove(id);
+    return await this.productsService.remove(id);
   }
 }

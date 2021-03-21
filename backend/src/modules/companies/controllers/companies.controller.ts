@@ -182,7 +182,7 @@ export class CompaniesController {
     const company: Company | undefined = await this.companiesService.findOneById(id);
     if (company == undefined) throw new NotFoundException;
     this.companiesService.remove(id);
-    if (company.address) this.addressService.remove(company.address.id);
+    if (company.address) await this.addressService.remove(company.address.id);
     return [];
   }
 }
