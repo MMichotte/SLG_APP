@@ -167,7 +167,7 @@ export class OrderDetailComponent implements OnInit {
   }
 
   onProcessOrder(): void {
-
+    this.router.navigate([`orders/${this.order.id}/processing`]);
   }
 
 }

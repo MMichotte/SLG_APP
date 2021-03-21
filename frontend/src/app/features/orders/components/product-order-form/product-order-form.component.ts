@@ -83,7 +83,7 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
   }
 
   searchProduct(input: string) {
-    this.productsFiltered = this.products.filter(
+    this.productsFiltered = this.products?.filter(
       (lS: any) => { return lS.displayName.toLowerCase().includes(input.toLowerCase()); }
     ).slice(0, 200);
   }

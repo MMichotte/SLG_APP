@@ -23,9 +23,10 @@ import { OrderDetailComponent } from './pages/order-detail/order-detail.componen
 import { NewOrderFormComponent } from './components/new-order-form/new-order-form.component';
 import { ProductOrderFormComponent } from './components/product-order-form/product-order-form.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { OrderProcessComponent } from './pages/order-process/order-process.component';
 
 @NgModule({
-  declarations: [OrdersComponent, OrderDetailComponent, NewOrderFormComponent, ProductOrderFormComponent],
+  declarations: [OrdersComponent, OrderDetailComponent, NewOrderFormComponent, ProductOrderFormComponent, OrderProcessComponent],
   imports: [
     CommonModule,
     SharedModule,

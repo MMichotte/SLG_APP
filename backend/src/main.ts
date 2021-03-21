@@ -14,7 +14,7 @@ async function bootstrap() {
   /**
    * 
    */
-  app.use(helmet()); // TODO -> configure
+  //app.use(helmet()); // TODO -> configure
 
   /**
    * 
