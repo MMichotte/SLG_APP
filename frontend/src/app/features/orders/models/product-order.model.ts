@@ -12,6 +12,7 @@ export class ProductOrder {
   pcInvoicePrice?: number;
   pcPurchasePriceHTAtDate?: number;
   status: EProductOrderStatus;
+  billSupplierId?: number;
   createdAt: Date | string;
   updatedAt: Date | string;
 }
