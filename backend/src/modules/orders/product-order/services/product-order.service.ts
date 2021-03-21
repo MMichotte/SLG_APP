@@ -22,6 +22,10 @@ export class ProductOrderService {
   findOneByProdId(prodId: number): Promise<ProductOrder> {
     return this.productOrderRepository.findOne({where: {product: prodId}, relations: ['product', 'order']});
   }
+  
+  findOneByOrderIdAndProdId(orderId:number, prodId: number): Promise<ProductOrder> {
+    return this.productOrderRepository.findOne({where: {order: orderId, product: prodId}, relations: ['product', 'order']});
+  }
 
   create(productOrder: CreateProductOrderDTO): Promise<ProductOrder> {
     return this.productOrderRepository.save(productOrder);

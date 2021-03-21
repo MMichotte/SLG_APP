@@ -77,7 +77,7 @@ export class OrderProductOrderController {
     const product: Product = await this.productsService.findOneById(dto.productId);
     if (!product) throw new NotFoundException;
 
-    const existingProduct: ProductOrder = await this.productOrderService.findOneByProdId(dto.productId);
+    const existingProduct: ProductOrder = await this.productOrderService.findOneByOrderIdAndProdId(id, dto.productId);
     if (existingProduct) throw new HttpException('The product is already in this order!', HttpStatus.NOT_ACCEPTABLE);
 
     dto.order = order;
@@ -104,7 +104,7 @@ export class OrderProductOrderController {
     const product: Product = await this.productsService.findOneById(dto.productId);
     if (!product) throw new NotFoundException;
 
-    const existingProduct: ProductOrder = await this.productOrderService.findOneByProdId(dto.productId);
+    const existingProduct: ProductOrder = await this.productOrderService.findOneByOrderIdAndProdId(id, dto.productId);
     if (!existingProduct) throw new NotFoundException;
 
     dto.order = order;

@@ -1,3 +1,4 @@
+import { EOrderStatus } from './../enums/order-status.enum';
 import { CompaniesService } from './../../../companies/services/companies.service';
 import { Company } from './../../../companies/entities/company.entity';
 import { ProductOrder } from './../../product-order/entities/product-order.entity';
@@ -92,6 +93,15 @@ export class OrdersController {
     const supplier: Company = await this.companiesService.findOneById(dto.supplierId);
     if (!supplier) throw new NotFoundException;
     if (supplier.type !== ECompanyType.SUPPLIER && supplier.type !== ECompanyType.SUPP_AND_CLI) throw new ForbiddenException;
+
+    if (dto.status === EOrderStatus.ORDERED) {
+      // change status of every product of the order:
+      const productOrders: ProductOrder[] = await this.productOrderService.findAllByOrderId(order.id);
+      productOrders.forEach(async pO => {
+        pO.status = EProductOrderStatus.ORDERED;
+        await this.productOrderService.update(pO.id, pO);
+      });
+    }
 
     dto.supplier = supplier;
     delete dto.supplierId;
