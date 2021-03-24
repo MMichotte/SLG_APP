@@ -3,6 +3,7 @@ import { CreateOrderDTO } from './../dto/create-order.dto';
 import { OrderRepository } from './../repositories/order.repository';
 import { Injectable } from '@nestjs/common';
 import { Order } from '../entities/order.entity';
+import { EOrderStatus } from '../enums/order-status.enum';
 
 @Injectable()
 export class OrdersService {
@@ -10,8 +11,13 @@ export class OrdersService {
     private readonly orderRepository: OrderRepository
   ) {}
 
-  findAll(): Promise<Order[]> {
+  findAll(status?: EOrderStatus): Promise<Order[]> {
+    if (status) return this.orderRepository.find({where: {status}, relations: ['supplier']});
     return this.orderRepository.find({relations: ['supplier']});
+  }
+  
+  findAllBySupplierId(supplierId: number): Promise<Order[]> {
+    return this.orderRepository.find({where: {supplier: supplierId}, relations: ['supplier']});
   }
   
   findOneById(id: number): Promise<Order> {

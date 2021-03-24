@@ -7,6 +7,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 import { ProductOrder } from './../../models/product-order.model';
 import { EUserRoles } from '../../../../core/enums/user-roles.enum';
 import { LightProduct } from '../../models/light-product';
+import { ProductOrderService } from '../../services/product-order.service';
 
 @Component({
   selector: 'app-product-order-form',
@@ -15,7 +16,7 @@ import { LightProduct } from '../../models/light-product';
 })
 export class ProductOrderFormComponent implements OnInit, OnChanges {
 
-  @Input() order?: Order;
+  @Input() orderId?: number;
   @Input() currentProduct: ProductOrder;
   @Output() currentProductChange = new EventEmitter<ProductOrder>();
   @Input() existingProducts?: ProductOrder[];
@@ -33,7 +34,8 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
   constructor(
     public readonly auth: AuthService,
     public readonly cd: ChangeDetectorRef,
-    private readonly orderService: OrderService
+    private readonly orderService: OrderService,
+    private readonly productOrderService: ProductOrderService
   ) {
     this.productsFiltered = [];
   }
@@ -51,8 +53,9 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
   submitForm(): void {  
     const productOrder = this.productForm.getRawValue();
     productOrder.quantityOrdered = +productOrder.quantityOrdered;
+    productOrder.orderId = +this.orderId;
     if (!this.isUpdate) {
-      this.orderService.addProduct(this.order?.id, productOrder).subscribe(
+      this.productOrderService.create(productOrder).subscribe(
         (res: any) => {
           this.refreshTable.emit();
           this._resetForm();
@@ -60,7 +63,8 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
       );
     } else {
       productOrder.status = this.currentProduct.status;
-      this.orderService.updateProduct(this.order?.id, this.currentProduct.id, productOrder).subscribe(
+      delete productOrder.productId;
+      this.productOrderService.updateSimple(this.currentProduct.id, productOrder).subscribe(
         (res: any) => {
           this.refreshTable.emit();
           this._resetForm();
@@ -90,7 +94,7 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
 
   onSelectProduct(): void {
     // check if prod already exists
-    const existingProd = (this.existingProducts.find(p => p.product.id === this.selectedProduct.id));
+    const existingProd = (this.existingProducts?.find(p => p.product.id === this.selectedProduct.id));
     this.isUpdate = !!existingProd;
     if (this.isUpdate) {
       this.currentProduct = existingProd;
@@ -109,14 +113,14 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.order?.status !== EOrderStatus.OPEN || !this.auth.hasMinAccess(EUserRoles.USER)) {
+    if (!this.auth.hasMinAccess(EUserRoles.USER)) {
       this.productForm.disable();
     } else {
       this.productForm.enable();
     }
     if (this.currentProduct) {
       this.isUpdate = true;
-      this.selectedProduct = this.products.find(p => p.id === this.currentProduct.product.id);
+      this.selectedProduct = this.products?.find(p => p.id === this.currentProduct.product.id);
       this.productForm.controls.productId.setValue(this.currentProduct.product.id);
       this.productForm.controls.quantityOrdered.setValue(this.currentProduct.quantityOrdered);
       this.productForm.controls.note.setValue(this.currentProduct.note);

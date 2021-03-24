@@ -1,3 +1,4 @@
+import { EOrderStatus } from './../enums/order-status.enum';
 import { UpdateOrderDTO } from './../dto/update-order.dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -18,6 +19,10 @@ export class OrderService {
     return this.httpClient.get(this.endpoint);
   }
   
+  getAllByStatus(status: EOrderStatus): any {
+    return this.httpClient.get(this.endpoint, { params: { status: status } });
+  }
+  
   getOne(id: number): any {
     return this.httpClient.get(`${this.endpoint}/${id}`);
   }
@@ -34,24 +39,6 @@ export class OrderService {
     return this.httpClient.delete(`${this.endpoint}/${id}`);
   }
   
-  // ------- //
-  
-  getAllProductsByOrderId(id: number): any {
-    return this.httpClient.get(`${this.endpoint}/${id}/products`);
-  }
-
-  addProduct(id:number, dto: CreateProductOrderDTO): any {
-    return this.httpClient.post(`${this.endpoint}/${id}/products`, dto);
-  }
-  
-  updateProduct(id:number, prodId: number, dto: UpdateProductOrderDTO): any {
-    return this.httpClient.patch(`${this.endpoint}/${id}/products/${prodId}`, dto);
-  }
-  
-  removeProduct(id:number, prodId: number): any {
-    return this.httpClient.delete(`${this.endpoint}/${id}/products/${prodId}`);
-  }
-
   // ------- //
   getAllLightProducts(search?: string): any {
     if (search) return this.httpClient.get('/api/products/light', { params: { searchProduct: search } });

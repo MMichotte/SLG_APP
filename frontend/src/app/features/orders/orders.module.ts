@@ -19,14 +19,16 @@ import { SharedModule } from '../../shared/shared.module';
 import { ConfirmDialogService } from '../../core/services/confirm-dialog.service';
 import { ToastService } from '../../core/services/toast.service';
 import { PanelModule } from 'primeng/panel';
-import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
-import { NewOrderFormComponent } from './components/new-order-form/new-order-form.component';
+import { CartDetailComponent } from './pages/cart-detail/cart-detail.component';
+import { NewCartFormComponent } from './components/new-cart-form/new-cart-form.component';
 import { ProductOrderFormComponent } from './components/product-order-form/product-order-form.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { OrderProcessComponent } from './pages/order-process/order-process.component';
+import { ProductOrderService } from './services/product-order.service';
+import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 
 @NgModule({
-  declarations: [OrdersComponent, OrderDetailComponent, NewOrderFormComponent, ProductOrderFormComponent, OrderProcessComponent],
+  declarations: [OrdersComponent, CartDetailComponent, NewCartFormComponent, ProductOrderFormComponent, OrderProcessComponent, OrderDetailComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -46,6 +48,6 @@ import { OrderProcessComponent } from './pages/order-process/order-process.compo
     ConfirmDialogModule,
     SuppliersModule
   ],
-  providers: [OrderService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
+  providers: [OrderService, ProductOrderService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
 })
 export class OrdersModule { }

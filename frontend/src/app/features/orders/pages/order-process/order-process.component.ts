@@ -10,6 +10,7 @@ import { OrderService } from '../../services/order.service';
 import { Order } from '../../models/order.model';
 import { ProductOrder } from '../../models/product-order.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ProductOrderService } from '../../services/product-order.service';
 
 @Component({
   selector: 'app-order-process',
@@ -43,7 +44,8 @@ export class OrderProcessComponent implements OnInit {
     private readonly toast: ToastService,
     private readonly confirmDialog: ConfirmDialogService,
     public readonly cd: ChangeDetectorRef,
-    private readonly orderService: OrderService
+    private readonly orderService: OrderService,
+    private readonly productOrderService: ProductOrderService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -62,7 +64,7 @@ export class OrderProcessComponent implements OnInit {
 
   getProducts(): void {
     this.loadingData = true;
-    this.orderService.getAllProductsByOrderId(this.order.id).subscribe(
+    this.productOrderService.getAllByOrderId(this.order.id).subscribe(
       (products: ProductOrder[]) => {
         this.productOrders = products.map((p: ProductOrder) => {
           p.productDisplayName = `${p.product.reference} - ${p.product.label}`;
@@ -77,30 +79,33 @@ export class OrderProcessComponent implements OnInit {
     );
   }
 
-  setProdQuantity(prod: ProductOrder, quant: string) {
-    if (quant !== '') {
+  setProdQuantity(prod: ProductOrder, quant: number) {
+    if (quant) {
       prod.quantityReceived = +quant;
       prod.status = EProductOrderStatus.RECEIVED;
     } else {
       prod.quantityReceived = null;
+      prod.pcPurchasePriceHTAtDate = null;
       prod.status = EProductOrderStatus.BO;
     }
     this.calcPrice();
+    
   }
   
-  setProdInvPrice(prod: ProductOrder, price: string) {
-    if (price !== '') {
+  setProdInvPrice(prod: ProductOrder, price: number) {
+    if (price) {
       prod.pcInvoicePrice = +price;
     } else {
       prod.pcInvoicePrice = null;
+      prod.pcPurchasePriceHTAtDate = null;
     }
     this.calcPrice();
   }
 
   calcPrice(): void {
     const { shippingFees, debitedAmount } = this.billForm.value;
-    this.totalInvoiceAmount = 0;
     const receivedProds = this.productOrders.filter((pO: ProductOrder) => pO.status === EProductOrderStatus.RECEIVED);
+    this.totalInvoiceAmount = 0;
     if (debitedAmount && receivedProds.length) {
       receivedProds.forEach((pO: ProductOrder) => {
         this.totalInvoiceAmount += +pO.pcInvoicePrice * +pO.quantityReceived;

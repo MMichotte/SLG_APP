@@ -14,14 +14,14 @@ export class ProductOrderDTO {
   product: ProductDTO;
   
   @Expose()
-  @Transform(({ obj }) => obj.order.id)
-  @ApiProperty()
-  orderId: number;
+  @Transform(({ obj }) => obj.order?.id)
+  @ApiPropertyOptional()
+  orderId?: number;
 
   @Expose()
-  @Transform(({ obj }) => obj.billSupplier.id)
+  @Transform(({ obj }) => obj.billSupplier?.id)
   @ApiPropertyOptional()
-  billSupplierId: number
+  billSupplierId?: number
 
   @Expose()
   @ApiPropertyOptional()

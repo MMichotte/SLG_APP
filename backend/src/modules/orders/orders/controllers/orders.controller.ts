@@ -4,8 +4,8 @@ import { Company } from './../../../companies/entities/company.entity';
 import { ProductOrder } from './../../product-order/entities/product-order.entity';
 import { CreateOrderDTO } from './../dto/create-order.dto';
 import { SimpleOrderDTO } from './../dto/simple.order.dto';
-import { BadRequestException, Body, Controller, Delete, ForbiddenException, Get, NotFoundException, Param, Patch, Post, UseGuards, ConflictException } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { BadRequestException, Body, Controller, Delete, ForbiddenException, Get, NotFoundException, Param, Patch, Post, UseGuards, ConflictException, Query } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { Order } from './../entities/order.entity';
 import { OrderDTO } from './../dto/order.dto';
@@ -35,13 +35,14 @@ export class OrdersController {
 
   @Get()
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiQuery({name: 'status', enum: EOrderStatus, required: false})
   @ApiResponse({
     status: 200,
     type: OrderDTO,
     isArray: true
   })
-  async findAll(): Promise<OrderDTO[]> {
-    const orders: Order[] = await this.ordersService.findAll();
+  async findAll(@Query('status') status?: EOrderStatus): Promise<OrderDTO[]> {
+    const orders: Order[] = await this.ordersService.findAll(status);
     return plainToClass(OrderDTO,orders);
   }
   
@@ -71,6 +72,9 @@ export class OrdersController {
     if (!supplier) throw new NotFoundException;
     if (supplier.type !== ECompanyType.SUPPLIER && supplier.type !== ECompanyType.SUPP_AND_CLI) throw new ForbiddenException;
 
+    const existingOpenOrders: Order[] = await this.ordersService.findAllBySupplierId(dto.supplierId);
+    if (existingOpenOrders.length) throw new ConflictException;
+
     dto.supplier = supplier;
     const newOrder: Order = await this.ordersService.create(dto);
     return plainToClass(SimpleOrderDTO,newOrder);
@@ -90,10 +94,6 @@ export class OrdersController {
     const order: Order = await this.ordersService.findOneById(id);
     if (!order) throw new NotFoundException;
 
-    const supplier: Company = await this.companiesService.findOneById(dto.supplierId);
-    if (!supplier) throw new NotFoundException;
-    if (supplier.type !== ECompanyType.SUPPLIER && supplier.type !== ECompanyType.SUPP_AND_CLI) throw new ForbiddenException;
-
     if (dto.status === EOrderStatus.ORDERED) {
       // change status of every product of the order:
       const productOrders: ProductOrder[] = await this.productOrderService.findAllByOrderId(order.id);
@@ -103,8 +103,7 @@ export class OrdersController {
       });
     }
 
-    dto.supplier = supplier;
-    delete dto.supplierId;
+    dto.supplier = order.supplier;
     const updatedOrder: Order = await this.ordersService.update(id, dto);
     updatedOrder.id = id;
     return plainToClass(SimpleOrderDTO,updatedOrder);

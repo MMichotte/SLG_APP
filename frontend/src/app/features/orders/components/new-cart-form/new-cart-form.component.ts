@@ -1,3 +1,4 @@
+import { Order } from './../../models/order.model';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -6,14 +7,15 @@ import { ToastService } from '../../../../core/services/toast.service';
 import { SuppliersController } from '../../../suppliers/controllers/suppliers-controller';
 import { LightSupplier } from '../../../suppliers/models/light-supplier.model';
 import { CreateOrderDTO } from '../../dto/create-order.dto';
-import { OrderService } from './../../services/order.service';
+import { OrderService } from '../../services/order.service';
+import { EOrderStatus } from '../../enums/order-status.enum';
 
 @Component({
-  selector: 'app-new-order-form',
-  templateUrl: './new-order-form.component.html',
-  styleUrls: ['../../../form.scss', './new-order-form.component.scss']
+  selector: 'app-new-cart-form',
+  templateUrl: './new-cart-form.component.html',
+  styleUrls: ['../../../form.scss', './new-cart-form.component.scss']
 })
-export class NewOrderFormComponent implements OnInit {
+export class NewCartFormComponent implements OnInit {
 
   lightSuppliers: LightSupplier[];
   lightSuppliersFiltered: LightSupplier[];
@@ -53,20 +55,31 @@ export class NewOrderFormComponent implements OnInit {
     );
   }
 
-  onNewOrderSave(): void {
-    // create order
+  async onNewCartSave(): Promise<void> {
+    // create cart/order
+    const openOrders: Order[] = await this.orderService.getAllByStatus(EOrderStatus.OPEN).toPromise();
+    const existingOpenOrder: Order = openOrders.find(o => o.supplier.id === this.selectedLightSupplier.id);
+    if (existingOpenOrder) {
+      this.ref.close({ id: existingOpenOrder.id, isNew: false });
+      return;
+    }
+  
     const newOrder: CreateOrderDTO = new CreateOrderDTO();
     newOrder.supplierId = this.selectedLightSupplier.id;
     this.orderService.create(newOrder).subscribe(
       (order: any) => {
         const createdOrderId: number = order.id;
         if (createdOrderId) {
-          this.toast.show(EToastSeverities.SUCCESS, 'Order created');
-          this.ref.close(order.id);
+          this.toast.show(EToastSeverities.SUCCESS, 'Cart created');
+          this.ref.close({ id: order.id, isNew: true });
         }
       },
       (error: any) => {
         console.log(error);
+        if (error.status === 409) {
+          this.toast.show(EToastSeverities.WARN, 'The cart was not created since it already exists!');
+          this.ref.close();
+        }
       }
     );
   }

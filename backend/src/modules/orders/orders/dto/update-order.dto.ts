@@ -1,20 +1,16 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum, IsNotEmpty } from 'class-validator';
 import { Company } from '../../../companies/entities/company.entity';
 import { EOrderStatus } from '../enums/order-status.enum';
 
 export class UpdateOrderDTO {
 
-  @ApiProperty()
-  @IsNumber()
-  @IsNotEmpty()
-  supplierId: number
   supplier?: Company
 
-  @ApiPropertyOptional({enum: EOrderStatus})
+  @ApiProperty({enum: EOrderStatus})
   @IsEnum(EOrderStatus)
-  @IsOptional()
-  status?: EOrderStatus;
+  @IsNotEmpty()
+  status: EOrderStatus;
 
   updatedAt?: Date = new Date();
 

@@ -74,16 +74,19 @@
                 }">
                 {{rowData.status}}
               </span>
+              <span class="productStatus status-BO" *ngIf="rowData.quantityReceived && (rowData.quantityReceived < rowData.quantityOrdered)">
+                {{EProductOrderStatus.BO}}: {{rowData.quantityOrdered - rowData.quantityReceived}}
+              </span>
             </td>
             <td>
               <div class="p-fluid">
-                <p-inputNumber [min]="0" (keyup)="setProdQuantity(rowData,$event.target?.value)"></p-inputNumber>
+                <p-inputNumber [min]="0" (onInput)="setProdQuantity(rowData,$event.value)"></p-inputNumber>
               </div>
             </td>
             <td>
               <div class="p-fluid">
                 <p-inputNumber mode="decimal" [minFractionDigits]="2" locale="en-US"
-                  (keyup)="setProdInvPrice(rowData,$event.target?.value)"></p-inputNumber>
+                  (onInput)="setProdInvPrice(rowData,$event.value)"></p-inputNumber>
               </div>
             </td>
             <td>

@@ -1,4 +1,4 @@
-import { NewOrderFormComponent } from './../../components/new-order-form/new-order-form.component';
+import { NewCartFormComponent } from '../../components/new-cart-form/new-cart-form.component';
 import { EOrderStatus } from './../../enums/order-status.enum';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -22,6 +22,8 @@ export class OrdersComponent implements OnInit {
   public EOrderStatus = EOrderStatus;
 
   cols: any[];
+  commonCart = { id: 0, supplier: 'Common' };
+  carts: Order[] = [];
   orders: Order[] = [];
   selectedOrder: Order;
   loadingData: boolean;
@@ -51,12 +53,14 @@ export class OrdersComponent implements OnInit {
     this.loadingData = true;
     this.orderService.getAll().subscribe(
       (orders: Order[]) => {
-        this.orders = orders.map(o => {
+        orders = orders.map(o => {
           o.supplierName = o.supplier.name;
           o.createdAt = (new Date(o.createdAt)).toLocaleDateString();
           o.updatedAt = (new Date(o.updatedAt)).toLocaleDateString();
           return o;
         });
+        this.carts = orders.filter(o => o.status === EOrderStatus.OPEN);
+        this.orders = orders.filter(o => o.status !== EOrderStatus.OPEN);
         this.selectedOrder = null;
         this.cd.detectChanges();
         this.loadingData = false;
@@ -64,32 +68,37 @@ export class OrdersComponent implements OnInit {
     );
   }
 
-  showNewOrderPage(): void {
-    const ref = this.dialogService.open(NewOrderFormComponent, {
-      header: 'Select Supplier',
+  onNewCart(): void {
+    const ref = this.dialogService.open(NewCartFormComponent, {
+      header: 'New Cart',
       width: '30%'
     });
-    ref.onClose.subscribe((orderId?: boolean) => {
-      if (orderId) this.router.navigate([`orders/${orderId}/detail`]);
+    ref.onClose.subscribe((order?: any) => {
+      if (order?.id) this.router.navigate([`orders/${order.id}/cart`]);
     });
   }
 
-  showOrderPage(order: Order): void {
+  showOrderPage(order: Order | any): void {
+    this.router.navigate([`orders/${order.id}/cart`]);
+  }
+
+  showOrderDetailPage(order: Order): void {
     this.router.navigate([`orders/${order.id}/detail`]);
   }
 
   async deleteOrder(order: Order): Promise<void> {
+    const item: string = (order.status === EOrderStatus.OPEN) ? 'cart' : 'order';
     this.selectedOrder = order;
-    const confirm = await this.confirmDialog.show('Are you sure you want to delete the selected order?<br><br>This action can not be undone and will automatically remove all products of this order!');
+    const confirm = await this.confirmDialog.show(`Are you sure you want to delete the selected ${item}?<br><br>This action can not be undone and will automatically remove all products of this ${item}!`);
     if (confirm) {
       this.orderService.delete(order.id).subscribe(
         (res: any) => {
           this.refreshOrders();
-          this.toast.show(EToastSeverities.SUCCESS, 'Order deleted');
+          this.toast.show(EToastSeverities.SUCCESS, `${item} deleted`);
         },
         (error: any) => {
           console.log(error);
-          this.toast.show(EToastSeverities.ERROR, 'An error occurred. The order was not deleted');
+          this.toast.show(EToastSeverities.ERROR, `An error occurred. The ${item} was not deleted`);
         }
       );
     }

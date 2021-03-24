@@ -4,54 +4,118 @@
   <div class="control">
     <div class="p-input-icon-left">
       <i class="pi pi-search"></i>
-      <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+      <input pInputText type="text" (input)="dt2.filterGlobal($event.target.value, 'contains')"
         placeholder="Search Order" (click)="selectedOrder=null; cd.detectChanges();" />
     </div>
-    <button pButton pRipple type="button" icon="pi pi-plus" label="New Order" (click)="showNewOrderPage()"
+    <button pButton pRipple type="button" icon="pi pi-shopping-cart" label="New Cart" (click)="onNewCart()"
       *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
   </div>
 
-  <p-panel header="Filters" class="form" [toggleable]="true">
-  </p-panel>
+  <div class="content">
+    <p-panel class="panel" [toggleable]="true">
+      <ng-template pTemplate="header" class="p-panel-header">
+        <span class="p-panel-title"><span class="pi pi-shopping-cart"></span> Carts</span>
+      </ng-template>
+      <div class="dtable">
+        <p-table #dt [columns]="cols" [value]="carts" [frozenValue]="[{}]" [autoLayout]="true" [scrollable]="true"
+          [sortField]="cols[3].field" [sortOrder]="-1" selectionMode="single"
+          [(selection)]="selectedOrder" styleClass="p-datatable-sm" [loading]="loadingData">
+    
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+              <th style="width: 6rem"></th>
+            </tr>
+          </ng-template>
+    
+          <ng-template pTemplate="frozenrows">
+            <tr [pSelectableRow]="commonCart" class="common-cart">
+                <td> 0 </td>
+                <td> Common </td>
+                <td> <span class="orderStatus order-status-open">Open</span> </td>
+                <td> - </td>
+                <td> - </td>
+                <td style="width: 6rem">
+                  <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-info p-button-sm"
+                    title="Open cart" (click)="showOrderPage(commonCart)" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
+                  <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-info p-button-sm"
+                    title="Open cart" (click)="showOrderPage(commonCart)" *ngIf="auth.hasOnlyAccess(EUserRoles.ACCOUNTING)"></button>
+                </td>
+            </tr>
+          </ng-template>
 
-  <div class="dtable">
-    <p-table #dt [columns]="cols" [value]="orders" [autoLayout]="true" [paginator]="true" [scrollable]="true"
-      [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['id','supplierName', 'createdAt', 'updatedAt']"
-      [sortField]="cols[3].field" [sortOrder]="-1" selectionMode="single"
-      [(selection)]="selectedOrder" styleClass="p-datatable-sm" [loading]="loadingData">
-
-      <ng-template pTemplate="header" let-columns>
-        <tr>
-          <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
-            {{col.header}}
-            <p-sortIcon [field]="col.field"></p-sortIcon>
-          </th>
-          <th style="width: 6rem"></th>
-        </tr>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData" (dblclick)=showOrderPage(rowData)>
+              <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                <span [ngClass]="{
+                  'orderStatus': (col.field === 'status'),
+                  'order-status-open': (col.field === 'status' && rowData[col.field] === EOrderStatus.OPEN),
+                  'order-status-ordered': (col.field === 'status' && rowData[col.field] === EOrderStatus.ORDERED),
+                  'order-status-PD': (col.field === 'status' && rowData[col.field] === EOrderStatus.PD),
+                  'order-status-closed': (col.field === 'status' && rowData[col.field] === EOrderStatus.CLOSED)
+                }">{{rowData[col.field]}}</span>        
+              </td>
+              <td style="width: 6rem;">
+                <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-info p-button-sm"
+                  title="Open cart" (click)="showOrderPage(rowData)" *ngIf="rowData.status !== EOrderStatus.CLOSED && auth.hasMinAccess(EUserRoles.USER)"></button>
+                <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-info p-button-sm"
+                  title="Open cart" (click)="showOrderPage(rowData)" *ngIf="rowData.status === EOrderStatus.CLOSED || auth.hasOnlyAccess(EUserRoles.ACCOUNTING)"></button>
+                <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                  title="Delete cart" (click)="deleteOrder(rowData)" *ngIf="(rowData.status === EOrderStatus.OPEN || rowData.status === EOrderStatus.ORDERED) && auth.hasMinAccess(EUserRoles.USER)"></button>
+              </td>
+            </tr>
+          </ng-template>
+    
+        </p-table>
+      </div>
+    </p-panel>
+    
+    <p-panel class="panel" [toggleable]="true">
+      <ng-template pTemplate="header" class="p-panel-header">
+        <span class="p-panel-title"><span class="fas fa-cubes"></span> Orders</span>
       </ng-template>
 
-      <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr [pSelectableRow]="rowData" (dblclick)=showOrderPage(rowData)>
-          <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
-            <span [ngClass]="{
-              'orderStatus': (col.field === 'status'),
-              'order-status-open': (col.field === 'status' && rowData[col.field] === EOrderStatus.OPEN),
-              'order-status-ordered': (col.field === 'status' && rowData[col.field] === EOrderStatus.ORDERED),
-              'order-status-PD': (col.field === 'status' && rowData[col.field] === EOrderStatus.PD),
-              'order-status-closed': (col.field === 'status' && rowData[col.field] === EOrderStatus.CLOSED)
-            }">{{rowData[col.field]}}</span>        
-          </td>
-          <td style="width: 6rem;">
-            <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-info p-button-sm"
-              title="Open order" (click)="showOrderPage(rowData)" *ngIf="rowData.status !== EOrderStatus.CLOSED && auth.hasMinAccess(EUserRoles.USER)"></button>
-            <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-info p-button-sm"
-              title="Open order" (click)="showOrderPage(rowData)" *ngIf="rowData.status === EOrderStatus.CLOSED || auth.hasOnlyAccess(EUserRoles.ACCOUNTING)"></button>
-            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-button-sm"
-              title="Delete order" (click)="deleteOrder(rowData)" *ngIf="rowData.status === EOrderStatus.OPEN && auth.hasMinAccess(EUserRoles.USER)"></button>
-          </td>
-        </tr>
-      </ng-template>
-
-    </p-table>
+      <div class="dtable">
+        <p-table #dt2 [columns]="cols" [value]="orders" [autoLayout]="true" [paginator]="true" [scrollable]="true"
+          [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['id','supplierName', 'createdAt', 'updatedAt']"
+          [sortField]="cols[3].field" [sortOrder]="-1" selectionMode="single"
+          [(selection)]="selectedOrder" styleClass="p-datatable-sm" [loading]="loadingData">
+    
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </th>
+              <th style="width: 6rem"></th>
+            </tr>
+          </ng-template>
+    
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData" (dblclick)=showOrderPage(rowData)>
+              <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                <span [ngClass]="{
+                  'orderStatus': (col.field === 'status'),
+                  'order-status-open': (col.field === 'status' && rowData[col.field] === EOrderStatus.OPEN),
+                  'order-status-ordered': (col.field === 'status' && rowData[col.field] === EOrderStatus.ORDERED),
+                  'order-status-PD': (col.field === 'status' && rowData[col.field] === EOrderStatus.PD),
+                  'order-status-closed': (col.field === 'status' && rowData[col.field] === EOrderStatus.CLOSED)
+                }">{{rowData[col.field]}}</span>        
+              </td>
+              <td style="width: 6rem;">
+                <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-info p-button-sm"
+                  title="Open order" (click)="showOrderDetailPage(rowData)"></button>
+                <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-button-sm"
+                  title="Delete order" (click)="deleteOrder(rowData)" *ngIf="(rowData.status === EOrderStatus.OPEN || rowData.status === EOrderStatus.ORDERED) && auth.hasMinAccess(EUserRoles.USER)"></button>
+              </td>
+            </tr>
+          </ng-template>
+    
+        </p-table>
+      </div>
+    </p-panel>
   </div>
 </div>

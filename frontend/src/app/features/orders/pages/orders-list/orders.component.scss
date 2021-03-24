@@ -1,0 +1,13 @@
+
+.page {
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+
+    .common-cart {
+      border-bottom: 2px solid var(--mainColor3);
+    }
+  }
+  
+}

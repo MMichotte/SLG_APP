@@ -12,6 +12,10 @@ export class CreateProductOrderDTO {
   productId: number;
   product?: Product;
   
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  orderId?: number;
   order?: Order;
   
   @ApiPropertyOptional()
