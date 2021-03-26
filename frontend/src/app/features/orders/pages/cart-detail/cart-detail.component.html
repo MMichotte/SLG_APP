@@ -26,8 +26,6 @@
           (click)="onGenerateNewOrder()" [disabled]="!selectedProductOrders.length"></button>
         <button *ngIf="cart?.status === EOrderStatus.OPEN" pButton pRipple type="button" icon="pi pi-file-pdf" label="Generate Order"
           (click)="onGenerateOrder()" [disabled]="!productOrders.length"></button>
-        <button *ngIf="cart?.status === EOrderStatus.ORDERED" pButton pRipple type="button" icon="pi pi-tag" label="Generate Bill"
-          (click)="onProcessOrder()"></button>
       </div>
     </div>
   </div>

@@ -169,8 +169,4 @@ export class CartDetailComponent implements OnInit {
     
   }
 
-  onProcessOrder(): void {
-    this.router.navigate([`orders/${this.cart.id}/generate-bill`]);
-  }
-
 }

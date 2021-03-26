@@ -1,0 +1,39 @@
+
+.control {
+
+  > div {
+    width: 20rem;
+  }
+
+  .supplier {
+    display: flex;
+    justify-content: flex-start;
+    .supplier-name {
+      font-weight: 500;
+      font-size: larger;
+      color: var(--mainColor1);
+    }
+  }
+
+  .myLabel {
+    margin-right: 0.5rem;
+    font-weight: 600;
+    color: #495057;
+  }
+
+  .btns {
+    display: flex;
+    justify-content: flex-end;
+
+    button{
+      margin: 0 0.5rem;
+    }
+  }
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
