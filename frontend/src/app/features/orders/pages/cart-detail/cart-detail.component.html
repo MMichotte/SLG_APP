@@ -65,7 +65,7 @@
           </td>
           <td style="width: 6rem;">
             <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-button-sm"
-              title="Remove product" (onRowSelect)="removeProduct(rowData)"
+              title="Remove product" (click)="removeProduct(rowData)"
               *ngIf="rowData.status !== EProductOrderStatus.RECEIVED && cart?.status !== EOrderStatus.ORDERED && auth.hasMinAccess(EUserRoles.USER)"></button>
           </td>
         </tr>

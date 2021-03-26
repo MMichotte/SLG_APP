@@ -90,7 +90,7 @@ export class CartDetailComponent implements OnInit {
 
   async removeProduct(prod: ProductOrder): Promise<void> {
     this.selectedProductOrders = [];
-    this.selectedProductOrders[0] = prod;
+    // this.selectedProductOrders[0] = prod;
     const confirm = await this.confirmDialog.show('Are you sure you want to <b>delete</b> the selected product?');
     if (confirm) {
       this.productOrderService.delete(prod.id).subscribe(
@@ -129,24 +129,34 @@ export class CartDetailComponent implements OnInit {
   onGenerateNewOrder(): void {
     const ref = this.dialogService.open(NewCartFormComponent, {
       header: 'New Order',
-      width: '30%'
-    });
-    ref.onClose.subscribe((order?: any) => {
-      if (order.isNew) {
-        this.selectedProductOrders.forEach(pO => {
-          const updatePO: UpdateProductOrderSimpleDTO = new UpdateProductOrderSimpleDTO();
-          updatePO.orderId = order.id;
-          updatePO.note = pO.note;
-          updatePO.quantityOrdered = pO.quantityOrdered;
-          updatePO.status = pO.status;
-          this.productOrderService.updateSimple(pO.id, updatePO).toPromise();
-          this._placeOrder(order.id);
-        });
-      } else {
-
-        this.router.navigate([`orders/${order.id}/cart`]);
+      width: '30%',
+      data: {
+        isGenerateOrder: true
       }
     });
+    ref.onClose.subscribe(async (order?: any) => {
+      if (order && order?.isNew) {
+        await this._updateSelectedProds(order);
+        this._placeOrder(order.id);
+      } else if (order) {
+        await this._updateSelectedProds(order);
+        await this.router.navigate([`orders/${order.id}/cart`]);
+        this.ngOnInit();
+      }
+    });
+  }
+
+  private async _updateSelectedProds(order: Order): Promise<void> {
+    await Promise.all(this.selectedProductOrders
+      .map(async pO => {
+        const updatePO: UpdateProductOrderSimpleDTO = new UpdateProductOrderSimpleDTO();
+        updatePO.orderId = order.id;
+        updatePO.note = pO.note;
+        updatePO.quantityOrdered = pO.quantityOrdered;
+        updatePO.status = pO.status;
+        await this.productOrderService.updateSimple(pO.id, updatePO).toPromise();
+      })
+    );
   }
 
   setSelection(prod: ProductOrder): void {

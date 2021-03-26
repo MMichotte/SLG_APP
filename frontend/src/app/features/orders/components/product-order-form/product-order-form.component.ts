@@ -58,7 +58,6 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
       this.productOrderService.create(productOrder).subscribe(
         (res: any) => {
           this.refreshTable.emit();
-          this._resetForm();
         }
       );
     } else {
@@ -67,11 +66,10 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
       this.productOrderService.updateSimple(this.currentProduct.id, productOrder).subscribe(
         (res: any) => {
           this.refreshTable.emit();
-          this._resetForm();
         }
       );
     }
-
+    this._resetForm();
   }
 
   private _getLightProducts():void {
@@ -87,8 +85,17 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
   }
 
   searchProduct(input: string) {
+    let words: string[] = input.split(' ');
+    words = words.filter(w => w.length > 1);
     this.productsFiltered = this.products?.filter(
-      (lS: any) => { return lS.displayName.toLowerCase().includes(input.toLowerCase()); }
+      (lP: any) => { 
+        for (const word of words) {
+          if (!lP.displayName.toLowerCase().includes(word.toLowerCase())) {
+            return false;
+          }
+        };
+        return true;
+      }
     ).slice(0, 200);
   }
 
