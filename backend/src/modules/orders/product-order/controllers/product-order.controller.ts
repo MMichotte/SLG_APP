@@ -108,14 +108,30 @@ export class ProductOrderController {
     const errors = await validate(dto);
     if (errors.length) throw new BadRequestException;
 
-    const existingProduct: ProductOrder = await this.productOrderService.findOneById(id);
+    let existingProduct: ProductOrder = await this.productOrderService.findOneById(id);
     if (!existingProduct) throw new NotFoundException;
+
 
     if (dto.orderId) {
       const order: Order = await this.ordersService.findOneById(dto.orderId);
       if (!order) throw new NotFoundException;
       if (order.status !== EOrderStatus.OPEN) throw new BadRequestException;
       dto.order = order;
+      
+      /**
+      * Find if a productOrder that already has the same product
+      * (only used when updating prods from the common cart to an existing cart) 
+      */
+      if (existingProduct.order?.id !== dto.orderId) {
+        const existingSimilarProd: ProductOrder = await this.productOrderService.findOneByOrderIdAndProdId(dto.orderId, existingProduct.product.id);
+        if (existingSimilarProd) {
+          await this.productOrderService.remove(existingProduct.id); // delete the current product
+          id = existingSimilarProd.id; // change to the existing product ID
+          existingProduct = existingSimilarProd; // change to the existing product 
+          dto.quantityOrdered += existingProduct.quantityOrdered; // update quantity (-> will effectively be updated below)
+        }
+      }
+      
     }
 
     if (dto.status !== EProductOrderStatus.PENDING && dto.status !== EProductOrderStatus.ORDERED) {
