@@ -3,8 +3,6 @@ import { UpdateOrderDTO } from './../dto/update-order.dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateOrderDTO } from '../dto/create-order.dto';
-import { CreateProductOrderDTO } from '../dto/create-product-order.dto';
-import { UpdateProductOrderDTO } from '../dto/update-product-order.dto';
 
 @Injectable()
 export class OrderService {

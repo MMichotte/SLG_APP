@@ -95,7 +95,7 @@
           </ng-template>
     
           <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr [pSelectableRow]="rowData" (dblclick)=showOrderPage(rowData)>
+            <tr [pSelectableRow]="rowData" (dblclick)=showOrderDetailPage(rowData)>
               <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
                 <span [ngClass]="{
                   'orderStatus': (col.field === 'status'),

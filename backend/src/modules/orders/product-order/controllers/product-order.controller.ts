@@ -23,7 +23,7 @@ import { EOrderStatus } from '../../orders/enums/order-status.enum';
 @Controller('product-order')
 @UseGuards(RolesGuard)
 @UseGuards(JwtAuthGuard)
-@ApiTags('product-order')
+@ApiTags('order products')
 @ApiBearerAuth()
 export class ProductOrderController {
 
@@ -96,13 +96,13 @@ export class ProductOrderController {
     return plainToClass(SimpleProductOrderDTO, newProductOrder);
   }
   
-  @Patch(':id/simple')
+  @Patch(':id')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
   @ApiResponse({
     status: 201,
     type: SimpleProductOrderDTO,
   })
-  async updateSimple(@Param('id') id: number, @Body() dto: UpdateProductOrderSimpleDTO): Promise<SimpleProductOrderDTO> {
+  async update(@Param('id') id: number, @Body() dto: UpdateProductOrderSimpleDTO): Promise<SimpleProductOrderDTO> {
     
     dto = new UpdateProductOrderSimpleDTO(dto);
     const errors = await validate(dto);
@@ -111,6 +111,7 @@ export class ProductOrderController {
     let existingProduct: ProductOrder = await this.productOrderService.findOneById(id);
     if (!existingProduct) throw new NotFoundException;
 
+    if (existingProduct.status === EProductOrderStatus.RECEIVED) throw new NotAcceptableException;
 
     if (dto.orderId) {
       const order: Order = await this.ordersService.findOneById(dto.orderId);
@@ -150,7 +151,7 @@ export class ProductOrderController {
 
     return plainToClass(SimpleProductOrderDTO, updatedProductOrder);
   }
-  
+  /*
   @Patch(':id/processing')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
   @ApiResponse({
@@ -167,6 +168,8 @@ export class ProductOrderController {
 
     const existingProduct: ProductOrder = await this.productOrderService.findOneById(id);
     if (!existingProduct) throw new NotFoundException;
+
+    if (existingProduct.status === EProductOrderStatus.RECEIVED) throw new NotAcceptableException;
 
     if (dto.orderId) {
       const order: Order = await this.ordersService.findOneById(dto.orderId);
@@ -191,6 +194,7 @@ export class ProductOrderController {
 
     return plainToClass(SimpleProductOrderDTO, updatedProductOrder);
   }
+  */
 
   @Delete(':id')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)

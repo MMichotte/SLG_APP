@@ -154,7 +154,7 @@ export class CartDetailComponent implements OnInit {
         updatePO.note = pO.note;
         updatePO.quantityOrdered = pO.quantityOrdered;
         updatePO.status = pO.status;
-        await this.productOrderService.updateSimple(pO.id, updatePO).toPromise();
+        await this.productOrderService.update(pO.id, updatePO).toPromise();
       })
     );
   }

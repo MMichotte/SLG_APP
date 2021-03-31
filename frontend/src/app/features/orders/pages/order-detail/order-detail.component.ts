@@ -44,7 +44,7 @@ export class OrderDetailComponent implements OnInit {
       { field: 'quantityOrdered', header: 'Quantity Ordered' },
       { field: 'quantityReceived', header: 'Quantity Received' },
       { field: 'updatedAt', header: 'Received At' },
-      { field: '', header: 'Bill n°' }
+      { field: 'billSupplierId', header: 'Bill n°' }
     ];
     try {
       const orderId = +this.route.snapshot.params.id;

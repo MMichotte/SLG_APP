@@ -1,3 +1,5 @@
+import { UpdateProductOrderDTO } from './../../dto/update-product-order.dto';
+import { CreateBillSupplierDTO } from './../../../billing/dto/create-bill-supplier.dto';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EUserRoles } from '../../../../core/enums/user-roles.enum';
@@ -11,6 +13,8 @@ import { Order } from '../../models/order.model';
 import { ProductOrder } from '../../models/product-order.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductOrderService } from '../../services/product-order.service';
+import { BillSupplierService } from '../../../billing/services/bill-supplier.service';
+import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
 
 @Component({
   selector: 'app-order-process',
@@ -45,7 +49,8 @@ export class OrderProcessComponent implements OnInit {
     private readonly confirmDialog: ConfirmDialogService,
     public readonly cd: ChangeDetectorRef,
     private readonly orderService: OrderService,
-    private readonly productOrderService: ProductOrderService
+    private readonly productOrderService: ProductOrderService,
+    private readonly billSupplierService: BillSupplierService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -105,18 +110,21 @@ export class OrderProcessComponent implements OnInit {
   calcPrice(): void {
     const { shippingFees, debitedAmount } = this.billForm.value;
     const receivedProds = this.productOrders.filter((pO: ProductOrder) => pO.status === EProductOrderStatus.RECEIVED);
+    let prodInvoiceTotal: number = 0;
     this.totalInvoiceAmount = 0;
     if (debitedAmount && receivedProds.length) {
       receivedProds.forEach((pO: ProductOrder) => {
-        this.totalInvoiceAmount += +pO.pcInvoicePrice * +pO.quantityReceived;
+        prodInvoiceTotal += +pO.pcInvoicePrice * +pO.quantityReceived;
       });
       
-      const rate = debitedAmount / (this.totalInvoiceAmount + shippingFees);
+      this.totalInvoiceAmount = prodInvoiceTotal + shippingFees;
+
+      const rate = debitedAmount / this.totalInvoiceAmount;
       
       const updatedProducts = this.productOrders.map((pO: ProductOrder) => {
         if (pO.status === EProductOrderStatus.RECEIVED) {
           if (shippingFees) {
-            pO.pcPurchasePriceHTAtDate = +((pO.pcInvoicePrice + (pO.pcInvoicePrice / this.totalInvoiceAmount) * shippingFees) * rate).toFixed(2);
+            pO.pcPurchasePriceHTAtDate = +((pO.pcInvoicePrice + (pO.pcInvoicePrice / prodInvoiceTotal) * shippingFees) * rate).toFixed(2);
           } else {
             pO.pcPurchasePriceHTAtDate = +(pO.pcInvoicePrice * rate).toFixed(2);
           }
@@ -129,6 +137,39 @@ export class OrderProcessComponent implements OnInit {
       this.cd.detectChanges();
     }
 
+  }
+
+  async onCreateBill(): Promise<void> {
+    const receivedProds = this.productOrders.filter((pO: ProductOrder) => pO.status === EProductOrderStatus.RECEIVED);
+    if (!receivedProds.length) {
+      // noting to create!
+      return null;
+    }
+    
+    const productOrders: UpdateProductOrderDTO[] = [];
+
+    receivedProds.forEach(async prod => {
+      // Received with the quantity ordered
+      const prodDto: UpdateProductOrderDTO = new UpdateProductOrderDTO();
+      prodDto.id = prod.id;
+      prodDto.note = prod.note;
+      prodDto.quantityReceived = prod.quantityReceived;
+      prodDto.pcInvoicePrice = prod.pcInvoicePrice;
+      prodDto.pcPurchasePriceHTAtDate = prod.pcPurchasePriceHTAtDate;
+      productOrders.push(prodDto);
+    });
+    const newBill: CreateBillSupplierDTO = this.billForm.getRawValue();
+    newBill.productOrders = productOrders;
+    await this.billSupplierService.create(newBill).subscribe(
+      (res: any) => {
+        //! console.log(res);
+        this.toast.show(EToastSeverities.SUCCESS, 'Bill Created');
+        this.router.navigate([`orders/${this.order.id}/detail`]);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   back(): void {

@@ -26,6 +26,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { OrderProcessComponent } from './pages/order-process/order-process.component';
 import { ProductOrderService } from './services/product-order.service';
 import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
+import { BillingModule } from '../billing/billing.module';
 
 @NgModule({
   declarations: [OrdersComponent, CartDetailComponent, NewCartFormComponent, ProductOrderFormComponent, OrderProcessComponent, OrderDetailComponent],
@@ -46,7 +47,8 @@ import { OrderDetailComponent } from './pages/order-detail/order-detail.componen
     DynamicDialogModule,
     OrdersRoutingModule,
     ConfirmDialogModule,
-    SuppliersModule
+    SuppliersModule,
+    BillingModule
   ],
   providers: [OrderService, ProductOrderService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
 })

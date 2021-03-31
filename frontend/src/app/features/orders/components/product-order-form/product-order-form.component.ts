@@ -1,5 +1,4 @@
 import { EOrderStatus } from './../../enums/order-status.enum';
-import { Order } from './../../models/order.model';
 import { OrderService } from './../../services/order.service';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -63,7 +62,7 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
     } else {
       productOrder.status = this.currentProduct.status;
       delete productOrder.productId;
-      this.productOrderService.updateSimple(this.currentProduct.id, productOrder).subscribe(
+      this.productOrderService.update(this.currentProduct.id, productOrder).subscribe(
         (res: any) => {
           this.refreshTable.emit();
         }

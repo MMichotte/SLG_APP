@@ -72,7 +72,7 @@ export class OrdersController {
     if (!supplier) throw new NotFoundException;
     if (supplier.type !== ECompanyType.SUPPLIER && supplier.type !== ECompanyType.SUPP_AND_CLI) throw new ForbiddenException;
 
-    const existingOpenOrders: Order[] = await this.ordersService.findAllBySupplierId(dto.supplierId);
+    const existingOpenOrders: Order[] = (await this.ordersService.findAllBySupplierId(dto.supplierId)).filter(o => o.status === EOrderStatus.OPEN);
     if (existingOpenOrders.length) throw new ConflictException;
 
     dto.supplier = supplier;

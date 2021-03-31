@@ -1,15 +1,13 @@
 import { BillSupplier } from '../../../bills/bill-supplier/entities/bill-supplier.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
-import { Order } from '../../orders/entities/order.entity';
 
 export class UpdateProductOrderProcessDTO {
   
   @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
-  orderId: number;
-  order?: Order;
+  id: number;
 
   @ApiPropertyOptional()
   @IsString()
@@ -34,12 +32,7 @@ export class UpdateProductOrderProcessDTO {
   @IsNotEmpty()
   pcPurchasePriceHTAtDate: number;
 
-  
-  @ApiPropertyOptional()
-  @IsNumber()
-  @IsOptional()
-  billSupplierId?: number
-  BillSupplier?: BillSupplier;
+  billSupplier?: BillSupplier;
 
   constructor(obj?: UpdateProductOrderProcessDTO) {
     Object.assign(this, obj);
