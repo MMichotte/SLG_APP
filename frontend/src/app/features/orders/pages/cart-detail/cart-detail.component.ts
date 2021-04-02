@@ -49,7 +49,7 @@ export class CartDetailComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.cols = [
-      { field: 'productDisplayName', header: 'Product', width: '25%' },
+      // { field: 'productDisplayName', header: 'Product', width: '25%' },
       { field: 'quantityOrdered', header: 'Quantity' },
       { field: 'note', header: 'Note', width: '30%' },
       { field: 'createdAt', header: 'Added at' },

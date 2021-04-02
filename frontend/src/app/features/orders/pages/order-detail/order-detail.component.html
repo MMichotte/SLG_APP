@@ -7,7 +7,7 @@
   <div class="control">
     <div class="supplier inline">
       <label class="myLabel">Supplier:</label>
-      <span class="supplier-name">{{order?.supplier.name}}</span>
+      <a routerLink="/suppliers/{{order?.supplier.id}}/detail"><span class="supplier-name">{{order?.supplier.name}}</span></a>
     </div>
 
     <div class="inline">
@@ -30,11 +30,15 @@
 
   <div class="dtable">
     <p-table #dt [columns]="cols" [value]="productOrders" [autoLayout]="true" [paginator]="true" [scrollable]="true"
-      [rows]="25" [rowsPerPageOptions]="[25,50,100]" [sortField]="cols[2].field" [sortOrder]="1" selectionMode="single"
+      [rows]="25" [rowsPerPageOptions]="[25,50,100]" [sortField]="cols[1].field" [sortOrder]="1" selectionMode="single"
       [(selection)]="selectedProductOrder" styleClass="p-datatable-sm" [loading]="loadingData">
 
       <ng-template pTemplate="header" let-columns>
         <tr>
+          <th [ngStyle]="{'width': '25%'}" pSortableColumn="productDisplayName">
+            Product
+            <p-sortIcon field="productDisplayName"></p-sortIcon>
+          </th>
           <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
             {{col.header}}
             <p-sortIcon [field]="col.field"></p-sortIcon>
@@ -45,6 +49,7 @@
 
       <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr [pSelectableRow]="rowData">
+          <td [ngStyle]="{'width': '25%'}"><span><a routerLink="/products/{{rowData.product.id}}/detail">{{rowData.productDisplayName}}</a></span></td>
           <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
             <span [ngClass]="{
                 'productStatus': (col.field === 'status'),

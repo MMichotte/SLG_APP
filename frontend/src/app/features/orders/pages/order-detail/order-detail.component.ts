@@ -43,7 +43,6 @@ export class OrderDetailComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.cols = [
-      { field: 'productDisplayName', header: 'Product', width: '25%' },
       { field: 'note', header: 'Note', width: '15%' },
       { field: 'status', header: 'Status' },
       { field: 'quantityOrdered', header: 'Quantity Ordered' },
