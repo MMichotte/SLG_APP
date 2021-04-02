@@ -8,6 +8,11 @@ export class UpdateProductOrderProcessDTO {
   @IsNumber()
   @IsNotEmpty()
   id: number;
+  
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  prodId?: number;
 
   @ApiPropertyOptional()
   @IsString()

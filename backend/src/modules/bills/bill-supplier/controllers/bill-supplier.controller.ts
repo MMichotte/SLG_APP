@@ -1,3 +1,4 @@
+import { ProductsService } from './../../../products/services/products.service';
 import { UpdateProductOrderProcessDTO } from './../../../orders/product-order/dto/update-product-order-process.dto';
 import { CreateProductOrderDTO } from './../../../orders/product-order/dto/create-product-order.dto';
 import { OrdersService } from './../../../orders/orders/services/orders.service';
@@ -28,6 +29,7 @@ export class BillSupplierController {
   constructor(
     private readonly billSupplierService: BillSupplierService,
     private readonly productOrderService: ProductOrderService,
+    private readonly productsService: ProductsService,
     private readonly ordersService: OrdersService
   ) {}
 
@@ -69,29 +71,39 @@ export class BillSupplierController {
     let order: Order = null;
 
     await Promise.all(dto.productOrders.map( async pO => {
-      let prod = await this.productOrderService.findOneById(pO.id);
-      if (!prod) throw new NotFoundException;
-      order = prod.order;
-      const quantDiff = pO.quantityReceived - prod.quantityOrdered;
+      let prodO: any = {};
+      if (pO.id) {
+        prodO = await this.productOrderService.findOneById(pO.id);
+        if (!prodO) throw new NotFoundException;
+      } else {
+        // the user added a product that was not in the original order!
+        prodO.product = {};
+        prodO.product.id = pO.prodId;
+        prodO.quantityOrdered = 0;
+        delete pO.id;
+      }
+      delete pO.prodId;
+      order = prodO.order;
+      const quantDiff = pO.quantityReceived - prodO.quantityOrdered;
       if (quantDiff === 0) {
         // product received in the desired quantity
-        prod = this._receiveProductOrderFromDto(prod, pO, newBill);
-        await this.productOrderService.update(prod.id, prod);
+        prodO = this._receiveProductOrderFromDto(prodO, pO, newBill);
+        await this.productOrderService.update(prodO.id, prodO);
       } else if (quantDiff < 0) {
         // product partially received, some are in BO
         
         // create and add new productOrder w/ the remaining quant
-        await this._createBOProdOrder(prod,quantDiff);
+        await this._createBOProdOrder(prodO,quantDiff);
       
         // update the received productOrder
-        prod = this._receiveProductOrderFromDto(prod, pO, newBill);
-        await this.productOrderService.update(prod.id, prod);
+        prodO = this._receiveProductOrderFromDto(prodO, pO, newBill);
+        await this.productOrderService.update(prodO.id, prodO);
 
       } else if (quantDiff > 0) {
-        // product received in excess, probably from a BO prod of a previous order.
-        
+        // product received in excess, probably from a BO prodO of a previous order.
+
         // find all productOrders of the same product and from the same supplier with as status : BO
-        let existingProdBOs: ProductOrder[] = await this.productOrderService.findAllBOByProdId(prod.product.id);
+        let existingProdBOs: ProductOrder[] = await this.productOrderService.findAllBOByProdId(prodO.product.id);
         existingProdBOs = existingProdBOs.filter(eP => eP.order.supplier.id === order.supplier.id);
         let remainingQuant: number = quantDiff;
         for (let bo of existingProdBOs) {
@@ -110,7 +122,7 @@ export class BillSupplierController {
             // create and add new productOrder w/ the remaining quant
             await this._createBOProdOrder(bo,remainingQuant - bo.quantityOrdered);
 
-            // update the current BO prod
+            // update the current BO prodO
             const boId = bo.id;
             bo = this._receiveProductOrderFromDto(bo,pO,newBill);
             bo.quantityReceived = remainingQuant;
@@ -131,13 +143,32 @@ export class BillSupplierController {
           }
         }
 
+        if (!prodO.id) {
+          // the user added a product that was not in the original order.
+          // check if the remaining quant is > 0 -> if yes we need to create and add the product to the current order!
+          if (remainingQuant > 0) {
+            const newProdOrder = new ProductOrder();
+            newProdOrder.product = await this.productsService.findOneById(prodO.product.id);
+            newProdOrder.order = order;
+            newProdOrder.quantityOrdered = 0;
+            newProdOrder.status = EProductOrderStatus.RECEIVED;
+            prodO = await this.productOrderService.create(newProdOrder);            
+          } else {
+            return;
+          }
+        }
         // update the received productOrder
-        prod = this._receiveProductOrderFromDto(prod, pO, newBill);
-        prod.quantityReceived = prod.quantityReceived - quantDiff + remainingQuant;
-        await this.productOrderService.update(prod.id, prod);
+        prodO = this._receiveProductOrderFromDto(prodO, pO, newBill);
+        prodO.quantityReceived = prodO.quantityReceived - quantDiff + remainingQuant;
+        await this.productOrderService.update(prodO.id, prodO);
       }
       
-      // TODO update product quantity! 
+      // update product quantity and price
+      const product = prodO.product;
+      product.purchasePriceHT = prodO.pcPurchasePriceHTAtDate;
+      if (product.purchasePriceHT >= product.salePriceHT) product.salePriceHT = product.purchasePriceHT * 1.02; // set a min margin of 2%!
+      product.quantity = product.quantity + prodO.quantityReceived;
+      await this.productsService.update(product.id, product);
 
     }));
 
