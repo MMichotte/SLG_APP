@@ -7,6 +7,8 @@ import { ProductOrder } from './../../models/product-order.model';
 import { EUserRoles } from '../../../../core/enums/user-roles.enum';
 import { LightProduct } from '../../models/light-product';
 import { ProductOrderService } from '../../services/product-order.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ProductFormComponent } from '../../../products/components/product-form/product-form.component';
 
 @Component({
   selector: 'app-product-order-form',
@@ -33,6 +35,7 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
   constructor(
     public readonly auth: AuthService,
     public readonly cd: ChangeDetectorRef,
+    public dialogService: DialogService,
     private readonly orderService: OrderService,
     private readonly productOrderService: ProductOrderService
   ) {
@@ -116,6 +119,16 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
   onSelectClick(): void {
     this.selectedProduct = null;
     this._resetForm();
+  }
+
+  showNewProductModal(): void {
+    const ref = this.dialogService.open(ProductFormComponent, {
+      header: 'New Product',
+      width: '60%'
+    });
+    ref.onClose.subscribe((prodId?: number) => {
+      if (prodId) this._getLightProducts();
+    });
   }
 
   ngOnChanges(): void {

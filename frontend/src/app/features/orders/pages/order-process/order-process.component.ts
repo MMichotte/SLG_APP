@@ -162,7 +162,6 @@ export class OrderProcessComponent implements OnInit {
     newBill.productOrders = productOrders;
     await this.billSupplierService.create(newBill).subscribe(
       (res: any) => {
-        //! console.log(res);
         this.toast.show(EToastSeverities.SUCCESS, 'Bill Created');
         this.router.navigate([`orders/${this.order.id}/detail`]);
       },
@@ -170,6 +169,10 @@ export class OrderProcessComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  onAddSuppProduct(): void {
+
   }
 
   back(): void {

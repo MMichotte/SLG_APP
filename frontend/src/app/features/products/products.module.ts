@@ -38,6 +38,7 @@ import { StockUpdateFormComponent } from './components/stock-update-form/stock-u
     DynamicDialogModule,
     ProductsRoutingModule
   ],
-  providers: [ProductService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
+  providers: [ProductService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig],
+  exports: [ProductFormComponent]
 })
 export class ProductsModule { }

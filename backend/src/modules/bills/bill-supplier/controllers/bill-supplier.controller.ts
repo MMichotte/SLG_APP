@@ -141,6 +141,13 @@ export class BillSupplierController {
 
     }));
 
+    // update status of all products that weren't received:
+    const notReceivedProds: ProductOrder[] = (await this.productOrderService.findAllByOrderId(order.id)).filter(pO =>  pO.status === EProductOrderStatus.ORDERED);
+    await Promise.all(notReceivedProds.map(async pO => {
+      pO.status = EProductOrderStatus.BO;
+      await this.productOrderService.update(pO.id, pO);
+    }));
+
     await this._updateOrderStatus(order);
 
     return plainToClass(SimpleBillSupplierDTO,newBill);

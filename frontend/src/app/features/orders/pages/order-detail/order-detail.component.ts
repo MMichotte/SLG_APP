@@ -2,6 +2,9 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
+import { ToastService } from '../../../../core/services/toast.service';
+import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
 import { EOrderStatus } from '../../enums/order-status.enum';
 import { EProductOrderStatus } from '../../enums/product-order-status.enum';
 import { ProductOrder } from '../../models/product-order.model';
@@ -32,6 +35,8 @@ export class OrderDetailComponent implements OnInit {
     public readonly router: Router,
     private readonly route: ActivatedRoute,
     public readonly cd: ChangeDetectorRef,
+    private readonly toast: ToastService,
+    private readonly confirmDialog: ConfirmDialogService,
     private readonly orderService: OrderService,
     private readonly productOrderService: ProductOrderService
   ) { }
@@ -80,8 +85,19 @@ export class OrderDetailComponent implements OnInit {
     this.router.navigate([`orders/${this.order.id}/generate-bill`]);
   }
 
-  deleteProductOrder(prod: ProductOrder): void {
-    
+  async deleteProductOrder(prod: ProductOrder): Promise<void> {
+    const confirm = await this.confirmDialog.show('Are you sure you want to <b>delete</b> the selected back-ordered product?');
+    if (confirm) {
+      this.productOrderService.delete(prod.id).subscribe(
+        (res: any) => {
+          this.ngOnInit();
+          this.toast.show(EToastSeverities.SUCCESS, 'BO-product deleted');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
 }

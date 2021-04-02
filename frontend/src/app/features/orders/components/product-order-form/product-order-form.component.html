@@ -21,6 +21,8 @@
   </div>
 
   <footer class="p-grid">
+    <button pButton pRipple type="button" icon="pi pi-plus" label="New product"
+            (click)="showNewProductModal()" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
     <button pButton pRipple type="submit" icon="pi pi-save" label="Add" *ngIf="auth.hasMinAccess(EUserRoles.USER) && !isUpdate"
       [disabled]="productForm.invalid"></button>
     <button class="p-button-warning" pButton pRipple type="submit" icon="pi pi-save" label="Update" *ngIf="auth.hasMinAccess(EUserRoles.USER) && isUpdate"

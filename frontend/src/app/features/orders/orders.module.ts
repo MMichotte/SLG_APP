@@ -1,3 +1,4 @@
+import { ProductsModule } from './../products/products.module';
 import { SuppliersModule } from './../suppliers/suppliers.module';
 import { OrderService } from './services/order.service';
 import { OrdersComponent } from './pages/orders-list/orders.component';
@@ -48,6 +49,7 @@ import { BillingModule } from '../billing/billing.module';
     OrdersRoutingModule,
     ConfirmDialogModule,
     SuppliersModule,
+    ProductsModule,
     BillingModule
   ],
   providers: [OrderService, ProductOrderService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]

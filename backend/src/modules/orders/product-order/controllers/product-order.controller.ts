@@ -207,6 +207,13 @@ export class ProductOrderController {
     if (productOrderIsReceived) throw new NotAcceptableException;
 
     await this.productOrderService.remove(id);
+
+    // update order-status
+    const prodsLeft: ProductOrder[] = (await this.productOrderService.findAllByOrderId(productOrder.order.id)).filter(pO => pO.status !== EProductOrderStatus.RECEIVED);
+    if (prodsLeft.length) productOrder.order.status = EOrderStatus.PD;
+    else productOrder.order.status = EOrderStatus.CLOSED;
+    await this.ordersService.update(productOrder.order.id,productOrder.order);
+    
     return [];
   }
 
