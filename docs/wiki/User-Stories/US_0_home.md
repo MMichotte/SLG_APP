@@ -71,13 +71,13 @@ Bien évidemment, afin de répondre à ses besoins, une série d'US intermédiai
 24. [x] FO04 - Consulter/Modifier le détail d'un fournisseur
 25. [x] FO06 - Rechercher un fournisseur
 26. [x] FO07 - Supprimer un fournisseur
-27. [ ] CO01 - Onglet Commandes
-28. [ ] CO02 - Consulter la liste des commandes
-29. [ ] CO03 - Créer une nouvelle commande
-30. [ ] CO04 - Consulter le détail d'une commande
-31. [ ] CO05 - Rechercher une commande
-32. [ ] CO06 - Supprimer une commande
-33. [ ] CO07 - Réceptionner une commande
+27. [x] CO01 - Onglet Commandes
+28. [x] CO02 - Consulter la liste des commandes
+29. [x] CO03 - Créer une nouvelle commande
+30. [x] CO04 - Consulter le détail d'une commande
+31. [x] CO05 - Rechercher une commande
+32. [x] CO06 - Supprimer une commande
+33. [x] CO07 - Réceptionner une commande
 34. [x] FA01 - Onglet Factures
 35. [ ] FA02 - Consulter les factures
 36. [ ] FA03 - Consulter le détail d'une facture 
