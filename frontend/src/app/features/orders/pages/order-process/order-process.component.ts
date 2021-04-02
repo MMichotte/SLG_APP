@@ -15,6 +15,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductOrderService } from '../../services/product-order.service';
 import { BillSupplierService } from '../../../billing/services/bill-supplier.service';
 import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ProductProcessFormComponent } from '../../components/product-process-form/product-process-form.component';
+import { Product } from 'src/app/features/products/models/product.model';
 
 @Component({
   selector: 'app-order-process',
@@ -47,6 +50,7 @@ export class OrderProcessComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly toast: ToastService,
     private readonly confirmDialog: ConfirmDialogService,
+    public dialogService: DialogService,
     public readonly cd: ChangeDetectorRef,
     private readonly orderService: OrderService,
     private readonly productOrderService: ProductOrderService,
@@ -94,7 +98,6 @@ export class OrderProcessComponent implements OnInit {
       prod.status = EProductOrderStatus.BO;
     }
     this.calcPrice();
-    
   }
   
   setProdInvPrice(prod: ProductOrder, price: number) {
@@ -152,6 +155,7 @@ export class OrderProcessComponent implements OnInit {
       // Received with the quantity ordered
       const prodDto: UpdateProductOrderDTO = new UpdateProductOrderDTO();
       prodDto.id = prod.id;
+      if (!prod.id) prodDto.prodId = prod.prodId;
       prodDto.note = prod.note;
       prodDto.quantityReceived = prod.quantityReceived;
       prodDto.pcInvoicePrice = prod.pcInvoicePrice;
@@ -172,7 +176,22 @@ export class OrderProcessComponent implements OnInit {
   }
 
   onAddSuppProduct(): void {
-
+    const ref = this.dialogService.open(ProductProcessFormComponent, {
+      header: 'Add Product',
+      width: '30%'
+    });
+    ref.onClose.subscribe((prod: any) => {
+      if (prod) {
+        const newProdOrder = new ProductOrder();
+        newProdOrder.id = null;
+        newProdOrder.prodId = prod.id;
+        newProdOrder.productDisplayName = prod.displayName;
+        newProdOrder.status = EProductOrderStatus.BO;
+        newProdOrder.quantityOrdered = 0;
+        newProdOrder.pcInvoicePrice = 0.00;
+        this.productOrders.push(newProdOrder);
+      }
+    });
   }
 
   back(): void {

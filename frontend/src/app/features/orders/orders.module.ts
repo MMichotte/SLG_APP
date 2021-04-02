@@ -28,9 +28,10 @@ import { OrderProcessComponent } from './pages/order-process/order-process.compo
 import { ProductOrderService } from './services/product-order.service';
 import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 import { BillingModule } from '../billing/billing.module';
+import { ProductProcessFormComponent } from './components/product-process-form/product-process-form.component';
 
 @NgModule({
-  declarations: [OrdersComponent, CartDetailComponent, NewCartFormComponent, ProductOrderFormComponent, OrderProcessComponent, OrderDetailComponent],
+  declarations: [OrdersComponent, CartDetailComponent, NewCartFormComponent, ProductOrderFormComponent, OrderProcessComponent, OrderDetailComponent, ProductProcessFormComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -1,6 +1,7 @@
 
 export class UpdateProductOrderDTO {
-  id: number;
+  id?: number;
+  prodId?: number;
   note?: string;
   quantityReceived: number;
   pcInvoicePrice: number;

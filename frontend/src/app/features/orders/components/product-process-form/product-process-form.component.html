@@ -1,0 +1,19 @@
+<form class="form" [formGroup]="productForm" (ngSubmit)="submitForm()">
+
+  <div class="p-grid p-fluid">
+    <div class="p-col-12">
+      <label for="productSelect" class="label-required">Product</label>
+      <p-autoComplete appendTo="body" [(ngModel)]="selectedProduct" [suggestions]="productsFiltered"
+        [ngModelOptions]="{standalone: true}" (completeMethod)="searchProduct($event.query)" field="displayName" minLength=2
+        name="productSelect" (onSelect)="onSelectProduct()" (click)="onSelectClick()" placeholder="Search Product" [disabled]="!auth.hasMinAccess(EUserRoles.USER)">
+      </p-autoComplete>
+    </div>
+  </div>
+
+  <footer class="p-grid">
+    <button pButton pRipple type="button" icon="pi pi-plus" label="New product"
+            (click)="showNewProductModal()" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
+    <button pButton pRipple type="submit" icon="pi pi-save" label="Add" *ngIf="auth.hasMinAccess(EUserRoles.USER)"
+      [disabled]="productForm.invalid"></button>
+  </footer>
+</form>

@@ -3,8 +3,8 @@ import { OrderService } from './../../services/order.service';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../../core/services/auth.service';
-import { ProductOrder } from './../../models/product-order.model';
 import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { ProductOrder } from './../../models/product-order.model';
 import { LightProduct } from '../../models/light-product';
 import { ProductOrderService } from '../../services/product-order.service';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -74,8 +74,8 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
     this._resetForm();
   }
 
-  private _getLightProducts():void {
-    this.orderService.getAllLightProducts().subscribe(
+  private async _getLightProducts(): Promise<void> {
+    await this.orderService.getAllLightProducts().toPromise().then(
       (products: LightProduct[]) => {
         this.products = products.map(p => {
           p.displayName = `${p.reference} - ${p.label}`;
@@ -126,8 +126,13 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
       header: 'New Product',
       width: '60%'
     });
-    ref.onClose.subscribe((prodId?: number) => {
-      if (prodId) this._getLightProducts();
+    ref.onClose.subscribe(async (prodId?: number) => {
+      if (prodId) {
+        await this._getLightProducts();
+        const pr = this.products.find(p => p.id === prodId);
+        this.selectedProduct = pr;
+        this.productForm.controls.productId.setValue(pr.id);
+      }
     });
   }
 

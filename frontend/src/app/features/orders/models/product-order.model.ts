@@ -5,6 +5,7 @@ export class ProductOrder {
   id: number;
   orderId: number;
   product: Product;
+  prodId?: number;
   productDisplayName?: string;
   note?: string;
   quantityOrdered: number;
