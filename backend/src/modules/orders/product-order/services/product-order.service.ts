@@ -21,6 +21,10 @@ export class ProductOrderService {
     return this.productOrderRepository.find({where: {order: orderId}, relations: ['product', 'order', 'billSupplier', 'order.supplier']});
   }
   
+  findAllReceivedByProdId(prodId: number): Promise<ProductOrder[]> {
+    return this.productOrderRepository.find({where: {product: prodId, status: EProductOrderStatus.RECEIVED}, relations: ['product', 'order', 'billSupplier', 'order.supplier']});
+  }
+
   findAllBOByProdId(prodId: number): Promise<ProductOrder[]> {
     return this.productOrderRepository.find({where: {product: prodId, status: EProductOrderStatus.BO}, relations: ['product', 'order', 'billSupplier', 'order.supplier']});
   }

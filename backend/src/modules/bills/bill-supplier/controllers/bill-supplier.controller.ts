@@ -19,6 +19,7 @@ import { BillSupplierService } from '../services/bill-supplier.service';
 import { plainToClass } from 'class-transformer';
 import { SimpleBillSupplierDTO } from '../dto/simple-bill-supplier.dto';
 import { validate } from 'class-validator';
+import { BillSupplierDTO } from '../dto/bill-supplier.dto';
 
 @Controller('bill-supplier')
 @UseGuards(RolesGuard)
@@ -37,10 +38,10 @@ export class BillSupplierController {
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiResponse({
     status: 200,
-    type: BillSupplier,
+    type: BillSupplierDTO,
     isArray: true
   })
-  async findAll(): Promise<BillSupplier[]> {
+  async findAll(): Promise<BillSupplierDTO[]> {
     const bills: BillSupplier[] = await this.billSupplierService.findAll();
     return plainToClass(BillSupplier,bills);
   }
@@ -49,9 +50,9 @@ export class BillSupplierController {
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiResponse({
     status: 200,
-    type: BillSupplier
+    type: BillSupplierDTO
   })
-  async findOne(@Param('id') id: number): Promise<BillSupplier> {
+  async findOne(@Param('id') id: number): Promise<BillSupplierDTO> {
     const bill: BillSupplier = await this.billSupplierService.findOneById(id);
     return plainToClass(BillSupplier,bill);
   }

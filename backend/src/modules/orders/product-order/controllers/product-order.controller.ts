@@ -50,6 +50,19 @@ export class ProductOrderController {
     }
     return plainToClass(ProductOrderDTO,productOrders);
   }
+  
+  @Get('received/:prodId')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiQuery({name: 'orderId', type: Number, required: false})
+  @ApiResponse({
+    status: 200,
+    type: ProductOrderDTO,
+    isArray: true
+  })
+  async findAllReceivedByProdId(@Param('prodId') prodId: number): Promise<ProductOrderDTO[]> {
+    const productOrders: ProductOrder[] = await this.productOrderService.findAllReceivedByProdId(+prodId);
+    return plainToClass(ProductOrderDTO,productOrders);
+  }
 
   @Get(':id')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)

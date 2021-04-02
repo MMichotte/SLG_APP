@@ -29,17 +29,19 @@ export class ProductDetailComponent implements OnInit {
     try {
       const prodId = this.route.snapshot.params.id;
       this.product = await this.productService.getOne(prodId).toPromise(); // TODO catch if error! 
+      this.product.reservedQuantity = (this.product.reservedQuantity) ? this.product.reservedQuantity : 0;
     } catch (e) {
       console.log(e);
       this.router.navigate(['products']);
     }
     this.getStockUpdates();
+    this.getReceivedProducts();
     this.transactionCols = [
       { field: 'updatedAt', header: 'Date' },
       { field: 'billId', header: 'Bill n°' },
       { field: 'type', header: 'Type' },
       { field: 'quantity', header: 'Quantity' },
-      { field: 'price', header: 'Price' },
+      { field: 'price', header: 'Last Price (€)' },
       { field: 'note', header: 'Note' }
     ];
   }
@@ -54,6 +56,31 @@ export class ProductDetailComponent implements OnInit {
           return tr;
         });
         this.transactions = [...this.transactions, ...res];
+        this.cd.detectChanges();
+        this.loadingData = false;
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+  
+  getReceivedProducts(): void {
+    this.loadingData = true;
+    this.productService.getAllReceivedProductOrders(this.product.id).subscribe(
+      (res: any) => {
+        res.forEach(prod => {
+          const newHistory: any = {
+            updatedAt: prod.product.updatedAt.split('T')[0],
+            billId: prod.billSupplierId,
+            type: '',
+            quantity: `+${prod.quantityReceived}`,
+            price: prod.pcPurchasePriceHTAtDate,
+            note: prod.note
+          };
+          
+          this.transactions = [...this.transactions, newHistory];
+        });
         this.cd.detectChanges();
         this.loadingData = false;
       },

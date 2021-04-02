@@ -37,6 +37,10 @@ export class ProductService {
     return this.httpClient.get(`${this.endpoint}/${id}/stock-updates`);
   }
   
+  getAllReceivedProductOrders(id: number): any {
+    return this.httpClient.get(`/api/product-order/received/${id}`);
+  }
+  
   createStockUpdate(id:number, dto: CreateStockUpdateDTO): any {
     return this.httpClient.post(`${this.endpoint}/${id}/stock-updates`, dto);
   }

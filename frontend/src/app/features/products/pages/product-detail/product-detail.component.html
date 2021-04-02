@@ -35,7 +35,7 @@
             <div>{{product?.quantity}}</div>
           </div>
           <div class="inline">
-            <div>eserved quantity:</div>
+            <div>Reserved quantity:</div>
             <div>{{product?.reservedQuantity}}</div>
           </div>
         </div>
@@ -49,12 +49,12 @@
             <div>{{product?.salePriceHT}} €</div>
           </div>
           <div class="inline">
-            <div>ale price TTC:</div>
+            <div>Sale price TTC:</div>
             <div>{{product?.salePriceTTC}} €</div>
           </div>
           <div class="inline">
             <div>Margin:</div>
-            <div>{{product?.salePriceHT - product?.purchasePriceHT}} €</div>
+            <div>{{(product?.salePriceHT - product?.purchasePriceHT).toFixed(2)}} €</div>
           </div>
         </div>
         <div>
