@@ -1,3 +1,4 @@
+import { VAT } from './../../../../core/constants/VAT';
 import { ConfirmDialogService } from './../../../../core/services/confirm-dialog.service';
 import { ToastService } from './../../../../core/services/toast.service';
 import { ProductService } from './../../services/product.service';
@@ -7,9 +8,10 @@ import { Product } from '../../models/product.model';
 import { EToastSeverities } from 'src/app/core/enums/toast-severity.enum';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { StockUpdateFormComponent } from '../stock-update-form/stock-update-form.component';
-import { take } from 'rxjs/operators';
 import { AuthService } from '../../../../core/services/auth.service';
 import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { take } from 'rxjs/operators';
+import { debounce } from '../../../../core/helpers/debounce';
 
 // auth.hasMinAccess(EUserRoles.USER)
 
@@ -46,6 +48,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
     salePriceHT: new FormControl(0, Validators.required),
     salePriceTTC: new FormControl(0, Validators.required),
     margin: new FormControl(0, Validators.required),
+    marginPc: new FormControl(0),
     note: new FormControl('')
   });
 
@@ -58,10 +61,16 @@ export class ProductFormComponent implements OnInit, OnChanges {
         const control = this.productForm.get(field);
         control.setValue(this.currentProduct[field]);
       }
+      this.productForm.controls.marginPc.setValue(
+        (this.currentProduct.salePriceHT > 0)
+          ? 100 * +this.currentProduct.margin / +this.currentProduct.salePriceHT
+          : 0
+      );  
       if (this.auth.hasMinAccess(EUserRoles.USER)) {
         this.productForm.enable();
         this.productForm.controls.reservedQuantity.disable();
         this.productForm.controls.availableQuantity.disable();
+        this.productForm.controls.salePriceTTC.disable();
       }
     } else {
       this.productForm.disable();
@@ -73,9 +82,9 @@ export class ProductFormComponent implements OnInit, OnChanges {
     const product: Product = new Product(this.productForm.value);
     delete product.availableQuantity;
     delete product.margin;
+    delete product.marginPc;
     product.purchasePriceHT = +product.purchasePriceHT;
     product.salePriceHT = +product.salePriceHT;
-    product.salePriceTTC = +product.salePriceTTC;
     if (this.isUpdate) {
       // update
       if (product.quantity !== this.currentProduct.quantity) {
@@ -169,23 +178,54 @@ export class ProductFormComponent implements OnInit, OnChanges {
   onMarginInput(val: string): void {
     val = val.replace(',', '');
     const margin: number = Number(val.replace('€', ''));
-    const newSalePrice = this.productForm.get('purchasePriceHT').value + margin;
+    const newSalePrice = Number(this.productForm.get('purchasePriceHT').value) + margin;
     this.productForm.controls.salePriceHT.setValue(newSalePrice);
+    this.productForm.controls.salePriceTTC.setValue(newSalePrice * VAT);
+    this._checkPriceValidity(this.productForm.controls.purchasePriceHT.value, newSalePrice);
+    // TODO set marginPc 
+  }
+
+  onMarginPcInput(val: string): void {
+    val = val.replace(',', '');
+    const marginPc: number = Number(val.replace('%', '')) / 100;
+    const purchasePriceHT: number = Number(this.productForm.get('purchasePriceHT').value);
+    const margin: number = purchasePriceHT * marginPc;
+    const newSalePrice = purchasePriceHT + margin;
+    this.productForm.controls.margin.setValue(margin);
+    this.productForm.controls.salePriceHT.setValue(newSalePrice);
+    this.productForm.controls.salePriceTTC.setValue(newSalePrice * VAT);
+    this._checkPriceValidity(this.productForm.controls.purchasePriceHT.value, newSalePrice);
   }
 
   onSalePriceInput(val: string): void {
     val = val.replace(',', '');
     const saleP: number = Number(val.replace('€', ''));
-    const newMargin = saleP - this.productForm.get('purchasePriceHT').value;
+    const newMargin = saleP - Number(this.productForm.get('purchasePriceHT').value);
     this.productForm.controls.margin.setValue(newMargin);
+    this.productForm.controls.salePriceTTC.setValue(saleP * VAT);
+    this._checkPriceValidity(this.productForm.controls.purchasePriceHT.value, saleP);
   }
   
   onPurchasePriceInput(val: string): void {
     val = val.replace(',', '');
     const purchaseP: number = Number(val.replace('€', ''));
-    const newMargin = this.productForm.get('salePriceHT').value - purchaseP;
+    const newMargin = Number(this.productForm.get('salePriceHT').value) - purchaseP;
     this.productForm.controls.margin.setValue(newMargin);
+    this._checkPriceValidity(purchaseP, this.productForm.controls.salePriceHT.value);
   }
+
+  // TODO only when field out of focus!
+  private _checkPriceValidity(purchaseHT: number, saleHT: number): void {
+    if (saleHT < purchaseHT) {
+      this.displayWarn();
+    }
+  }
+
+  displayWarn = debounce(
+    () => { this.toast.show(EToastSeverities.WARN, 'You are about to set a sale price lower than the purchase price!'); }, 
+    500,
+    true
+  );
 
   private _resetForm (): void {
     this.productForm.reset({
@@ -196,6 +236,7 @@ export class ProductFormComponent implements OnInit, OnChanges {
       salePriceHT: 0,
       salePriceTTC: 0,
       margin: 0,
+      marginPc: 0,
       note: ' '
     });
   }

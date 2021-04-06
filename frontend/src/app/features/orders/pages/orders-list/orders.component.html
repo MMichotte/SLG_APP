@@ -18,7 +18,7 @@
       </ng-template>
       <div class="dtable">
         <p-table #dt [columns]="cols" [value]="carts" [frozenValue]="[{}]" [autoLayout]="true" [scrollable]="true"
-          [sortField]="cols[3].field" [sortOrder]="-1" selectionMode="single"
+          [sortField]="cols[4].field" [sortOrder]="-1" (sortFunction)="tableSort($event)" [customSort]="true" selectionMode="single"
           [(selection)]="selectedOrder" styleClass="p-datatable-sm" [loading]="loadingData">
     
           <ng-template pTemplate="header" let-columns>
@@ -42,7 +42,7 @@
                   <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-info p-button-sm"
                     title="Open cart" (click)="showOrderPage(commonCart)" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
                   <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-info p-button-sm"
-                    title="Open cart" (click)="showOrderPage(commonCart)" *ngIf="auth.hasOnlyAccess(EUserRoles.ACCOUNTING)"></button>
+                    title="Open cart" (click)="showOrderPage(commonCart)" *ngIf="auth.hasOnlyAccess(EUserRoles.ACCOUNTING, true)"></button>
                 </td>
             </tr>
           </ng-template>
@@ -62,7 +62,7 @@
                 <button pButton pRipple type="button" icon="pi pi-user-edit" class="p-button-info p-button-sm"
                   title="Open cart" (click)="showOrderPage(rowData)" *ngIf="rowData.status !== EOrderStatus.CLOSED && auth.hasMinAccess(EUserRoles.USER)"></button>
                 <button pButton pRipple type="button" icon="pi pi-eye" class="p-button-info p-button-sm"
-                  title="Open cart" (click)="showOrderPage(rowData)" *ngIf="rowData.status === EOrderStatus.CLOSED || auth.hasOnlyAccess(EUserRoles.ACCOUNTING)"></button>
+                  title="Open cart" (click)="showOrderPage(rowData)" *ngIf="rowData.status === EOrderStatus.CLOSED || auth.hasOnlyAccess(EUserRoles.ACCOUNTING, true)"></button>
                 <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-button-sm"
                   title="Delete cart" (click)="deleteOrder(rowData)" *ngIf="(rowData.status === EOrderStatus.OPEN || rowData.status === EOrderStatus.ORDERED) && auth.hasMinAccess(EUserRoles.USER)"></button>
               </td>
@@ -81,7 +81,7 @@
       <div class="dtable">
         <p-table #dt2 [columns]="cols" [value]="orders" [autoLayout]="true" [paginator]="true" [scrollable]="true"
           [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['id','supplierName', 'createdAt', 'updatedAt']"
-          [sortField]="cols[3].field" [sortOrder]="-1" selectionMode="single"
+          [sortField]="cols[4].field" [sortOrder]="-1" (sortFunction)="tableSort($event)" [customSort]="true" selectionMode="single"
           [(selection)]="selectedOrder" styleClass="p-datatable-sm" [loading]="loadingData">
     
           <ng-template pTemplate="header" let-columns>

@@ -4,8 +4,9 @@ export class Product {
   label: string;
   purchasePriceHT: number;
   salePriceHT: number;
-  salePriceTTC: number;
-  margin?: number 
+  salePriceTTC?: number;
+  margin?: number; 
+  marginPc?: number;
   quantity: number;
   reservedQuantity?: number;
   availableQuantity?: number;

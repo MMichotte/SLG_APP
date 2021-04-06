@@ -9,6 +9,7 @@ import { LightProduct } from '../../models/light-product';
 import { ProductOrderService } from '../../services/product-order.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ProductFormComponent } from '../../../products/components/product-form/product-form.component';
+import { search } from 'src/app/core/helpers/search';
 
 @Component({
   selector: 'app-product-order-form',
@@ -87,18 +88,7 @@ export class ProductOrderFormComponent implements OnInit, OnChanges {
   }
 
   searchProduct(input: string) {
-    let words: string[] = input.split(' ');
-    words = words.filter(w => w.length > 1);
-    this.productsFiltered = this.products?.filter(
-      (lP: any) => { 
-        for (const word of words) {
-          if (!lP.displayName.toLowerCase().includes(word.toLowerCase())) {
-            return false;
-          }
-        };
-        return true;
-      }
-    ).slice(0, 200);
+    this.productsFiltered = search(this.products, ['displayName'], input);
   }
 
   onSelectProduct(): void {

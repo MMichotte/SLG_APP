@@ -83,7 +83,7 @@ export class AuthService {
     }
   }
 
-  hasOnlyAccess(role: string): boolean {
+  hasOnlyAccess(role: string, strict: boolean = false): boolean {
     switch (role) {
     case EUserRoles.DEV:
       return (this.roleAs === EUserRoles.DEV);
@@ -91,19 +91,19 @@ export class AuthService {
     case EUserRoles.ADMIN:
       return !!((
         this.roleAs === EUserRoles.ADMIN ||
-        this.roleAs === EUserRoles.DEV
+        ((strict) ? false : this.roleAs === EUserRoles.DEV)
       ));
 
     case EUserRoles.USER:
       return !!((
         this.roleAs === EUserRoles.USER ||
-        this.roleAs === EUserRoles.DEV
+        ((strict) ? false : this.roleAs === EUserRoles.DEV)
       ));
 
     case EUserRoles.ACCOUNTING:
       return !!((
         this.roleAs === EUserRoles.ACCOUNTING ||
-        this.roleAs === EUserRoles.DEV
+        ((strict) ? false : this.roleAs === EUserRoles.DEV)
       ));
 
     default:

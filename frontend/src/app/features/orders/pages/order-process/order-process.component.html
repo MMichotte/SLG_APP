@@ -4,7 +4,7 @@
   <div class="control">
     <button pButton pRipple type="button" icon="pi pi-arrow-left" label="Order detail" class="p-button-sm p-button-info p-button-text"
       (click)="back()"></button>
-    <button pButton pRipple type="button" icon="pi pi-save" label="Create bill" (click)="onCreateBill()"></button>
+    <button pButton pRipple type="button" icon="pi pi-save" label="Create bill" (click)="onCreateBill()" [disabled]="billForm.invalid"></button>
   </div>
 
   <div class="order-form">
@@ -80,7 +80,7 @@
             </td>
             <td>
               <div class="p-fluid">
-                <p-inputNumber [min]="0" (onInput)="setProdQuantity(rowData,$event.value)"></p-inputNumber>
+                <p-inputNumber [min]="0" (onInput)="setProdQuantity(rowData,$event.value)" (click)="setProdOrderedQuantAsReceived(rowData, $event.target)" [placeholder]="rowData.quantityOrdered + ' ?'"></p-inputNumber>
               </div>
             </td>
             <td>

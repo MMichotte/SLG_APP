@@ -3,6 +3,5 @@ export class CreateProductDTO {
   label: string;
   purchasePriceHT: number;
   salePriceHT: number;
-  salePriceTTC: number;
   note?: string;
 }

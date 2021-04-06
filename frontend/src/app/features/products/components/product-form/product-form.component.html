@@ -54,9 +54,14 @@
 
         <div class="p-col-3">
           <label for="margin" class="label-required">Margin</label>
-          <p-inputNumber id="margin" mode="currency" currency="EUR" locale="en-US" formControlName="margin"
-            (onFocus)="$event.target.select()" (click)="$event.target.select()"
-            (keyup)="onMarginInput($event.target.value)"></p-inputNumber>
+          <div class="p-grid p-fluid">
+            <div class="p-col-6"><p-inputNumber id="margin" mode="currency" currency="EUR" locale="en-US" formControlName="margin"
+              (onFocus)="$event.target.select()" (click)="$event.target.select()"
+              (keyup)="onMarginInput($event.target.value)"></p-inputNumber></div>
+            <div class="p-col-6"><p-inputNumber id="margin_prc" prefix="%" formControlName="marginPc" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="2"
+              (onFocus)="$event.target.select()" (click)="$event.target.select()"
+              (keyup)="onMarginPcInput($event.target.value)"></p-inputNumber></div>
+          </div>
         </div>
       </div>
     </div>

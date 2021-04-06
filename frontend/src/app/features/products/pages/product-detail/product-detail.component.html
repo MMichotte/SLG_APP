@@ -50,7 +50,7 @@
           </div>
           <div class="inline">
             <div>Sale price TTC:</div>
-            <div>{{product?.salePriceTTC}} €</div>
+            <div>{{product?.salePriceTTC }} €</div>
           </div>
           <div class="inline">
             <div>Margin:</div>
@@ -66,7 +66,7 @@
 
     <p-panel class="product-history" header="Transaction history" [toggleable]="true">
       <p-table #dt [columns]="transactionCols" [value]="transactions" [autoLayout]="true" [scrollable]="true"
-        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [sortField]="transactionCols[0].field"
+        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [sortField]="transactionCols[0].field" (sortFunction)="tableSort($event)" [customSort]="true"
         styleClass="p-datatable-sm" [loading]="loadingData">
 
         <ng-template pTemplate="header" let-columns>

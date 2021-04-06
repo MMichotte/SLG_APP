@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../models/product.model';
 import { ProductTransaction } from '../../models/product-transaction.model';
 import { ProductService } from '../../services/product.service';
+import { VAT } from '../../../../core/constants/VAT';
+import { tableSort } from '../../../../core/helpers/table-sort';
 
 @Component({
   selector: 'app-product-detail',
@@ -11,6 +13,8 @@ import { ProductService } from '../../services/product.service';
   encapsulation: ViewEncapsulation.None
 })
 export class ProductDetailComponent implements OnInit {
+
+  public tableSort = tableSort;
 
   product: Product;
   transactions: ProductTransaction[] = [];
@@ -30,6 +34,7 @@ export class ProductDetailComponent implements OnInit {
       const prodId = this.route.snapshot.params.id;
       this.product = await this.productService.getOne(prodId).toPromise(); // TODO catch if error! 
       this.product.reservedQuantity = (this.product.reservedQuantity) ? this.product.reservedQuantity : 0;
+      this.product.salePriceTTC = Number((this.product.salePriceHT * VAT).toFixed(2));
     } catch (e) {
       console.log(e);
       this.router.navigate(['products']);

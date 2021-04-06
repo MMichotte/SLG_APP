@@ -67,7 +67,7 @@ export class OrderDetailComponent implements OnInit {
         this.productOrders = products.map((p: ProductOrder) => {
           p.productDisplayName = `${p.product.reference} - ${p.product.label}`;
           p.createdAt = (new Date(p.createdAt)).toLocaleDateString();
-          p.updatedAt = (new Date(p.updatedAt)).toLocaleDateString();
+          p.updatedAt = (p.status === EProductOrderStatus.RECEIVED) ? (new Date(p.updatedAt)).toLocaleDateString() : null;
           return p;
         });
         this.selectedProductOrder = null;

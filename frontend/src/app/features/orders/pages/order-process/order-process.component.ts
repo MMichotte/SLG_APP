@@ -99,6 +99,12 @@ export class OrderProcessComponent implements OnInit {
     }
     this.calcPrice();
   }
+
+  setProdOrderedQuantAsReceived(prod: ProductOrder, inputField: any): void {
+    inputField.value = prod.quantityOrdered;
+    prod.quantityReceived = prod.quantityOrdered;
+    this.setProdQuantity(prod, prod.quantityOrdered);
+  }
   
   setProdInvPrice(prod: ProductOrder, price: number) {
     if (price) {
@@ -146,6 +152,7 @@ export class OrderProcessComponent implements OnInit {
     const receivedProds = this.productOrders.filter((pO: ProductOrder) => pO.status === EProductOrderStatus.RECEIVED);
     if (!receivedProds.length) {
       // noting to create!
+      this.toast.show(EToastSeverities.ERROR, 'At least one product should be received.');
       return null;
     }
     

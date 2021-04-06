@@ -10,6 +10,7 @@ import { OrderService } from '../../services/order.service';
 import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
 import { ToastService } from '../../../../core/services/toast.service';
 import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
+import { tableSort } from '../../../../core/helpers/table-sort';
 
 @Component({
   selector: 'app-orders',
@@ -18,6 +19,7 @@ import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
 })
 export class OrdersComponent implements OnInit {
 
+  public tableSort = tableSort;
   public EUserRoles = EUserRoles;
   public EOrderStatus = EOrderStatus;
 

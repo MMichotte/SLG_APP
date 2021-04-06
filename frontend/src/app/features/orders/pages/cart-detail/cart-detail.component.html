@@ -20,7 +20,7 @@
       }">{{(cart)? cart.status : '-'}}</span>
     </div>
 
-    <div>
+    <div class="btns">
       <div class="btns" *ngIf="auth.hasMinAccess(EUserRoles.USER)">
         <button *ngIf="cartId === 0" pButton pRipple type="button" icon="pi pi-file-pdf" label="Generate New Order"
           (click)="onGenerateNewOrder()" [disabled]="!selectedProductOrders.length"></button>

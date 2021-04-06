@@ -20,7 +20,7 @@
       }">{{order?.status}}</span>
     </div>
 
-    <div>
+    <div class="btns">
       <div class="btns" *ngIf="auth.hasMinAccess(EUserRoles.USER)">
         <button *ngIf="order?.status === EOrderStatus.ORDERED" pButton pRipple type="button" icon="pi pi-tag" label="Generate Bill"
           (click)="onProcessOrder()"></button>

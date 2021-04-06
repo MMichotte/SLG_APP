@@ -8,6 +8,7 @@
   .supplier {
     display: flex;
     justify-content: flex-start;
+    width: max-content;
     .supplier-name {
       font-weight: 500;
       font-size: larger;
@@ -25,6 +26,7 @@
   }
 
   .btns {
+    width: max-content;
     display: flex;
     justify-content: flex-end;
 

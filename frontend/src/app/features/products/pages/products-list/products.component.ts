@@ -1,3 +1,4 @@
+import { VAT } from './../../../../core/constants/VAT';
 import { ProductFormComponent } from '../../components/product-form/product-form.component';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
@@ -58,6 +59,7 @@ export class ProductsComponent implements OnInit {
         products.map((p: Product) => {
           p.margin = Number((p.salePriceHT - p.purchasePriceHT).toFixed(2));
           p.availableQuantity = Number((p.quantity - p.reservedQuantity).toFixed(2));
+          p.salePriceTTC = Number((p.salePriceHT * VAT).toFixed(2));
           return p;
         });
         this.products = products;
