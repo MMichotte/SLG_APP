@@ -15,6 +15,7 @@ import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
 import { ProductOrderService } from '../../services/product-order.service';
 import { NewCartFormComponent } from '../../components/new-cart-form/new-cart-form.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { tableSort } from '../../../../core/helpers/table-sort';
 
 @Component({
   selector: 'app-cart-detail',
@@ -22,7 +23,8 @@ import { DialogService } from 'primeng/dynamicdialog';
   styleUrls: ['./../../../style.scss', './../common-style.scss', './cart-detail.component.scss']
 })
 export class CartDetailComponent implements OnInit {
-
+  
+  public tableSort = tableSort;
   public EUserRoles = EUserRoles;
   public EOrderStatus = EOrderStatus;
   public EProductOrderStatus = EProductOrderStatus;
@@ -135,6 +137,7 @@ export class CartDetailComponent implements OnInit {
       }
     });
     ref.onClose.subscribe(async (order?: any) => {
+      /*
       if (order && order?.isNew) {
         await this._updateSelectedProds(order);
         this._placeOrder(order.id);
@@ -143,6 +146,10 @@ export class CartDetailComponent implements OnInit {
         await this.router.navigate([`orders/${order.id}/cart`]);
         this.ngOnInit();
       }
+      */
+      await this._updateSelectedProds(order);
+      await this.router.navigate([`orders/${order.id}/cart`]);
+      this.ngOnInit();
     });
   }
 

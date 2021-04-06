@@ -37,7 +37,7 @@
 
   <div class="dtable">
     <p-table #dt [columns]="cols" [value]="productOrders" [autoLayout]="true" [paginator]="true" [scrollable]="true"
-      [rows]="25" [rowsPerPageOptions]="[25,50,100]" [sortField]="cols[3].field" [sortOrder]="-1" selectionMode="multiple" [metaKeySelection]="true"
+      [rows]="25" [rowsPerPageOptions]="[25,50,100]" [sortField]="cols[3].field" [sortOrder]="-1" (sortFunction)="tableSort($event)" [customSort]="true" selectionMode="multiple" [metaKeySelection]="true"
       [(selection)]="selectedProductOrders" styleClass="p-datatable-sm" [loading]="loadingData">
 
       <ng-template pTemplate="header" let-columns>

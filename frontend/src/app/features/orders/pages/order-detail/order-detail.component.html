@@ -30,7 +30,7 @@
 
   <div class="dtable">
     <p-table #dt [columns]="cols" [value]="productOrders" [autoLayout]="true" [paginator]="true" [scrollable]="true"
-      [rows]="25" [rowsPerPageOptions]="[25,50,100]" [sortField]="cols[1].field" [sortOrder]="1" selectionMode="single"
+      [rows]="25" [rowsPerPageOptions]="[25,50,100]" [sortField]="cols[1].field" [sortOrder]="1" (sortFunction)="tableSort($event)" [customSort]="true" selectionMode="single"
       [(selection)]="selectedProductOrder" styleClass="p-datatable-sm" [loading]="loadingData">
 
       <ng-template pTemplate="header" let-columns>

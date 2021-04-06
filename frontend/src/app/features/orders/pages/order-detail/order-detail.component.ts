@@ -11,6 +11,7 @@ import { ProductOrder } from '../../models/product-order.model';
 import { ProductOrderService } from '../../services/product-order.service';
 import { Order } from '../../models/order.model';
 import { OrderService } from '../../services/order.service';
+import { tableSort } from '../../../../core/helpers/table-sort';
 
 @Component({
   selector: 'app-order-detail',
@@ -19,6 +20,7 @@ import { OrderService } from '../../services/order.service';
 })
 export class OrderDetailComponent implements OnInit {
 
+  public tableSort = tableSort;
   public EUserRoles = EUserRoles;
   public EOrderStatus = EOrderStatus;
   public EProductOrderStatus = EProductOrderStatus;
