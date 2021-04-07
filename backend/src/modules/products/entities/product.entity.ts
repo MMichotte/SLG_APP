@@ -19,9 +19,6 @@ export class Product {
   @Column({name: 'sale_price_HT', type: 'decimal'})
   salePriceHT: number;
   
-  @Column({name: 'sale_price_TTC', type: 'decimal'})
-  salePriceTTC: number;
-
   @Column({name: 'quantity', type: 'integer'})
   quantity: number;
 

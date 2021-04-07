@@ -88,6 +88,7 @@ export class PersonsController {
       for (const [prop, val] of Object.entries(dto.address)){
         addr[prop] = val;
       }
+      addr.updatedAt = new Date();
       await this.addressService.update(addr.id, addr);
       dto.address.id = addr.id;
     } else if (!existingPerson.address && dto.address) {
@@ -99,6 +100,7 @@ export class PersonsController {
       const addr: Address = await this.addressService.findOneById(existingPerson.address.id);
       this.addressService.remove(addr.id);
     }
+    dto.updatedAt = new Date();
     const updatedPerson: Person = await this.personsService.update(id, dto);
     updatedPerson.id = id;
     

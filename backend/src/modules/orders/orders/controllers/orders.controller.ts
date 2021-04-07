@@ -99,11 +99,13 @@ export class OrdersController {
       const productOrders: ProductOrder[] = await this.productOrderService.findAllByOrderId(order.id);
       productOrders.forEach(async pO => {
         pO.status = EProductOrderStatus.ORDERED;
+        pO.updatedAt = new Date();
         await this.productOrderService.update(pO.id, pO);
       });
     }
 
     dto.supplier = order.supplier;
+    dto.updatedAt = new Date();
     const updatedOrder: Order = await this.ordersService.update(id, dto);
     updatedOrder.id = id;
     return plainToClass(SimpleOrderDTO,updatedOrder);

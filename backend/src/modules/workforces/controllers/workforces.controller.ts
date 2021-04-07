@@ -72,6 +72,7 @@ export class WorkforcesController {
     
     const workforce: Workforce | undefined = await this.workforcesService.findOneById(id);
     if (workforce == undefined) throw new NotFoundException;
+    updateWorkforceDTO.updatedAt = new Date();
     const updatedWorkforce: Workforce = await this.workforcesService.update(id, updateWorkforceDTO);
     updatedWorkforce.id = id;
     return plainToClass(SimpleWorkforceDTO,updatedWorkforce);

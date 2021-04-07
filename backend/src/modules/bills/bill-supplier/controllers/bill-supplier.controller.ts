@@ -89,6 +89,7 @@ export class BillSupplierController {
       if (quantDiff === 0) {
         // product received in the desired quantity
         prodO = this._receiveProductOrderFromDto(prodO, pO, newBill);
+        prodO.updatedAt = new Date();
         await this.productOrderService.update(prodO.id, prodO);
       } else if (quantDiff < 0) {
         // product partially received, some are in BO
@@ -113,6 +114,7 @@ export class BillSupplierController {
             bo = this._receiveProductOrderFromDto(bo,pO,newBill);
             bo.quantityReceived = remainingQuant;
             bo.id = boId;
+            bo.updatedAt = new Date();
             await this.productOrderService.update(bo.id, bo);
             await this._updateOrderStatus(bo.order);
             remainingQuant = 0;
@@ -128,6 +130,7 @@ export class BillSupplierController {
             bo = this._receiveProductOrderFromDto(bo,pO,newBill);
             bo.quantityReceived = remainingQuant;
             bo.id = boId;
+            bo.updatedAt = new Date();
             await this.productOrderService.update(bo.id, bo);
 
             await this._updateOrderStatus(bo.order);
@@ -138,6 +141,7 @@ export class BillSupplierController {
             bo = this._receiveProductOrderFromDto(bo,pO,newBill);
             bo.quantityReceived = bo.quantityOrdered;
             bo.id = boId;
+            bo.updatedAt = new Date();
             await this.productOrderService.update(bo.id, bo);
             await this._updateOrderStatus(bo.order);
             remainingQuant = remainingQuant - bo.quantityOrdered;
@@ -161,6 +165,7 @@ export class BillSupplierController {
         // update the received productOrder
         prodO = this._receiveProductOrderFromDto(prodO, pO, newBill);
         prodO.quantityReceived = prodO.quantityReceived - quantDiff + remainingQuant;
+        prodO.updatedAt = new Date();
         await this.productOrderService.update(prodO.id, prodO);
       }
       
@@ -169,6 +174,7 @@ export class BillSupplierController {
       product.purchasePriceHT = prodO.pcPurchasePriceHTAtDate;
       if (product.purchasePriceHT >= product.salePriceHT) product.salePriceHT = product.purchasePriceHT * 1.02; // set a min margin of 2%!
       product.quantity = product.quantity + prodO.quantityReceived;
+      product.updatedAt = new Date();
       await this.productsService.update(product.id, product);
 
     }));
@@ -177,6 +183,7 @@ export class BillSupplierController {
     const notReceivedProds: ProductOrder[] = (await this.productOrderService.findAllByOrderId(order.id)).filter(pO =>  pO.status === EProductOrderStatus.ORDERED);
     await Promise.all(notReceivedProds.map(async pO => {
       pO.status = EProductOrderStatus.BO;
+      pO.updatedAt = new Date();
       await this.productOrderService.update(pO.id, pO);
     }));
 
@@ -201,6 +208,7 @@ export class BillSupplierController {
     const prodsLeft: ProductOrder[] = (await this.productOrderService.findAllByOrderId(order.id)).filter(pO => pO.status !== EProductOrderStatus.RECEIVED);
     if (prodsLeft.length) order.status = EOrderStatus.PD;
     else order.status = EOrderStatus.CLOSED;
+    order.updatedAt = new Date();
     await this.ordersService.update(order.id, order);
   }
 

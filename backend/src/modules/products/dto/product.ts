@@ -22,11 +22,7 @@ export class ProductDTO {
   @Expose()
   @ApiProperty()
   salePriceHT: number;
-  
-  @Expose()
-  @ApiProperty()
-  salePriceTTC: number;
-  
+    
   @Expose()
   @ApiProperty()
   quantity: number;

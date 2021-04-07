@@ -22,11 +22,6 @@ export class CreateProductDTO {
   @IsNumber()
   @IsNotEmpty()
   salePriceHT: number;
-  
-  @ApiProperty()
-  @IsNumber()
-  @IsNotEmpty()
-  salePriceTTC: number;
 
   @ApiPropertyOptional()
   @IsOptional()

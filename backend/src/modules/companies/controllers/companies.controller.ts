@@ -145,6 +145,7 @@ export class CompaniesController {
       for (const [prop, val] of Object.entries(dto.address)){
         addr[prop] = val;
       }
+      addr.updatedAt = new Date();
       await this.addressService.update(addr.id, addr);
       dto.address.id = addr.id;
     } else if (!existingCompany.address && dto.address) {
@@ -170,6 +171,7 @@ export class CompaniesController {
       }
       delete dto.personId;
     }
+    dto.updatedAt = new Date();
     const updatedCompany: Company = await this.companiesService.update(id, dto);
     updatedCompany.id = id;
     

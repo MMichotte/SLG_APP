@@ -111,6 +111,7 @@ export class ProductsController {
     if (existingProd) if (existingProd.id !== product.id) throw new ConflictException;
     updateProductDto.quantity = product.quantity;
 
+    updateProductDto.updatedAt = new Date();
     const updatedProduct: Product = await this.productsService.update(id, updateProductDto);
     updatedProduct.id = id;
     return plainToClass(SimpleProductDTO,updatedProduct);

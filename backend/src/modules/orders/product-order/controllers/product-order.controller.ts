@@ -159,6 +159,7 @@ export class ProductOrderController {
       existingProduct[key] = value;
     }
     
+    existingProduct.updatedAt = new Date();
     const updatedProductOrder: ProductOrder = await this.productOrderService.update(id, existingProduct);
     updatedProductOrder.id = id;
 
