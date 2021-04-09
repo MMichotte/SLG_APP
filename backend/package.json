@@ -9,7 +9,7 @@
     "start": "nest start",
     "start:dev": "npm run prebuild:dev && npm run copy-assets && nest start --watch ",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/src/main",
     "prebuild:dev": "npm run prebuild && mkdir dist dist/src/",
     "prebuild": "rimraf dist",
     "build": "nest build && npm run copy-assets",
