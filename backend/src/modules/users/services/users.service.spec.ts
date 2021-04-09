@@ -1,4 +1,4 @@
-import { BcryptService } from '../../../core/helpers/bcrypt.service';
+import { BcryptService } from '../../../core/services/bcrypt.service';
 import { UserRepository } from './../repositories/users.repository';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';

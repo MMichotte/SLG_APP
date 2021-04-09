@@ -4,8 +4,8 @@ import { Company } from './../../../companies/entities/company.entity';
 import { ProductOrder } from './../../product-order/entities/product-order.entity';
 import { CreateOrderDTO } from './../dto/create-order.dto';
 import { SimpleOrderDTO } from './../dto/simple.order.dto';
-import { BadRequestException, Body, Controller, Delete, ForbiddenException, Get, NotFoundException, Param, Patch, Post, UseGuards, ConflictException, Query } from '@nestjs/common';
-import { ApiTags, ApiBearerAuth, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { BadRequestException, Body, Controller, Delete, ForbiddenException, Get, NotFoundException, Param, Patch, Post, UseGuards, ConflictException, Query, Header, Res } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth, ApiResponse, ApiQuery, ApiProduces } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
 import { Order } from './../entities/order.entity';
 import { OrderDTO } from './../dto/order.dto';
@@ -17,8 +17,10 @@ import { EUserRoles } from '../../../users/enums/user-roles.enum';
 import { ProductOrderService } from '../../product-order/services/product-order.service';
 import { EProductOrderStatus } from '../../product-order/enums/product-order-status.enum';
 import { validate } from 'class-validator';
-import { ECompanyType } from 'src/modules/companies/enums/company-type.enum';
+import { ECompanyType } from '../../../companies/enums/company-type.enum';
 import { UpdateOrderDTO } from '../dto/update-order.dto';
+import { PDFMakeHelper } from '../../../../core/helpers/pdf-make.helper';
+import { Response } from 'express';
 
 @Controller('orders')
 @UseGuards(RolesGuard)
@@ -26,16 +28,16 @@ import { UpdateOrderDTO } from '../dto/update-order.dto';
 @ApiTags('orders')
 @ApiBearerAuth()
 export class OrdersController {
-  
+
   constructor(
     private readonly ordersService: OrdersService,
     private readonly productOrderService: ProductOrderService,
     private readonly companiesService: CompaniesService
-  ) {}
+  ) { }
 
   @Get()
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
-  @ApiQuery({name: 'status', enum: EOrderStatus, required: false})
+  @ApiQuery({ name: 'status', enum: EOrderStatus, required: false })
   @ApiResponse({
     status: 200,
     type: OrderDTO,
@@ -43,9 +45,9 @@ export class OrdersController {
   })
   async findAll(@Query('status') status?: EOrderStatus): Promise<OrderDTO[]> {
     const orders: Order[] = await this.ordersService.findAll(status);
-    return plainToClass(OrderDTO,orders);
+    return plainToClass(OrderDTO, orders);
   }
-  
+
   @Get(':id')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiResponse({
@@ -54,7 +56,88 @@ export class OrdersController {
   })
   async findOne(@Param('id') id: number): Promise<OrderDTO> {
     const order: Order = await this.ordersService.findOneById(id);
-    return plainToClass(OrderDTO,order);
+    return plainToClass(OrderDTO, order);
+  }
+
+  @Get(':id/download/pdf')
+  @Header('content-type', 'application/pdf')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiResponse({
+    status: 200,
+    type: ArrayBuffer
+  })
+  @ApiProduces('application/pdf')
+  async genPdf(@Param('id') id: number, @Res() response: Response): Promise<any> {
+
+    const todayDate: string = (new Date()).toISOString().split('T')[0];
+
+    const docDefinition = {
+      pageMargins: [40, 150, 40, 40],
+      header: {
+        image: './src/shared/img/entete_Factures_INTL.jpg',
+        width: '595.28'
+      },
+      footer: function (currentPage, pageCount) {
+        return [{
+          width: '100%',
+          alignment: 'right',
+          margin: [40, 0],
+          text: `${currentPage}/${pageCount}`
+        }];
+      },
+      content: [
+        {
+          columns: [
+            {
+              width: '33%',
+              alignment: 'left',
+              text: '-'
+            },
+            {
+              width: '33%',
+              alignment: 'center',
+              text: 'ORDER'
+            },
+            {
+              width: '33%',
+              alignment: 'right',
+              text: todayDate
+            }
+          ],
+          columnGap: 10,
+          margin: [0, 0, 0, 20]
+        },
+        {
+          table: {
+            headerRows: 1,
+            widths: ['auto', '*', 100],
+
+            body: [
+              [{ text: 'Reference', bold: true, fillColor: '#eeeeee' }, { text: 'Designation', bold: true, fillColor: '#eeeeee' }, { text: 'Quantity', bold: true, fillColor: '#eeeeee' }]
+            ]
+          }
+        }
+      ]
+    };
+
+    const products: ProductOrder[] = await this.productOrderService.findAllByOrderId(id);
+    products.forEach((prod: ProductOrder) => {
+      docDefinition.content[1].table.body.push([
+        { text: prod.product.reference, bold: false, fillColor: null },
+        { text: prod.product.label, bold: false, fillColor: null },
+        { text: prod.quantityOrdered.toString(), bold: false, fillColor: null }
+      ]);
+    });
+
+    const order: Order = await this.ordersService.findOneById(id);
+    docDefinition.content[0].columns[0].text = order.supplier.name;
+    
+    const title = `order_${order.supplier.name}_${todayDate}`;
+
+    const buffer = await PDFMakeHelper.generatePDF(docDefinition);
+    response.contentType('application/pdf');
+    response.setHeader('Content-Disposition', `attachment; filename="${title}"`);
+    response.send(buffer);
   }
 
   @Post()
@@ -77,9 +160,9 @@ export class OrdersController {
 
     dto.supplier = supplier;
     const newOrder: Order = await this.ordersService.create(dto);
-    return plainToClass(SimpleOrderDTO,newOrder);
+    return plainToClass(SimpleOrderDTO, newOrder);
   }
-  
+
   @Patch(':id')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
   @ApiResponse({
@@ -108,7 +191,7 @@ export class OrdersController {
     dto.updatedAt = new Date();
     const updatedOrder: Order = await this.ordersService.update(id, dto);
     updatedOrder.id = id;
-    return plainToClass(SimpleOrderDTO,updatedOrder);
+    return plainToClass(SimpleOrderDTO, updatedOrder);
   }
 
   @Delete(':id')
@@ -116,13 +199,13 @@ export class OrdersController {
   async remove(@Param('id') id: number) {
     const order: Order | undefined = await this.ordersService.findOneById(id);
     if (!order) throw new NotFoundException;
-    
+
     const orderProducts: ProductOrder[] = await this.productOrderService.findAllByOrderId(id);
     const receivedProducts: ProductOrder[] = orderProducts.filter(
       (pO: ProductOrder) => pO.status === EProductOrderStatus.RECEIVED
     );
     if (receivedProducts.length) throw new ConflictException;
-    
+
     orderProducts.forEach(async (pO: ProductOrder) => {
       await this.productOrderService.remove(pO.id);
     });

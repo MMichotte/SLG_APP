@@ -6,8 +6,8 @@ import { AuthService } from './services/auth.service';
 import { AuthController } from './controllers/auth.controller';
 import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
-import { BcryptService } from '../../core/helpers/bcrypt.service';
-import { JwtTokenService } from '../../core/helpers/jwt-token.service';
+import { BcryptService } from '../../core/services/bcrypt.service';
+import { JwtTokenService } from '../../core/services/jwt-token.service';
 import env from '../../config/env';
 
 @Module({
