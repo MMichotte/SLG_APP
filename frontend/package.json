@@ -29,6 +29,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
     "jwt-decode": "^3.1.2",
+    "ng2-pdfjs-viewer": "^6.0.1",
     "popper.js": "^1.16.1",
     "primeflex": "^2.0.0",
     "primeicons": "^4.1.0",

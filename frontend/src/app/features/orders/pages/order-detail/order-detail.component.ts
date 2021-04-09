@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { EUserRoles } from '../../../../core/enums/user-roles.enum';
@@ -20,6 +20,8 @@ import { tableSort } from '../../../../core/helpers/table-sort';
 })
 export class OrderDetailComponent implements OnInit {
 
+  @ViewChild('pdfViewerOnDemand') pdfViewerOnDemand;
+  
   public tableSort = tableSort;
   public EUserRoles = EUserRoles;
   public EOrderStatus = EOrderStatus;
@@ -84,6 +86,23 @@ export class OrderDetailComponent implements OnInit {
 
   onProcessOrder(): void {
     this.router.navigate([`orders/${this.order.id}/generate-bill`]);
+  }
+
+  onGeneratePdf(): void {
+    this.orderService.downloadPdf(this.order.id).subscribe(
+      (res: any) => {
+        const pdfTitle = res.headers.get('content-disposition').split('filename=').pop().replaceAll('"', '');
+        const pdfContent = new Blob([res.body], { type: 'application/pdf' });
+
+        this.pdfViewerOnDemand.downloadFileName = pdfTitle;
+        this.pdfViewerOnDemand.pdfSrc = pdfContent;
+        this.pdfViewerOnDemand.refresh();
+    
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   async deleteProductOrder(prod: ProductOrder): Promise<void> {

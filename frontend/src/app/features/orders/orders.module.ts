@@ -29,6 +29,7 @@ import { ProductOrderService } from './services/product-order.service';
 import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 import { BillingModule } from '../billing/billing.module';
 import { ProductProcessFormComponent } from './components/product-process-form/product-process-form.component';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 
 @NgModule({
   declarations: [OrdersComponent, CartDetailComponent, NewCartFormComponent, ProductOrderFormComponent, OrderProcessComponent, OrderDetailComponent, ProductProcessFormComponent],
@@ -51,7 +52,8 @@ import { ProductProcessFormComponent } from './components/product-process-form/p
     ConfirmDialogModule,
     SuppliersModule,
     ProductsModule,
-    BillingModule
+    BillingModule,
+    PdfJsViewerModule
   ],
   providers: [OrderService, ProductOrderService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
 })

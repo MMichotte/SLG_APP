@@ -21,6 +21,10 @@
     </div>
 
     <div class="btns">
+      <div class="btns">
+        <button *ngIf="order?.status === EOrderStatus.ORDERED" pButton pRipple type="button" icon="pi pi-tag" label="Generate PDF"
+          (click)="onGeneratePdf()"></button>
+      </div>
       <div class="btns" *ngIf="auth.hasMinAccess(EUserRoles.USER)">
         <button *ngIf="order?.status === EOrderStatus.ORDERED" pButton pRipple type="button" icon="pi pi-tag" label="Generate Bill"
           (click)="onProcessOrder()"></button>
@@ -70,3 +74,9 @@
   </div>
 
 </div>
+
+<ng2-pdfjs-viewer 
+  #pdfViewerOnDemand
+  [externalWindow]="true"
+  [viewBookmark]="false">
+</ng2-pdfjs-viewer>

@@ -82,3 +82,9 @@
 <p-confirmDialog key="local_confirm" [style]="{width: '30%'}" acceptLabel="Place order" acceptIcon="pi pi-send"
   rejectLabel="Only generate pdf" rejectIcon="pi pi-file-pdf" rejectButtonStyleClass="p-button-info"
   defaultFocus="accept"></p-confirmDialog>
+
+<ng2-pdfjs-viewer 
+  #pdfViewerOnDemand
+  [externalWindow]="true"
+  [viewBookmark]="false">
+</ng2-pdfjs-viewer>

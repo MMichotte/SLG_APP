@@ -1,6 +1,6 @@
 import { UpdateProductOrderSimpleDTO } from './../../dto/update-product-order-simple.dto';
 import { UpdateOrderDTO } from '../../dto/update-order.dto';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../../core/services/auth.service';
 import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
@@ -23,6 +23,8 @@ import { tableSort } from '../../../../core/helpers/table-sort';
   styleUrls: ['./../../../style.scss', './../common-style.scss', './cart-detail.component.scss']
 })
 export class CartDetailComponent implements OnInit {
+  
+  @ViewChild('pdfViewerOnDemand') pdfViewerOnDemand;
   
   public tableSort = tableSort;
   public EUserRoles = EUserRoles;
@@ -112,9 +114,26 @@ export class CartDetailComponent implements OnInit {
     if (confirm) {
       // placing order
       this._placeOrder(this.cart.id);
-    } else {
-      // only generating pdf
     }
+    // generating pdf
+    this._getPdf();
+  }
+
+  private _getPdf(): void {
+    this.orderService.downloadPdf(this.cart.id).subscribe(
+      (res: any) => {
+        const pdfTitle = res.headers.get('content-disposition').split('filename=').pop().replaceAll('"', '');
+        const pdfContent = new Blob([res.body], { type: 'application/pdf' });
+
+        this.pdfViewerOnDemand.downloadFileName = pdfTitle;
+        this.pdfViewerOnDemand.pdfSrc = pdfContent;
+        this.pdfViewerOnDemand.refresh();
+    
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   private _placeOrder(orderId: number): void {

@@ -36,6 +36,10 @@ export class OrderService {
   delete(id: number): any {
     return this.httpClient.delete(`${this.endpoint}/${id}`);
   }
+
+  downloadPdf(id: number): any {
+    return this.httpClient.get(`${this.endpoint}/${id}/download/pdf`, { observe: 'response', responseType: 'arraybuffer' });
+  }
   
   // ------- //
   getAllLightProducts(search?: string): any {
