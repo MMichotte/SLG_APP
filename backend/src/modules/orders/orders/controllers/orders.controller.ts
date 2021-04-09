@@ -21,6 +21,7 @@ import { ECompanyType } from '../../../companies/enums/company-type.enum';
 import { UpdateOrderDTO } from '../dto/update-order.dto';
 import { PDFMakeHelper } from '../../../../core/helpers/pdf-make.helper';
 import { Response } from 'express';
+import { join } from 'path';
 
 @Controller('orders')
 @UseGuards(RolesGuard)
@@ -74,7 +75,7 @@ export class OrdersController {
     const docDefinition = {
       pageMargins: [40, 150, 40, 40],
       header: {
-        image: './src/shared/img/entete_Factures_INTL.jpg',
+        image: join(__dirname,'../../../../shared/img/entete_Factures_INTL.jpg'),
         width: '595.28'
       },
       footer: function (currentPage, pageCount) {
