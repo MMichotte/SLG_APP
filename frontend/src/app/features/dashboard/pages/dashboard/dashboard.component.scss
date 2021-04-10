@@ -9,6 +9,8 @@ $boxSize: 16rem;
     justify-content: center;
     flex-wrap: wrap;
     height: 100%;
+    max-width: calc(4 * 16rem + 10rem);
+    margin: 0 auto;
 
     .box{
       width: $boxSize;
