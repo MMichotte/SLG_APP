@@ -3,6 +3,7 @@ $expandedWidth: 12rem;
 
 .main-container{
   display: flex;
+  height: 100%;
 
   .sideNav {
     background-color: var(--secColor3);
@@ -12,6 +13,7 @@ $expandedWidth: 12rem;
     transition: margin-left 450ms ease;
     margin-left: $baseWidth;
     flex-grow: 1;
+    height: 100%;
   }
 
 }

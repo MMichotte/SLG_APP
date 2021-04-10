@@ -1,0 +1,47 @@
+$boxSize: 16rem;
+
+.page {
+  height: 100%;
+
+  .cont {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100%;
+
+    .box{
+      width: $boxSize;
+      height: $boxSize;
+      margin: 1rem;
+      text-decoration: none !important;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .fas {
+        color: var(--mainColor1);
+        font-size: 4rem;
+        margin: 0.5rem;
+      }
+
+      .link-text {
+        font-size: x-large;
+        font-weight: 500;
+        margin: 0.5rem;
+      }
+    }
+    
+    .box:hover,
+    .box:active {
+      transform: scale(1.05);
+      cursor: pointer;
+      box-shadow: 0px 0px 30px 3px rgba(76,175,79,1);
+      outline: none;
+    }
+
+  }
+
+}
