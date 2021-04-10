@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber } from 'class-validator';
-import { Company } from '../../../companies/entities/company.entity';
+import { Company } from '@modules/companies/entities/company.entity';
 import { EOrderStatus } from '../enums/order-status.enum';
 
 export class CreateOrderDTO {

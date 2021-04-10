@@ -1,6 +1,6 @@
 import { EOrderStatus } from './../enums/order-status.enum';
-import { CompaniesService } from './../../../companies/services/companies.service';
-import { Company } from './../../../companies/entities/company.entity';
+import { CompaniesService } from '@modules/companies/services/companies.service';
+import { Company } from '@modules/companies/entities/company.entity';
 import { ProductOrder } from './../../product-order/entities/product-order.entity';
 import { CreateOrderDTO } from './../dto/create-order.dto';
 import { SimpleOrderDTO } from './../dto/simple.order.dto';
@@ -9,17 +9,17 @@ import { ApiTags, ApiBearerAuth, ApiResponse, ApiQuery, ApiProduces } from '@nes
 import { plainToClass } from 'class-transformer';
 import { Order } from './../entities/order.entity';
 import { OrderDTO } from './../dto/order.dto';
-import { JwtAuthGuard } from '../../../../core/guards/jwt-auth.guard';
-import { RolesGuard } from '../../../../core/guards/roles.guard';
+import { JwtAuthGuard } from '@core/guards/jwt-auth.guard';
+import { RolesGuard } from '@core/guards/roles.guard';
 import { OrdersService } from '../services/orders.service';
-import { Roles } from '../../../../core/decorators/roles.decorator';
-import { EUserRoles } from '../../../users/enums/user-roles.enum';
+import { Roles } from '@core/decorators/roles.decorator';
+import { EUserRoles } from '@modules/users/enums/user-roles.enum';
 import { ProductOrderService } from '../../product-order/services/product-order.service';
 import { EProductOrderStatus } from '../../product-order/enums/product-order-status.enum';
 import { validate } from 'class-validator';
-import { ECompanyType } from '../../../companies/enums/company-type.enum';
+import { ECompanyType } from '@modules/companies/enums/company-type.enum';
 import { UpdateOrderDTO } from '../dto/update-order.dto';
-import { PDFMakeHelper } from '../../../../core/helpers/pdf-make.helper';
+import { PDFMakeHelper } from '@core/helpers/pdf-make.helper';
 import { Response } from 'express';
 import { join } from 'path';
 

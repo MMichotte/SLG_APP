@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsOptional, IsString, IsEnum } from 'class-validator';
-import { Product } from '../../products/entities/product.entity';
+import { Product } from '@modules/products/entities/product.entity';
 import { EStockUpdateType } from '../enums/stock-update-type.enum';
 
 export class CreateStockUpdateDTO {

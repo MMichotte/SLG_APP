@@ -11,6 +11,12 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "moduleResolution": "node",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "@config/*": ["src/config/*"],
+      "@core/*": ["src/core/*"],
+      "@shared/*": ["src/shared/*"],
+      "@modules/*": ["src/modules/*"]
+    }
   }
 }

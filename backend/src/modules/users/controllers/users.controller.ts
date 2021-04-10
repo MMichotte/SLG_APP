@@ -4,11 +4,11 @@ import { UsersService } from '../services/users.service';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDTO } from '../dto/create-user.dto';
 import { UpdateUserDTO } from '../dto/update-user.dto';
-import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '@core/guards/jwt-auth.guard';
 import { SimpleUserDTO } from '../dto/simmple-user.dto';
 import { User } from '../entities/user.entity';
-import { RolesGuard } from '../../../core/guards/roles.guard';
-import { Roles } from '../../../core/decorators/roles.decorator';
+import { RolesGuard } from '@core/guards/roles.guard';
+import { Roles } from '@core/decorators/roles.decorator';
 import { EUserRoles } from '../enums/user-roles.enum';
 import { plainToClass } from 'class-transformer';
 

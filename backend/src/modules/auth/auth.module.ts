@@ -4,11 +4,11 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategies/local.strategy';
 import { AuthService } from './services/auth.service';
 import { AuthController } from './controllers/auth.controller';
-import { UsersModule } from '../users/users.module';
+import { UsersModule } from '@modules/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
-import { BcryptService } from '../../core/services/bcrypt.service';
-import { JwtTokenService } from '../../core/services/jwt-token.service';
-import env from '../../config/env';
+import { BcryptService } from '@core/services/bcrypt.service';
+import { JwtTokenService } from '@core/services/jwt-token.service';
+import env from '@config/env';
 
 @Module({
   imports: [

@@ -4,7 +4,7 @@ import { User } from '../entities/user.entity';
 import { CreateUserDTO } from '../dto/create-user.dto';
 import { UpdateUserDTO } from '../dto/update-user.dto';
 import { EUserRoles } from '../enums/user-roles.enum';
-import { BcryptService } from '../../../core/services/bcrypt.service';
+import { BcryptService } from '@core/services/bcrypt.service';
 
 @Injectable()
 export class UsersService {

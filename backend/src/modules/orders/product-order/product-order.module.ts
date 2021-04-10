@@ -4,7 +4,7 @@ import { forwardRef, Module } from '@nestjs/common';
 import { ProductOrderService } from './services/product-order.service';
 import { ProductOrderController } from './controllers/product-order.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductsModule } from '../../products/products.module';
+import { ProductsModule } from '@modules/products/products.module';
 
 @Module({
   imports: [

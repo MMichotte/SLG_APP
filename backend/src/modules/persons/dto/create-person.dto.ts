@@ -1,4 +1,4 @@
-import { CreateAddressDTO } from '../../adresses/dto/create-address.dto';
+import { CreateAddressDTO } from '@modules/adresses/dto/create-address.dto';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ECivility } from '../enums/ECivility.enum';

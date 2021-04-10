@@ -1,4 +1,4 @@
-import { rootPath } from './../constants/root.path';
+import { rootPath } from '@core/constants/root.path';
 import { Request, Response, NextFunction } from 'express';
 import { join } from 'path';
 

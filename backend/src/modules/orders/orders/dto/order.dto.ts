@@ -1,4 +1,4 @@
-import { CompanyDTO } from './../../../companies/dto/company.dto';
+import { CompanyDTO } from '@modules/companies/dto/company.dto';
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import { EOrderStatus } from '../enums/order-status.enum';

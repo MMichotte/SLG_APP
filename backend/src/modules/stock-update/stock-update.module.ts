@@ -3,7 +3,7 @@ import { forwardRef, Module } from '@nestjs/common';
 import { StockUpdateService } from './services/stock-update.service';
 import { StockUpdateController } from './controllers/stock-update.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductsModule } from './../products/products.module';
+import { ProductsModule } from '@modules/products/products.module';
 
 @Module({
   imports: [

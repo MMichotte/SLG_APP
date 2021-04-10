@@ -1,4 +1,4 @@
-import { BillSupplier } from '../../../bills/bill-supplier/entities/bill-supplier.entity';
+import { BillSupplier } from '@modules/bills/bill-supplier/entities/bill-supplier.entity';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from 'class-validator';
 

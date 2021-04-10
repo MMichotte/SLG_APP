@@ -1,8 +1,8 @@
 import { ECompanyType } from './../enums/company-type.enum';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString, IsNumber, IsEnum } from 'class-validator';
-import { CreateAddressDTO } from '../../adresses/dto/create-address.dto';
-import { Person } from '../../persons/entities/person.entity';
+import { CreateAddressDTO } from '@modules/adresses/dto/create-address.dto';
+import { Person } from '@modules/persons/entities/person.entity';
 
 export class CreateCompanyDTO {
   

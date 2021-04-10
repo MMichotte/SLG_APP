@@ -1,7 +1,7 @@
 import { ECompanyType } from './../enums/company-type.enum';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne, Index, ManyToOne } from 'typeorm';
-import { Person } from '../../persons/entities/person.entity';
-import { Address } from '../../adresses/entities/address.entity';
+import { Person } from '@modules/persons/entities/person.entity';
+import { Address } from '@modules/adresses/entities/address.entity';
 
 @Entity({ name: 'company' })
 export class Company {

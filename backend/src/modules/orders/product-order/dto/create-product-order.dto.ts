@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Order } from '../../orders/entities/order.entity';
-import { Product } from '../../../products/entities/product.entity';
+import { Product } from '@modules/products/entities/product.entity';
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 import { EProductOrderStatus } from '../enums/product-order-status.enum';
 

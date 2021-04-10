@@ -1,5 +1,5 @@
-import { ProductsModule } from './../../products/products.module';
-import { CompaniesModule } from './../../companies/companies.module';
+import { ProductsModule } from '@modules/products/products.module';
+import { CompaniesModule } from '@modules/companies/companies.module';
 import { ProductOrderModule } from './../product-order/product-order.module';
 import { forwardRef, Module } from '@nestjs/common';
 import { OrdersService } from './services/orders.service';

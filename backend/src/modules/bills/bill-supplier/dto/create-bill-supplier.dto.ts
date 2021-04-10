@@ -1,4 +1,4 @@
-import { UpdateProductOrderProcessDTO } from './../../../orders/product-order/dto/update-product-order-process.dto';
+import { UpdateProductOrderProcessDTO } from '@modules/orders/product-order/dto/update-product-order-process.dto';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 

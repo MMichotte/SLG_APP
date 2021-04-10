@@ -2,12 +2,12 @@ import { plainToClass } from 'class-transformer';
 import { AddressDTO } from './../dto/address.dto';
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
-import { RolesGuard } from '../../../core/guards/roles.guard';
-import { EUserRoles } from '../../../modules/users/enums/user-roles.enum';
+import { JwtAuthGuard } from '@core/guards/jwt-auth.guard';
+import { RolesGuard } from '@core/guards/roles.guard';
+import { EUserRoles } from '@modules/users/enums/user-roles.enum';
 import { AddressesService } from '../services/addresses.service';
 import { Address } from '../entities/address.entity';
-import { Roles } from '../../../core/decorators/roles.decorator';
+import { Roles } from '@core/decorators/roles.decorator';
 
 @Controller('addresses')
 @UseGuards(RolesGuard)

@@ -1,4 +1,4 @@
-import { ProductDTO } from './../../../products/dto/product';
+import { ProductDTO } from '@modules/products/dto/product';
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { EProductOrderStatus } from '../enums/product-order-status.enum';

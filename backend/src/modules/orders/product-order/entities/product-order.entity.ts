@@ -1,7 +1,7 @@
-import { BillSupplier } from './../../../bills/bill-supplier/entities/bill-supplier.entity';
+import { BillSupplier } from '@modules/bills/bill-supplier/entities/bill-supplier.entity';
 import { Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne, Column } from 'typeorm';
 import { Order } from './../../orders/entities/order.entity';
-import { Product } from './../../../products/entities/product.entity';
+import { Product } from '@modules/products/entities/product.entity';
 import { EProductOrderStatus } from './../enums/product-order-status.enum';
 
 @Entity({ name: 'product_order' })

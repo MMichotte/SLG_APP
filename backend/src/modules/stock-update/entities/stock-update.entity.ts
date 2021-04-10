@@ -1,4 +1,4 @@
-import { Product } from '../../products/entities/product.entity';
+import { Product } from '@modules/products/entities/product.entity';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { EStockUpdateType } from '../enums/stock-update-type.enum';
 

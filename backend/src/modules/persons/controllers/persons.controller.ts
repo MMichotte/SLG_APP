@@ -1,18 +1,18 @@
-import { AddressesService } from '../../adresses/services/addresses.service';
+import { AddressesService } from '@modules/adresses/services/addresses.service';
 import { UpdatePersonDTO } from '../dto/update-person.dto';
 import { CreatePersonDTO } from '../dto/create-person.dto';
 import { SimplePersonDTO } from '../dto/simple-person.dto';
 import { Body, Controller, Delete, Get, Param, Post, UseGuards, ConflictException, NotFoundException, Patch, BadRequestException } from '@nestjs/common';
-import { Roles } from '../../../core/decorators/roles.decorator';
+import { Roles } from '@core/decorators/roles.decorator';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { EUserRoles } from '../../users/enums/user-roles.enum';
+import { EUserRoles } from '@modules/users/enums/user-roles.enum';
 import { PersonsService } from '../services/persons.service';
 import { PersonDTO } from '../dto/person.dto';
 import { Person } from '../entities/person.entity';
 import { plainToClass } from 'class-transformer';
-import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
-import { RolesGuard } from '../../../core/guards/roles.guard';
-import { Address } from '../../adresses/entities/address.entity';
+import { JwtAuthGuard } from '@core/guards/jwt-auth.guard';
+import { RolesGuard } from '@core/guards/roles.guard';
+import { Address } from '@modules/adresses/entities/address.entity';
 import { validate } from 'class-validator';
 
 @Controller('persons')

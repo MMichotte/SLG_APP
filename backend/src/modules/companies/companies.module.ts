@@ -4,7 +4,7 @@ import { Module } from '@nestjs/common';
 import { CompaniesService } from './services/companies.service';
 import { CompaniesController } from './controllers/companies.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AddressesModule } from '../adresses/addresses.module';
+import { AddressesModule } from '@modules/adresses/addresses.module';
 
 @Module({
   imports: [

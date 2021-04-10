@@ -4,8 +4,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import * as helmet from 'helmet';
 import * as csurf from 'csurf';
-import env from './config/env';
-import { FrontendMiddleware } from './core/middlewares/frontend.middleware';
+import env from '@config/env';
+import { FrontendMiddleware } from '@core/middlewares/frontend.middleware';
 
 
 async function bootstrap() {

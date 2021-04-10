@@ -1,20 +1,20 @@
-import { PersonsService } from './../../persons/services/persons.service';
+import { PersonsService } from '@modules/persons/services/persons.service';
 import { UpdateCompanyDTO } from './../dto/update-company.dto';
 import { CreateCompanyDTO } from './../dto/create-company.dto';
 import { SimpleCompanyDTO } from './../dto/simple-company.dto';
 import { Company } from './../entities/company.entity';
-import { EUserRoles } from './../../users/enums/user-roles.enum';
+import { EUserRoles } from '@modules/users/enums/user-roles.enum';
 import { CompanyDTO } from './../dto/company.dto';
-import { Roles } from './../../../core/decorators/roles.decorator';
+import { Roles } from '@core/decorators/roles.decorator';
 import { Body, Controller, Get, Param, Post, UseGuards, ConflictException, Delete, NotFoundException, Patch, BadRequestException } from '@nestjs/common';
-import { AddressesService } from './../../adresses/services/addresses.service';
+import { AddressesService } from '@modules/adresses/services/addresses.service';
 import { CompaniesService } from '../services/companies.service';
 import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../../../core/guards/jwt-auth.guard';
-import { RolesGuard } from '../../../core/guards/roles.guard';
+import { JwtAuthGuard } from '@core/guards/jwt-auth.guard';
+import { RolesGuard } from '@core/guards/roles.guard';
 import { plainToClass } from 'class-transformer';
-import { Address } from '../../adresses/entities/address.entity';
-import { Person } from '../../persons/entities/person.entity';
+import { Address } from '@modules/adresses/entities/address.entity';
+import { Person } from '@modules/persons/entities/person.entity';
 import { validate } from 'class-validator';
 import { LightCompanyDTO } from '../dto/light-company.dto';
 

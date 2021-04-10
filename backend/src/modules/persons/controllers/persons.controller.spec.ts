@@ -1,5 +1,5 @@
-import { AddressRepository } from '../../adresses/repositories/address.repository';
-import { AddressesService } from '../../adresses/services/addresses.service';
+import { AddressRepository } from '@modules/adresses/repositories/address.repository';
+import { AddressesService } from '@modules/adresses/services/addresses.service';
 import { PersonRepository } from '../repositories/person.repository';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PersonsController } from './persons.controller';

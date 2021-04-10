@@ -1,4 +1,4 @@
-import { AddressDTO } from '../../adresses/dto/address.dto';
+import { AddressDTO } from '@modules/adresses/dto/address.dto';
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { ECivility } from '../enums/ECivility.enum';
