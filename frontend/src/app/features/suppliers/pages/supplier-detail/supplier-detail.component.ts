@@ -1,13 +1,13 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ECompanyDisplayType } from '../../../companies/enums/company-type.enum';
-import { Company } from '../../../companies/models/company.model';
-import { CompaniesService } from './../../../companies/services/companies.service';
+import { ECompanyDisplayType } from '@features/companies/enums/company-type.enum';
+import { Company } from '@features/companies/models/company.model';
+import { CompaniesService } from '@features/companies/services/companies.service';
 
 @Component({
   selector: 'app-supplier-detail',
   templateUrl: './supplier-detail.component.html',
-  styleUrls: ['./../../../style.scss', './supplier-detail.component.scss']
+  styleUrls: ['../../../../shared/styles/style.scss', './supplier-detail.component.scss']
 })
 export class SupplierDetailComponent implements OnInit {
 

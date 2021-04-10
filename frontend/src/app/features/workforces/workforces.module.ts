@@ -13,9 +13,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
-import { ConfirmDialogService } from 'src/app/core/services/confirm-dialog.service';
-import { ToastService } from 'src/app/core/services/toast.service';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
+import { ToastService } from '@core/services/toast.service';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [WorkforcesComponent, WorkforceFormComponent],

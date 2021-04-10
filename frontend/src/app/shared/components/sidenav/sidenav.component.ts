@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, ViewEncapsulation, EventEmitter, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { EUserRoles } from '../../../core/enums/user-roles.enum';
-import { AuthService } from '../../../core/services/auth.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-sidenav',

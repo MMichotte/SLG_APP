@@ -1,16 +1,16 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../../core/services/auth.service';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { AuthService } from '@core/services/auth.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
 import { OrderService } from './../../services/order.service';
 import { LightProduct } from '../../models/light-product';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ProductFormComponent } from '../../../products/components/product-form/product-form.component';
+import { ProductFormComponent } from '@features/products/components/product-form/product-form.component';
 
 @Component({
   selector: 'app-product-process-form',
   templateUrl: './product-process-form.component.html',
-  styleUrls: ['../../../form.scss', './product-process-form.component.scss']
+  styleUrls: ['../../../../shared/styles/form.scss', './product-process-form.component.scss']
 })
 export class ProductProcessFormComponent implements OnInit {
 

@@ -3,13 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../models/product.model';
 import { ProductTransaction } from '../../models/product-transaction.model';
 import { ProductService } from '../../services/product.service';
-import { VAT } from '../../../../core/constants/VAT';
-import { tableSort } from '../../../../core/helpers/table-sort';
+import { VAT } from '@core/constants/VAT';
+import { tableSort } from '@core/helpers/table-sort';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./../../../style.scss', './product-detail.component.scss'],
+  styleUrls: ['../../../../shared/styles/style.scss', './product-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ProductDetailComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { VAT } from './../../../../core/constants/VAT';
+import { VAT } from '@core/constants/VAT';
 import { ProductFormComponent } from '../../components/product-form/product-form.component';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
@@ -7,13 +7,13 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { SortEvent } from 'primeng/api';
 import { Router } from '@angular/router';
 import { Table } from 'primeng/table';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
-import { AuthService } from '../../../../core/services/auth.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./../../../style.scss', './products.component.scss'],
+  styleUrls: ['../../../../shared/styles/style.scss', './products.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ProductsComponent implements OnInit {

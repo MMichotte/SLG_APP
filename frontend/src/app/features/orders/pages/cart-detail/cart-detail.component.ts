@@ -2,25 +2,25 @@ import { UpdateProductOrderSimpleDTO } from './../../dto/update-product-order-si
 import { UpdateOrderDTO } from '../../dto/update-order.dto';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../../../../core/services/auth.service';
-import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
-import { ToastService } from '../../../../core/services/toast.service';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { AuthService } from '@core/services/auth.service';
+import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
+import { ToastService } from '@core/services/toast.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
 import { EOrderStatus } from '../../enums/order-status.enum';
 import { EProductOrderStatus } from '../../enums/product-order-status.enum';
 import { ProductOrder } from '../../models/product-order.model';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../models/order.model';
-import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
+import { EToastSeverities } from '@core/enums/toast-severity.enum';
 import { ProductOrderService } from '../../services/product-order.service';
 import { NewCartFormComponent } from '../../components/new-cart-form/new-cart-form.component';
 import { DialogService } from 'primeng/dynamicdialog';
-import { tableSort } from '../../../../core/helpers/table-sort';
+import { tableSort } from '@core/helpers/table-sort';
 
 @Component({
   selector: 'app-cart-detail',
   templateUrl: './cart-detail.component.html',
-  styleUrls: ['./../../../style.scss', './../common-style.scss', './cart-detail.component.scss']
+  styleUrls: ['../../../../shared/styles/style.scss', './../common-style.scss', './cart-detail.component.scss']
 })
 export class CartDetailComponent implements OnInit {
   

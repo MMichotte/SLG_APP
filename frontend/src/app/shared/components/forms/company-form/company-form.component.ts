@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, ControlContainer } from '@angular/forms';
-import { enumToObjArray } from '../../../../core/helpers/enum-to-obj-array';
-import { ECompanyType } from '../../../../features/companies/enums/company-type.enum';
-import { Client } from '../../../../features/clients/models/client.model';
+import { enumToObjArray } from '@core/helpers/enum-to-obj-array';
+import { ECompanyType } from '@features/companies/enums/company-type.enum';
+import { Client } from '@features/clients/models/client.model';
 
 @Component({
   selector: 'app-company-form',

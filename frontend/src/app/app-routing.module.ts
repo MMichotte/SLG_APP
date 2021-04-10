@@ -1,8 +1,8 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EUserRoles } from './core/enums/user-roles.enum';
-import { AuthGuard } from './core/guards/auth.guard';
+import { EUserRoles } from '@core/enums/user-roles.enum';
+import { AuthGuard } from '@core/guards/auth.guard';
 
 const routes: Routes = [
   {

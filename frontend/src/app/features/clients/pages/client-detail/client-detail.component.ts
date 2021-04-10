@@ -1,16 +1,16 @@
-import { CompaniesService } from './../../../companies/services/companies.service';
-import { PersonsService } from './../../../persons/services/persons.service';
+import { CompaniesService } from '@features/companies/services/companies.service';
+import { PersonsService } from '@features/persons/services/persons.service';
 import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from '../../models/client.model';
-import { ECompanyDisplayType } from '../../../companies/enums/company-type.enum';
-import { Person } from '../../../persons/models/person.model';
-import { Company } from '../../../companies/models/company.model';
+import { ECompanyDisplayType } from '@features/companies/enums/company-type.enum';
+import { Person } from '@features/persons/models/person.model';
+import { Company } from '@features/companies/models/company.model';
 
 @Component({
   selector: 'app-client-detail',
   templateUrl: './client-detail.component.html',
-  styleUrls: ['./../../../style.scss', './client-detail.component.scss'],
+  styleUrls: ['../../../../shared/styles/style.scss', './client-detail.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class ClientDetailComponent implements OnInit {

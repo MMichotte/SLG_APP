@@ -3,13 +3,13 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { WorkforceService } from '../services/workforce.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { WorkforceFormComponent } from '../components/workforce-form/workforce-form.component';
-import { AuthService } from '../../../core/services/auth.service';
-import { EUserRoles } from '../../../core/enums/user-roles.enum';
+import { AuthService } from '@core/services/auth.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
 
 @Component({
   selector: 'app-workforces',
   templateUrl: './workforces.component.html',
-  styleUrls: ['./../../style.scss', './workforces.component.scss']
+  styleUrls: ['../../../shared/styles/style.scss', './workforces.component.scss']
 })
 export class WorkforcesComponent implements OnInit {
 

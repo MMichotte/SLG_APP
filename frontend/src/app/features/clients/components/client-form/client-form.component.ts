@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
-import { ToastService } from '../../../../core/services/toast.service';
-import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
-import { AuthService } from '../../../../core/services/auth.service';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
+import { ToastService } from '@core/services/toast.service';
+import { EToastSeverities } from '@core/enums/toast-severity.enum';
+import { AuthService } from '@core/services/auth.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
 import { ClientsController } from '../../controllers/clients.controller';
 import { Client } from '../../models/client.model';
 

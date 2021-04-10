@@ -1,5 +1,5 @@
-import { SharedModule } from './../../shared/shared.module';
-import { ToastService } from './../../core/services/toast.service';
+import { SharedModule } from '@shared/shared.module';
+import { ToastService } from '@core/services/toast.service';
 import { ProductsComponent } from './pages/products-list/products.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { ProductService } from './services/product.service';
@@ -17,7 +17,7 @@ import { PanelModule } from 'primeng/panel';
 import { DynamicDialogModule, DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductFormComponent } from './components/product-form/product-form.component';
-import { ConfirmDialogService } from '../../core/services/confirm-dialog.service';
+import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
 import { StockUpdateFormComponent } from './components/stock-update-form/stock-update-form.component';
 
 @NgModule({

@@ -3,7 +3,7 @@ import { CreateStockUpdateDTO } from './../../dto/create-stock-update.dto';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { enumToObjArray } from '../../../../core/helpers/enum-to-obj-array';
+import { enumToObjArray } from '@core/helpers/enum-to-obj-array';
 import { EStockUpdateType } from '../../enums/stock-update-type.enum';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, ControlContainer, Validators } from '@angular/forms';
-import { Country } from './../../../../core/models/country.model';
-import { CountriesService } from './../../../../core/services/countries.service';
+import { Country } from '@core/models/country.model';
+import { CountriesService } from '@core/services/countries.service';
 
 @Component({
   selector: 'app-address-form',

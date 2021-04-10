@@ -1,28 +1,28 @@
 import { UpdateProductOrderDTO } from './../../dto/update-product-order.dto';
-import { CreateBillSupplierDTO } from './../../../billing/dto/create-bill-supplier.dto';
+import { CreateBillSupplierDTO } from '@features/billing/dto/create-bill-supplier.dto';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { EUserRoles } from '@core/enums/user-roles.enum';
 import { EOrderStatus } from '../../enums/order-status.enum';
 import { EProductOrderStatus } from '../../enums/product-order-status.enum';
-import { AuthService } from '../../../../core/services/auth.service';
-import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
-import { ToastService } from '../../../../core/services/toast.service';
+import { AuthService } from '@core/services/auth.service';
+import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
+import { ToastService } from '@core/services/toast.service';
 import { OrderService } from '../../services/order.service';
 import { Order } from '../../models/order.model';
 import { ProductOrder } from '../../models/product-order.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProductOrderService } from '../../services/product-order.service';
-import { BillSupplierService } from '../../../billing/services/bill-supplier.service';
-import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
+import { BillSupplierService } from '@features/billing/services/bill-supplier.service';
+import { EToastSeverities } from '@core/enums/toast-severity.enum';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ProductProcessFormComponent } from '../../components/product-process-form/product-process-form.component';
-import { Product } from 'src/app/features/products/models/product.model';
+import { Product } from '@features//products/models/product.model';
 
 @Component({
   selector: 'app-order-process',
   templateUrl: './order-process.component.html',
-  styleUrls: ['./../../../style.scss', './../common-style.scss', '../../../form.scss', './order-process.component.scss']
+  styleUrls: ['../../../../shared/styles/style.scss', './../common-style.scss', '../../../../shared/styles/form.scss', './order-process.component.scss']
 })
 export class OrderProcessComponent implements OnInit {
 

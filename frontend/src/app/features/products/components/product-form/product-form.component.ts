@@ -1,17 +1,17 @@
-import { VAT } from './../../../../core/constants/VAT';
-import { ConfirmDialogService } from './../../../../core/services/confirm-dialog.service';
-import { ToastService } from './../../../../core/services/toast.service';
+import { VAT } from '@core/constants/VAT';
+import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
+import { ToastService } from '@core/services/toast.service';
 import { ProductService } from './../../services/product.service';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../../models/product.model';
-import { EToastSeverities } from 'src/app/core/enums/toast-severity.enum';
+import { EToastSeverities } from '@core/enums/toast-severity.enum';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { StockUpdateFormComponent } from '../stock-update-form/stock-update-form.component';
-import { AuthService } from '../../../../core/services/auth.service';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { AuthService } from '@core/services/auth.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
 import { take } from 'rxjs/operators';
-import { debounce } from '../../../../core/helpers/debounce';
+import { debounce } from '@core/helpers/debounce';
 
 // auth.hasMinAccess(EUserRoles.USER)
 

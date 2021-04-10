@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { AuthService } from '../../../../core/services/auth.service';
-import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
-import { ToastService } from '../../../../core/services/toast.service';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
-import { Company } from '../../../companies/models/company.model';
+import { AuthService } from '@core/services/auth.service';
+import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
+import { ToastService } from '@core/services/toast.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
+import { Company } from '@features/companies/models/company.model';
 import { SuppliersController } from '../../controllers/suppliers-controller';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
-import { Client } from '../../../clients/models/client.model';
+import { EToastSeverities } from '@core/enums/toast-severity.enum';
+import { Client } from '@features/clients/models/client.model';
 
 @Component({
   selector: 'app-supplier-form',

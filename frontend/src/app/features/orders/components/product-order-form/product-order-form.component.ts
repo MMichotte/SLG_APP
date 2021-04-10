@@ -2,19 +2,19 @@ import { EOrderStatus } from './../../enums/order-status.enum';
 import { OrderService } from './../../services/order.service';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../../core/services/auth.service';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { AuthService } from '@core/services/auth.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
 import { ProductOrder } from './../../models/product-order.model';
 import { LightProduct } from '../../models/light-product';
 import { ProductOrderService } from '../../services/product-order.service';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ProductFormComponent } from '../../../products/components/product-form/product-form.component';
-import { search } from 'src/app/core/helpers/search';
+import { ProductFormComponent } from '@features/products/components/product-form/product-form.component';
+import { search } from '@core/helpers/search';
 
 @Component({
   selector: 'app-product-order-form',
   templateUrl: './product-order-form.component.html',
-  styleUrls: ['../../../form.scss', './product-order-form.component.scss']
+  styleUrls: ['../../../../shared/styles/form.scss', './product-order-form.component.scss']
 })
 export class ProductOrderFormComponent implements OnInit, OnChanges {
 

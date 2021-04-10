@@ -2,10 +2,10 @@ import { Order } from './../../models/order.model';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
-import { ToastService } from '../../../../core/services/toast.service';
-import { SuppliersController } from '../../../suppliers/controllers/suppliers-controller';
-import { LightSupplier } from '../../../suppliers/models/light-supplier.model';
+import { EToastSeverities } from '@core/enums/toast-severity.enum';
+import { ToastService } from '@core/services/toast.service';
+import { SuppliersController } from '@features/suppliers/controllers/suppliers-controller';
+import { LightSupplier } from '@features/suppliers/models/light-supplier.model';
 import { CreateOrderDTO } from '../../dto/create-order.dto';
 import { OrderService } from '../../services/order.service';
 import { EOrderStatus } from '../../enums/order-status.enum';
@@ -13,7 +13,7 @@ import { EOrderStatus } from '../../enums/order-status.enum';
 @Component({
   selector: 'app-new-cart-form',
   templateUrl: './new-cart-form.component.html',
-  styleUrls: ['../../../form.scss', './new-cart-form.component.scss']
+  styleUrls: ['../../../../shared/styles/form.scss', './new-cart-form.component.scss']
 })
 export class NewCartFormComponent implements OnInit {
 

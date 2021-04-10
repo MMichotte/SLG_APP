@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Client } from './../models/client.model';
-import { Person } from '../../persons/models/person.model';
-import { PersonsService } from '../../persons/services/persons.service';
-import { CreatePersonDTO } from './../../persons/dto/create-person.dto';
-import { UpdatePersonDTO } from './../../persons/dto/update-person.dto';
-import { Company } from '../../companies/models/company.model';
-import { CompaniesService } from '../../companies/services/companies.service';
-import { CreateCompanyDTO } from '../../companies/dto/create-company.dto';
-import { UpdateCompanyDTO } from './../../companies/dto/update-company.dto';
+import { Person } from '@features/persons/models/person.model';
+import { PersonsService } from '@features/persons/services/persons.service';
+import { CreatePersonDTO } from '@features/persons/dto/create-person.dto';
+import { UpdatePersonDTO } from '@features/persons/dto/update-person.dto';
+import { Company } from '@features/companies/models/company.model';
+import { CompaniesService } from '@features/companies/services/companies.service';
+import { CreateCompanyDTO } from '@features/companies/dto/create-company.dto';
+import { UpdateCompanyDTO } from '@features/companies/dto/update-company.dto';
 
 @Injectable({
   providedIn: 'root'

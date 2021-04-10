@@ -3,14 +3,14 @@ import { ClientFormComponent } from './../../components/client-form/client-form.
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../../core/services/auth.service';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
+import { AuthService } from '@core/services/auth.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
 import { ClientsController } from '../../controllers/clients.controller';
 
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  styleUrls: ['./../../../style.scss', './clients.component.scss']
+  styleUrls: ['../../../../shared/styles/style.scss', './clients.component.scss']
 })
 export class ClientsComponent implements OnInit {
 

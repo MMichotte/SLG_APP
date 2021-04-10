@@ -13,9 +13,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PanelModule } from 'primeng/panel';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
-import { SharedModule } from '../../shared/shared.module';
-import { ConfirmDialogService } from '../../core/services/confirm-dialog.service';
-import { ToastService } from '../../core/services/toast.service';
+import { SharedModule } from '@shared/shared.module';
+import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
+import { ToastService } from '@core/services/toast.service';
 import { SupplierFormComponent } from './components/supplier-form/supplier-form.component';
 import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail.component';
 

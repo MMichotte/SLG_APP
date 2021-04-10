@@ -14,7 +14,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { CountriesService } from '../core/services/countries.service';
+import { CountriesService } from '@core/services/countries.service';
 
 @NgModule({
   declarations: [

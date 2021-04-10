@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { EToastSeverities } from 'src/app/core/enums/toast-severity.enum';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
-import { AuthService } from '../../../../core/services/auth.service';
-import { ConfirmDialogService } from 'src/app/core/services/confirm-dialog.service';
-import { ToastService } from 'src/app/core/services/toast.service';
+import { EToastSeverities } from '@core/enums/toast-severity.enum';
+import { EUserRoles } from '@core/enums/user-roles.enum';
+import { AuthService } from '@core/services/auth.service';
+import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
+import { ToastService } from '@core/services/toast.service';
 import { Workforce } from '../../models/workforce.model';
 import { WorkforceService } from '../../services/workforce.service';
 

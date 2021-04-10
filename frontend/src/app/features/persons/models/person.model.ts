@@ -1,4 +1,4 @@
-import { Address } from '../../../core/models/address.model';
+import { Address } from '@core/models/address.model';
 import { ECivility } from '../enums/ECivility.enum';
 
 export class Person {

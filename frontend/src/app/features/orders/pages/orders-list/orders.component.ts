@@ -3,19 +3,19 @@ import { EOrderStatus } from './../../enums/order-status.enum';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
-import { AuthService } from '../../../../core/services/auth.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
+import { AuthService } from '@core/services/auth.service';
 import { Order } from '../../models/order.model';
 import { OrderService } from '../../services/order.service';
-import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
-import { ToastService } from '../../../../core/services/toast.service';
-import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
-import { tableSort } from '../../../../core/helpers/table-sort';
+import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
+import { ToastService } from '@core/services/toast.service';
+import { EToastSeverities } from '@core/enums/toast-severity.enum';
+import { tableSort } from '@core/helpers/table-sort';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./../../../style.scss', './../common-style.scss', './orders.component.scss']
+  styleUrls: ['../../../../shared/styles/style.scss', './../common-style.scss', './orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
 

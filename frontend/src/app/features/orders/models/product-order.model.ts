@@ -1,5 +1,5 @@
 import { EProductOrderStatus } from '../enums/product-order-status.enum';
-import { Product } from '../../products/models/product.model';
+import { Product } from '@features/products/models/product.model';
 
 export class ProductOrder {
   id: number;

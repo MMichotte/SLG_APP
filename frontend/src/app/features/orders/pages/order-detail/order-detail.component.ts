@@ -1,22 +1,22 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../../../../core/services/auth.service';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
-import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
-import { ToastService } from '../../../../core/services/toast.service';
-import { EToastSeverities } from '../../../../core/enums/toast-severity.enum';
+import { AuthService } from '@core/services/auth.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
+import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
+import { ToastService } from '@core/services/toast.service';
+import { EToastSeverities } from '@core/enums/toast-severity.enum';
 import { EOrderStatus } from '../../enums/order-status.enum';
 import { EProductOrderStatus } from '../../enums/product-order-status.enum';
 import { ProductOrder } from '../../models/product-order.model';
 import { ProductOrderService } from '../../services/product-order.service';
 import { Order } from '../../models/order.model';
 import { OrderService } from '../../services/order.service';
-import { tableSort } from '../../../../core/helpers/table-sort';
+import { tableSort } from '@core/helpers/table-sort';
 
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
-  styleUrls: ['./../../../style.scss', './../common-style.scss', './order-detail.component.scss']
+  styleUrls: ['../../../../shared/styles/style.scss', './../common-style.scss', './order-detail.component.scss']
 })
 export class OrderDetailComponent implements OnInit {
 

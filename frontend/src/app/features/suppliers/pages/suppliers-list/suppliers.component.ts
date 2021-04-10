@@ -1,19 +1,19 @@
-import { PersonsService } from './../../../persons/services/persons.service';
+import { PersonsService } from '@features/persons/services/persons.service';
 import { SupplierFormComponent } from './../../components/supplier-form/supplier-form.component';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
-import { AuthService } from '../../../../core/services/auth.service';
-import { EUserRoles } from '../../../../core/enums/user-roles.enum';
-import { Company } from './../../../companies/models/company.model';
+import { AuthService } from '@core/services/auth.service';
+import { EUserRoles } from '@core/enums/user-roles.enum';
+import { Company } from '@features/companies/models/company.model';
 import { SuppliersController } from '../../controllers/suppliers-controller';
-import { Client } from '../../../clients/models/client.model';
-import { Person } from '../../../persons/models/person.model';
+import { Client } from '@features/clients/models/client.model';
+import { Person } from '@features/persons/models/person.model';
 
 @Component({
   selector: 'app-suppliers',
   templateUrl: './suppliers.component.html',
-  styleUrls: ['./../../../style.scss', './suppliers.component.scss']
+  styleUrls: ['../../../../shared/styles/style.scss', './suppliers.component.scss']
 })
 export class SuppliersComponent implements OnInit {
 
