@@ -12,22 +12,20 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   /**
+   * Adding security headers. 
    * doc: https://helmetjs.github.io
    */
   app.use(helmet());
-  
   app.use(helmet.contentSecurityPolicy({
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       'default-src': ['\'self\'', 'https://restcountries.eu', 'blob:'],
-      'object-src' : ['\'self\'', 'https://restcountries.eu'],
-      'img-src' : ['\'self\'', 'https://restcountries.eu'],
-      'script-src' : ['\'self\'', '\'unsafe-eval\''],
+      'object-src' : ['\'self\'', 'https://restcountries.eu', 'data:'],
+      'img-src' : ['\'self\'', 'https://restcountries.eu', 'data:'],
+      'script-src' : ['\'self\'', '\'unsafe-inline\'', '\'unsafe-eval\''],
     }
   }));
   app.use(helmet.referrerPolicy({ policy: 'strict-origin-when-cross-origin' }));
-
-
   app.use(permissionsPolicy({
     features: {
       fullscreen: ['self']
