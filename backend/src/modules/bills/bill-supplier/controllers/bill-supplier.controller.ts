@@ -57,6 +57,7 @@ export class BillSupplierController {
     return plainToClass(BillSupplier,bill);
   }
 
+  //TODO USE TRANSACTION !!!
   @Post()
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
   @ApiResponse({
@@ -67,6 +68,12 @@ export class BillSupplierController {
     dto = new CreateBillSupplierDTO(dto);
     const errors = await validate(dto);
     if (errors.length) throw new BadRequestException;
+
+    for (const productOrder of dto.productOrders) {
+      const productOrderDto = new UpdateProductOrderProcessDTO(productOrder);
+      const errors = await validate(productOrderDto);
+      if (errors.length) throw new BadRequestException;
+    } 
 
     const newBill: BillSupplier = await this.billSupplierService.create(dto);
     let order: Order = null;

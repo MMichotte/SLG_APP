@@ -97,7 +97,7 @@ export class OrdersController {
             {
               width: '33%',
               alignment: 'center',
-              text: 'ORDER'
+              text: `ORDER - ${id}`
             },
             {
               width: '33%',
@@ -123,9 +123,15 @@ export class OrdersController {
 
     const products: ProductOrder[] = await this.productOrderService.findAllByOrderId(id);
     products.forEach((prod: ProductOrder) => {
+      
+      let designation: string = prod.product.label;
+      if (prod.note) {
+        designation += ` - ${prod.note}`;
+      }
+
       docDefinition.content[1].table.body.push([
         { text: prod.product.reference, bold: false, fillColor: null },
-        { text: prod.product.label, bold: false, fillColor: null },
+        { text: designation, bold: false, fillColor: null },
         { text: prod.quantityOrdered.toString(), bold: false, fillColor: null }
       ]);
     });
