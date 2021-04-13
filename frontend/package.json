@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start:dev": "ng serve --proxy-config proxy.conf.json",
+    "start:dev": "ng serve --host 0.0.0.0 --proxy-config proxy.conf.json",
     "build": "ng build --prod",
     "lint": "echo \" \n ✅ Everything looks fine !\" > ../logs/frontend-lintErrors.log && ./node_modules/.bin/eslint --fix \"**/*.js\" \"**/*.ts\" -o ../logs/frontend-lintErrors.log --no-color",
     "lin2t": "ng lint",

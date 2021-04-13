@@ -2,9 +2,10 @@
   <h1>PROCESS ORDER</h1>
 
   <div class="control">
-    <button pButton pRipple type="button" icon="pi pi-arrow-left" label="Order detail" class="p-button-sm p-button-info p-button-text"
-      (click)="back()"></button>
-    <button pButton pRipple type="button" icon="pi pi-save" label="Create bill" (click)="onCreateBill()" [disabled]="billForm.invalid"></button>
+    <button pButton pRipple type="button" icon="pi pi-arrow-left" label="Order detail"
+      class="p-button-sm p-button-info p-button-text" (click)="back()"></button>
+    <button pButton pRipple type="button" icon="pi pi-save" label="Create bill" (click)="onCreateBill()"
+      [disabled]="billForm.invalid"></button>
   </div>
 
   <div class="order-form">
@@ -16,14 +17,16 @@
         <div class="p-col-2">
           <label for="shipping" class="label-required">Shipping fees</label>
           <p-inputNumber id="shipping" mode="decimal" [minFractionDigits]="2" locale="en-US"
-            formControlName="shippingFees" (onFocus)="$event.target.select()" (click)="$event.target.select()" (ngModelChange)="calcPrice()">
+            formControlName="shippingFees" (onFocus)="$event.target.select()" (click)="$event.target.select()"
+            (ngModelChange)="calcPrice()">
           </p-inputNumber>
         </div>
 
         <div class="p-col-2">
           <label for="debit" class="label-required">Debited amount (€)</label>
           <p-inputNumber id="debit" mode="decimal" [minFractionDigits]="2" locale="en-US"
-            formControlName="debitedAmount" (onFocus)="$event.target.select()" (click)="$event.target.select()" (ngModelChange)="calcPrice()">
+            formControlName="debitedAmount" (onFocus)="$event.target.select()" (click)="$event.target.select()"
+            (ngModelChange)="calcPrice()">
           </p-inputNumber>
         </div>
 
@@ -74,19 +77,22 @@
                 }">
                 {{rowData.status}}
               </span>
-              <span class="productStatus status-BO" *ngIf="rowData.quantityReceived && (rowData.quantityReceived < rowData.quantityOrdered)">
+              <span class="productStatus status-BO"
+                *ngIf="rowData.quantityReceived && (rowData.quantityReceived < rowData.quantityOrdered)">
                 {{EProductOrderStatus.BO}}: {{rowData.quantityOrdered - rowData.quantityReceived}}
               </span>
             </td>
             <td>
               <div class="p-fluid">
-                <p-inputNumber [min]="0" (onInput)="setProdQuantity(rowData,$event.value)" (click)="setProdOrderedQuantAsReceived(rowData, $event.target)" [placeholder]="rowData.quantityOrdered + ' ?'"></p-inputNumber>
+                <p-inputNumber [min]="0" (keyup)="setProdQuantity(rowData,+$event.target.value)"
+                  (click)="setProdOrderedQuantAsReceived(rowData, $event.target)"
+                  [placeholder]="rowData.quantityOrdered + ' ?'"></p-inputNumber>
               </div>
             </td>
             <td>
               <div class="p-fluid">
                 <p-inputNumber mode="decimal" [minFractionDigits]="2" locale="en-US"
-                  (onInput)="setProdInvPrice(rowData,$event.value)"></p-inputNumber>
+                  (keyup)="setProdInvPrice(rowData,+$event.target.value)"></p-inputNumber>
               </div>
             </td>
             <td>
@@ -96,7 +102,8 @@
         </ng-template>
         <ng-template pTemplate="footer">
           <tr>
-            <td style="width: 30%;"><button pButton pRipple type="button" icon="pi pi-plus" label="Add Product" (click)="onAddSuppProduct()" style="width: min-content;"></button></td>
+            <td style="width: 30%;"><button pButton pRipple type="button" icon="pi pi-plus" label="Add Product"
+                (click)="onAddSuppProduct()" style="width: min-content;"></button></td>
             <td></td>
             <td class="totalCheck"><b>Total :</b></td>
             <td>{{totalInvoiceAmount}}</td>

@@ -18,6 +18,7 @@ import { EToastSeverities } from '@core/enums/toast-severity.enum';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ProductProcessFormComponent } from '../../components/product-process-form/product-process-form.component';
 import { Product } from '@features//products/models/product.model';
+import { ECommonErrors } from '@core/enums/common-errors.enum';
 
 @Component({
   selector: 'app-order-process',
@@ -178,6 +179,9 @@ export class OrderProcessComponent implements OnInit {
       },
       (error) => {
         console.log(error);
+        if (error.status === 400) {
+          this.toast.show(EToastSeverities.ERROR, ECommonErrors.E_400);
+        }
       }
     );
   }
