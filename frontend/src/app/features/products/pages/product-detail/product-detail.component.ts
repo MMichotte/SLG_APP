@@ -38,7 +38,7 @@ export class ProductDetailComponent implements OnInit {
       this.product.salePriceTTC = Number((this.product.salePriceHT * VAT).toFixed(2));
     } catch (e) {
       console.log(e);
-      this.router.navigate(['']);
+      this.router.navigate(['products']);
     }
     this.getStockUpdates();
     this.getReceivedProducts();
