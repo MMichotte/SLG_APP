@@ -100,6 +100,8 @@ export class BillSupplierController {
     try {
 
       for (const pO of dto.productOrders) {
+
+        const initialQuantityReceived: number = pO.quantityReceived;
       
         let prodO: any = {};
 
@@ -202,12 +204,12 @@ export class BillSupplierController {
         }
 
         // update product quantity and price
-        const product = prodO.product;
+        const product = await queryRunner.manager.findOne(Product, prodO.product.id);
         product.purchasePriceHT = prodO.pcPurchasePriceHTAtDate;
         if (product.purchasePriceHT >= product.salePriceHT) {
           product.salePriceHT = product.purchasePriceHT * 1.02; // set a min margin of 2%!
         }
-        product.quantity = product.quantity + prodO.quantityReceived;
+        product.quantity = product.quantity + initialQuantityReceived;
         product.updatedAt = new Date();
 
         await queryRunner.manager.update(Product, product.id, product);

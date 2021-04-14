@@ -96,7 +96,7 @@
               </div>
             </td>
             <td>
-              {{rowData.pcPurchasePriceHTAtDate}}
+              {{rowData.pcPurchasePriceHTAtDate?.toFixed(2)}}
             </td>
           </tr>
         </ng-template>
@@ -106,7 +106,7 @@
                 (click)="onAddSuppProduct()" style="width: min-content;"></button></td>
             <td></td>
             <td class="totalCheck"><b>Total :</b></td>
-            <td>{{totalInvoiceAmount}}</td>
+            <td>{{totalInvoiceAmount?.toFixed(2)}}</td>
             <td></td>
           </tr>
         </ng-template>

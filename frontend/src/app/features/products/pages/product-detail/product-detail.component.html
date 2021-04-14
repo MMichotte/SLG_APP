@@ -1,7 +1,8 @@
 <div class="page">
   <h1>PRODUCT DETAIL</h1>
 
-  <button pButton pRipple type="button" icon="pi pi-arrow-left"  label="Products" class="p-button-sm p-button-info p-button-text" (click)="router.navigate(['products']);"></button>
+  <button pButton pRipple type="button" icon="pi pi-arrow-left" label="Products"
+    class="p-button-sm p-button-info p-button-text" (click)="router.navigate(['products']);"></button>
 
   <div class="content" *ngIf="product">
 
@@ -50,24 +51,25 @@
           </div>
           <div class="inline">
             <div>Sale price TTC:</div>
-            <div>{{product?.salePriceTTC }} €</div>
+            <div>{{product?.salePriceTTC}} €</div>
           </div>
           <div class="inline">
             <div>Margin:</div>
-            <div>{{(product?.salePriceHT - product?.purchasePriceHT).toFixed(2)}} €</div>
+            <div>{{(product?.salePriceHT - product?.purchasePriceHT)?.toFixed(2)}} €</div>
           </div>
         </div>
         <div>
           <div id="note">Note:</div>
-          <textarea pInputTextarea [rows]="5" [cols]="40" disabled="true" autoResize="autoResize">{{product?.note}}</textarea>
+          <textarea pInputTextarea [rows]="5" [cols]="40" disabled="true"
+            autoResize="autoResize">{{product?.note}}</textarea>
         </div>
       </div>
     </p-panel>
 
     <p-panel class="product-history" header="Transaction history" [toggleable]="true">
       <p-table #dt [columns]="transactionCols" [value]="transactions" [autoLayout]="true" [scrollable]="true"
-        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [sortField]="transactionCols[0].field" (sortFunction)="tableSort($event)" [customSort]="true"
-        styleClass="p-datatable-sm" [loading]="loadingData">
+        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,25,50]" [sortField]="transactionCols[0].field"
+        (sortFunction)="tableSort($event)" [customSort]="true" styleClass="p-datatable-sm" [loading]="loadingData">
 
         <ng-template pTemplate="header" let-columns>
           <tr>
@@ -79,8 +81,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-columns="columns">
           <tr [ngClass]="{'manual-update': rowData.type != null}">
-            <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}"
-            [ngClass]="{
+            <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}" [ngClass]="{
               'addition': (col.field === 'quantity' && rowData[col.field] > 0),
               'deletion': (col.field === 'quantity' && rowData[col.field] < 0)
             }">

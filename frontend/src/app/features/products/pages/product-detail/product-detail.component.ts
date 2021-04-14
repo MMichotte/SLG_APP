@@ -34,10 +34,11 @@ export class ProductDetailComponent implements OnInit {
       const prodId = this.route.snapshot.params.id;
       this.product = await this.productService.getOne(prodId).toPromise(); // TODO catch if error! 
       this.product.reservedQuantity = (this.product.reservedQuantity) ? this.product.reservedQuantity : 0;
+      this.product.salePriceHT = Number(Number(this.product.salePriceHT).toFixed(2));
       this.product.salePriceTTC = Number((this.product.salePriceHT * VAT).toFixed(2));
     } catch (e) {
       console.log(e);
-      this.router.navigate(['products']);
+      this.router.navigate(['']);
     }
     this.getStockUpdates();
     this.getReceivedProducts();
