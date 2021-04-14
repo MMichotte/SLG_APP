@@ -172,7 +172,7 @@ export class OrderProcessComponent implements OnInit {
     });
     const newBill: CreateBillSupplierDTO = this.billForm.getRawValue();
     newBill.productOrders = productOrders;
-    await this.billSupplierService.create(newBill).subscribe(
+    await this.billSupplierService.create(newBill, this.order.id).subscribe(
       (res: any) => {
         this.toast.show(EToastSeverities.SUCCESS, 'Bill Created');
         this.router.navigate([`orders/${this.order.id}/detail`]);

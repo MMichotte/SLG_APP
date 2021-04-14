@@ -14,13 +14,13 @@ export class BillSupplierService {
   getAll(): any {
     return this.httpClient.get(this.endpoint);
   }
-  
+
   getOne(id: number): any {
     return this.httpClient.get(`${this.endpoint}/${id}`);
   }
-   
-  create(dto: CreateBillSupplierDTO): any {
-    return this.httpClient.post(`${this.endpoint}`, dto);
+
+  create(dto: CreateBillSupplierDTO, orderId: number): any {
+    return this.httpClient.post(`${this.endpoint}`, dto, { params: { orderId: orderId.toString() } });
   }
 
 }
