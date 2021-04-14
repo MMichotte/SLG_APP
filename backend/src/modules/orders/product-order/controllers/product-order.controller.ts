@@ -165,56 +165,12 @@ export class ProductOrderController {
 
     return plainToClass(SimpleProductOrderDTO, updatedProductOrder);
   }
-  /*
-  @Patch(':id/processing')
-  @Roles(EUserRoles.ADMIN, EUserRoles.USER)
-  @ApiResponse({
-    status: 201,
-    type: SimpleProductOrderDTO,
-  })
-  async updateProcessing(@Param('id') id: number, @Body() dto: UpdateProductOrderProcessDTO): Promise<SimpleProductOrderDTO> {
-    
-    dto = new UpdateProductOrderProcessDTO(dto);
-    const errors = await validate(dto);
-    if (errors.length) throw new BadRequestException;
-
-    if (dto.quantityReceived > 0 && !dto.BillSupplier) throw new  BadRequestException;
-
-    const existingProduct: ProductOrder = await this.productOrderService.findOneById(id);
-    if (!existingProduct) throw new NotFoundException;
-
-    if (existingProduct.status === EProductOrderStatus.RECEIVED) throw new NotAcceptableException;
-
-    if (dto.orderId) {
-      const order: Order = await this.ordersService.findOneById(dto.orderId);
-      if (!order) throw new NotFoundException;
-      dto.order = order;
-    }
-
-    delete dto.orderId;
-    
-    for (const [key, value] of Object.entries(dto)) {
-      existingProduct[key] = value;
-    }
-
-    if (existingProduct.quantityReceived === 0) {
-      existingProduct.status = EProductOrderStatus.BO;
-    } else {
-      existingProduct.status = EProductOrderStatus.RECEIVED;
-    }
-
-    const updatedProductOrder: ProductOrder = await this.productOrderService.update(id, dto);
-    updatedProductOrder.id = id;
-
-    return plainToClass(SimpleProductOrderDTO, updatedProductOrder);
-  }
-  */
 
   @Delete(':id')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
   async remove(@Param('id') id: number) {
     
-    const productOrder: ProductOrder | undefined = await this.productOrderService.findOneById(id);
+    const productOrder: ProductOrder = await this.productOrderService.findOneById(id);
     if (!productOrder) throw new NotFoundException;
 
     const productOrderIsReceived: boolean = (productOrder.status === EProductOrderStatus.RECEIVED);
@@ -222,11 +178,13 @@ export class ProductOrderController {
 
     await this.productOrderService.remove(id);
 
-    // update order-status
-    const prodsLeft: ProductOrder[] = (await this.productOrderService.findAllByOrderId(productOrder.order.id)).filter(pO => pO.status !== EProductOrderStatus.RECEIVED);
-    if (prodsLeft.length) productOrder.order.status = EOrderStatus.PD;
-    else productOrder.order.status = EOrderStatus.CLOSED;
-    await this.ordersService.update(productOrder.order.id,productOrder.order);
+    if (productOrder.order.status === EOrderStatus.ORDERED || productOrder.order.status === EOrderStatus.PD) {
+      // update order-status
+      const prodsLeft: ProductOrder[] = (await this.productOrderService.findAllByOrderId(productOrder.order.id)).filter(pO => pO.status !== EProductOrderStatus.RECEIVED);
+      if (prodsLeft.length) productOrder.order.status = EOrderStatus.PD;
+      else productOrder.order.status = EOrderStatus.CLOSED;
+      await this.ordersService.update(productOrder.order.id,productOrder.order);
+    }
     
     return [];
   }

@@ -1,3 +1,4 @@
+import { QueryRunner } from 'typeorm';
 import { Product } from './../entities/product.entity';
 import { ProductRepository } from './../repositories/products.repository';
 import { Injectable } from '@nestjs/common';
@@ -26,6 +27,10 @@ export class ProductsService {
 
   findOneById(id: number): Promise<Product> {
     return this.productRepository.findOne({where: {id}});
+  }
+  
+  findOneById_transactional(id: number, QR: QueryRunner): Promise<Product> {
+    return QR.manager.findOne(Product ,{where: {id}});
   }
   
   findOneByRef(reference: string): Promise<Product> {
