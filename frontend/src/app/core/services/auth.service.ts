@@ -44,6 +44,9 @@ export class AuthService {
   isLoggedIn(): boolean {
     const loggedIn = localStorage.getItem('STATE');
     this.isLogin = (loggedIn === 'true');
+    if (this._tokenExpired(localStorage.getItem('TOKEN'))) {
+      this.logout();
+    }
     return this.isLogin;
   }
 
@@ -109,6 +112,11 @@ export class AuthService {
     default:
       return false;
     }
+  }
+
+  private _tokenExpired(token: string) {
+    const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+    return (Math.floor((new Date()).getTime() / 1000)) >= expiry;
   }
 
 }
