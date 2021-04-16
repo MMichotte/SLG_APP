@@ -105,8 +105,9 @@ export class SupplierFormComponent implements OnInit {
     if (supplier.person && supplier.person !== '') {
       supplier.personId = supplier.person.id; 
     } else {
-      supplier.person = null;
+      supplier.personId = null;
     }
+    delete supplier.person;
     if (this.isUpdate) {
       // update
       this.suppliersController.updateCompany(this.currentSupplier.id, supplier).subscribe(

@@ -14,6 +14,7 @@ import { CreateStockUpdateDTO } from '@modules/stock-update/dto/create-stock-upd
 import { Product } from '../entities/product.entity';
 import { ProductsService } from '../services/products.service';
 import { UpdateProductDTO } from '../dto/update-product.dto';
+import { getConnection, QueryRunner } from 'typeorm';
 
 @Controller('products')
 @UseGuards(RolesGuard)
@@ -21,12 +22,12 @@ import { UpdateProductDTO } from '../dto/update-product.dto';
 @ApiTags('products')
 @ApiBearerAuth()
 export class ProductsStockUpdateController {
-  
-  constructor (
+
+  constructor(
     private readonly productsService: ProductsService,
     private readonly stockUpdateService: StockUpdateService
-  ) {}
-  
+  ) { }
+
   @Get(':id/stock-updates')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiResponse({
@@ -36,33 +37,49 @@ export class ProductsStockUpdateController {
   })
   async findAll(@Param('id') id: number): Promise<StockUpdateDTO[]> {
     const stUp: StockUpdate[] = await this.stockUpdateService.findAllByProdId(id);
-    return plainToClass(StockUpdateDTO,stUp);
+    return plainToClass(StockUpdateDTO, stUp);
   }
-  
+
   @Post(':id/stock-updates')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
   @ApiResponse({
     status: 201,
     type: SimpleStockUpdateDTO,
   })
-  async create(@Param('id') id: number, @Body() createStUp: CreateStockUpdateDTO): Promise<SimpleStockUpdateDTO>  {
+  async create(@Param('id') id: number, @Body() createStUp: CreateStockUpdateDTO): Promise<SimpleStockUpdateDTO> {
     createStUp = new CreateStockUpdateDTO(createStUp);
     const errors = await validate(createStUp);
     if (errors.length) throw new BadRequestException;
 
-    // Create Stock-update
-    const product: Product = await this.productsService.findOneById(id);
-    if (!product) throw new NotFoundException;
-    createStUp.product = product;
-    const createdStUp: StockUpdate = await this.stockUpdateService.create(createStUp);
+    const queryRunner: QueryRunner = getConnection().createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
 
-    // Update product quantity:
-    const updProd: UpdateProductDTO = plainToClass(UpdateProductDTO,product);
-    updProd.quantity += createStUp.quantity;
-    const updatedProduct = await this.productsService.update(id, updProd);
-    if (!updatedProduct) throw new InternalServerErrorException; //TODO -> better exception!
+    try {
+      // Create Stock-update
+      const product: Product = await this.productsService.findOneById(id);
+      if (!product) throw new NotFoundException;
+      createStUp.product = product;
+      const createdStUp: StockUpdate = await this.stockUpdateService.create_transactional(createStUp, queryRunner);
 
-    return plainToClass(SimpleStockUpdateDTO,createdStUp);
+      // Update product quantity:
+      const updProd: UpdateProductDTO = plainToClass(UpdateProductDTO, product);
+      updProd.quantity += createStUp.quantity;
+      const updatedProduct = await this.productsService.update_transactional(id, updProd, queryRunner);
+      if (!updatedProduct) throw new InternalServerErrorException; //TODO -> better exception!
+
+      await queryRunner.commitTransaction();
+      await queryRunner.release();
+
+      return plainToClass(SimpleStockUpdateDTO, createdStUp);
+
+    }
+    catch (err) {
+      await queryRunner.rollbackTransaction();
+      await queryRunner.release();
+      throw err;
+    }
+
   }
 
 }

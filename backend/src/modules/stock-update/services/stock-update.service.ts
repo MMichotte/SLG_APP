@@ -1,3 +1,4 @@
+import { QueryRunner } from 'typeorm';
 import { UpdateStockUpdateDTO } from './../dto/update-stock-update.dto';
 import { CreateStockUpdateDTO } from './../dto/create-stock-update.dto';
 import { StockUpdate } from './../entities/stock-update.entity';
@@ -25,6 +26,11 @@ export class StockUpdateService {
   
   create(createStockUpdate: CreateStockUpdateDTO): Promise<StockUpdate> {
     return this.stockUpdateRepository.save(createStockUpdate);
+  }
+  
+  create_transactional(createStockUpdate: CreateStockUpdateDTO, QR: QueryRunner): Promise<StockUpdate> {
+    const stockUpdate: StockUpdate = this.stockUpdateRepository.create(createStockUpdate);
+    return QR.manager.save(StockUpdate, stockUpdate);
   }
 
   update(id: number, updateStockUpdate: UpdateStockUpdateDTO): Promise<any> {

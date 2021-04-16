@@ -44,6 +44,10 @@ export class ProductsService {
   update(id: number, updateProductDto: UpdateProductDTO): Promise<any> {
     return this.productRepository.update(id,updateProductDto);  
   }
+  
+  update_transactional(id: number, updateProductDto: UpdateProductDTO, QR: QueryRunner): Promise<any> {
+    return QR.manager.update(Product, id,updateProductDto);  
+  }
 
   remove(id: number) {
     return this.productRepository.delete(id);

@@ -98,12 +98,20 @@ export class CompaniesController {
   async create(@Body() dto: CreateCompanyDTO): Promise<SimpleCompanyDTO>  {
     dto = new CreateCompanyDTO(dto);
     const errors = await validate(dto);
-    if (errors.length) throw new BadRequestException;
+    if (errors.length) {
+      console.log(errors);
+      throw new BadRequestException;
+    }
 
     const existingCompany: Company = await this.companiesService.findOneByEmailOrVAT(dto.email, dto.VAT);
-    if (existingCompany) throw new ConflictException; //TODO better exception (add info)
+    if (existingCompany) {
+      console.log(existingCompany)
+      throw new ConflictException; //TODO better exception (add info)
+    }
 
-    if (typeof dto.personId === 'string' || dto.personId === undefined) throw new BadRequestException;
+    if (typeof dto.personId === 'string' || dto.personId === undefined) {
+      throw new BadRequestException;
+    } 
     if (dto.personId) {  
       const person: Person = await this.personsService.findOneById(dto.personId);
       if (!person) throw new NotFoundException;
