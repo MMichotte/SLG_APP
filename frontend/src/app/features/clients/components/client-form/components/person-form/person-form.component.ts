@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ControlContainer, FormGroup } from '@angular/forms';
 import { enumToObjArray } from '../../../../../../core/helpers/enum-to-obj-array';
 import { ECivility } from './../../../../../persons/enums/ECivility.enum';
@@ -6,7 +6,8 @@ import { ECivility } from './../../../../../persons/enums/ECivility.enum';
 @Component({
   selector: 'app-person-form',
   templateUrl: './person-form.component.html',
-  styleUrls: ['./../../client-form.component.scss', './person-form.component.scss']
+  styleUrls: ['./../../../../../../shared/styles/form.scss', './../../client-form.component.scss', './person-form.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class PersonFormComponent implements OnInit {
 

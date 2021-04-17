@@ -6,7 +6,7 @@ import { CountriesService } from '@core/services/countries.service';
 @Component({
   selector: 'app-address-form',
   templateUrl: './address-form.component.html',
-  styleUrls: ['./../form.scss', './address-form.component.scss']
+  styleUrls: ['./../../../styles/form.scss', './address-form.component.scss']
 })
 export class AddressFormComponent implements OnInit {
   

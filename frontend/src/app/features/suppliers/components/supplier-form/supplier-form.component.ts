@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectorRef } from '@angular/core';
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { AuthService } from '@core/services/auth.service';
 import { ConfirmDialogService } from '@core/services/confirm-dialog.service';

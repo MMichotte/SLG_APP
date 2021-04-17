@@ -46,7 +46,7 @@ export class ClientsComponent implements OnInit {
     this.clientsController.getAll().then(
       (clients: Client[]) => {
         this.clients = clients;
-        this.personsList = this.clients.filter((cL: Client) => { return !cL.isCompany; });        
+        this.personsList = this.clients.filter((cL: Client) => { return !cL.isCompany; }); 
         this.selectedClient = null;
         this.cd.detectChanges();
         this.loadingData = false;

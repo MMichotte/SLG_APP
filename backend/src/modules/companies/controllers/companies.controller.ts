@@ -105,7 +105,6 @@ export class CompaniesController {
 
     const existingCompany: Company = await this.companiesService.findOneByEmailOrVAT(dto.email, dto.VAT);
     if (existingCompany) {
-      console.log(existingCompany)
       throw new ConflictException; //TODO better exception (add info)
     }
 

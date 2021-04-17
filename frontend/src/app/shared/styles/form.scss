@@ -29,5 +29,9 @@
 }
 
 .formSelect {
-  transform: scale(0.9);
+  transform: scale(0.9) !important;
+}
+
+.p-dropdown-label {
+  font-size: small !important;
 }

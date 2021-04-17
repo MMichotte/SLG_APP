@@ -44,9 +44,11 @@ export class AuthService {
   isLoggedIn(): boolean {
     const loggedIn = localStorage.getItem('STATE');
     this.isLogin = (loggedIn === 'true');
+    /* TODO -> bug 
     if (this._tokenExpired(localStorage.getItem('TOKEN'))) {
       this.logout();
     }
+    */
     return this.isLogin;
   }
 

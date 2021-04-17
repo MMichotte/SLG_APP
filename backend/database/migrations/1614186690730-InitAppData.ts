@@ -16,6 +16,7 @@ export class InitAppData1614186690730 implements MigrationInterface {
     name = 'InitAppData1614186690730'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
+    
         await queryRunner.manager.getRepository('user').save(UserSeed);
         await queryRunner.manager.getRepository('product').save(ProductSeed_0);
         await queryRunner.manager.getRepository('product').save(ProductSeed_1);
@@ -27,6 +28,7 @@ export class InitAppData1614186690730 implements MigrationInterface {
         await queryRunner.manager.getRepository('workforce').save(WorkforceSeed);
         await queryRunner.manager.getRepository('person').save(PersonSeed);
         await queryRunner.manager.getRepository('company').save(CompanySeed);
+        
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
