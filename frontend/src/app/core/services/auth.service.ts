@@ -49,6 +49,8 @@ export class AuthService {
       if (this._tokenExpired(token)) {
         this.logout();
       }
+    } else {
+      this.logout();
     }
     
     return this.isLogin;
