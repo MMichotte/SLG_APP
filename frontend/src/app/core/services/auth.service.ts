@@ -45,8 +45,10 @@ export class AuthService {
     const loggedIn = localStorage.getItem('STATE');
     this.isLogin = (loggedIn === 'true');
     const token = localStorage.getItem('TOKEN');
-    if (token !== '' && this._tokenExpired(token)) {
-      this.logout();
+    if (token && token !== '') {
+      if (this._tokenExpired(token)) {
+        this.logout();
+      }
     }
     
     return this.isLogin;
