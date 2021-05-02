@@ -48,12 +48,13 @@ export class AuthService {
     if (token && token !== '') {
       if (this._tokenExpired(token)) {
         this.logout();
+      } else {
+        return this.isLogin;
       }
     } else {
       this.logout();
     }
-    
-    return this.isLogin;
+    return false;
   }
 
   getRole(): string {
