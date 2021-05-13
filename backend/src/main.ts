@@ -23,6 +23,7 @@ async function bootstrap() {
       'object-src' : ['\'self\'', 'https://restcountries.eu', 'data:'],
       'img-src' : ['\'self\'', 'https://restcountries.eu', 'data:'],
       'script-src' : ['\'self\'', '\'unsafe-inline\'', '\'unsafe-eval\''],
+      'script-src-attr': ['\'self\'', '\'unsafe-inline\'', '\'unsafe-eval\''],
     }
   }));
   app.use(helmet.referrerPolicy({ policy: 'strict-origin-when-cross-origin' }));
