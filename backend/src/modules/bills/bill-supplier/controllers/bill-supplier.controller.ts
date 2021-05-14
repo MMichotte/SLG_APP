@@ -81,12 +81,14 @@ export class BillSupplierController {
     }
 
     for (const productOrder of dto.productOrders) {
+
       const productOrderDto = new UpdateProductOrderProcessDTO(productOrder);
       let errors = await validate(productOrderDto);
       errors = errors.filter((err: any) => err.target.id !== null);
       if (errors.length) {
         throw new BadRequestException;
       }
+
     }
 
     const newBill: BillSupplier = await this.billSupplierService.create(dto);
@@ -99,51 +101,51 @@ export class BillSupplierController {
 
     try {
 
-      for (const pO of dto.productOrders) {
+      for (const receivedPO of dto.productOrders) {
 
-        const initialQuantityReceived: number = pO.quantityReceived;
-      
-        let prodO: any = {};
+        const initialQuantityReceived: number = receivedPO.quantityReceived;
 
-        if (pO.id) {
-          prodO = await this.productOrderService.findOneById(pO.id);
-          if (!prodO) {
+        let existingPO: any = {};
+
+        if (receivedPO.id) {
+          existingPO = await this.productOrderService.findOneById(receivedPO.id);
+          if (!existingPO) {
             throw new NotFoundException;
           }
         } else {
           // the user added a product that was not in the original order!
-          prodO.product = {};
-          prodO.product.id = pO.prodId;
-          prodO.quantityOrdered = 0;
-          delete pO.id;
+          existingPO.product = {};
+          existingPO.product.id = receivedPO.prodId;
+          existingPO.quantityOrdered = 0;
+          delete receivedPO.id;
         }
-        delete pO.prodId;
+        delete receivedPO.prodId;
 
-        order = (prodO.order) ? prodO.order : baseOrder;
-        const quantDiff = pO.quantityReceived - prodO.quantityOrdered;
+        order = existingPO.order ?? baseOrder;
+        const quantDiff = receivedPO.quantityReceived - existingPO.quantityOrdered;
 
         if (quantDiff === 0) {
           // product received in the desired quantity
 
-          prodO = this.billSupplierUpdateService.receiveProductOrderFromDto(prodO, pO, newBill);
-          prodO.updatedAt = new Date();
-          await queryRunner.manager.update(ProductOrder, prodO.id, prodO);
+          existingPO = this.billSupplierUpdateService.receiveProductOrderFromDto(existingPO, receivedPO, newBill);
+          existingPO.updatedAt = new Date();
+          await queryRunner.manager.update(ProductOrder, existingPO.id, existingPO);
 
         } else if (quantDiff < 0) {
           // product partially received, some are in BO
 
           // create and add new productOrder w/ the remaining quant
-          await this.billSupplierUpdateService.createBOProdOrder(prodO, quantDiff);
+          await this.billSupplierUpdateService.createBOProdOrder(existingPO, quantDiff);
 
           // update the received productOrder
-          prodO = this.billSupplierUpdateService.receiveProductOrderFromDto(prodO, pO, newBill);
-          await queryRunner.manager.update(ProductOrder, prodO.id, prodO);
+          existingPO = this.billSupplierUpdateService.receiveProductOrderFromDto(existingPO, receivedPO, newBill);
+          await queryRunner.manager.update(ProductOrder, existingPO.id, existingPO);
 
         } else if (quantDiff > 0) {
-          // product received in excess, probably from a BO prodO of a previous order.
+          // product received in excess, probably from a BO existingPO of a previous order.
 
           // find all productOrders of the same product and from the same supplier with as status : BO
-          let existingProdBOs: ProductOrder[] = await this.productOrderService.findAllBOByProdId_transactional(prodO.product.id, queryRunner);
+          let existingProdBOs: ProductOrder[] = await this.productOrderService.findAllBOByProdId_transactional(existingPO.product.id, queryRunner);
           existingProdBOs = existingProdBOs.filter(eP => eP.order.supplier.id === order.supplier.id);
 
           let remainingQuant: number = quantDiff;
@@ -151,7 +153,7 @@ export class BillSupplierController {
           for (let bo of existingProdBOs) {
             if (bo.quantityOrdered === remainingQuant) {
 
-              bo = await this.billSupplierUpdateService.updateBOProductOrder(bo, pO, newBill, queryRunner, remainingQuant);
+              bo = await this.billSupplierUpdateService.updateBOProductOrder(bo, receivedPO, newBill, queryRunner, remainingQuant);
 
               remainingQuant = 0;
               break;
@@ -162,50 +164,48 @@ export class BillSupplierController {
               // create and add new productOrder w/ the remaining quant
               await this.billSupplierUpdateService.createBOProdOrder(bo, remainingQuant - bo.quantityOrdered);
 
-              // update the current BO prodO
-              bo = await this.billSupplierUpdateService.updateBOProductOrder(bo, pO, newBill, queryRunner, remainingQuant);
+              // update the current BO existingPO
+              bo = await this.billSupplierUpdateService.updateBOProductOrder(bo, receivedPO, newBill, queryRunner, remainingQuant);
 
               remainingQuant = 0;
               break;
 
             } else if (bo.quantityOrdered < remainingQuant) {
 
-              bo = await this.billSupplierUpdateService.updateBOProductOrder(bo, pO, newBill, queryRunner);
+              bo = await this.billSupplierUpdateService.updateBOProductOrder(bo, receivedPO, newBill, queryRunner);
 
               remainingQuant = remainingQuant - bo.quantityOrdered;
 
             }
           }
 
-          if (!prodO.id) {
+          if (!existingPO.id) {
             // the user added a product that was not in the original order.
             // check if the remaining quant is > 0 -> if yes we need to create and add the product to the current order!
             if (remainingQuant > 0) {
               const newProdOrder = new ProductOrder();
-              newProdOrder.product = await this.productsService.findOneById_transactional(prodO.product.id, queryRunner);
+              newProdOrder.product = await this.productsService.findOneById_transactional(existingPO.product.id, queryRunner);
               newProdOrder.order = order;
               newProdOrder.quantityOrdered = 0;
               newProdOrder.status = EProductOrderStatus.RECEIVED;
 
-              prodO = await this.productOrderService.create(newProdOrder);
+              existingPO = await this.productOrderService.create(newProdOrder);
 
-            } else {
-              return;
             }
           }
 
           // update the received productOrder
-          prodO = this.billSupplierUpdateService.receiveProductOrderFromDto(prodO, pO, newBill);
-          prodO.quantityReceived = prodO.quantityReceived - quantDiff + remainingQuant;
-          prodO.updatedAt = new Date();
+          existingPO = this.billSupplierUpdateService.receiveProductOrderFromDto(existingPO, receivedPO, newBill);
+          existingPO.quantityReceived = existingPO.quantityReceived - quantDiff + remainingQuant;
+          existingPO.updatedAt = new Date();
 
-          await queryRunner.manager.update(ProductOrder, prodO.id, prodO);
+          await queryRunner.manager.update(ProductOrder, existingPO.id, existingPO);
 
         }
 
         // update product quantity and price
-        const product = await queryRunner.manager.findOne(Product, prodO.product.id);
-        product.purchasePriceHT = prodO.pcPurchasePriceHTAtDate;
+        const product = await queryRunner.manager.findOne(Product, existingPO.product.id);
+        product.purchasePriceHT = existingPO.pcPurchasePriceHTAtDate;
         if (product.purchasePriceHT >= product.salePriceHT) {
           product.salePriceHT = product.purchasePriceHT * 1.02; // set a min margin of 2%!
         }
@@ -218,12 +218,12 @@ export class BillSupplierController {
 
       // update status of all products that weren't received:
       const notReceivedProds: ProductOrder[] = (await this.productOrderService.findAllByOrderId_transactional(order.id, queryRunner))
-        .filter(pO => pO.status === EProductOrderStatus.ORDERED);
-      await Promise.all(notReceivedProds.map(async pO => {
-        pO.status = EProductOrderStatus.BO;
-        pO.updatedAt = new Date();
+        .filter(prodOrder => prodOrder.status === EProductOrderStatus.ORDERED);
+      await Promise.all(notReceivedProds.map(async prodOrder => {
+        prodOrder.status = EProductOrderStatus.BO;
+        prodOrder.updatedAt = new Date();
 
-        await queryRunner.manager.update(ProductOrder, pO.id, pO);
+        await queryRunner.manager.update(ProductOrder, prodOrder.id, prodOrder);
       }));
 
       await this.billSupplierUpdateService.updateOrderStatus(order, queryRunner);
