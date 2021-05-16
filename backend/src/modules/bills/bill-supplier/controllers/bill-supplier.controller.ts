@@ -121,7 +121,7 @@ export class BillSupplierController {
         }
         delete receivedPO.prodId;
 
-        order = existingPO.order ?? baseOrder;
+        order = (existingPO.order) ? existingPO.order : baseOrder;
         const quantDiff = receivedPO.quantityReceived - existingPO.quantityOrdered;
 
         if (quantDiff === 0) {
