@@ -1,0 +1,104 @@
+\documentclass[french, 12pt, a4paper]{article}
+
+%%%%% PACKAGES %%%%%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[margin=2cm]{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+
+
+\begin{document}
+
+%%%%% PAGE DE GARDE %%%%%
+
+\begin{titlepage}
+\begin{center}
+
+\includegraphics[width=15cm]{img/ephec.jpg}~\\
+\textsc{Avenue du Ciseau, 15 \\ 1348 Ottignies-Louvain-la-Neuve} \\[1.5cm]
+
+{\huge \bfseries \begin{spacing}{1.25}
+  Application web \linebreak 
+  de gestion de la supply-chain \linebreak
+  pour la société SLG Classic Cars \linebreak
+  \LARGE(restauration de véhicules anciens)
+  \\[2cm]
+  \end{spacing} 
+} 
+
+{\large 
+  Travail de fin d'études présenté en vue de l'obtention du diplôme de bachelier
+  en Informatique et Systèmes Orientation Technologie de l'Informatique
+  \\[2cm]
+}
+
+{\LARGE 
+  Martin MICHOTTE
+}
+
+\vspace*{\fill}
+\textsc{\large Rapporteur: M-N. VROMAN}
+\hfill
+\textsc{\large Année académique 2020-2021}
+
+\end{center}
+\end{titlepage}
+
+%%%%% REMERCIEMENTS %%%%%
+
+\newpage
+\setcounter{page}{0}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+\section*{Remerciements}
+
+%%%%% TOC %%%%%
+
+\newpage
+\addtocontents{toc}{\protect\setcounter{tocdepth}{5}}
+\renewcommand{\contentsname}{Table des matières}
+\tableofcontents
+
+%%%%% CONTENU %%%%%
+
+\newpage
+\section{Introduction}
+\subsection{Client}
+\subsection{Objectifs}
+
+\newpage
+\section{Méthodologie}
+
+\newpage
+\section{Analyse}
+
+\newpage
+\section{Sécurité}
+\subsection{Security Headers}
+\subsection{Dependabot Github}
+
+\newpage
+\section{Déploiement}
+\subsection{Première approche - Hosted Service}
+\subsection{Seconde approche - VPS}
+
+\newpage
+\section{Monitoring}
+
+\newpage
+\section{Pistes d'amélioration}
+
+\newpage
+\section{Suite}
+
+\newpage
+\section{Conclusion}
+
+\newpage
+\section{Bibliographie}
+
+
+
+\end{document}
