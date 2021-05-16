@@ -8,6 +8,8 @@
 \usepackage{setspace}
 \usepackage{graphicx}
 \usepackage[hidelinks]{hyperref}
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+\setcounter{secnumdepth}{4}
 
 
 \begin{document}
@@ -21,9 +23,9 @@
 \textsc{Avenue du Ciseau, 15 \\ 1348 Ottignies-Louvain-la-Neuve} \\[1.5cm]
 
 {\huge \bfseries \begin{spacing}{1.25}
-  Application web \linebreak 
-  de gestion de la supply-chain \linebreak
-  pour la société SLG Classic Cars \linebreak
+  Application web \\ 
+  de gestion de la supply-chain \\
+  pour la société SLG Classic Cars \\
   \LARGE(restauration de véhicules anciens)
   \\[2cm]
   \end{spacing} 
@@ -49,56 +51,52 @@
 
 %%%%% REMERCIEMENTS %%%%%
 
-\newpage
-\setcounter{page}{0}
-\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
-\section*{Remerciements}
+\input{sections/remerciements.tex}
 
 %%%%% TOC %%%%%
 
 \newpage
-\addtocontents{toc}{\protect\setcounter{tocdepth}{5}}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{4}}
 \renewcommand{\contentsname}{Table des matières}
 \tableofcontents
 
 %%%%% CONTENU %%%%%
 
 \newpage
-\section{Introduction}
-\subsection{Client}
-\subsection{Objectifs}
+\input{sections/introduction.tex}
 
 \newpage
-\section{Méthodologie}
+\input{sections/methodologie.tex}
 
 \newpage
-\section{Analyse}
+\input{sections/analyse.tex}
 
 \newpage
-\section{Sécurité}
-\subsection{Security Headers}
-\subsection{Dependabot Github}
+\input{sections/developpement.tex}
 
 \newpage
-\section{Déploiement}
-\subsection{Première approche - Hosted Service}
-\subsection{Seconde approche - VPS}
+\input{sections/securite.tex}
 
 \newpage
-\section{Monitoring}
+\input{sections/deploiement.tex}
 
 \newpage
-\section{Pistes d'amélioration}
+\input{sections/migration_donnee.tex}
 
 \newpage
-\section{Suite}
+\input{sections/monitoring_backups.tex}
 
 \newpage
-\section{Conclusion}
+\input{sections/piste_amelioration.tex}
 
 \newpage
-\section{Bibliographie}
+\input{sections/suite.tex}
 
+\newpage
+\input{sections/conclusion.tex}
+
+\newpage
+\input{sections/bibliographie.tex}
 
 
 \end{document}
