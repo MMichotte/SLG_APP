@@ -15,11 +15,11 @@
       \item[Runtime environnement]: NodeJs  
       \item[ORM]: TypeOrm 
     \end{description}
-    Tout d'abord, vu l'envergure du projet, il me parait important de veiller à une bonne structure et de garder en tête la maintenance du projet au fil du temps. Dans ces circonstances, il est important d'utiliser un framework. Quant au choix du framework, dans un premier temps mon choix s'est porté sur la suite NodeJs-ExpressJs. Ce choix était initialement justifié par le faite que j'avais déjà travailler avec ceux-ci. Après quelques semaines de développement, je me suis rendu compte que je préférait nettement utiliser le TypeScript pour un projet d'une tel envergure. J'ai des lors décidé de changer de framework et ai migré mon application NodeJs-Express vers du NestJs. Le NestJs utilise du Typescript et permet de bien structurer son code comme au frontend avec Angular.
+    Tout d'abord, vu l'envergure du projet, il me paraissait important de veiller à une bonne structure et de garder en tête la maintenance du projet au fil du temps. Dans ces circonstances, il est important d'utiliser un framework. Quant au choix du framework, dans un premier temps mon choix s'est porté sur la suite NodeJs-ExpressJs. Ce choix était initialement justifié par le fait que j'avais déjà travailler avec ceux-ci. Après quelques semaines de développement, je me suis rendu compte que je préférait nettement utiliser le TypeScript pour un projet d'une tel envergure. J'ai des lors décidé de changer de framework et ai migré mon application NodeJs-Express vers du NestJs. Le NestJs utilise du Typescript et permet de bien structurer son code comme au frontend avec Angular. (voir ci-après)
   \end{minipage}
 \end{figure}
 
-
+\newpage
 
 \subsubsection{Frontend}
 \begin{figure}[H]
@@ -39,8 +39,6 @@
   \end{minipage}
 \end{figure}
 
-\newpage
-
 \subsubsection{Base de donnée}
 
 \begin{figure}[H]
@@ -48,15 +46,29 @@
     \includegraphics[width=0.75\linewidth]{img/tech/PostgreSql.png} 
   \end{minipage} 
   \begin{minipage}{.7\textwidth}
-    Le choix de la base de données a été motivé par quatre critères :
+    Le choix de la base de données a été motivé par trois critères :
     \begin{enumerate}
-      \item \textbf{SQL} Après analyse des besoins du client, il ressort clairement un grand nombre de relations entre les différentes données. Une base de données SQL est donc primordiale pour la bonne organisation du système d'information.
-      \item \textbf{Notoriété} PostgreSQL est fortement utilisé dans le milieu proféssionnel ce qui lui oblige d'être mise à jour régulièrement et ce tant au niveau sécurité que en ajout de fonctionnalités. C'est donc une base de données fiable, utilisable à très long terme et maîtrisée par de nombreux développeurs.
-      \item \textbf{Expérience} Bien que toutes les bases de données SQL se ressemble, le fait d'avoir déjà manipuler et de s'être familiariser avec PostgreSql m'offre un gain de temps considérable.
+      \item \textbf{SQL}: Comme expliqué lors de l'analyse des besoins du client dans la section "Base de donnée", vu le grand nombre de relations entre les différentes données, une base de données SQL est primordiale pour la bonne organisation du système d'information.
+      \item \textbf{Notoriété}: PostgreSQL est fortement utilisé dans le milieu proféssionnel ce qui lui oblige d'être mis à jour régulièrement et ce tant au niveau sécurité que en ajout de fonctionnalités. C'est donc une base de données fiable, utilisable à long terme et maîtrisée par de nombreux développeurs.
+      \item \textbf{Expérience}: Bien que toutes les bases de données SQL se ressemble, le fait d'avoir déjà manipuler et de s'être familiariser avec PostgreSql m'offre un gain de temps considérable.
     \end{enumerate}
   \end{minipage} 
 \end{figure}
 
+\newpage
+
 \subsubsection{Autre}
+
+\subsubsubsection{API}
+
+Afin de tester les différents endpoints API de l'application, j'ai décidé d'utiliser \textbf{Insomnia}\footnote{\url{https://insomnia.rest}}. Insomnia permet non seulement de tester mon API en temps réel mais permet aussi d'écrire la documentation. Je n'utiliserai néanmoins pas cette dernière fonctionnalité étant donnée que le framework backend (NestJs) que j'utilise me permet de générer automatiquement et facilement une documentation API.
+
+\newpara
+
+Une API sans documentation est pratiquement inutilisable. Il existe un grand nombre de technologies pour écrire de la documentation API. Afin de centraliser un maximum d'éléments, j'ai décidé d'utiliser un plugin pour NestJs. Ce plugin (swagger swagger-ui-express\footnote{\url{https://docs.nestjs.com/openapi/introduction}}) me permet de générer automatiquement la documentation de mes endpoints sur base de quelques décorateurs\footnote{Code non-essentiel au fonctionnement de l'application mais permettant d'écrire des annotations} ajouté dans le code. En plus de cela, il me permet de de déployer cette documentation directement avec l'application. Celle-ci est dès lors consultable ici:\\\url{https://app.slgcars.be/api-docs/}.
+
+\subsubsubsection{Linter}
+
+Il est "facile" d'écrire du code mais beaucoup plus compliqué de le rendre cohérent, lisible et portable. Afin de palier à ces problèmes un linter est indispensable. Étant donnée que je travaille principalement avec du JS et du TS, j'ai opté pour ESLint. Ce linter est 100\% configurable pour chaque projet et me permet de garantir, dans l'éventualité où dans le future un autre développeur venait à contribuer au projet, la cohérence de nommage des variables, la configuration de l'IDE et bien d'autre choses. Pour ce qui est du HTML et SCSS un linter est inclus dans le framework Angular.
 
 \subsection{Outils}
