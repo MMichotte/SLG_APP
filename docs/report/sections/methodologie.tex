@@ -1,2 +1,62 @@
 \section{Méthodologie}
 \subsection{Agile}
+
+
+\subsection{Choix des technologies}
+\subsubsection{Backend}
+\begin{figure}[H]
+  \begin{minipage}{.3\textwidth}
+    \includegraphics[width=0.75\linewidth]{img/tech/NestJs.png} 
+  \end{minipage}
+  \begin{minipage}{.7\textwidth}
+    \begin{description}
+      \item[Framework]: NestJs
+      \item[Language]: TypeScript
+      \item[Runtime environnement]: NodeJs  
+      \item[ORM]: TypeOrm 
+    \end{description}
+    Tout d'abord, vu l'envergure du projet, il me parait important de veiller à une bonne structure et de garder en tête la maintenance du projet au fil du temps. Dans ces circonstances, il est important d'utiliser un framework. Quant au choix du framework, dans un premier temps mon choix s'est porté sur la suite NodeJs-ExpressJs. Ce choix était initialement justifié par le faite que j'avais déjà travailler avec ceux-ci. Après quelques semaines de développement, je me suis rendu compte que je préférait nettement utiliser le TypeScript pour un projet d'une tel envergure. J'ai des lors décidé de changer de framework et ai migré mon application NodeJs-Express vers du NestJs. Le NestJs utilise du Typescript et permet de bien structurer son code comme au frontend avec Angular.
+  \end{minipage}
+\end{figure}
+
+
+
+\subsubsection{Frontend}
+\begin{figure}[H]
+  \begin{minipage}{.3\textwidth}
+    \includegraphics[width=0.75\linewidth]{img/tech/Angular.png}
+  \end{minipage}
+  \begin{minipage}{.7\textwidth}
+    \begin{description}
+      \item[Framework]: Angular
+      \item[Languages]: \begin{itemize}
+        \item TypeScript
+        \item HTML
+        \item SCSS
+      \end{itemize} 
+    \end{description}
+    Tout comme pour le backend, il est évident que l'utilisation d'un framework est indispensable. Le choix du framework s'est fait sur base de mon expérience personnelle. En effet, durant mes années d'études, j'ai eu l'occasion d'utiliser différent frameworks frontend tel que React, Vue et Angular. J'ai particulièrement bien aimé travailler avec ce dernier car il impose une certaine rigueur tout en restant relativement simple d'utilisation.
+  \end{minipage}
+\end{figure}
+
+\newpage
+
+\subsubsection{Base de donnée}
+
+\begin{figure}[H]
+  \begin{minipage}{.3\textwidth}
+    \includegraphics[width=0.75\linewidth]{img/tech/PostgreSql.png} 
+  \end{minipage} 
+  \begin{minipage}{.7\textwidth}
+    Le choix de la base de données a été motivé par quatre critères :
+    \begin{enumerate}
+      \item \textbf{SQL} Après analyse des besoins du client, il ressort clairement un grand nombre de relations entre les différentes données. Une base de données SQL est donc primordiale pour la bonne organisation du système d'information.
+      \item \textbf{Notoriété} PostgreSQL est fortement utilisé dans le milieu proféssionnel ce qui lui oblige d'être mise à jour régulièrement et ce tant au niveau sécurité que en ajout de fonctionnalités. C'est donc une base de données fiable, utilisable à très long terme et maîtrisée par de nombreux développeurs.
+      \item \textbf{Expérience} Bien que toutes les bases de données SQL se ressemble, le fait d'avoir déjà manipuler et de s'être familiariser avec PostgreSql m'offre un gain de temps considérable.
+    \end{enumerate}
+  \end{minipage} 
+\end{figure}
+
+\subsubsection{Autre}
+
+\subsection{Outils}

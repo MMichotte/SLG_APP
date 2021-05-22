@@ -7,9 +7,15 @@
 \usepackage[margin=2cm]{geometry}
 \usepackage{setspace}
 \usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{url}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{wrapfig}
 \usepackage[hidelinks]{hyperref}
 \newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
 \setcounter{secnumdepth}{4}
+\newcommand{\newpara}{\vskip 0.75cm}
 
 
 \begin{document}
@@ -38,7 +44,7 @@
 }
 
 {\LARGE 
-  Martin MICHOTTE
+  MICHOTTE Martin
 }
 
 \vspace*{\fill}
@@ -66,10 +72,10 @@
 \input{sections/introduction.tex}
 
 \newpage
-\input{sections/methodologie.tex}
+\input{sections/analyse.tex}
 
 \newpage
-\input{sections/analyse.tex}
+\input{sections/methodologie.tex}
 
 \newpage
 \input{sections/developpement.tex}
