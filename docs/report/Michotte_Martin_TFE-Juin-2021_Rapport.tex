@@ -12,7 +12,10 @@
 \usepackage{float}
 \usepackage{listings}
 \usepackage{wrapfig}
+\usepackage[bottom]{footmisc}
 \usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 \newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
 \setcounter{secnumdepth}{4}
 \newcommand{\newpara}{\vskip 0.75cm}
@@ -101,6 +104,9 @@
 
 \newpage
 \input{sections/conclusion.tex}
+
+\newpage
+\input{sections/definitions.tex}
 
 \newpage
 \input{sections/bibliographie.tex}

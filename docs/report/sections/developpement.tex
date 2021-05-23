@@ -1,1 +1,150 @@
 \section{Développement}
+
+Bien que le développement à proprement parler ait constitué la majeur partie de ce projet, expliquer l'intégralité des fonctionnalités n'a pas sa place dans le cadre de ce rapport. Je tiens cependant à partager un exemple d'une analyse logique d'une fonctionnalité qui, à mes yeux, représente bien la complexité de ce projet (exemple ci-après). 
+
+\newpara
+
+Le développement à pour ce projet été divisé en quatre grandes phases :
+\begin{enumerate}
+  \item \textbf{mise en place de la structure du projet}: \\ Cette phase a constitué à initialiser les différent modules du projet (backend, frontend, ...) ainsi qu'a choisir une structure de dossier appropriée. 
+  \item\textbf{mise en place des outils facilitant le productivité}: \\ Afin de me simplifier le travail et/ou de ne pas devoir exécuter des tâches répétitives, j'ai utilisé plusieurs outils tel qu'un linter\footnote{Un linter est un outil d'analyse statique de code permettant d'uniformiser le style du code et de déceler des potentiels erreurs.} ou des extensions de mon IDE me proposant de l'autocomplétion avancée. Ce sont donc une série d'outils non-indispensables mais incontournable. 
+  \item \textbf{implémentation des US}
+  \item \textbf{refactoring}: \\ Cette phase n'est pas une phase en tant que tel. En effet, tout au long du projet, j'ai refactorisé le code que ce soit au niveau de la structure ou de la logique. 
+\end{enumerate}
+
+\subsection{Exemple concret}
+\textbf{Contexte}: Dans le cadre de la US \textit{"CO07 - Réceptionner une commande"}, une multitude de cas sont à étudier. En voici l'analyse: 
+
+\newpara
+
+Pour chaque produit réceptionné:
+\begin{enumerate}
+
+  \item \textbf{Le produit à été reçu avec: quantité reçue == quantité commandé}
+  \begin{enumerate}
+    \item mise à jour de l'information du produit
+    \item le statut du produit passe à "RECEIVED"
+  \end{enumerate}
+
+  \newpara
+  \item \textbf{Le produit à été reçu avec: quantité reçue < quantité commandé}
+  \begin{enumerate}
+    \item Le produit est affiché avec deux status: "RECEIVED" et "BO"\footnote{Back Order}. La quantité manquante est affichée dans le statut "BO".
+    \newpage
+    \item Lors de la sauvegarde de la facture:
+    \begin{enumerate}
+      \item un nouveau produit reprennent les mêmes informations que le produit d'origine est ajouté à la commande courante. La quantité commande de ce nouveau produit est égale à la quantité manquante définie précédemment. Le status de ce produit est "BO".
+      \item le status produit d'origine passe à "RECEIVED".
+    \end{enumerate}
+  \end{enumerate}
+  
+  \newpara
+  \item \textbf{Le produit à été reçu avec: quantité reçue > quantité commandé}
+  \begin{enumerate}
+    \item Le système cherches tous les produits équivalent à celui-ci venant du même fournisseur et dont le status est "BO". 
+    \begin{itemize}
+      \item \textbf{le système trouve un produit}: 
+      \begin{enumerate}
+        \item Récupération de la commande concernée par le produit trouvé
+        \item Traitement de ce produit comme s'il faisait partie de la commande actuelle (il passe par les mêmes étapes décrites ci-autour)
+      \end{enumerate}
+      \item \textbf{le système ne trouve pas produit}: On continue la procédure ci-dessous
+    \end{itemize}
+    \item mise à jour de l'information du produit
+    \item le statut du produit passe à "RECEIVED"
+  \end{enumerate}
+  
+  \newpara
+  \item \textbf{Le produit n'a pas été reçu}
+  \begin{enumerate}
+    \item le statut du produit passe à "BO"
+  \end{enumerate}
+
+  \newpara
+  \item \textbf{Le produit ne faisait pas partie de la commande concernée}
+  \begin{enumerate}
+    \item l'utilisateur a la possibilité d'ajouter un produit non-présent dans la commande à l'aide d'un bouton.
+    \item (ajout du produit dans la commande, voir US CO03)
+    \item retour à l'étape n° 3
+  \end{enumerate}
+
+\end{enumerate}
+
+\newpara
+
+La réception d'une commande génère une facture. Cette facture à une valeur comptable et se doit donc d'être correct. En plus de la création d'une facture, la réception d'une commande met à jour le stock. Le stock étant d'une grande importance financière et commerciale, celui-ci se doit également d'être le plus correcte possible avec la réalité. Dans ces circonstances, il était impératif que toutes les actions exécutées sur tous les produits d'une commande soient ..... Des lors, j'ai du utiliser un système de transaction afin de garantir l'intégrité des donnés. Soit l'intégralité des données sont correcte et cohérente et sont alors ajoutée en base de donnée, soit il y a une erreur et l'entièreté de l'action est annulée, aucun changement n'a lieu dans la base de données. 
+
+\newpage
+
+\subsection{Récapitulatif des fonctionnalités/US implémentées}
+L'ensemble des fonctionnalités prévues dans les objectifs à "court terme" ont été réalisée. Voici un récapitulatif non-détaillé de "user stories" implémentées:  
+
+\newpara
+\textbf{Général}
+\begin{itemize}
+  \item \checkmark G01 - Connexion utilisateur
+\end{itemize}
+
+\newpara
+\textbf{Stock}
+\begin{itemize}
+  \item \checkmark ST01 - Onglet Stock
+  \item \checkmark ST02 - Consulter le stock
+  \item \checkmark ST03 - Ajouter nouvel article dans le stock
+  \item \checkmark ST07 - Rechercher un article
+  \item \checkmark ST09 - Supprimer un article
+  \item \checkmark ST04 - Consulter/modifier le détail d'un article
+  \item \checkmark ST06 - Consulter récapitulatif entrée/sortie d'un article
+\end{itemize}
+
+\newpara
+\textbf{Main d'oeuvre}
+\begin{itemize}
+  \item \checkmark MO01 - Onglet Main d'oeuvres
+  \item \checkmark MO02 - Consulter la liste des main d'oeuvres
+  \item \checkmark MO03 - Ajouter un nouveau tarif de main d'oeuvre
+  \item \checkmark MO05 - Rechercher un main d'oeuvre
+  \item \checkmark MO06 - Supprimer une main d'oeuvre
+  \item \checkmark MO04 - Consulter/Modifier le détail d'un main d'oeuvre
+\end{itemize}
+
+\newpara
+\textbf{Client}
+\begin{itemize}
+  \item \checkmark CL01 - Onglet Clients
+  \item \checkmark CL02 - Consulter liste clients
+  \item \checkmark CL03 - Ajout nouveau client
+  \item \checkmark CL09 - Rechercher un client 
+  \item \checkmark CL10 - Supprimer un client
+  \item \checkmark CL04 - Consulter/modifier détail d'un client
+\end{itemize}
+
+\newpage
+
+\textbf{fournisseur}
+\begin{itemize}
+  \item \checkmark FO01 - Onglet Fournisseurs
+  \item \checkmark FO02 - Consulter liste des fournisseurs
+  \item \checkmark FO03 - Ajouter nouveau fournisseur
+  \item \checkmark FO04 - Consulter/Modifier le détail d'un fournisseur
+  \item \checkmark FO06 - Rechercher un fournisseur
+  \item \checkmark FO07 - Supprimer un fournisseur
+\end{itemize}
+
+\newpara
+\textbf{Commandes}
+\begin{itemize}
+  \item \checkmark CO01 - Onglet Commandes
+  \item \checkmark CO02 - Consulter la liste des commandes
+  \item \checkmark CO03 - Créer une nouvelle commande
+  \item \checkmark CO04 - Consulter le détail d'une commande
+  \item \checkmark CO05 - Rechercher une commande
+  \item \checkmark CO06 - Supprimer une commande
+  \item \checkmark CO07 - Réceptionner une commande
+\end{itemize}
+
+\newpara
+\textbf{Factures}
+\begin{itemize}
+  \item \checkmark FA01 - Onglet Factures
+\end{itemize}

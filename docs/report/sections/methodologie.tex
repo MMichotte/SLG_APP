@@ -1,6 +1,30 @@
 \section{Méthodologie}
 \subsection{Agile}
 
+Comme brièvement abordé précédemment, vu la l'envergure et la complexité du projet, j'ai décidé de travailler de manière "agile". Mais qu'est-ce que "l'agilité" dans le monde du développement informatique? \textit{"En ingénierie logicielle, les pratiques agiles mettent en avant la collaboration entre des équipes auto-organisées et pluridisciplinaires et leurs clients1. Elles s'appuient sur l'utilisation d'un cadre méthodologique léger mais suffisant centré sur l'humain et la communication2. Elles préconisent une planification adaptative, un développement évolutif, une livraison précoce et une amélioration continue, et elles encouragent des réponses flexibles au changement"\cite{Agile}}.
+
+\newpara
+
+Concrètement, dans le cadre de ce projet, cela à impliqué que j'ai travaillé de manière incrémentale comme l'illustre la \textit{figure \ref{agile}} ci-dessous. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth]{img/agile.jpeg}
+  \caption{ \textit{Les raisons pour utiliser les méthodes Agile en entreprise} de 300\_librarians}
+  \label{agile}
+\end{figure}
+Chaque fonctionnalité de ce projet peut être representée par un "sprint". En d'autres termes j'ai, pour chaque fonctionnalité: 
+\begin{enumerate}
+  \item détaillé sous forme d'une US (PLAN + DESIGN) 
+  \item implémenté (DEVELOP)
+  \item testé par le biais de tests automatisé ou manuellement (TEST)
+  \item déployé l'ensemble en production (DEPLOY)
+  \item demandé un feedback au client (REVIEW)
+  \item adapté la fonctionnalité en fonction du feedback 
+\end{enumerate} 
+
+\newpara
+
+Cette Méthodologie a été très efficace et a permis une bonne collaboration avec le client. 
 
 \subsection{Choix des technologies}
 \subsubsection{Backend}
@@ -18,8 +42,6 @@
     Tout d'abord, vu l'envergure du projet, il me paraissait important de veiller à une bonne structure et de garder en tête la maintenance du projet au fil du temps. Dans ces circonstances, il est important d'utiliser un framework. Quant au choix du framework, dans un premier temps mon choix s'est porté sur la suite NodeJs-ExpressJs. Ce choix était initialement justifié par le fait que j'avais déjà travailler avec ceux-ci. Après quelques semaines de développement, je me suis rendu compte que je préférait nettement utiliser le TypeScript pour un projet d'une tel envergure. J'ai des lors décidé de changer de framework et ai migré mon application NodeJs-Express vers du NestJs. Le NestJs utilise du Typescript et permet de bien structurer son code comme au frontend avec Angular. (voir ci-après)
   \end{minipage}
 \end{figure}
-
-\newpage
 
 \subsubsection{Frontend}
 \begin{figure}[H]
@@ -39,6 +61,8 @@
   \end{minipage}
 \end{figure}
 
+\newpage
+
 \subsubsection{Base de donnée}
 
 \begin{figure}[H]
@@ -55,8 +79,6 @@
   \end{minipage} 
 \end{figure}
 
-\newpage
-
 \subsubsection{Autre}
 
 \subsubsubsection{API}
@@ -66,6 +88,8 @@ Afin de tester les différents endpoints API de l'application, j'ai décidé d'u
 \newpara
 
 Une API sans documentation est pratiquement inutilisable. Il existe un grand nombre de technologies pour écrire de la documentation API. Afin de centraliser un maximum d'éléments, j'ai décidé d'utiliser un plugin pour NestJs. Ce plugin (swagger swagger-ui-express\footnote{\url{https://docs.nestjs.com/openapi/introduction}}) me permet de générer automatiquement la documentation de mes endpoints sur base de quelques décorateurs\footnote{Code non-essentiel au fonctionnement de l'application mais permettant d'écrire des annotations} ajouté dans le code. En plus de cela, il me permet de de déployer cette documentation directement avec l'application. Celle-ci est dès lors consultable ici:\\\url{https://app.slgcars.be/api-docs/}.
+
+\newpage
 
 \subsubsubsection{Linter}
 
