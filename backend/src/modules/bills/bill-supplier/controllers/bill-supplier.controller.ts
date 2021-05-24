@@ -191,6 +191,8 @@ export class BillSupplierController {
 
               existingPO = await this.productOrderService.create(newProdOrder);
 
+            } else {
+              continue; //TODO check all casses -> testing ? 
             }
           }
 

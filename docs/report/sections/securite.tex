@@ -52,16 +52,45 @@ Stocker les données à risque de manière chiffrée dans la base de donnée est
 
 \newpage
 
-\subsection{Security Headers}
+\subsection{HTTP Headers}
+
+Les headers HTTP permettent de sécuriser un site-web contre la plupart des attaques les plus répendues et ce de manière relativement simple. Voici en résumé les principaux headers que j'ai configuré:
+
+\begin{itemize}
+  \item \textbf{Strict-Transport-Policy (STP)}: \\ Header permettant d'indiquer au navigateur que le site-web ne peut être accèder qu'en utilisant HTTPS au lieu de HTTP. \\
+  
+  \item \textbf{Content-Security-Policy (CSP)}: \\ \textit{"L'en-tête de réponse HTTP Content-Security-Policy permet aux administrateurs d'un site web de contrôler les ressources que l'agent utilisateur est autorisé à charger pour une page donnée. Bien qu'il y ait quelques exceptions, ces règles impliquent la plupart du temps de définir les origines du serveur et les points d'accès pour les scripts. Cet en-tête aide à se protéger contre les attaques de cross-site scripting."}\cite{CSP} \\
+
+  \item \textbf{X-Frame-Options}: \\ \textit{"L'en-tête de réponse HTTP X-Frame-Options peut être utilisé afin d'indiquer si un navigateur devrait être autorisé à afficher une page au sein d'un élément <frame>, <iframe>, <embed> ou <object>. Les sites peuvent utiliser cet en-tête afin d'éviter les attaques de clickjacking pour s'assurer que leur contenu ne soit pas embarqués dans d'autres sites."}\cite{X-Frame} \\
+
+  \item \textbf{X-Content-Type-Policy}: \\ \textit{"L'entête X-Content-Type-Options est un marqueur utilisé par le serveur pour indiquer que les types MIME annoncés dans les en-têtes Content-Type ne doivent pas être modifiés ou et suivis. Cela permet de se détacher du sniffing de type MIME, ou, en d'autres termes, c'est une façon de dire que les webmasters savaient ce qu'ils faisaient."}\cite{X-Content}
+\end{itemize}
+
+\newpara
+
+Après avoir configuré ces différents headers, j'ai testé le bon fonctionnement de ceux-ci en lançant une analyse en ligne. Comme le montre la \textit{figure \ref{Headers}} l'ensemble des headers ont bien été configurés et protègent désormais le site-web. 
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{img/securityHeaders.png}
   \caption{Résultat analyse de sécurité des headers fait sur \url{https://securityheaders.com/}}
+  \label{Headers}
 \end{figure}
 
+\newpage 
+
 \subsection{Dependabot Github}
+
+Durant le développement de l'application, afin de ne pas réinventer la roue, il est fréquent d'utiliser des packages/composants externes créés par d'autres développeurs. Ces packages étant utilisés par un grand nombre d'utilisateurs, ils sont une proie "facile" pour des personnes malveillantes qui souhaiteraient infecter un grand nombre de site-web. Ces packages sont dès lors régulièrement mis à jour par les créateur afin de garantir une sécurité maximale. 
+
+\newpara 
+
+Mais comment savoir quand une nouvelle version d'un packages est disponible pour des raison de sécurité? Heureusement, Github propose plusieurs services permettant de réaliser des analyse de sécurité statique sur le code y étant hébergé. Ainsi j'ai utilisé "Dependabot" qui scan périodiquement l'ensemble des dépendances du projet afin d'y déceler de potentielles failles. Si celui-ci en trouve, il m'envoie un email me prévenant de la nature de la faille et de sa dangerosité. Il ne me reste alors plus qu'a mettre à jour le(s) package(s) concerné(s) manuellement ou d'accepter une pull-request\footnote{Demande de modification du code source par une tierce personne. Pour plus d'information, voir: \url{https://www.atlassian.com/git/tutorials/making-a-pull-request}} générée par "Dependabot".
+
+\newpara
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{img/dependabot.png}
-  \caption{Alertes générées par "Dependabot"}
+  \caption{Exemple d'alertes générées par "Dependabot"}
 \end{figure}
