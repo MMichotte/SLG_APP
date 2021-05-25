@@ -132,8 +132,8 @@ export class CompaniesController {
     dto = new UpdateCompanyDTO(dto);
     const errors = await validate(dto);
     if (errors.length) throw new BadRequestException;
-
-    const existingCompany: Company = await this.companiesService.findOneByEmailOrVAT(dto.email, dto.VAT);
+  
+    const existingCompany: Company = await this.companiesService.findOneById(id);
     if (!existingCompany) throw new NotFoundException;
     const emailConflict = await this.companiesService.findOtherByEmail(id, dto.email);
     if (emailConflict) throw new ConflictException; //TODO better exception (add info)
