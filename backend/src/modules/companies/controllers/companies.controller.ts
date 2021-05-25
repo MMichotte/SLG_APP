@@ -28,7 +28,7 @@ export class CompaniesController {
     private readonly companiesService: CompaniesService,
     private readonly personsService: PersonsService,
     private readonly addressService: AddressesService
-  ) {}
+  ) { }
 
   @Get()
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
@@ -39,7 +39,7 @@ export class CompaniesController {
   })
   async findAll(): Promise<CompanyDTO[]> {
     const companies: Company[] = await this.companiesService.findAll();
-    return plainToClass(CompanyDTO,companies);
+    return plainToClass(CompanyDTO, companies);
   }
 
   @Get('clients')
@@ -51,7 +51,7 @@ export class CompaniesController {
   })
   async findAllClients(): Promise<CompanyDTO[]> {
     const companies: Company[] = await this.companiesService.findAllClients();
-    return plainToClass(CompanyDTO,companies);
+    return plainToClass(CompanyDTO, companies);
   }
 
   @Get('suppliers')
@@ -63,9 +63,9 @@ export class CompaniesController {
   })
   async findAllSuppliers(): Promise<CompanyDTO[]> {
     const companies: Company[] = await this.companiesService.findAllSuppliers();
-    return plainToClass(CompanyDTO,companies);
+    return plainToClass(CompanyDTO, companies);
   }
-  
+
   @Get('suppliers-light')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiResponse({
@@ -75,7 +75,7 @@ export class CompaniesController {
   })
   async findAllSuppliersLight(): Promise<LightCompanyDTO[]> {
     const companies: Company[] = await this.companiesService.findAllSuppliers();
-    return plainToClass(LightCompanyDTO,companies);
+    return plainToClass(LightCompanyDTO, companies);
   }
 
   @Get(':id')
@@ -86,7 +86,7 @@ export class CompaniesController {
   })
   async findOne(@Param('id') id: number): Promise<CompanyDTO> {
     const company: Company = await this.companiesService.findOneById(id);
-    return plainToClass(CompanyDTO,company);
+    return plainToClass(CompanyDTO, company);
   }
 
   @Post()
@@ -95,7 +95,7 @@ export class CompaniesController {
     status: 201,
     type: SimpleCompanyDTO,
   })
-  async create(@Body() dto: CreateCompanyDTO): Promise<SimpleCompanyDTO>  {
+  async create(@Body() dto: CreateCompanyDTO): Promise<SimpleCompanyDTO> {
     dto = new CreateCompanyDTO(dto);
     const errors = await validate(dto);
     if (errors.length) {
@@ -110,22 +110,16 @@ export class CompaniesController {
 
     if (typeof dto.personId === 'string' || dto.personId === undefined) {
       throw new BadRequestException;
-    } 
-    if (dto.personId) {  
+    }
+    if (dto.personId) {
       const person: Person = await this.personsService.findOneById(dto.personId);
       if (!person) throw new NotFoundException;
       dto.person = person;
-      delete dto.personId;
-    } else {
-      const person: Person = await this.personsService.findOneById(existingCompany.person?.id);
-      if (person) {
-        dto.person = null;
-      }
-      delete dto.personId;
     }
-    
+    delete dto.personId;
+
     const newCompany: Company = await this.companiesService.create(dto);
-    return plainToClass(SimpleCompanyDTO,newCompany);
+    return plainToClass(SimpleCompanyDTO, newCompany);
   }
 
   @Patch(':id')
@@ -134,7 +128,7 @@ export class CompaniesController {
     status: 201,
     type: SimpleCompanyDTO,
   })
-  async update(@Param('id') id: number, @Body() dto: UpdateCompanyDTO): Promise<SimpleCompanyDTO>  {
+  async update(@Param('id') id: number, @Body() dto: UpdateCompanyDTO): Promise<SimpleCompanyDTO> {
     dto = new UpdateCompanyDTO(dto);
     const errors = await validate(dto);
     if (errors.length) throw new BadRequestException;
@@ -149,7 +143,7 @@ export class CompaniesController {
     if (existingCompany.address && dto.address) {
       //update address
       const addr: Address = await this.addressService.findOneById(existingCompany.address.id);
-      for (const [prop, val] of Object.entries(dto.address)){
+      for (const [prop, val] of Object.entries(dto.address)) {
         addr[prop] = val;
       }
       addr.updatedAt = new Date();
@@ -164,9 +158,11 @@ export class CompaniesController {
       const addr: Address = await this.addressService.findOneById(existingCompany.address.id);
       this.addressService.remove(addr.id);
     }
-    
-    if (typeof dto.personId === 'string' || dto.personId === undefined) throw new BadRequestException;
-    if (dto.personId) {  
+
+    if (typeof dto.personId === 'string' || dto.personId === undefined) {
+      throw new BadRequestException;
+    }
+    if (dto.personId) {
       const person: Person = await this.personsService.findOneById(dto.personId);
       if (!person) throw new NotFoundException;
       dto.person = person;
@@ -181,10 +177,10 @@ export class CompaniesController {
     dto.updatedAt = new Date();
     const updatedCompany: Company = await this.companiesService.update(id, dto);
     updatedCompany.id = id;
-    
-    return plainToClass(SimpleCompanyDTO,updatedCompany);
+
+    return plainToClass(SimpleCompanyDTO, updatedCompany);
   }
-  
+
   @Delete(':id')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
   async remove(@Param('id') id: number) {
