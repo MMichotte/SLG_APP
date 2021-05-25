@@ -182,35 +182,106 @@ Microsoft Azure est utilisé par un très grands nombre d'entreprises tel que 3M
 \newpage
 \subsubsubsection{VPS OVH}
 
-\textbf{Déscription}: \\ Un VPS est une machine virtuelle louée en tant que service. 
+\textbf{Déscription}: \\ Qu'est ce qu'un VPS? \textit{"Un serveur privé virtuel est un environnement isolé, créé sur un serveur physique à partir d’une technologie de virtualisation. Cette solution offre tous les avantages d’un serveur standard, profitant de ressources allouées et d’une administration complète."}\cite{VPS}
+
+\newpara
+Il existe plusieurs entreprises de Cloud Computing offrant des services VPS tel que AWS, IBM et OVH. Ayant eu de bons échos d'OVH et ayant déjà travaillé avec leurs services, j'ai choisi de limiter ma recherche d'offre à OVH.
 
 \newpara
 \textbf{Avantages}:
 \begin{itemize}
-  \item 
+  \item Maîtrise totale des données
+  \item Facile à mettre en place
+  \item Grandes flexibilité de configuration
+  \item Maintenance facile et accessible à distance
+  \item Scalability (évolutivité) compliquée 
+  \item Métrics inclus
 \end{itemize}
-
+  
 \newpara
 \textbf{Inconvénients}:
 \begin{itemize}
-  \item 
+  \item Nécessite la mise en place de la sécurité du VPS
+  \item Nécessite la mise en place d'une gestion des backups
+  \item Redondance plus compliqué à mettre en place
 \end{itemize}
 
 \newpara
-\textbf{Prix}:
+\textbf{Prix}: \\ OVH propose une multitude de plans tarifaires pour leurs VPS (voir \textit{figure \ref{ovh-pricing}} ci-dessous). Notre application étant réservé à un usage interne, le traffic généré sera faible. Le plan tarifaire le moins cher nous sera dès lors plus que suffisant. De plus il est toujours possible de changer de plan par la suite. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{img/vps-tarifs.png}
+  \caption{Tarifs VPS OVH}
+  \label{ovh-pricing}
+\end{figure}
+
+
 
 \newpara
-\textbf{Coût estimé en production}: ±0 €/mois
+\textbf{Coût estimé en production}: ±5 €/mois
 
+\newpara
+\textbf{Conclusion} \\ Cette solution offre pratiquement tous les avantages d'un serveur local sans devoir se soucier de l'aspect hardware et ce à un prix très raisonnable. 
+
+\newpage
 \subsection{Première approche - Heroku}
+Dans un but de réduire au maximum les coûts et de simplifier les choses durant le développement de l'application, le client et moi même avons décidé de déployer, dans un premier temps, celle-ci sur Heroku avec le plan gratuit. Cette solution fut plus que suffisante pendant les deux trois premiers mois du développement. Néanmoins, une fois l'application plus complète, plusieurs facteurs tel que: 
+\begin{itemize}
+  \item la lenteur de mise en production (temps nécessaire entre l'action de déploiement et l'accessibilité du site)
+  \item le maximum de 10k lignes d'entrées dans la base de donnée 
+\end{itemize}
+nous ont fait revoir les solutions de déploiement. 
+
 \subsection{Seconde approche - VPS}
-\subsubsection{Scirpts}
+Pour les raisons précédemment abordées, nous avons décidé de migré l'application hébergée sur Heroku vers un VPS chez OVH. Ceci nous a permis de nous affranchir totalement des contraintes liés à la base de données mais impliquait une plus grande configuration initiale. 
+
+\newpara
+
+En sachant que l'application pouvait potentiellement encore être migrée dans le future, j'ai décidé de mettre en place une multitudes d'élements afin de rendre ces transitions les plus simples possible. Ainsi l'entièreté de l'application est dockerisée\footnote{//TODO} et toutes les configurations du VPS sont au maximum scriptées. 
+
 \subsubsection{Dockerisation}
+Dans le but de faciliter la configuration des différents services nécessaires au bon fonctionnement de l'application, je les ai chacun mis dans un conteneur docker. Ainsi l'application est composée de 3 conteneurs distincts: 
+
+\newpara
+
+\begin{enumerate}
+  \item \textbf{slg-db}: La base de donnée PostgreSql. Port exposé: \textbf{5434}.
+  \item \textbf{slg-app}: L'application node\footnote{//TODO} en tant que tel, composée du backend et frontend. Port exposé \textbf{8080}. 
+  \item \textbf{caddy}: Serveur web Caddy\footnote{\url{https://caddyserver.com}} utilisé en tant que reverse proxy\footnote{//TODO} et gestionnaire des certificats https. Ports exposés: \textbf{80} et \textbf{441}.
+\end{enumerate}
+
+\newpage
+
+Ces trois conteneurs fonctionnent en symbiose et sont dépendant les un des autres. L'application node ne démarrera par exemple pas si la base de donnée n'a pas démarrée avec succès. Afin de controller l'environnement dans lesquels ces conteneurs sont lancés ainsi que de pouvoir facilement les démarrer/arrêter, j'ai créé un fichier docker-compose\footnote{docker-compose permet d'orchestrer un ensemble de conteneurs dans le but de simplifier la gestion et la communication de ceux-ci.}. \\ (Voir: \url{https://github.com/MMichotte/SLG_APP/blob/master/docker/docker-compose.yml})
+
+\subsubsection{Scirpts}
+J'ai principalement écrit 2 scripts, le premier et plus consistent me permet de configurer automatiquement un nouveau VPS. Dans les faits, celui ci exécute: 
+\begin{enumerate}
+  \item Mise à jour des packages
+  \item Mise à jour de la time-zone
+  \item Création d'un nouvel utilisateur
+  \item Modification des paramètres de connexion SSH
+  \item Configuration et activation de Fail2ban\footnote{Fail2ban est un programme de prévention permettant de bloquer les tentatives d'intrusion frauduleuses}
+  \item Installation de docker-compose
+\end{enumerate}
+
+\newpara
+
+Le second script est bien moins complexe et me permet de configurer et démarrer le backup (local) journalier de la base de donnée. Ces backups sont réalisé périodiquement à l'aide de crontab\footnote{\textit{"Crontab est un outil qui permet de lancer des applications de façon régulière, pratique pour un serveur pour y lancer des scripts de sauvegardes, etc."}\cite{CRON}}.
+
+\newpara
+
+Il s'avère que ces scripts m'ont été très rapidement utile. Seulement 6h après la configuration complète du VPS, un incendie à ravagé plusieurs data-centers chez OVH et a détruit, entre autre, notre VPS.\footnote{Plus d'information sur l'incident: \url{https://www.ovh.com/fr/news/presse/cpl1785.dernieres-informations-notre-site-strasbourg}} Après quelques jours d'inaccessibilité, j'ai pu re-configurer un VPS dans un autre data-center. Cette configuration n'a pas durée plus de 10 minutes.
+
+\newpage
+
 \subsubsection{Sécurité}
 \subsubsubsection{SSH}
 \subsubsubsection{Fail2ban}
 \subsubsubsection{Firewall (UFW)}
 \subsubsubsection{Firewall (OVH)}
 
-
+\newpage
 \subsection{Déploiement Continu}
+
+
