@@ -14,11 +14,13 @@
 \usepackage{wrapfig}
 \usepackage[bottom]{footmisc}
 \usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
 \usepackage{tikz}
 \def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;} 
 \newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
 \setcounter{secnumdepth}{4}
 \newcommand{\newpara}{\vskip 0.75cm}
+\newcommand{\newparasm}{\vskip 0.2cm}
 
 \begin{document}
 \singlespacing
@@ -95,9 +97,6 @@
 
 \newpage
 \input{sections/monitoring_backups.tex}
-
-\newpage
-\input{sections/piste_amelioration.tex}
 
 \newpage
 \input{sections/suite.tex}

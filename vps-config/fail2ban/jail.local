@@ -127,6 +127,6 @@ action = %(action_)s
 
 [sshd]
 enabled  = true
-port     = ssh
+port     = 62222
 logpath  = /var/log/auth.log
 maxretry = 6

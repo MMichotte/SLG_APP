@@ -237,7 +237,7 @@ Pour les raisons précédemment abordées, nous avons décidé de migré l'appli
 
 \newpara
 
-En sachant que l'application pouvait potentiellement encore être migrée dans le future, j'ai décidé de mettre en place une multitudes d'élements afin de rendre ces transitions les plus simples possible. Ainsi l'entièreté de l'application est dockerisée\footnote{//TODO} et toutes les configurations du VPS sont au maximum scriptées. 
+En sachant que l'application pouvait potentiellement encore être migrée dans le future, j'ai décidé de mettre en place une multitudes d'élements afin de rendre ces transitions les plus simples possible. Ainsi l'entièreté de l'application est conteneurisée\footnote{\textit{"La conteneurisation informatique permet de packager tous les services, scripts, API, librairies dont une application a besoin. L’objectif : en permettre l’exécution sur n’importe quel noyau compatible."}\cite{conteneurisation}} et toutes les configurations du VPS sont au maximum scriptées. 
 
 \subsubsection{Dockerisation}
 Dans le but de faciliter la configuration des différents services nécessaires au bon fonctionnement de l'application, je les ai chacun mis dans un conteneur docker. Ainsi l'application est composée de 3 conteneurs distincts: 
@@ -246,8 +246,8 @@ Dans le but de faciliter la configuration des différents services nécessaires 
 
 \begin{enumerate}
   \item \textbf{slg-db}: La base de donnée PostgreSql. Port exposé: \textbf{5434}.
-  \item \textbf{slg-app}: L'application node\footnote{//TODO} en tant que tel, composée du backend et frontend. Port exposé \textbf{8080}. 
-  \item \textbf{caddy}: Serveur web Caddy\footnote{\url{https://caddyserver.com}} utilisé en tant que reverse proxy\footnote{//TODO} et gestionnaire des certificats https. Ports exposés: \textbf{80} et \textbf{441}.
+  \item \textbf{slg-app}: L'application NodeJs\footnote{NodeJs est un environnement d'exécution open-srouce et multi-platforme permettant de faire tourner du code Javascript.} en tant que tel, composée du backend et frontend. Port exposé \textbf{8080}. 
+  \item \textbf{caddy}: Serveur web Caddy\footnote{\url{https://caddyserver.com}} utilisé en tant que reverse-proxy\footnote{Un reverse-proxy est un intermédiaire de communication réseau permettant de transmettre une requête au serveur cible en fonction du nom de domaine de cette requête.} et gestionnaire des certificats https. Ports exposés: \textbf{80} et \textbf{441}.
 \end{enumerate}
 
 \newpage
@@ -277,11 +277,83 @@ Il s'avère que ces scripts m'ont été très rapidement utile. Seulement 6h apr
 
 \subsubsection{Sécurité}
 \subsubsubsection{SSH}
+\newparasm
+Une connexion SSH avec le VPS est indispensable pour pouvoir le configurer et y configurer les différents services. Cependant c'est aussi une des principales porte d'entrée pour les personnes malveillantes. Afin de minimiser au maximum les risques j'ai configuré le service ssh de tel sorte que :
+\begin{itemize}
+  \item il soit disponible sur le port 62222 et non 22. Un grand nombre d'attaques par force brute se basent sur le fait que par défaut le port utilisé par SSH est le 22. Dès lors changer le port par défaut permet d'éviter toute une série d'attaques automatisées. 
+  \item il interdise la connexion par mote de passe. Il est désormais uniquement possible de se connecter par pair de clés SSH.
+  \item il interdise la connexion en tant que root. 
+\end{itemize} 
+
 \subsubsubsection{Fail2ban}
-\subsubsubsection{Firewall (UFW)}
-\subsubsubsection{Firewall (OVH)}
+\newparasm
+Qu'est ce que Fail2ban? \textit{"fail2ban est une application qui analyse les logs de divers services (SSH, Apache, FTP…) en cherchant des correspondances entre des motifs définis dans ses filtres et les entrées des logs. Lorsqu'une correspondance est trouvée une ou plusieurs actions sont exécutées. Typiquement, fail2ban cherche des tentatives répétées de connexions infructueuses dans les fichiers journaux et procède à un bannissement en ajoutant une règle au pare-feu iptables ou nftables pour bannir l'adresse IP de la source."}\cite{F2B}
+
+\newpara
+
+Comme expliqué précédemment, un des points d'entrés les plus vulnérable est le service SSH. Dans le but de renforcer son imperméabilité, j'ai ajouté une règle fail2ban limitant le nombre de tentatives de connexion à 6. Après 6 connexions échouées, l'adresse IP source est bloquée pour une durée de 1h. La durée d'un ban augmente de manière exponentielle si la même IP re-tente une multitudes de connexions après s'être faite bannir. 
 
 \newpage
-\subsection{Déploiement Continu}
+
+\subsubsubsection{Firewall (UFW)}
+\newparasm
+\begin{minipage}{.5\textwidth}
+  Afin de pouvoir contrôler le flux d'informations circulant entre le VPS et le réseau internet j'ai mis en place un firewall sur le VPS. Celui-ci intégrant par défaut les iptables\footnotemark, j'ai choisi d'utiliser "UFW" car celui-ci s'intègre parfaitement avec les iptables.  
+\end{minipage}
+\begin{minipage}{.5\textwidth}
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/ufw-script.png}
+    \caption{Script d'ajout règles UFW}
+  \end{figure}
+\end{minipage}
 
 
+\subsubsubsection{Firewall (OVH)}
+\newparasm
+En plus du firewall interne au VPS, OVH met à disposition un firewall en amont du VPS. J'ai configuré celui-ci afin d'être le plus restrictif possible (voir \textit{figure \ref{VPS-firewall}}).
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{img/ovh-fireWall.png}
+  \caption{Configuration du firewall en amont du VPS}
+  \label{VPS-firewall}
+\end{figure}
+
+\newpara
+\newpara
+
+Notons que dans les deux firewall (UFW et OVH) le port 5434 est ouvert, ce port est utilisé par la base de donnée et rendre se port accessible publiquement est potentiellement une faille de sécurité. Néanmoins j'ai restreint l'accès à ce port à uniquement une adresse IP spécifique (la mienne en l'occurrence). Une fois l'application terminée, cette règle sera supprimée rendant la base de données totalement inaccessible depuis l'extérieur. 
+
+
+\footnotetext{iptables est le pare-feu installé par défaut sur les système d'exploitation linux.}
+
+\newpage
+\subsection{Intégration et Déploiement Continu (CI/CD)}
+
+La méthodologie Agile se basant sur une succession de "sprints" aboutissant à chaque fois à une nouvelle fonctionnalité, il est important que celle-ci puisse rapidement être testée par le client afin d'en avoir un feedback et de pouvoir y apporter ou non des modifications. 
+
+\newpara
+Dans ces conditions il est indispensable d'avoir un système d'intégration et de déploiement continu. L'intégration continue consiste à automatiser les phases de tests tandis que le déploiement continu permet d'automatiser la mise en production de la nouvelle fonctionnalité. 
+
+\newpara
+Le code de ce projet étant hébergé sur Github, j'ai pu profiter des "Github Actions"\footnote{Plus d'informations voir: \url{https://github.com/features/actions}} permettant de définir un ensemble d'actions à éxécuter sur le code et ce sur base de certaines conditions et dans un environnement isolé. pour ce projet j'ai dès lors défini le workflow suivant :
+\linebreak \linebreak
+Lors d'une modification du code sur la branche "master": \\
+\textbf{1.} lancement en simultané des tests unitaires frontend et backend \\
+Si tous les tests sont passés avec succès: \\
+\textbf{2.} déploiement:
+\begin{enumerate}[label=(\alph*)]
+  \item Exécution d'un script bash permettant de compiler le code source
+  \item Création des variables d'environnement
+  \item Envoie des fichier sur le serveur 
+  \item Lancement des différents services (docker-compose)
+\end{enumerate}
+
+\newpara
+
+Exemple de résultat du CI/CD lors d'une résolution d'un bug. 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\linewidth]{img/CI-result.png}
+  \caption{Exemple résultat du CI/CD}
+\end{figure}
