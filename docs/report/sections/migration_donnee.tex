@@ -1,3 +1,21 @@
 \section{Migration données existantes}
 \subsection{Problématique}
+
+Durant la majeur partie du développement, j'ai travaillé avec des données fictives. Une fois les fonctionnalités à "court terme" implémentées, il a fallu transférer/migrer l'ensemble des données existante du programme "Gad-Garage" vers notre nouvelle base de données. Malheureusement, le logiciel "Gad-Garage" fonctionne avec une base de données interne à celui-ci et aucun moyen n'est fourni pour pouvoir en extraire l'ensemble des données. Le logiciel permet cependant d'extraire certaines informations en format CSV\footnote{Format de fichier texte représentant des données tabulaires sous forme de valeurs séparées par un délimiteur connu, souvent une virgule.}. Néanmoins, les données contenues dans ces fichiers ne sont pas utilisable en tant que tel pour principalement deux raisons: 
+\begin{enumerate}
+  \item les données du CSV ne correspondent pas à la structure de la nouvelle base de données
+  \item les données contiennent des informations venant de plusieurs tables différents sans en connaître la liaison.
+\end{enumerate}
+A titre d'exemple, le fichier contenant la commandes ne contenait pas l'identifiant d'un fournisseur mais son nom.
+
 \subsection{Solution}
+
+La première approche fut de contacter le service après-vente de "Gad-Garage". Après plusieurs jours d'attente et de relance, nous n'avons jamais eu de réponse. 
+
+\newpara
+
+Dans un second temps j'ai alors décidé de récupérer l'ensemble des fichiers sources de l'application depuis un des ordinateurs du client. Après quelques recherches j'ai trouvé les fichiers constituant la base de données mais ceux-ci étaient protégés par mot de passe. Cette solution est tombée à l'eau.
+
+\newpara
+
+La dernière solution fut alors de récupérer un maximum de fichiers CSV à partir de l'application elle-même et de, sur base des données qu'ils contiennent, recouper les informations afin d'en extraire les données utiles. Finalement, à l'aide de plusieurs scripts python et un travail conséquent, j'ai su récupérer approximativement 95\% des données.
