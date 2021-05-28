@@ -1,0 +1,53 @@
+version: '2'
+
+services:
+
+  slg-db:
+    image: postgres:12.6
+    container_name: slg-db
+    networks:
+      slg-network:
+        ipv4_address: 192.168.10.5
+    ports:
+      - 5432:5432
+    env_file:
+      - ./.env
+
+  slg-backend:
+    depends_on: 
+      - slg-db
+    image: node:14.16.1
+    container_name: slg-backend
+    volumes:
+      - ./../../backend:/usr/backend
+    networks:
+      slg-network:
+        ipv4_address: 192.168.10.6
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env
+    command: bash -c " cd /usr/backend && npm run start:dev"
+
+  slg-frontend:
+    image: node:14.16.1
+    container_name: slg-frontend
+    volumes:
+      - ./../../frontend:/usr/frontend
+    networks:
+      slg-network:
+        ipv4_address: 192.168.10.7
+    ports:
+      - 4200:4200
+    command: bash -c "cd /usr/frontend && npm run start:dev:docker"
+
+#--------------------
+
+networks:
+
+  slg-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.10.0/24
+          gateway: 192.168.10.1
