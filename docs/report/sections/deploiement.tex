@@ -166,7 +166,7 @@ Microsoft Azure est utilisé par un très grands nombre d'entreprises tel que 3M
     \item version gratuite pendant 12 mois
     \item version payante : 11.081€/mois
   \end{itemize}
-  \item \textbf{Base de donnée}:
+  \item \textbf{base de données}:
   \begin{itemize}
     \item 5GB (5GB étant le minimum configurable) d'espace de stockage à 0.1155€/GB/mois soit : ±5.8€/mois
     \item 1 vCore à 0.4840€/heure, si utilisation 2h/j -> 60h/mois soit : ±29€/mois
@@ -228,7 +228,7 @@ Il existe plusieurs entreprises de Cloud Computing offrant des services VPS tel 
 Dans un but de réduire au maximum les coûts et de simplifier les choses durant le développement de l'application, le client et moi même avons décidé de déployer, dans un premier temps, celle-ci sur Heroku avec le plan gratuit. Cette solution fut plus que suffisante pendant les deux trois premiers mois du développement. Néanmoins, une fois l'application plus complète, plusieurs facteurs tel que: 
 \begin{itemize}
   \item la lenteur de mise en production (temps nécessaire entre l'action de déploiement et l'accessibilité du site)
-  \item le maximum de 10k lignes d'entrées dans la base de donnée 
+  \item le maximum de 10k lignes d'entrées dans la base de données 
 \end{itemize}
 nous ont fait revoir les solutions de déploiement. 
 
@@ -245,16 +245,17 @@ Dans le but de faciliter la configuration des différents services nécessaires 
 \newpara
 
 \begin{enumerate}
-  \item \textbf{slg-db}: La base de donnée PostgreSql. Port exposé: \textbf{5434}.
+  \item \textbf{slg-db}: La base de données PostgreSql. Port exposé: \textbf{5434}.
   \item \textbf{slg-app}: L'application NodeJs\footnote{NodeJs est un environnement d'exécution open-srouce et multi-platforme permettant de faire tourner du code Javascript.} en tant que tel, composée du backend et frontend. Port exposé \textbf{8080}. 
   \item \textbf{caddy}: Serveur web Caddy\footnote{\url{https://caddyserver.com}} utilisé en tant que reverse-proxy\footnote{Un reverse-proxy est un intermédiaire de communication réseau permettant de transmettre une requête au serveur cible en fonction du nom de domaine de cette requête.} et gestionnaire des certificats https. Ports exposés: \textbf{80} et \textbf{441}.
 \end{enumerate}
 
 \newpage
 
-Ces trois conteneurs fonctionnent en symbiose et sont dépendant les un des autres. L'application node ne démarrera par exemple pas si la base de donnée n'a pas démarrée avec succès. Afin de controller l'environnement dans lesquels ces conteneurs sont lancés ainsi que de pouvoir facilement les démarrer/arrêter, j'ai créé un fichier docker-compose\footnote{docker-compose permet d'orchestrer un ensemble de conteneurs dans le but de simplifier la gestion et la communication de ceux-ci.}. \\ (Voir: \url{https://github.com/MMichotte/SLG_APP/blob/master/docker/docker-compose.yml})
+Ces trois conteneurs fonctionnent en symbiose et sont dépendant les un des autres. L'application node ne démarrera par exemple pas si la base de données n'a pas démarrée avec succès. Afin de controller l'environnement dans lesquels ces conteneurs sont lancés ainsi que de pouvoir facilement les démarrer/arrêter, j'ai créé un fichier docker-compose\footnote{docker-compose permet d'orchestrer un ensemble de conteneurs dans le but de simplifier la gestion et la communication de ceux-ci.}. \\ (Voir: \url{https://github.com/MMichotte/SLG_APP/blob/master/docker/docker-compose.yml})
 
 \subsubsection{Scirpts}
+\label{scritps}
 J'ai principalement écrit 2 scripts, le premier et plus consistent me permet de configurer automatiquement un nouveau VPS. Dans les faits, celui ci exécute: 
 \begin{enumerate}
   \item Mise à jour des packages
@@ -267,7 +268,7 @@ J'ai principalement écrit 2 scripts, le premier et plus consistent me permet de
 
 \newpara
 
-Le second script est bien moins complexe et me permet de configurer et démarrer le backup (local) journalier de la base de donnée. Ces backups sont réalisé périodiquement à l'aide de crontab\footnote{\textit{"Crontab est un outil qui permet de lancer des applications de façon régulière, pratique pour un serveur pour y lancer des scripts de sauvegardes, etc."}\cite{CRON}}.
+Le second script est bien moins complexe et me permet de configurer et démarrer le backup (local) journalier de la base de données. Ces backups sont réalisé périodiquement à l'aide de crontab\footnote{\textit{"Crontab est un outil qui permet de lancer des applications de façon régulière, pratique pour un serveur pour y lancer des scripts de sauvegardes, etc."}\cite{CRON}}.
 
 \newpara
 
@@ -322,7 +323,7 @@ En plus du firewall interne au VPS, OVH met à disposition un firewall en amont 
 \newpara
 \newpara
 
-Notons que dans les deux firewall (UFW et OVH) le port 5434 est ouvert, ce port est utilisé par la base de donnée et rendre se port accessible publiquement est potentiellement une faille de sécurité. Néanmoins j'ai restreint l'accès à ce port à uniquement une adresse IP spécifique (la mienne en l'occurrence). Une fois l'application terminée, cette règle sera supprimée rendant la base de données totalement inaccessible depuis l'extérieur. 
+Notons que dans les deux firewall (UFW et OVH) le port 5434 est ouvert, ce port est utilisé par la base de données et rendre se port accessible publiquement est potentiellement une faille de sécurité. Néanmoins j'ai restreint l'accès à ce port à uniquement une adresse IP spécifique (la mienne en l'occurrence). Une fois l'application terminée, cette règle sera supprimée rendant la base de données totalement inaccessible depuis l'extérieur. 
 
 
 \footnotetext{iptables est le pare-feu installé par défaut sur les système d'exploitation linux.}
