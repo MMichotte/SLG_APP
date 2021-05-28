@@ -19,6 +19,7 @@ slg-frontend    | [HPM] Proxy created: /api  ->  http://192.168.10.6:8000/api
 slg-frontend    | [HPM] Proxy rewrite rule created: "^/api" ~> ""
 slg-frontend    | [HPM] Subscribed to http-proxy events:  [ 'error', 'close' ]
 ...
+```
 AND 
 ```sh
 ...
