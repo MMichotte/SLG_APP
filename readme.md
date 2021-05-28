@@ -2,9 +2,9 @@
 :warning: You must have **docker** installed and running on your machine!
 
 1. Open a command-line at the root of the project.
-2. Navigate to `/backend/docker/local` :
+2. Navigate to `docker/local` :
    ```sh
-   cd backend/docker/local
+   cd docker/local
    ```
 3. Run the `run-local` script:
    ```sh
@@ -27,7 +27,7 @@ slg-backend     | Application is running on: http://[::1]:8000
 ```
 
 :pushpin:  **If it's the first time you run the app, you need to seed the database :**
-  1. Open a new command line window in `backend/docker/local`
+  1. Open a new command line window in `docker/local`
   2. Run the `docker-reset-db` script:
   ```sh
   chmod +x docker-reset-db.sh
