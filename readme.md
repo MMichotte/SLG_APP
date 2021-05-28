@@ -15,9 +15,10 @@
 ❗️ Wait until all services are started! This can take up to 5 minutes depending on your system. Look for: 
 ```sh
 ...
-slg-frontend    | [HPM] Proxy created: /api  ->  http://192.168.10.6:8000/api
-slg-frontend    | [HPM] Proxy rewrite rule created: "^/api" ~> ""
-slg-frontend    | [HPM] Subscribed to http-proxy events:  [ 'error', 'close' ]
+slg-frontend    |  Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ 
+slg-frontend    |
+slg-frontend    |
+slg-frontend    | :heavy_check_mark: Compiled successfully.
 ...
 ```
 AND 
