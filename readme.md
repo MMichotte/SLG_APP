@@ -1,5 +1,5 @@
 # Run App locally :
-:warning: You must have **docker** installed and running your machine!
+:warning: You must have **docker** installed and running on your machine!
 
 1. Open a command-line at the root of the project.
 2. Navigate to `/backend/docker/local` :
