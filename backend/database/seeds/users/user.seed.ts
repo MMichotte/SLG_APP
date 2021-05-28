@@ -29,5 +29,26 @@ export const UserSeed: CreateUserDTO[] = [
     email: 'compta@slgcars.be',
     password: '$2a$10$Wj3Sin3cTjcicS1i/J7uWeI69vqhy.OtTv2lix8SG9i7kOS1AL3Xq',
     role: EUserRoles.ACCOUNTING
+  },
+  {
+    firstName: 'Test-dev',
+    lastName: 'Test-dev',
+    email: 'test-dev@yopmail.com',
+    password: '$2a$10$SxpS3UBG0affI.hzjyVLUenln/RtIKMu0Yo6hX9kPSEKMDQ8JdxH2',
+    role: EUserRoles.DEV
+  },
+  {
+    firstName: 'Test-admin',
+    lastName: 'Test-admin',
+    email: 'test-admin@yopmail.com',
+    password: '$2a$10$SxpS3UBG0affI.hzjyVLUenln/RtIKMu0Yo6hX9kPSEKMDQ8JdxH2',
+    role: EUserRoles.ADMIN
+  },
+  {
+    firstName: 'Test-compta',
+    lastName: 'Test-compta',
+    email: 'test-compta@yopmail.com',
+    password: '$2a$10$SxpS3UBG0affI.hzjyVLUenln/RtIKMu0Yo6hX9kPSEKMDQ8JdxH2',
+    role: EUserRoles.ACCOUNTING
   }
 ];
