@@ -27,7 +27,7 @@ services:
       - 8000:8000
     env_file:
       - ./.env
-    command: bash -c " cd /usr/backend && npm run start:dev"
+    command: bash -c " cd /usr/backend && npm install --loglevel verbose && npm run start:dev"
 
   slg-frontend:
     image: node:14.16.1
@@ -39,7 +39,7 @@ services:
         ipv4_address: 192.168.10.7
     ports:
       - 4200:4200
-    command: bash -c "cd /usr/frontend && npm run start:dev:docker"
+    command: bash -c "cd /usr/frontend && npm install --loglevel verbose && npm run start:dev:docker"
 
 #--------------------
 
