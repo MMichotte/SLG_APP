@@ -5,8 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start:dev": "ng serve --proxy-config proxy.conf.json",
-    "start:dev:broadcast": "ng serve --host 0.0.0.0 --proxy-config proxy.conf.json",
-    "start:dev:docker": "ng serve --host 0.0.0.0 --proxy-config proxy.docker.conf.json",
+    "start:dev:broadcasr": "ng serve --host 0.0.0.0 --proxy-config proxy.conf.json",
     "build": "ng build --prod",
     "lint": "echo \" \n ✅ Everything looks fine !\" > ../logs/frontend-lintErrors.log && ./node_modules/.bin/eslint --fix \"**/*.js\" \"**/*.ts\" -o ../logs/frontend-lintErrors.log --no-color",
     "lin2t": "ng lint",
@@ -19,7 +18,7 @@
     "@angular/animations": "~11.0.2",
     "@angular/cdk": "^11.2.0",
     "@angular/common": "~11.0.2",
-    "@angular/compiler": "~11.0.2",
+    "@angular/compiler": "11.0.2",
     "@angular/core": "~11.0.2",
     "@angular/forms": "~11.0.2",
     "@angular/material": "^11.2.0",
@@ -42,8 +41,8 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1100.2",
-    "@angular/cli": "^11.2.4",
-    "@angular/compiler-cli": "^11.0.2",
+    "@angular/cli": "11.0.2",
+    "@angular/compiler-cli": "11.0.2",
     "@angular/language-service": "~11.0.2",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
@@ -66,7 +65,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "^4.0.5"
+    "typescript": "~4.0.5"
   },
   "eslintConfig": {
     "extends": [
