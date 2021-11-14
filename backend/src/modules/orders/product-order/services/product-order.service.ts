@@ -76,6 +76,13 @@ export class ProductOrderService {
     });
   }
 
+  findOneByBillId(billId: number): Promise<ProductOrder> {
+    return this.productOrderRepository.findOne({
+      where: {billSupplier: billId},
+      relations: ['order', 'order.supplier']
+    });
+  }
+
   create(productOrder: CreateProductOrderDTO): Promise<ProductOrder> {
     return this.productOrderRepository.save(productOrder);
   }

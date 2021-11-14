@@ -1,1 +1,16 @@
-<p class="screen-center">The billing feature is not yet implemented!</p>
+<div class="page">
+    <h1>BILLS</h1>
+
+    <div class="control">
+        <div class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText type="text" (input)="table.dt.filterGlobal($event.target.value, 'contains')"
+                placeholder="Search Bill" (click)="table.selectedBill = null; cd.detectChanges();" />
+        </div>
+        <p-selectButton [options]="billTypes" [(ngModel)]="isCustomer" optionLabel="name" optionValue="code"></p-selectButton>
+    </div>
+
+    <app-bill-customer #table *ngIf="isCustomer"></app-bill-customer>
+    <app-bill-supplier #table *ngIf="!isCustomer"></app-bill-supplier>
+
+</div>

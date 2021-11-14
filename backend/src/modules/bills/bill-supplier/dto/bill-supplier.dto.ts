@@ -31,6 +31,14 @@ export class BillSupplierDTO {
   @ApiProperty()
   updatedAt: Date;
 
+  @Expose()
+  @ApiProperty()
+  orderId: number;
+
+  @Expose()
+  @ApiProperty()
+  companyName: string;
+
   constructor(obj?: BillSupplierDTO) {
     Object.assign(this, obj);
   }
