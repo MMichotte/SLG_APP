@@ -1,3 +1,6 @@
+import { rootPath } from '@core/constants/root.path';
+import { BillSupplierPdfDTO } from './../dto/bill-supplier-pdf.dto';
+import { BillPdfGeneratorService } from './../services/bill-pdf-generator.service';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 
@@ -14,9 +17,9 @@ import { EProductOrderStatus } from '@modules/orders/product-order/enums/product
 import { ProductOrderService } from '@modules/orders/product-order/services/product-order.service';
 import { ProductsService } from '@modules/products/services/products.service';
 import {
-  BadRequestException, Body, Controller, Get, NotFoundException, Param, Post, Query, UseGuards
+  BadRequestException, Body, Controller, Get, Header, NotFoundException, Param, Post, Query, Res, UseGuards
 } from '@nestjs/common';
-import { ApiBearerAuth, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiProduces, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { EUserRoles } from '../../../users/enums/user-roles.enum';
 import { BillSupplierDTO } from '../dto/bill-supplier.dto';
@@ -27,6 +30,9 @@ import { BillSupplierUpdateService } from '../services/bill-supplier-update.serv
 import { BillSupplierService } from '../services/bill-supplier.service';
 import { getConnection, QueryRunner } from 'typeorm';
 import { Product } from '@modules/products/entities/product.entity';
+import { createReadStream, readdir } from 'fs';
+import { join } from 'path';
+import { Response } from 'express';
 
 @Controller('bill-supplier')
 @UseGuards(RolesGuard)
@@ -37,6 +43,7 @@ export class BillSupplierController {
   constructor(
     private readonly billSupplierService: BillSupplierService,
     private readonly billSupplierUpdateService: BillSupplierUpdateService,
+    private readonly billPdfGeneratorService: BillPdfGeneratorService,
     private readonly productOrderService: ProductOrderService,
     private readonly productsService: ProductsService,
     private readonly ordersService: OrdersService
@@ -79,6 +86,41 @@ export class BillSupplierController {
     return plainToClass(BillSupplierDTO, bill);
   }
 
+  @Get(':id/pdf')
+  @Header('content-type', 'application/pdf')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiResponse({
+    status: 200,
+    type: ArrayBuffer
+  })
+  @ApiProduces('application/pdf')
+  async genPdf(@Param('id') id: number, @Res() response: Response): Promise<any> {
+
+    let successFlag = false;
+
+    readdir(join(rootPath, 'bills/suppliers'), function (err, files) {
+      //handling error
+      if (err) {
+        return console.log('Unable to scan directory: ' + err);
+      }
+      //listing all files using forEach
+      for (const file of files) {
+        if (file.startsWith(id.toString())) {
+          response.contentType('application/pdf');
+          response.setHeader('Content-Disposition', `attachment; filename="${file}"`);
+          const pdfFile = createReadStream(join(rootPath, `bills/suppliers/${file}`));
+          successFlag = true;
+          pdfFile.pipe(response);
+        }
+      }
+      if (!successFlag) {
+        response.statusMessage = 'Bad Request';
+        response.status(400).end();
+      }
+    });
+
+  }
+
   @Post()
   @Roles(EUserRoles.ADMIN, EUserRoles.USER)
   @ApiQuery({ name: 'orderId', type: String, required: true })
@@ -87,6 +129,9 @@ export class BillSupplierController {
     type: SimpleBillSupplierDTO,
   })
   async create(@Query('orderId') orderId: string, @Body() dto: CreateBillSupplierDTO): Promise<SimpleBillSupplierDTO> {
+
+    const billSupplierPdf: BillSupplierPdfDTO = new BillSupplierPdfDTO();
+    billSupplierPdf.products = [];
 
     dto = new CreateBillSupplierDTO(dto);
     const errors = await validate(dto);
@@ -108,6 +153,11 @@ export class BillSupplierController {
     const newBill: BillSupplier = await this.billSupplierService.create(dto);
     const baseOrder: Order = await this.ordersService.findOneById(+orderId);
     let order: Order = null;
+
+    billSupplierPdf.orderId = baseOrder.id;
+    billSupplierPdf.orderDate = baseOrder.createdAt;
+    billSupplierPdf.supplierName = baseOrder.supplier.name;
+    billSupplierPdf.vat = baseOrder.supplier.VAT;
 
     const queryRunner: QueryRunner = getConnection().createQueryRunner();
     await queryRunner.connect();
@@ -228,6 +278,13 @@ export class BillSupplierController {
         product.quantity = product.quantity + initialQuantityReceived;
         product.updatedAt = new Date();
 
+        billSupplierPdf.products.push({
+          reference: product.reference,
+          label: product.label,
+          quantity: initialQuantityReceived,
+          price: product.purchasePriceHT
+        });
+
         await queryRunner.manager.update(Product, product.id, product);
 
       }
@@ -243,6 +300,17 @@ export class BillSupplierController {
       }));
 
       await this.billSupplierUpdateService.updateOrderStatus(order, queryRunner);
+
+      billSupplierPdf.billId = newBill.id;
+      billSupplierPdf.date = (new Date()).toISOString().split('T')[0];
+      billSupplierPdf.invoiceNumber = dto.invoiceNumber;
+      billSupplierPdf.debitedAmount = dto.debitedAmount;
+      billSupplierPdf.shippingFees = dto.shippingFees;
+      billSupplierPdf.note = dto.note;
+
+      if (!await this.billPdfGeneratorService.generatePDF(billSupplierPdf)) {
+        throw Error;
+      }
 
       await queryRunner.commitTransaction();
       await queryRunner.release();

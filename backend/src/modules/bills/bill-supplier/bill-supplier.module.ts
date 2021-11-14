@@ -7,6 +7,7 @@ import { BillSupplierController } from './controllers/bill-supplier.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BillSupplier } from './entities/bill-supplier.entity';
 import { BillSupplierUpdateService } from './services/bill-supplier-update.service';
+import { BillPdfGeneratorService } from './services/bill-pdf-generator.service';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { BillSupplierUpdateService } from './services/bill-supplier-update.servi
   controllers: [BillSupplierController],
   providers: [
     BillSupplierService,
-    BillSupplierUpdateService
+    BillSupplierUpdateService,
+    BillPdfGeneratorService
   ]
 })
 export class BillSupplierModule {}
