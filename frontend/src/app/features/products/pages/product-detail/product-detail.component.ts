@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../models/product.model';
 import { ProductTransaction } from '../../models/product-transaction.model';
@@ -15,6 +15,7 @@ import { tableSort } from '@core/helpers/table-sort';
 export class ProductDetailComponent implements OnInit {
 
   public tableSort = tableSort;
+  @ViewChild('pdfGenerator') pdfGenerator: any;
 
   product: Product;
   transactions: ProductTransaction[] = [];
@@ -94,6 +95,12 @@ export class ProductDetailComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  showBillPDF(rowData): void {
+    if (!rowData.type && +rowData.quantity > 0) {
+      this.pdfGenerator.generateBillSupplierPDF(rowData.billId);
+    }
   }
 
 }

@@ -8,13 +8,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BillSupplier } from './entities/bill-supplier.entity';
 import { BillSupplierUpdateService } from './services/bill-supplier-update.service';
 import { BillPdfGeneratorService } from './services/bill-pdf-generator.service';
+import { ProductOrderService } from '@modules/orders/product-order/services/product-order.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([BillSupplier]),
     ProductsModule,
     ProductOrderModule,
-    OrdersModule
+    OrdersModule,
   ],
   controllers: [BillSupplierController],
   providers: [

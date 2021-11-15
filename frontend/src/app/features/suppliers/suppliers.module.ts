@@ -1,3 +1,4 @@
+import { BillingModule } from '@features/billing/billing.module';
 import { SuppliersController } from './controllers/suppliers-controller';
 import { SuppliersComponent } from './pages/suppliers-list/suppliers.component';
 import { NgModule } from '@angular/core';
@@ -39,7 +40,8 @@ import { SupplierDetailComponent } from './pages/supplier-detail/supplier-detail
     InputTextareaModule,
     PanelModule,
     DynamicDialogModule,
-    SuppliersRoutingModule
+    SuppliersRoutingModule,
+    BillingModule
   ],
   providers: [SuppliersController, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
 })

@@ -5,6 +5,7 @@ import { ProductOrderService } from './services/product-order.service';
 import { ProductOrderController } from './controllers/product-order.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsModule } from '@modules/products/products.module';
+import { ProductOrderRepository } from './repositories/product-order.repository';
 
 @Module({
   imports: [

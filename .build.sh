@@ -4,6 +4,9 @@ echo -e "\n\033[32m1. Creating app folder\033[0m"
 mkdir ./app
 mkdir ./app/www
 mkdir ./app/www/public
+mkdir ./app/www/bills
+mkdir ./app/www/bills/suppliers
+mkdir ./app/www/bills/customers
 mkdir ./app/database
 mkdir ./app/caddy
 

@@ -86,7 +86,30 @@ export class BillSupplierController {
     return plainToClass(BillSupplierDTO, bill);
   }
 
-  @Get(':id/pdf')
+  @Get('/supplier/:id')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiResponse({
+    status: 200,
+    type: BillSupplierDTO,
+    isArray: true
+  })
+  async findAllByCompany(@Param('id') id: number): Promise<BillSupplierDTO[]> {
+    const bills: BillSupplier[] = await this.billSupplierService.findAllByCompany(id);
+    await Promise.all(
+      bills.map(async (bill: any) => {
+        const orderProduct = await this.productOrderService.findOneByBillId(bill.id);
+        if (orderProduct) {
+          bill.orderId = orderProduct.order.id;
+          bill.companyName = orderProduct.order.supplier.name;
+        }
+        return bill;
+      })
+    );
+
+    return plainToClass(BillSupplierDTO, bills);
+  }
+
+  @Get(':id/download/pdf')
   @Header('content-type', 'application/pdf')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiResponse({
@@ -95,15 +118,11 @@ export class BillSupplierController {
   })
   @ApiProduces('application/pdf')
   async genPdf(@Param('id') id: number, @Res() response: Response): Promise<any> {
-
+    
     let successFlag = false;
 
     readdir(join(rootPath, 'bills/suppliers'), function (err, files) {
-      //handling error
-      if (err) {
-        return console.log('Unable to scan directory: ' + err);
-      }
-      //listing all files using forEach
+      
       for (const file of files) {
         if (file.startsWith(id.toString())) {
           response.contentType('application/pdf');
@@ -113,10 +132,12 @@ export class BillSupplierController {
           pdfFile.pipe(response);
         }
       }
+
       if (!successFlag) {
-        response.statusMessage = 'Bad Request';
+        response.statusMessage = 'Bad Request' + err;
         response.status(400).end();
       }
+
     });
 
   }
@@ -149,8 +170,13 @@ export class BillSupplierController {
       }
 
     }
+    
+    const queryRunner: QueryRunner = getConnection().createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
 
-    const newBill: BillSupplier = await this.billSupplierService.create(dto);
+    //const newBill: BillSupplier = await this.billSupplierService.create(dto); //TODO CHECK IF IT STILL WORKS W/ QR!
+    const newBill: BillSupplier = await queryRunner.manager.save(BillSupplier, dto);
     const baseOrder: Order = await this.ordersService.findOneById(+orderId);
     let order: Order = null;
 
@@ -159,9 +185,6 @@ export class BillSupplierController {
     billSupplierPdf.supplierName = baseOrder.supplier.name;
     billSupplierPdf.vat = baseOrder.supplier.VAT;
 
-    const queryRunner: QueryRunner = getConnection().createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
 
     try {
 
@@ -282,6 +305,7 @@ export class BillSupplierController {
           reference: product.reference,
           label: product.label,
           quantity: initialQuantityReceived,
+          invoicedPrice: receivedPO.pcInvoicePrice,
           price: product.purchasePriceHT
         });
 

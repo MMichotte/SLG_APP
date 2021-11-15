@@ -17,6 +17,7 @@
             {{col.header}}
             <p-sortIcon [field]="col.field"></p-sortIcon>
           </th>
+          <th style="width: 3rem;"></th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -25,6 +26,11 @@
             <a *ngIf="col.header == 'Order'" (click)="showOrder(rowData)">{{rowData[col.field]}}</a>
             <span *ngIf="col.header != 'Order'">{{rowData[col.field]}}</span>
           </td>
+          <td style="width: 3rem;">
+            <button pButton pRipple type="button" icon="pi pi-file-pdf" class="p-button-info p-button-sm"
+                title="Bill detail"
+                (click)="showPDF(rowData)"></button>
+        </td>
         </tr>
       </ng-template>
 
@@ -32,3 +38,5 @@
   </div>
 
 </div>
+
+<app-bill-pdf #pdfGenerator></app-bill-pdf>

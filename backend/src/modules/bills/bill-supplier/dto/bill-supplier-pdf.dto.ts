@@ -3,6 +3,7 @@ export class billedProduct {
   reference: string;
   label: string;
   quantity: number;
+  invoicedPrice: number;
   price: number; 
 }
 
@@ -17,6 +18,7 @@ export class BillSupplierPdfDTO {
   invoiceNumber?: string;
   
   products: billedProduct[];
+  invoicedAmount?: number;
   debitedAmount: number;
   shippingFees: number;
   note?: string; 

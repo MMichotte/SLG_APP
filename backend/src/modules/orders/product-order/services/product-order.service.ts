@@ -27,6 +27,24 @@ export class ProductOrderService {
     });
   }
 
+  async findAllBillsByCompany(supplierId: number): Promise<number[]> {
+    
+    const productOrders = await this.productOrderRepository.find({ 
+      where: { order: {supplier: supplierId} },
+      relations: ['order', 'billSupplier', 'order.supplier']
+    });
+
+    const billIds: number[] = [];
+
+    productOrders.forEach((pO: ProductOrder) => {
+      if (pO.billSupplier && !billIds.includes(pO.billSupplier?.id)) {
+        billIds.push(pO.billSupplier.id);
+      }
+    });
+
+    return billIds;
+  }
+
   findAllByOrderId_transactional(orderId: number, QR: QueryRunner): Promise<ProductOrder[]> {
     if (orderId === 0) orderId = null;
     return QR.manager.find(ProductOrder, { 

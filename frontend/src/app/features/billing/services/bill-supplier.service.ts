@@ -15,8 +15,16 @@ export class BillSupplierService {
     return this.httpClient.get(this.endpoint);
   }
 
+  getAllBySupplierID(supplierId: number): any {
+    return this.httpClient.get(`${this.endpoint}/supplier/${supplierId}`);
+  }
+
   getOne(id: number): any {
     return this.httpClient.get(`${this.endpoint}/${id}`);
+  }
+
+  downloadPdf(id: number): any {
+    return this.httpClient.get(`${this.endpoint}/${id}/download/pdf`, { observe: 'response', responseType: 'arraybuffer' });
   }
 
   create(dto: CreateBillSupplierDTO, orderId: number): any {

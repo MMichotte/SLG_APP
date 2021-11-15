@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 
 import { BillingRoutingModule } from './billing-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogService, DynamicDialogConfig, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -19,12 +18,15 @@ import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
 import { ToastService } from '@core/services/toast.service';
 import { BillSupplierComponent } from './components/bill-supplier/bill-supplier.component';
 import { BillCustomerComponent } from './components/bill-customer/bill-customer.component';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { BillPdfComponent } from './components/bill-pdf/bill-pdf.component';
 
 @NgModule({
   declarations: [
     BillingComponent,
     BillSupplierComponent,
-    BillCustomerComponent
+    BillCustomerComponent,
+    BillPdfComponent
   ],
   imports: [
     CommonModule,
@@ -39,8 +41,12 @@ import { BillCustomerComponent } from './components/bill-customer/bill-customer.
     InputNumberModule,
     InputTextareaModule,
     PanelModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    PdfJsViewerModule
   ],
-  providers: [BillSupplierService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
+  providers: [BillSupplierService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig],
+  exports: [
+    BillPdfComponent
+  ]
 })
 export class BillingModule { }

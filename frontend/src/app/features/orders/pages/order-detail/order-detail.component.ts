@@ -20,7 +20,8 @@ import { tableSort } from '@core/helpers/table-sort';
 })
 export class OrderDetailComponent implements OnInit {
 
-  @ViewChild('pdfViewerOnDemand') pdfViewerOnDemand;
+  @ViewChild('pdfViewerOnDemand') pdfViewerOnDemand: any;
+  @ViewChild('pdfGenerator') pdfGenerator: any;
   
   public tableSort = tableSort;
   public EUserRoles = EUserRoles;
@@ -118,6 +119,10 @@ export class OrderDetailComponent implements OnInit {
         }
       );
     }
+  }
+
+  showBillPDF(rowData): void {
+    this.pdfGenerator.generateBillSupplierPDF(rowData.billSupplierId);
   }
 
 }

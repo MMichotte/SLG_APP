@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { BillSupplierDTO } from '@features/billing/dto/bill-supplier-dto';
 import { BillSupplierService } from '@features/billing/services/bill-supplier.service';
@@ -17,7 +17,8 @@ export class BillSupplierComponent implements OnInit {
   loadingData: boolean;
 
   @ViewChild('dt') dt: Table;
-  
+  @ViewChild('pdfGenerator') pdfGenerator: any;
+
   constructor(
     public readonly billSupplierService: BillSupplierService,
     public readonly cd: ChangeDetectorRef,
@@ -52,11 +53,15 @@ export class BillSupplierComponent implements OnInit {
         this.cd.detectChanges();
         this.loadingData = false;
       }
-    )
+    );
   }
 
   showOrder(bill: BillSupplierDTO): void {
-    this.router.navigate([`/orders/${bill.orderId}/detail`])
+    this.router.navigate([`/orders/${bill.orderId}/detail`]);
+  }
+
+  showPDF(rowData): void {
+    this.pdfGenerator.generateBillSupplierPDF(rowData.id);
   }
 
 }

@@ -61,7 +61,10 @@
                 'status-ordered': (col.field === 'status' && rowData[col.field] === EProductOrderStatus.ORDERED),
                 'status-received': (col.field === 'status' && rowData[col.field] === EProductOrderStatus.RECEIVED),
                 'status-BO': (col.field === 'status' && rowData[col.field] === EProductOrderStatus.BO)
-              }">{{rowData[col.field]}}</span>
+              }">
+              <a *ngIf="col.header == 'Bill n°'" (click)="showBillPDF(rowData)">{{rowData[col.field]}}</a>
+              <span *ngIf="col.header != 'Bill n°'">{{rowData[col.field]}}</span>
+            </span>
           </td>
           <td style="width: 3rem;">
             <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger p-button-sm"
@@ -80,3 +83,5 @@
   [externalWindow]="true"
   [viewBookmark]="false">
 </ng2-pdfjs-viewer>
+
+<app-bill-pdf #pdfGenerator></app-bill-pdf>

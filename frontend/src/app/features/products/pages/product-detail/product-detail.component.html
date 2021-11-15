@@ -85,7 +85,8 @@
               'addition': (col.field === 'quantity' && rowData[col.field] > 0),
               'deletion': (col.field === 'quantity' && rowData[col.field] < 0)
             }">
-              {{rowData[col.field]}}
+              <a *ngIf="col.header == 'Bill n°'" (click)="showBillPDF(rowData)">{{rowData[col.field]}}</a>
+              <span *ngIf="col.header != 'Bill n°'">{{rowData[col.field]}}</span>
             </td>
           </tr>
         </ng-template>
@@ -101,3 +102,5 @@
     -->
   </div>
 </div>
+
+<app-bill-pdf #pdfGenerator></app-bill-pdf>

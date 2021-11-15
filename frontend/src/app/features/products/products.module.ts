@@ -1,3 +1,4 @@
+import { BillingModule } from '@features/billing/billing.module';
 import { SharedModule } from '@shared/shared.module';
 import { ToastService } from '@core/services/toast.service';
 import { ProductsComponent } from './pages/products-list/products.component';
@@ -36,7 +37,8 @@ import { StockUpdateFormComponent } from './components/stock-update-form/stock-u
     InputTextareaModule,
     PanelModule,
     DynamicDialogModule,
-    ProductsRoutingModule
+    ProductsRoutingModule,
+    BillingModule
   ],
   providers: [ProductService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig],
   exports: [ProductFormComponent]
