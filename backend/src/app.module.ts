@@ -1,4 +1,4 @@
-import { Module, NestModule, RequestMethod, MiddlewareConsumer } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { UsersModule } from '@modules/users/users.module';
 import { AuthModule } from '@modules/auth/auth.module';
@@ -14,6 +14,9 @@ import { ProductOrderModule } from '@modules/orders/product-order/product-order.
 import { BillSupplierModule } from '@modules/bills/bill-supplier/bill-supplier.module';
 import dbConnectionOptions from 'ormconfig';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { CarMakesModule } from '@modules/car-makes/car-makes.module';
+import { CarsModule } from '@modules/cars/cars.module';
+import { CarModelsModule } from '@modules/car-models/car-models.module';
 
 @Module({
   imports: [
@@ -32,7 +35,10 @@ import { ThrottlerModule } from '@nestjs/throttler';
     CompaniesModule,
     OrdersModule,
     ProductOrderModule,
-    BillSupplierModule
+    BillSupplierModule,
+    CarMakesModule,
+    CarModelsModule,
+    CarsModule
   ],
   controllers: [AppController],
   providers: [],
