@@ -57,18 +57,7 @@ export class BillSupplierController {
     isArray: true
   })
   async findAll(): Promise<BillSupplierDTO[]> {
-    const bills: BillSupplier[] = await this.billSupplierService.findAll();
-    await Promise.all(
-      bills.map(async (bill: any) => {
-        const orderProduct = await this.productOrderService.findOneByBillId(bill.id);
-        if (orderProduct) {
-          bill.orderId = orderProduct.order.id;
-          bill.companyName = orderProduct.order.supplier.name;
-        }
-        return bill;
-      })
-    );
-
+    const bills: BillSupplierDTO[] = await this.billSupplierService.findAll();
     return plainToClass(BillSupplierDTO, bills);
   }
 
@@ -79,10 +68,7 @@ export class BillSupplierController {
     type: BillSupplierDTO
   })
   async findOne(@Param('id') id: number): Promise<BillSupplierDTO> {
-    const bill: any = await this.billSupplierService.findOneById(id);
-    const orderProduct = await this.productOrderService.findOneByBillId(bill.id);
-    bill.orderId = orderProduct.order.id;
-    bill.companyName = orderProduct.order.supplier.name;
+    const bill: BillSupplierDTO = await this.billSupplierService.findOneById(id);
     return plainToClass(BillSupplierDTO, bill);
   }
 
@@ -94,18 +80,7 @@ export class BillSupplierController {
     isArray: true
   })
   async findAllByCompany(@Param('id') id: number): Promise<BillSupplierDTO[]> {
-    const bills: BillSupplier[] = await this.billSupplierService.findAllByCompany(id);
-    await Promise.all(
-      bills.map(async (bill: any) => {
-        const orderProduct = await this.productOrderService.findOneByBillId(bill.id);
-        if (orderProduct) {
-          bill.orderId = orderProduct.order.id;
-          bill.companyName = orderProduct.order.supplier.name;
-        }
-        return bill;
-      })
-    );
-
+    const bills: BillSupplierDTO[] = await this.billSupplierService.findAllByCompany(id);
     return plainToClass(BillSupplierDTO, bills);
   }
 
