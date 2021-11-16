@@ -8,8 +8,8 @@ export class CreateOrderDTO {
   @ApiProperty()
   @IsNumber()
   @IsNotEmpty()
-  supplierId: number
-  supplier?: Company
+  supplierId: number;
+  supplier?: Company;
 
   status?: EOrderStatus = EOrderStatus.OPEN;
   createdAt?: Date = new Date();

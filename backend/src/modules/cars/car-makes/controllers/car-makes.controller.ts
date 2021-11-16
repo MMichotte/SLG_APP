@@ -5,6 +5,7 @@ import { EUserRoles } from '@modules/users/enums/user-roles.enum';
 import { Controller, UseGuards, Get, Post, Body, HttpException, HttpStatus, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
+import { CarMakeDTO } from '../dto/car-make.dto';
 import { CreateCarMakeDTO } from '../dto/create-car-make.dto';
 import { SimpleCarMakeDTO } from '../dto/simple-car-make.dto';
 import { UpdateCarMakeDTO } from '../dto/update-car-make.dto';
@@ -23,12 +24,12 @@ export class CarMakesController {
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiResponse({
     status: 200,
-    type: CarMake,
+    type: CarMakeDTO,
     isArray: true
   })
-  async findAll(): Promise<CarMake[]>{
+  async findAll(): Promise<CarMakeDTO[]>{
     const carMakes: CarMake[] = await this.carMakesService.findAll();
-    return plainToClass(CarMake, carMakes);
+    return plainToClass(CarMakeDTO, carMakes);
   }
 
   @Post()

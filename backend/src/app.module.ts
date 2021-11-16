@@ -14,9 +14,9 @@ import { ProductOrderModule } from '@modules/orders/product-order/product-order.
 import { BillSupplierModule } from '@modules/bills/bill-supplier/bill-supplier.module';
 import dbConnectionOptions from 'ormconfig';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { CarMakesModule } from '@modules/car-makes/car-makes.module';
-import { CarsModule } from '@modules/cars/cars.module';
-import { CarModelsModule } from '@modules/car-models/car-models.module';
+import { CarMakesModule } from '@modules/cars/car-makes/car-makes.module';
+import { CarModelsModule } from '@modules/cars/car-models/car-models.module';
+import { CarsModule } from '@modules/cars/cars/cars.module';
 
 @Module({
   imports: [

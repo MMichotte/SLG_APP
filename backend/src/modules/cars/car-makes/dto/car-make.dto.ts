@@ -11,4 +11,7 @@ export class CarMakeDTO {
   @ApiProperty()
   label: string;
 
+  constructor(obj?: CarMakeDTO) {
+    Object.assign(this, obj);
+  }
 }

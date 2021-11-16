@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CarMakeRepository } from './../repositories/car-makes.repository';
+import { CarMakeRepository } from '../repositories/car-makes.repository';
 import { CarMake } from '../entities/car-make.entity';
 import { CreateCarMakeDTO } from '../dto/create-car-make.dto';
 import { UpdateCarMakeDTO } from '../dto/update-car-make.dto';
