@@ -19,7 +19,7 @@ export class BillSupplierService {
   findAll(): Promise<BillSupplierDTO[]> {
 
     return this.entityManager.query(`
-      SELECT DISTINCT b.*, b.invoice_number as "invoiceNumber", b.shipping_fees as "shippingFees", b.debited_amount as "debitedAmount",
+      SELECT DISTINCT ON (b.id) b.*, b.invoice_number as "invoiceNumber", b.shipping_fees as "shippingFees", b.debited_amount as "debitedAmount",
       c.name as "companyName", o.id as "orderId"
       FROM product_order AS po
           JOIN bill_supplier AS b ON po.id_bill_supplier = b.id
@@ -32,7 +32,7 @@ export class BillSupplierService {
   findAllByCompany(id: number): Promise<BillSupplierDTO[]> {
 
     return this.entityManager.query(`
-      SELECT DISTINCT b.*, b.invoice_number as "invoiceNumber", b.shipping_fees as "shippingFees", b.debited_amount as "debitedAmount",
+      SELECT DISTINCT ON (b.id) b.*, b.invoice_number as "invoiceNumber", b.shipping_fees as "shippingFees", b.debited_amount as "debitedAmount",
       c.name as "companyName", o.id as "orderId"
       FROM product_order AS po
           JOIN bill_supplier AS b ON po.id_bill_supplier = b.id
@@ -47,7 +47,7 @@ export class BillSupplierService {
   findOneById(id: number): Promise<BillSupplierDTO> {
 
     return this.entityManager.query(`
-      SELECT DISTINCT b.*, b.invoice_number as "invoiceNumber", b.shipping_fees as "shippingFees", b.debited_amount as "debitedAmount",
+      SELECT DISTINCT ON (b.id) b.*, b.invoice_number as "invoiceNumber", b.shipping_fees as "shippingFees", b.debited_amount as "debitedAmount",
       c.name as "companyName", o.id as "orderId"
       FROM product_order AS po
           JOIN bill_supplier AS b ON po.id_bill_supplier = b.id
