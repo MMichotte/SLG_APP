@@ -79,10 +79,17 @@ export class CarFormComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     if (this.currentCar) {
       for (const field in this.carForm.controls) {
+        if (field === 'firstRegistration') continue;
         const control = this.carForm.get(field);
         control.setValue(this.currentCar[field]);
         this.carForm.enable();
       }
+      
+      if (this.currentCar.firstRegistration) {
+        console.log(this.currentCar.firstRegistration);
+        this.carForm.controls.firstRegistration.setValue(new Date(this.currentCar.firstRegistration));
+      }
+
       this.ownersListFiltered = [this.ownersList.find(o => { return (o.id === this.currentCar.person?.id || o.id === this.currentCar.company?.id); })];
       if (this.ownersListFiltered.length) {
         this.carForm.controls.owner.setValue(this.ownersListFiltered[0]);
@@ -156,7 +163,6 @@ export class CarFormComponent implements OnInit, OnChanges {
 
     if (this.isUpdate) {
       // update
-      console.log(this.currentCar.id);
       this.carService.update(this.currentCar.id, <UpdateCarDTO>car).subscribe(
         (res: any) => {
           this._resetForm();
