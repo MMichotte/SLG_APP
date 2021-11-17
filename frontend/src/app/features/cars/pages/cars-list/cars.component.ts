@@ -88,7 +88,7 @@ export class CarsComponent implements OnInit {
       width: '40%'
     });
     ref.onClose.subscribe(() => {
-      // refresh model list in form
+      window.location.reload(); // TODO TEMPORARY -> replace with eventemmiter from form comp
     });
   }
 
