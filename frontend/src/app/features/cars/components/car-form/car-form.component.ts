@@ -86,7 +86,6 @@ export class CarFormComponent implements OnInit, OnChanges {
       }
       
       if (this.currentCar.firstRegistration) {
-        console.log(this.currentCar.firstRegistration);
         this.carForm.controls.firstRegistration.setValue(new Date(this.currentCar.firstRegistration));
       }
 

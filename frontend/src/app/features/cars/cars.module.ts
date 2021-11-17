@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 
 import { CarsRoutingModule } from './cars-routing.module';
 import { CarsDetailComponent } from './pages/cars-detail/cars-detail.component';
-import { ModelManagerComponent } from './pages/model-manager/model-manager.component';
 import { CarService } from './services/car.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
@@ -23,15 +22,16 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { CarFormComponent } from './components/car-form/car-form.component';
 import { CalendarModule } from 'primeng/calendar';
-import { CompaniesModule } from '@features/companies/companies.module';
-import { PersonsModule } from '@features/persons/persons.module';
+import { ModelManagerFormComponent } from './components/model-manager-form/model-manager-form.component';
+import { CarMakeService } from './services/car-make.service';
+import { CarModelService } from './services/car-model.service';
 
 @NgModule({
   declarations: [
     CarsComponent,
     CarsDetailComponent,
-    ModelManagerComponent,
-    CarFormComponent
+    CarFormComponent,
+    ModelManagerFormComponent
   ],
   imports: [
     CommonModule,
@@ -54,6 +54,8 @@ import { PersonsModule } from '@features/persons/persons.module';
   ],
   providers: [
     CarService,
+    CarMakeService,
+    CarModelService,
     DialogService,
     ToastService,
     ConfirmDialogService,

@@ -6,6 +6,7 @@ import { AuthService } from '@core/services/auth.service';
 import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
 import { ToastService } from '@core/services/toast.service';
 import { CarFormComponent } from '@features/cars/components/car-form/car-form.component';
+import { ModelManagerFormComponent } from '@features/cars/components/model-manager-form/model-manager-form.component';
 import { EFuelType } from '@features/cars/enums/fuel-type.enum';
 import { Car } from '@features/cars/models/car.model';
 import { CarService } from '@features/cars/services/car.service';
@@ -41,6 +42,7 @@ export class CarsComponent implements OnInit {
     this.cols = [
       { field: 'makeLabel', header: 'Make' },
       { field: 'modelLabel', header: 'Model' },
+      { field: 'version', header: 'Version' },
       { field: 'owner', header: 'Owner' },
       { field: 'registrationNumber', header: 'Registration' },
       { field: 'chassisNumber', header: 'Chassis n°' },
@@ -80,8 +82,14 @@ export class CarsComponent implements OnInit {
     this.router.navigate([`cars/${car.id}/detail`]);
   }
 
-  showManagementPage(): void {
-    this.router.navigate(['/cars/make&model-manager']);
+  showManagementModal(): void {
+    const ref = this.dialogService.open(ModelManagerFormComponent, {
+      header: 'Mange Makes & Models',
+      width: '40%'
+    });
+    ref.onClose.subscribe(() => {
+      // refresh model list in form
+    });
   }
 
 }

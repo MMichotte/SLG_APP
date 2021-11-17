@@ -1,0 +1,54 @@
+<form class="form">
+
+  <div class="p-grid nested-grid p-fluid">
+    <div class="p-col-12 p-sm-12 p-md-12 p-xl-12">
+      <div class="p-grid p-fluid">
+        <div class="p-col-8">
+          <label for="make" class="">Make</label>
+          <p-autoComplete appendTo="body" [suggestions]="makeListFiltered" field="label"
+            (completeMethod)="searchMake($event.query)" (onSelect)="checkExistingMake()" [(ngModel)]="selectedMake" [dropdown]="true" name="selectedMake">
+          </p-autoComplete>
+        </div>
+
+        <div class="p-col-4">
+          <label for="" class=""><br></label>
+          <div class="controls">
+            <button pButton pRipple type="submit" icon="pi pi-save" label="Add" [disabled]="!selectedMake || isExistingMake"
+              *ngIf="auth.hasMinAccess(EUserRoles.USER)" (click)="addMake()"></button>
+            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger"
+              *ngIf="selectedMake && isExistingMake && auth.hasMinAccess(EUserRoles.USER)" (click)="deleteMake()"></button>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="p-grid p-fluid">
+        <div class="p-col-8">
+          <label for="model" class="">Model</label>
+          <p-autoComplete appendTo="body" [suggestions]="modelListFiltered" field="label" [disabled]="!selectedMake || !isExistingMake"
+            (completeMethod)="searchModel($event.query)" (onSelect)="checkExistingModel()" [(ngModel)]="selectedModel" [dropdown]="true" name="selectedModel">
+          </p-autoComplete>
+        </div>
+
+        <div class="p-col-4">
+          <label for="" class=""><br></label>
+          <div class="controls">
+            <button pButton pRipple type="submit" icon="pi pi-save" label="Add" [disabled]="!selectedModel || isExistingModel"
+              *ngIf="auth.hasMinAccess(EUserRoles.USER)" (click)="addModel()"></button>
+            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger"
+              *ngIf="selectedModel && isExistingModel && auth.hasMinAccess(EUserRoles.USER)" (click)="deleteModel()"></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="p-grid">
+    <button pButton pRipple type="button" label="Close" class="p-button-secondary" (click)="onClose()"
+      *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
+  </footer>
+
+
+</form>
