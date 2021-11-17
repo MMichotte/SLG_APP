@@ -32,7 +32,15 @@ import { ProductProcessFormComponent } from './components/product-process-form/p
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 
 @NgModule({
-  declarations: [OrdersComponent, CartDetailComponent, NewCartFormComponent, ProductOrderFormComponent, OrderProcessComponent, OrderDetailComponent, ProductProcessFormComponent],
+  declarations: [
+    OrdersComponent,
+    CartDetailComponent,
+    NewCartFormComponent,
+    ProductOrderFormComponent,
+    OrderProcessComponent,
+    OrderDetailComponent,
+    ProductProcessFormComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -55,6 +63,14 @@ import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
     BillingModule,
     PdfJsViewerModule
   ],
-  providers: [OrderService, ProductOrderService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
+  providers: [
+    OrderService,
+    ProductOrderService,
+    DialogService,
+    ToastService,
+    ConfirmDialogService,
+    DynamicDialogRef,
+    DynamicDialogConfig
+  ]
 })
 export class OrdersModule { }

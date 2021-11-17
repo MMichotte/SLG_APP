@@ -1,0 +1,56 @@
+<div class="page">
+  <h1>CARS</h1>
+
+  <div class="control">
+      <div>
+          <div class="p-inputgroup">
+              <div class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search Car" (click)="selectedCar=null"/>
+              </div>
+          </div>
+      </div>
+      <div class="btn-group">
+        <button pButton pRipple type="button" class="p-button-info" icon="pi pi-cog" label="Manage Models"
+            (click)="showManagementPage()" *ngIf="auth.hasMinAccess(EUserRoles.ADMIN)"></button>
+        <button pButton pRipple type="button" icon="pi pi-plus" label="New Car"
+            (click)="showNewCarModal()" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
+      </div>
+  </div>
+
+  <p-panel header="Edit car" class="form" [toggleable]="true">
+    <app-car-form [currentCar]="selectedCar" [isUpdate]=true (refreshTable)="refreshCars()">
+    </app-car-form>
+  </p-panel>
+
+  <div class="dtable">
+      <p-table #dt [columns]="cols" [value]="cars" [autoLayout]="true" [paginator]="true" [scrollable]="true"
+          [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['make','model','owner', 'registrationNumber', 'chassisNumber']"
+          [sortField]="cols[0].field" selectionMode="single"
+          [(selection)]="selectedCar" styleClass="p-datatable-sm" [loading]="loadingData">
+
+          <ng-template pTemplate="header" let-columns>
+              <tr>
+                  <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngStyle]="{'width': col.width}">
+                      {{col.header}}
+                      <p-sortIcon [field]="col.field"></p-sortIcon>
+                  </th>
+                  <th style="width: 3rem"></th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr [pSelectableRow]="rowData" (dblclick)=showCarInfoPage(rowData)>
+                  <td *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                      {{rowData[col.field]}}
+                  </td>
+                  <td style="width: 3rem;">
+                      <button pButton pRipple type="button" icon="pi pi-info" class="p-button-info p-button-sm"
+                          title="Detailed information (history, ...) "
+                          (click)="showCarInfoPage(rowData)"></button>
+                  </td>
+              </tr>
+          </ng-template>
+
+      </p-table>
+  </div>
+</div>

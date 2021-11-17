@@ -12,11 +12,11 @@ export class CarsService {
   ) { }
 
   findAll(): Promise<Car[]> {
-    return this.carRepository.find({ relations: ['model', 'person', 'company'] });
+    return this.carRepository.find({ relations: ['model', 'model.carMake', 'person', 'company'] });
   }
 
   findOneById(id: number): Promise<Car> {
-    return this.carRepository.findOne({ where: { id }, relations: ['model', 'person', 'company'] });
+    return this.carRepository.findOne({ where: { id }, relations: ['model','model.carMake', 'person', 'company'] });
   }
 
   findOneByChassisNumber(chassisNumber: string): Promise<Car> {

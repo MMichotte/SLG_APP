@@ -25,6 +25,10 @@ export class CompaniesService {
   getAllClients(): any {
     return this.httpClient.get(`${this.endpoint}/clients`);
   }
+
+  getAllClientsOwnersLight(): any {
+    return this.httpClient.get(`${this.endpoint}/clients/owners-light`);
+  }
   
   getAllSuppliers(): any {
     return this.httpClient.get(`${this.endpoint}/suppliers`);

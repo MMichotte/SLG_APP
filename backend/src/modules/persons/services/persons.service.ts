@@ -15,6 +15,10 @@ export class PersonsService {
   findAll(): Promise<Person[]> {
     return this.personRepository.find({relations: ['address']});  
   }
+  
+  findAllLight(): Promise<Person[]> {
+    return this.personRepository.find({select: ['id', 'firstName', 'lastName']});  
+  }
 
   findOneById(id: number): Promise<Person> {
     return this.personRepository.findOne({ where: { id }, relations: ['address'] });

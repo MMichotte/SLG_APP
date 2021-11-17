@@ -18,6 +18,10 @@ export class PersonsService {
     return this.httpClient.get(this.endpoint);
   }
   
+  getAllOwnersLight(): any {
+    return this.httpClient.get(`${this.endpoint}/owners-light`);
+  }
+  
   getOne(id: number): any {
     return this.httpClient.get(`${this.endpoint}/${id}`);
   }

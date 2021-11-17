@@ -16,13 +16,17 @@ export class CompaniesService {
   findAll(): Promise<Company[]> {
     return this.companyRepository.find({ relations: ['person', 'address'] });
   }
-
+  
   findAllSuppliers(): Promise<Company[]> {
     return this.companyRepository.find({ where: [{ type: ECompanyType.SUPPLIER }, { type: ECompanyType.SUPP_AND_CLI }], relations: ['person', 'address'] });
   }
 
   findAllClients(): Promise<Company[]> {
     return this.companyRepository.find({ where: [{ type: ECompanyType.CLIENT }, { type: ECompanyType.SUPP_AND_CLI }], relations: ['person', 'address'] });
+  }
+  
+  findAllClientsLight(): Promise<Company[]> {
+    return this.companyRepository.find({ where: [{ type: ECompanyType.CLIENT }, { type: ECompanyType.SUPP_AND_CLI }], select: ['id', 'name'] });
   }
 
   findOneById(id: number): Promise<Company> {

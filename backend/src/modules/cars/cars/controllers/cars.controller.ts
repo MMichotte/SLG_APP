@@ -52,7 +52,7 @@ export class CarsController {
   async create(@Body() car: CreateCarDTO): Promise<SimpleCarDTO> {
     //check if model already exists for given make.
     const existingCar: Car = await this.carsService.findOneByChassisNumber(car.chassisNumber);
-    if (existingCar) throw new HttpException('Model already exists', HttpStatus.UNAUTHORIZED);
+    if (existingCar) throw new HttpException('Chassis n° already exists', HttpStatus.BAD_REQUEST);
 
     const carModel: CarModel = await this.carModelsService.findOneById(car.modelId);
     if (!carModel) throw new NotFoundException;
@@ -63,15 +63,15 @@ export class CarsController {
       const person: Person = await this.personsService.findOneById(car.personId);
       if (!person) throw new NotFoundException;
       car.person = person;
-      delete car.personId;
     }
+    delete car.personId;
     
     if (car.companyId) {
       const company: Company = await this.companiesService.findOneById(car.companyId);
       if (!company) throw new NotFoundException;
       car.company = company;
-      delete car.companyId;
     }
+    delete car.companyId;
 
     const createdCar = await this.carsService.create(car);
     return plainToClass(SimpleCarDTO, createdCar);
@@ -84,6 +84,38 @@ export class CarsController {
     type: SimpleCarDTO,
   })
   async update(@Param('id') id: number, @Body() car: UpdateCarDTO): Promise<SimpleCarDTO> {
+    const existingCar: Car = await this.carsService.findOneById(id);
+    if (!existingCar) throw new HttpException('Car does not exist', HttpStatus.NOT_FOUND);
+    
+    const existingChassis: Car = await this.carsService.findOneByChassisNumber(car.chassisNumber);
+    if (existingChassis) {
+      if (existingChassis.id !== existingCar.id) throw new HttpException('Chassis n° is already taken', HttpStatus.BAD_REQUEST);
+    }
+
+    const carModel: CarModel = await this.carModelsService.findOneById(car.modelId);
+    if (!carModel) throw new HttpException('Car model does not exist', HttpStatus.NOT_FOUND);
+    car.model = carModel;
+    delete car.modelId;
+
+    if (car.personId) {
+      const person: Person = await this.personsService.findOneById(car.personId);
+      if (!person) throw new HttpException('Owner does not exist', HttpStatus.NOT_FOUND);
+      car.person = person;
+    } else {
+      car.person= null;
+    }
+    delete car.personId;
+    
+    if (car.companyId) {
+      const company: Company = await this.companiesService.findOneById(car.companyId);
+      if (!company) throw new HttpException('Owner does not exist', HttpStatus.NOT_FOUND);
+      car.company = company;
+    } else {
+      car.company = null;
+    }
+    delete car.companyId;
+    
+    
     const updatedCar = await this.carsService.update(id, car);
     updatedCar.id = id;
     return plainToClass(SimpleCarDTO, updatedCar);

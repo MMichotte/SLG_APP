@@ -1,0 +1,107 @@
+<form class="form" [formGroup]="carForm" (ngSubmit)="submitForm()">
+
+  <div class="p-grid nested-grid p-fluid" [ngClass]="{'dialog-flex' : !isUpdate}">
+    <div class="p-col-12 p-sm-12 p-md-12 p-xl-8">
+      <div class="p-grid p-fluid">
+        <div class="p-col-4">
+          <label for="owner" class="">Owner</label>
+          <p-autoComplete appendTo="body" [suggestions]="ownersListFiltered" field="displayName"
+            (completeMethod)="searchOwner($event.query)" formControlName="owner" [dropdown]="true"></p-autoComplete>
+        </div>
+
+        <div class="p-col-4">
+          <label for="model" class="label-required">Model</label>
+          <p-autoComplete appendTo="body" [suggestions]="carModelsListFiltered" field="displayName"
+            (completeMethod)="searchCarModel($event.query)" formControlName="model" [dropdown]="true"></p-autoComplete>
+        </div>
+
+        <div class="p-col-4">
+          <label for="version" class="">Version</label>
+          <input id="version" type="text" pInputText formControlName="version">
+        </div>
+      </div>
+      <div class="p-grid p-fluid">
+        <div class="p-col-4">
+          <label for="chassisNumber" class="label-required">Chassis n°</label>
+          <input id="chassisNumber" type="text" pInputText formControlName="chassisNumber">
+        </div>
+
+        <div class="p-col-3">
+          <label for="registrationNumber" class="">Registration</label>
+          <input id="registrationNumber" type="text" pInputText formControlName="registrationNumber">
+        </div>
+
+        <div class="p-col-3">
+          <label for="firstRegistration" class="">First Registration</label>
+          <p-calendar id="firstRegistration" formControlName="firstRegistration" showButtonBar="true" yearNavigator="true" yearRange="1890:2150" [showIcon]="true"></p-calendar>
+        </div>
+
+        <div class="p-col-2">
+          <label for="color" class="">Color</label>
+          <input id="color" type="text" pInputText formControlName="color">
+        </div>
+
+
+      </div>
+
+      <div class="p-grid p-fluid">
+
+        <div class="p-col-3">
+          <label for="chassisNumberLocation">Chassis n° location</label>
+          <textarea id="chassisNumberLocation" pInputTextarea [rows]="5"
+            formControlName="chassisNumberLocation"></textarea>
+        </div>
+
+        <div class="p-col-9 p-grid p-fluid">
+
+          <div class="p-col-5">
+            <label for="engineNumber" class="">Engine n°</label>
+            <input id="engineNumber" type="text" pInputText formControlName="engineNumber">
+          </div>
+
+          <div class="p-col-3">
+            <label for="engineDisplacement" class="">Engine Disp.</label>
+            <input id="engineDisplacement" type="number" pInputText formControlName="engineDisplacement">
+          </div>
+
+          <div class="p-col-4">
+            <label for="fuelType" class="">Fuel Type</label>
+            <p-dropdown id="fuelType" appendTo="body" [options]="fuelTypes"
+              optionLabel="value" optionValue="value" formControlName="fuelType"></p-dropdown>
+          </div>
+
+          <div class="p-col-5">
+            <label for="bodywork" class="">Bodywork</label>
+            <input id="bodywork" type="text" pInputText formControlName="bodywork">
+          </div>
+
+          <div class="p-col-5">
+            <label for="gearboxType" class="">Gearbox Type</label>
+            <input id="gearboxType" type="text" pInputText formControlName="gearboxType">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="p-col-12 p-sm-12 p-md-12 p-xl-4">
+
+      <div>
+        <label for="note">Note</label>
+        <textarea id="note" pInputTextarea [rows]="8" formControlName="note"></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="p-grid">
+    <button pButton pRipple type="button" label="Cancel" class="p-button-secondary" (click)="onCancel()"
+      *ngIf="!isUpdate && auth.hasMinAccess(EUserRoles.USER)"></button>
+    <button pButton pRipple type="submit" icon="pi pi-save" label="Save"
+      [disabled]="carForm.invalid || (!currentCar && isUpdate)" *ngIf="auth.hasMinAccess(EUserRoles.USER)"></button>
+    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-danger"
+      *ngIf="currentCar && auth.hasMinAccess(EUserRoles.USER)" (click)="deleteCar()"></button>
+  </footer>
+
+
+</form>

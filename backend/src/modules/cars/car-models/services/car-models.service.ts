@@ -16,7 +16,7 @@ export class CarModelsService {
   }
   
   findOneById(id: number): Promise<CarModel> {
-    return this.carModelRepository.findOne({ where: { id } });
+    return this.carModelRepository.findOne({ where: { id }, relations: ['carMake'] });
   }
   
   findOneByLabelByMake(label: string, makeId: number): Promise<CarModel> {

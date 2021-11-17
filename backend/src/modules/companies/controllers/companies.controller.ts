@@ -17,6 +17,8 @@ import { Address } from '@modules/adresses/entities/address.entity';
 import { Person } from '@modules/persons/entities/person.entity';
 import { validate } from 'class-validator';
 import { LightCompanyDTO } from '../dto/light-company.dto';
+import { LightOwnerDTO } from '@core/dtos/light-owner.dto';
+import { EOwnerType } from '@core/enums/owner-type.enum';
 
 @Controller('companies')
 @UseGuards(RolesGuard)
@@ -53,7 +55,27 @@ export class CompaniesController {
     const companies: Company[] = await this.companiesService.findAllClients();
     return plainToClass(CompanyDTO, companies);
   }
-
+  
+  @Get('clients/owners-light')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiResponse({
+    status: 200,
+    type: LightOwnerDTO,
+    isArray: true
+  })
+  async findAllClientsLight(): Promise<LightOwnerDTO[]> {
+    const companies: Company[] = await this.companiesService.findAllClientsLight();
+    const owners: LightOwnerDTO[] = [];
+    companies.forEach((company: Company) => {
+      owners.push(new LightOwnerDTO({
+        id: company.id,
+        displayName: company.name,
+        type: EOwnerType.COMPANY
+      }));
+    });
+    return owners;
+  }
+  
   @Get('suppliers')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiResponse({

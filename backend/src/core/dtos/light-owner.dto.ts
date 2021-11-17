@@ -1,17 +1,22 @@
 import { Exclude, Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { EOwnerType } from '@core/enums/owner-type.enum';
 
 @Exclude()
-export class LightCompanyDTO {
+export class LightOwnerDTO {
   @Expose()
   @ApiProperty()
   id: number;
 
   @Expose()
   @ApiProperty()
-  name: string;
+  displayName: string;
   
-  constructor(obj?: LightCompanyDTO) {
+  @Expose()
+  @ApiProperty()
+  type: EOwnerType;
+  
+  constructor(obj?: LightOwnerDTO) {
     Object.assign(this, obj);
   }
 }
