@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EToastSeverities } from '@core/enums/toast-severity.enum';
@@ -89,7 +90,14 @@ export class CarFormComponent implements OnInit, OnChanges {
         this.carForm.controls.firstRegistration.setValue(new Date(this.currentCar.firstRegistration));
       }
 
-      this.ownersListFiltered = [this.ownersList.find(o => { return (o.id === this.currentCar.person?.id || o.id === this.currentCar.company?.id); })];
+      this.ownersListFiltered = [
+        this.ownersList.find(o => { 
+          return (
+            (o.id === this.currentCar.person?.id && o.displayName === `${this.currentCar.person?.lastName} ${this.currentCar.person?.firstName}`)
+            || (o.id === this.currentCar.company?.id && o.displayName === this.currentCar.company?.name)
+          ); 
+        })
+      ];
       if (this.ownersListFiltered.length) {
         this.carForm.controls.owner.setValue(this.ownersListFiltered[0]);
       }
@@ -108,13 +116,17 @@ export class CarFormComponent implements OnInit, OnChanges {
     this.personsService.getAllOwnersLight().subscribe(
       (owners: Owner[]) => {
         this.ownersList.push(...owners);
-        this.carForm.get('owner').enable();
+        if (!this.isUpdate || this.currentCar) {
+          this.carForm.get('owner').enable();
+        }
       }
     );
     this.companiesService.getAllClientsOwnersLight().subscribe(
       (owners: Owner[]) => {
         this.ownersList.push(...owners);
-        this.carForm.get('model').enable();
+        if (!this.isUpdate || this.currentCar) {
+          this.carForm.get('model').enable();
+        }
       }
     );
   }

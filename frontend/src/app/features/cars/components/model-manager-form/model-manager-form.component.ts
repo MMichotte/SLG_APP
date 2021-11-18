@@ -80,8 +80,10 @@ export class ModelManagerFormComponent implements OnInit {
 
   checkExistingMake(): void {
     const currentMake = (this.selectedMake?.label) ? this.selectedMake?.label : this.selectedMake;
-    if (this.makeList.find((ml) => { return ml.label === currentMake; })) {
+    const existingMake = this.makeList.find((ml) => { return ml.label === currentMake; });
+    if (existingMake) {
       this.isExistingMake = true;
+      this.selectedMake = existingMake;
     } else {
       this.selectedModel = null;
       this.isExistingMake = false;
@@ -106,7 +108,7 @@ export class ModelManagerFormComponent implements OnInit {
     const confirm = await this.confirmDialog.show(`Are you sure you want to delete the following make:
     \n<b> ${this.selectedMake.label}</b>`);
 
-    if (this.modelList.find((ml) => { return ml.carMake.id === this.selectedMake.id })) {
+    if (this.modelList.find((ml) => { return ml.carMake.id === this.selectedMake.id; })) {
       this.toast.show(EToastSeverities.WARN, 'Unable to delete make, first delete all models');
       return;
     }
@@ -135,8 +137,10 @@ export class ModelManagerFormComponent implements OnInit {
 
   checkExistingModel(): void {
     const currentModel = (this.selectedModel?.label) ? this.selectedModel?.label : this.selectedModel;
-    if (this.modelList.find((ml) => { return ml.label === currentModel; })) {
+    const existingModel = this.modelList.find((ml) => { return ml.label === currentModel; });
+    if (existingModel) {
       this.isExistingModel = true;
+      this.selectedModel = existingModel;
     } else {
       this.isExistingModel = false;
     }
