@@ -43,6 +43,17 @@ export class CarsController {
     return plainToClass(CarDTO, car);
   }
 
+  @Get(':id')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiResponse({
+    status: 200,
+    type: CarDTO,
+  })
+  async findOne(@Param('id') id: number): Promise<CarDTO>{
+    const car: Car = await this.carsService.findOneById(+id);
+    return plainToClass(CarDTO, car);
+  }
+
   @Post()
   @Roles(EUserRoles.ADMIN)
   @ApiResponse({
@@ -84,7 +95,8 @@ export class CarsController {
     type: SimpleCarDTO,
   })
   async update(@Param('id') id: number, @Body() car: UpdateCarDTO): Promise<SimpleCarDTO> {
-    const existingCar: Car = await this.carsService.findOneById(id);
+    const existingCar: Car = await this.carsService.findOneById(+id);
+    console.log(existingCar);
     if (!existingCar) throw new HttpException('Car does not exist', HttpStatus.NOT_FOUND);
     
     const existingChassis: Car = await this.carsService.findOneByChassisNumber(car.chassisNumber);
@@ -124,7 +136,7 @@ export class CarsController {
   @Delete(':id')
   @Roles(EUserRoles.ADMIN)
   async remove(@Param('id') id: number) {
-    const car: Car | undefined = await this.carsService.findOneById(id);
+    const car: Car | undefined = await this.carsService.findOneById(+id);
     if (car == undefined) throw new NotFoundException;
     await this.carsService.remove(+id);
     return [];

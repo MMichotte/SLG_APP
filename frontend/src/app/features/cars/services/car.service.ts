@@ -17,6 +17,10 @@ export class CarService {
     return this.httpClient.get(this.endpoint);
   }
   
+  getOne(id: number): any {
+    return this.httpClient.get(`${this.endpoint}/${id}`);
+  }
+  
   getAllModels(): any {
     return this.httpClient.get('/api/car-models');
   }

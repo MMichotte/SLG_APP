@@ -1,1 +1,88 @@
-<p class="screen-center">The car-detail feature is not yet implemented!</p>
+<div class="page">
+  <h1>CAR DETAIL</h1>
+
+  <button pButton pRipple type="button" icon="pi pi-arrow-left" label="Cars"
+    class="p-button-sm p-button-info p-button-text" (click)="router.navigate(['cars']);"></button>
+
+  <div class="content" *ngIf="car">
+
+    <p-panel class="car-general-panel" header="General information" [toggleable]="true">
+      <div class="car-general">
+        <div>
+          <div class="inline">
+            <div>Owner:</div>
+            <div>{{car?.owner}}</div>
+          </div>
+          <div class="inline">
+            <div>Model:</div>
+            <div>{{car?.makeLabel}} {{car?.modelLabel}}</div>
+          </div>
+          <div class="inline">
+            <div>Version:</div>
+            <div>{{car?.version}}</div>
+          </div>
+          <div class="inline">
+            <div>Chassis n°:</div>
+            <div>{{car?.chassisNumber}}</div>
+          </div>
+          <div class="inline">
+            <div>Chassis loc.:</div>
+            <textarea pInputTextarea [rows]="4" [cols]="15" disabled="true"
+              autoResize="autoResize">{{car?.chassisNumberLocation}}</textarea>
+          </div>
+        </div>
+        <div>
+          <div class="inline">
+            <div>Registration n°:</div>
+            <div>{{car?.registrationNumber}}</div>
+          </div>
+          <div class="inline">
+            <div>First Registration:</div>
+            <div>{{car?.firstRegistration}}</div>
+          </div>
+          <div class="inline">
+            <div>Engine n°: </div>
+            <div>{{car?.engineNumber}}</div>
+          </div>
+          <div class="inline">
+            <div>Engine disp.:</div>
+            <div>{{car?.engineDisplacement}}</div>
+          </div>
+          <div class="inline">
+            <div>Gearbox Type:</div>
+            <textarea pInputTextarea [rows]="4" [cols]="15" disabled="true"
+              autoResize="autoResize">{{car?.gearboxType}}</textarea>
+          </div>
+        </div>
+        <div>
+          <div class="inline">
+            <div>Color:</div>
+            <div>{{car?.color}}</div>
+          </div>
+          <div class="inline">
+            <div>Fuel Type:</div>
+            <div>{{car?.fuelType}}</div>
+          </div>
+          <div class="inline">
+            <div>Bodywork:</div>
+            <div>{{car?.bodywork}}</div>
+          </div>
+          <div class="inline">
+            <div>Id:</div>
+            <div>{{car?.id}}</div>
+          </div>
+        </div>
+        <div>
+          <div id="note">Note:</div>
+          <textarea pInputTextarea [rows]="5" [cols]="40" disabled="true"
+            autoResize="autoResize">{{car?.note}}</textarea>
+        </div>
+      </div>
+    </p-panel>
+
+    <p-panel class="car-worksheets" header="Worksheets" [toggleable]="true">
+
+    </p-panel>
+
+  </div>
+</div>
