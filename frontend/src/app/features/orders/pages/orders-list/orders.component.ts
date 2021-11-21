@@ -57,8 +57,8 @@ export class OrdersComponent implements OnInit {
       (orders: Order[]) => {
         orders = orders.map(o => {
           o.supplierName = o.supplier.name;
-          o.createdAt = (new Date(o.createdAt)).toLocaleDateString();
-          o.updatedAt = (new Date(o.updatedAt)).toLocaleDateString();
+          o.createdAt = (<string>o.createdAt).split('T')[0];
+          o.updatedAt = (<string>o.updatedAt).split('T')[0];
           return o;
         });
         this.carts = orders.filter(o => o.status === EOrderStatus.OPEN);
