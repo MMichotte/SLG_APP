@@ -19,6 +19,13 @@ export class CarsService {
     return this.carRepository.findOne({ where: { id }, relations: ['model','model.carMake', 'person', 'company'] });
   }
 
+  findAllByOwnerId(id: number, ownerType: string): Promise<Car[]> {
+    if (ownerType === 'p') {
+      return this.carRepository.find({ where: { person: id }, relations: ['model', 'model.carMake', 'person', 'company']});
+    } 
+    return this.carRepository.find({ where: { company: id }, relations: ['model', 'model.carMake', 'person', 'company']});
+  }
+  
   findOneByChassisNumber(chassisNumber: string): Promise<Car> {
     return this.carRepository.findOne({ where: { chassisNumber: chassisNumber } });
   }

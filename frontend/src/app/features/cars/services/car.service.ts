@@ -17,6 +17,13 @@ export class CarService {
     return this.httpClient.get(this.endpoint);
   }
   
+  getAllByOwner(ownerId: number, ownerType: string): any {
+    if (ownerType === 'p') {
+      return this.httpClient.get(`${this.endpoint}/person/${ownerId}`);  
+    }
+    return this.httpClient.get(`${this.endpoint}/company/${ownerId}`);  
+  }
+  
   getOne(id: number): any {
     return this.httpClient.get(`${this.endpoint}/${id}`);
   }

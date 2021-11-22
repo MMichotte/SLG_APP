@@ -20,6 +20,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ClientFormComponent } from './components/client-form/client-form.component';
 import { PersonFormComponent } from './components/client-form/components/person-form/person-form.component';
 import { ClientsController } from './controllers/clients.controller';
+import { CarsModule } from '@features/cars/cars.module';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ClientsController } from './controllers/clients.controller';
     InputTextareaModule,
     PanelModule,
     DynamicDialogModule,
-    ClientsRoutingModule
+    ClientsRoutingModule,
+    CarsModule
   ],
   providers: [ClientsController, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig]
 })

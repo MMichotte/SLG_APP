@@ -54,6 +54,31 @@ export class CarsController {
     return plainToClass(CarDTO, car);
   }
 
+  @Get('person/:personId')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiResponse({
+    status: 200,
+    type: CarDTO,
+    isArray: true
+  })
+  async findAllByPersonId(@Param('personId') personId: number): Promise<CarDTO[]>{
+    const car: Car[] = await this.carsService.findAllByOwnerId(+personId, 'p');
+    return plainToClass(CarDTO, car);
+  }
+  
+  @Get('company/:companyId')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiResponse({
+    status: 200,
+    type: CarDTO,
+    isArray: true
+  })
+  async findAllByCompanyId(@Param('companyId') companyId: number): Promise<CarDTO[]>{
+    const car: Car[] = await this.carsService.findAllByOwnerId(+companyId, 'c');
+    return plainToClass(CarDTO, car);
+  }
+
+
   @Post()
   @Roles(EUserRoles.ADMIN)
   @ApiResponse({
