@@ -1,4 +1,3 @@
-import { Company } from './../../companies/entities/company.entity';
 import { Body, Controller, Delete, Get, NotFoundException, Param, Patch, Post, UseGuards, BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { plainToClass } from 'class-transformer';
@@ -15,9 +14,10 @@ import { CreateWorksheetDTO } from '../dto/create-worksheet.dto';
 import { UpdateWorksheetDTO } from '../dto/update-worksheet.dto';
 import { Car } from '@modules/cars/cars/entities/car.entity';
 import { CarsService } from '@modules/cars/cars/services/cars.service';
-import { PersonsService } from '@modules/persons/services/persons.service';
+import { Company } from '@modules/companies/entities/company.entity';
 import { CompaniesService } from '@modules/companies/services/companies.service';
 import { Person } from '@modules/persons/entities/person.entity';
+import { PersonsService } from '@modules/persons/services/persons.service';
 
 @Controller('worksheets')
 @UseGuards(RolesGuard)

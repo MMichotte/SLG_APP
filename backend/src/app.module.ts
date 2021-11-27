@@ -17,7 +17,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { CarMakesModule } from '@modules/cars/car-makes/car-makes.module';
 import { CarModelsModule } from '@modules/cars/car-models/car-models.module';
 import { CarsModule } from '@modules/cars/cars/cars.module';
-import { WorksheetsModule } from '@modules/worksheets/worksheets.module';
+import { WorksheetsModule } from '@modules/worksheets/worksheets/worksheets.module';
 
 @Module({
   imports: [
