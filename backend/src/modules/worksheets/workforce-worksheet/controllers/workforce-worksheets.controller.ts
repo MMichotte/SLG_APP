@@ -37,8 +37,8 @@ export class WorkforceWorksheetsController {
     isArray: true
   })
   async findAll(): Promise<WorkforceWorksheetDTO[]> {
-    const worksheets: WorkforceWorksheet[] = await this.workforceWorksheetsService.findAll();
-    return plainToClass(WorkforceWorksheetDTO, worksheets);
+    const workforceWorksheets: WorkforceWorksheet[] = await this.workforceWorksheetsService.findAll();
+    return plainToClass(WorkforceWorksheetDTO, workforceWorksheets);
   }
 
   @Get(':id')
@@ -48,8 +48,8 @@ export class WorkforceWorksheetsController {
     type: WorkforceWorksheetDTO,
   })
   async findOne(@Param('id') id: number): Promise<WorkforceWorksheetDTO> {
-    const worksheet: WorkforceWorksheet = await this.workforceWorksheetsService.findOneById(id);
-    return plainToClass(WorkforceWorksheetDTO, worksheet);
+    const workforceWorksheet: WorkforceWorksheet = await this.workforceWorksheetsService.findOneById(id);
+    return plainToClass(WorkforceWorksheetDTO, workforceWorksheet);
   }
 
   @Post()

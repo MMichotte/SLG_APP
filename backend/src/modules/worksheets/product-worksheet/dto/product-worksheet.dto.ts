@@ -1,16 +1,16 @@
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { WorkforceDTO } from '@modules/workforces/dto/workforce.dto';
+import { ProductDTO } from '@modules/products/dto/product';
 
 @Exclude()
-export class WorkforceWorksheetDTO {
+export class ProductWorksheetDTO {
   @Expose()
   @ApiProperty()
   id: number;
 
   @Expose()
-  @ApiProperty({type: WorkforceDTO})
-  workforce: WorkforceDTO;
+  @ApiProperty({type: ProductDTO})
+  product: ProductDTO;
   
   @Expose()
   @Transform(({ obj }) => obj.worksheet?.id)
@@ -19,13 +19,17 @@ export class WorkforceWorksheetDTO {
     
   @Expose()
   @ApiProperty()
-  hours: number;
+  quantity: number;
+
+  @Expose()
+  @ApiProperty()
+  salePriceAtDate: number;
   
   @Expose()
   @ApiPropertyOptional()
   note?: string;
 
-  constructor(obj?: WorkforceWorksheetDTO) {
+  constructor(obj?: ProductWorksheetDTO) {
     Object.assign(this, obj);
   }
 }

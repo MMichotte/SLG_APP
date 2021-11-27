@@ -13,6 +13,7 @@ import { WorkforceWorksheetsService } from './services/workforce-worksheets.serv
     WorkforcesModule
   ],
   controllers: [WorkforceWorksheetsController],
-  providers: [WorkforceWorksheetsService]
+  providers: [WorkforceWorksheetsService],
+  exports: [WorkforceWorksheetsService]
 })
 export class WorkforceWorksheetModule {}
