@@ -19,12 +19,12 @@ export class WorkforcesService {
     return this.workforceRepository.findOne({where: {id}});
   }
   
-  create(CreateProductDTO: CreateWorkforceDTO): Promise<Workforce> {
-    return this.workforceRepository.save(CreateProductDTO);
+  create(createWorkforceDTO: CreateWorkforceDTO): Promise<Workforce> {
+    return this.workforceRepository.save(createWorkforceDTO);
   }
 
-  update(id: number, updateProductDto: UpdateWorkforceDTO): Promise<any> {
-    return this.workforceRepository.update(id,updateProductDto);  
+  update(id: number, updateWorkforceDTO: UpdateWorkforceDTO): Promise<any> {
+    return this.workforceRepository.update(id,updateWorkforceDTO);  
   }
 
   remove(id: number) {

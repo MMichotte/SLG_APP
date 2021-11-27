@@ -17,6 +17,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { CarMakesModule } from '@modules/cars/car-makes/car-makes.module';
 import { CarModelsModule } from '@modules/cars/car-models/car-models.module';
 import { CarsModule } from '@modules/cars/cars/cars.module';
+import { WorksheetsModule } from '@modules/worksheets/worksheets.module';
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import { CarsModule } from '@modules/cars/cars/cars.module';
     BillSupplierModule,
     CarMakesModule,
     CarModelsModule,
-    CarsModule
+    CarsModule,
+    WorksheetsModule
   ],
   controllers: [AppController],
   providers: [],
