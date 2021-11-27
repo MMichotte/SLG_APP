@@ -15,6 +15,7 @@ import { WorksheetsService } from './services/worksheets.service';
     CompaniesModule
   ],
   controllers: [WorksheetsController],
-  providers: [WorksheetsService]
+  providers: [WorksheetsService],
+  exports: [WorksheetsService]
 })
 export class WorksheetsModule {}

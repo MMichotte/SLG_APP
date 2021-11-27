@@ -18,7 +18,8 @@ import { CarMakesModule } from '@modules/cars/car-makes/car-makes.module';
 import { CarModelsModule } from '@modules/cars/car-models/car-models.module';
 import { CarsModule } from '@modules/cars/cars/cars.module';
 import { WorksheetsModule } from '@modules/worksheets/worksheets/worksheets.module';
-
+import { WorkforceWorksheetModule } from './modules/worksheets/workforce-worksheet/workforce-worksheet.module';
+import { ProductWorksheetModule } from './modules/worksheets/product-worksheet/product-worksheet.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot(dbConnectionOptions),
@@ -40,7 +41,9 @@ import { WorksheetsModule } from '@modules/worksheets/worksheets/worksheets.modu
     CarMakesModule,
     CarModelsModule,
     CarsModule,
-    WorksheetsModule
+    WorksheetsModule,
+    WorkforceWorksheetModule,
+    ProductWorksheetModule,
   ],
   controllers: [AppController],
   providers: [],

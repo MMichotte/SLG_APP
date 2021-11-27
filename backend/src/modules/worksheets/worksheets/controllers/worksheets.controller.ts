@@ -66,6 +66,45 @@ export class WorksheetsController {
     const errors = await validate(createWorksheetDto);
     if (errors.length) throw new BadRequestException;
 
+    await this.checkXOR(createWorksheetDto);
+
+    const createdWorksheet: Worksheet = await this.worksheetsService.create(createWorksheetDto);
+    return plainToClass(SimpleWorksheetDTO, createdWorksheet);
+  }
+
+  @Patch(':id')
+  @Roles(EUserRoles.ADMIN)
+  @ApiResponse({
+    status: 200,
+    type: SimpleWorksheetDTO,
+  })
+  async update(@Param('id') id: number, @Body() updateWorksheetDTO: UpdateWorksheetDTO): Promise<SimpleWorksheetDTO> {
+    updateWorksheetDTO = new UpdateWorksheetDTO(updateWorksheetDTO);
+    const errors = await validate(updateWorksheetDTO);
+    if (errors.length) throw new BadRequestException;
+
+    await this.checkXOR(updateWorksheetDTO);
+
+    const worksheet: Worksheet | undefined = await this.worksheetsService.findOneById(id);
+    if (worksheet == undefined) throw new NotFoundException;
+    updateWorksheetDTO.updatedAt = new Date();
+    const updatedWorksheet: Worksheet = await this.worksheetsService.update(id, updateWorksheetDTO);
+    updatedWorksheet.id = id;
+    return plainToClass(SimpleWorksheetDTO, updatedWorksheet);
+  }
+
+  @Delete(':id')
+  @Roles(EUserRoles.ADMIN)
+  async remove(@Param('id') id: number) {
+    const worksheet: Worksheet | undefined = await this.worksheetsService.findOneById(id);
+    if (worksheet == undefined) throw new NotFoundException;
+    await this.worksheetsService.remove(+id);
+    return [];
+  }
+
+
+
+  async checkXOR(createWorksheetDto: CreateWorksheetDTO | UpdateWorksheetDTO): Promise<void> {
     if (createWorksheetDto.carId && !createWorksheetDto.personId && !createWorksheetDto.companyId) {
       const car: Car = await this.carsService.findOneById(createWorksheetDto.carId);
       if (!car) throw new HttpException(`There is no car with id: ${createWorksheetDto.carId}`, HttpStatus.BAD_REQUEST);
@@ -90,37 +129,5 @@ export class WorksheetsController {
         HttpStatus.BAD_REQUEST
       );
     }
-
-
-    const createdWorksheet: Worksheet = await this.worksheetsService.create(createWorksheetDto);
-    return plainToClass(SimpleWorksheetDTO, createdWorksheet);
-  }
-
-  @Patch(':id')
-  @Roles(EUserRoles.ADMIN)
-  @ApiResponse({
-    status: 200,
-    type: SimpleWorksheetDTO,
-  })
-  async update(@Param('id') id: number, @Body() updateWorksheetDTO: UpdateWorksheetDTO): Promise<SimpleWorksheetDTO> {
-    updateWorksheetDTO = new UpdateWorksheetDTO(updateWorksheetDTO);
-    const errors = await validate(updateWorksheetDTO);
-    if (errors.length) throw new BadRequestException;
-
-    const worksheet: Worksheet | undefined = await this.worksheetsService.findOneById(id);
-    if (worksheet == undefined) throw new NotFoundException;
-    updateWorksheetDTO.updatedAt = new Date();
-    const updatedWorksheet: Worksheet = await this.worksheetsService.update(id, updateWorksheetDTO);
-    updatedWorksheet.id = id;
-    return plainToClass(SimpleWorksheetDTO, updatedWorksheet);
-  }
-
-  @Delete(':id')
-  @Roles(EUserRoles.ADMIN)
-  async remove(@Param('id') id: number) {
-    const worksheet: Worksheet | undefined = await this.worksheetsService.findOneById(id);
-    if (worksheet == undefined) throw new NotFoundException;
-    await this.worksheetsService.remove(+id);
-    return [];
   }
 }
