@@ -11,8 +11,11 @@
 
         <div class="p-col-4">
           <label for="model" class="label-required">Model</label>
-          <p-autoComplete appendTo="body" [suggestions]="carModelsListFiltered" field="displayName"
-            (completeMethod)="searchCarModel($event.query)" formControlName="model" [dropdown]="true"></p-autoComplete>
+          <div class="autocomp_model">
+            <p-autoComplete appendTo="body" [suggestions]="carModelsListFiltered" field="displayName"
+              (completeMethod)="searchCarModel($event.query)" formControlName="model" [dropdown]="true"></p-autoComplete>
+            <button pButton pRipple type="button" icon="pi pi-plus" (click)="showManagementModal()"></button>
+          </div>
         </div>
 
         <div class="p-col-4">

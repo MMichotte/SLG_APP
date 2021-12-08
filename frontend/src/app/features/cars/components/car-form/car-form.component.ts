@@ -18,6 +18,7 @@ import { CarService } from '@features/cars/services/car.service';
 import { CompaniesService } from '@features/companies/services/companies.service';
 import { PersonsService } from '@features/persons/services/persons.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ModelManagerFormComponent } from '../model-manager-form/model-manager-form.component';
 
 @Component({
   selector: 'app-car-form',
@@ -246,6 +247,16 @@ export class CarFormComponent implements OnInit, OnChanges {
   onCancel(): void {
     this.currentCar = null;
     this.ref.close();
+  }
+
+  showManagementModal(): void {
+    const ref = this.dialogService.open(ModelManagerFormComponent, {
+      header: 'Mange Makes & Models',
+      width: '40%'
+    });
+    ref.onClose.subscribe(() => {
+      this.retrieveCarModels();
+    });
   }
 
 }

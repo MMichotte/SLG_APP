@@ -35,3 +35,12 @@
   font-size: small !important;
 }
 
+
+.autocomp_model {
+  display: flex;
+  flex-direction: row;
+  
+  button {
+    margin-left: 0.1rem;
+  }
+}

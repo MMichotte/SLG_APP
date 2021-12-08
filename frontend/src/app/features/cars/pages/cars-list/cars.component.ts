@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { EUserRoles } from '@core/enums/user-roles.enum';
 import { AuthService } from '@core/services/auth.service';
@@ -21,6 +21,8 @@ export class CarsComponent implements OnInit {
 
   public EFuelType = EFuelType;
   public EUserRoles = EUserRoles;
+
+  @ViewChild('carForm') carForm:CarFormComponent;
 
   cols: any[];
   cars: Car[];
@@ -88,7 +90,7 @@ export class CarsComponent implements OnInit {
       width: '40%'
     });
     ref.onClose.subscribe(() => {
-      window.location.reload(); // TODO TEMPORARY -> replace with eventemmiter from form comp
+      this.carForm.retrieveCarModels();
     });
   }
 

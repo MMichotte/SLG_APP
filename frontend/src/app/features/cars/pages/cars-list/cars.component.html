@@ -19,13 +19,13 @@
   </div>
 
   <p-panel header="Edit car" class="form" [toggleable]="true">
-    <app-car-form [currentCar]="selectedCar" [isUpdate]=true (refreshTable)="refreshCars()">
+    <app-car-form #carForm [currentCar]="selectedCar" [isUpdate]=true (refreshTable)="refreshCars()">
     </app-car-form>
   </p-panel>
 
   <div class="dtable">
       <p-table #dt [columns]="cols" [value]="cars" [autoLayout]="true" [paginator]="true" [scrollable]="true"
-          [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['make','model','owner', 'registrationNumber', 'chassisNumber']"
+          [rows]="10" [rowsPerPageOptions]="[10,25,50]" [globalFilterFields]="['makeLabel','modelLabel','owner', 'registrationNumber', 'chassisNumber']"
           [sortField]="cols[0].field" selectionMode="single"
           [(selection)]="selectedCar" styleClass="p-datatable-sm" [loading]="loadingData">
 
