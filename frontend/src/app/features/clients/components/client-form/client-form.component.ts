@@ -46,7 +46,7 @@ export class ClientFormComponent implements OnInit, OnChanges {
     civility: new FormControl(null, Validators.required),
     firstName: new FormControl(null, Validators.required),
     lastName: new FormControl(null, Validators.required),
-    email: new FormControl(null, [Validators.required, Validators.email]),
+    email: new FormControl(null, Validators.email),
     phone: new FormControl(null),
     mobile: new FormControl(null),
     VAT: new FormControl(null)
@@ -55,7 +55,7 @@ export class ClientFormComponent implements OnInit, OnChanges {
   companyForm = new FormGroup({
     type: new FormControl(null, Validators.required),
     name: new FormControl(null, Validators.required),
-    email: new FormControl(null, [Validators.required, Validators.email]),
+    email: new FormControl(null, Validators.email),
     VAT: new FormControl(null),
     phone1: new FormControl(null),
     phone2: new FormControl(null),
@@ -122,6 +122,9 @@ export class ClientFormComponent implements OnInit, OnChanges {
       client.personId = client.person.id; 
     } else {
       client.person = null;
+    }
+    if (!client.email) {
+      client.email = `${Date.now()}@fake_email.com`;
     }
     if (this.isUpdate) {
       // update

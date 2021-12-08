@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CountriesService {
 
-  endpoint: string = 'https://restcountries.eu/rest/v2';
+  // endpoint: string = 'https://restcountries.eu/rest/v2';
+  endpoint: string = 'https://restcountries.com/v2';
 
   constructor (
     private readonly http: HttpClient
