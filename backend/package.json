@@ -51,6 +51,7 @@
     "permissions-policy": "^0.4.0",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
+    "redis": "^4.0.6",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "roboto-font": "^0.1.0",
