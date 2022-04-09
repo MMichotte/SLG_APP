@@ -72,12 +72,12 @@ jobs:
           echo "JWT_PRIVATE_KEY="${{secrets.JWT_PRIVATE_KEY}} >> ./app/www/.env
           echo "TOKEN_EXPIRATION=48h" >> ./app/www/.env
           echo "DATABASE_URL="${{secrets.DATABASE_URL}} >> ./app/www/.env
+          echo "REDIS_HOST=192.168.10.8" >> ./app/www/.env
+          echo "REDIS_PORT=6379" >> ./app/www/.env
           touch ./app/database/.env
           echo "POSTGRES_USER="${{secrets.POSTGRES_USER}} >> ./app/database/.env
           echo "POSTGRES_PASSWORD="${{secrets.POSTGRES_PASSWORD}} >> ./app/database/.env
           echo "POSTGRES_DB="${{secrets.POSTGRES_DB}} >> ./app/database/.env
-          echo "REDIS_HOST=192.168.10.8" >> ./app/database/.env
-          echo "REDIS_PORT=6379" >> ./app/database/.env
         
       - name: Copy app folder content to remote
         uses: garygrossgarten/github-action-scp@release
