@@ -108,12 +108,12 @@ check_error "✓ Zip archive successfully created."
 
 #--------------------
 echo -e $BLUE"\n6. 🚀 Sending to $TYPE server :"$RESET
-scp -P 62222 ./temp/app.zip "$USER@$SERVER:$DST_DIR"
+scp -P $PORT ./temp/app.zip "$USER@$SERVER:$DST_DIR"
 check_error "✓ Zip archive successfully sent to server."
 
 #--------------------
 echo -e $BLUE"\n7. 🛠  Unpacking Archive :"$RESET
-ssh -p 62222 "$USER@$SERVER" "
+ssh -p $PORT "$USER@$SERVER" "
   cd $DST_DIR && 
   unzip -oq app.zip && 
   rm -f app.zip
@@ -122,7 +122,7 @@ check_error "✓ Unpacking archive done."
 
 #--------------------
 echo -e $BLUE"\n8. 🎯 Restarting Services :"$RESET
-ssh -p 62222 "$USER@$SERVER" "
+ssh -p $PORT "$USER@$SERVER" "
   cd $DST_DIR &&
   docker-compose down &&
   docker-compose up -d
@@ -134,7 +134,7 @@ echo -e $BLUE"\n9. 🧼 Cleaning temp folder :"$RESET
 rm -rf "$SCRIPTPATH/temp"
 
 #--------------------
-echo -e "✅  "$GREEN_BG"DONE$RESET : App successfully deployed in $TYPE on :"
+echo -e "✅  "$GREEN_BG"  DONE  $RESET : App successfully deployed in $TYPE on :"
 echo -e $GREEN"\t$SERVER \n"$RESET
 
 exit 0
