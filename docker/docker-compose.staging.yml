@@ -1,0 +1,51 @@
+version: '2'
+
+services:
+
+  slg-db-staging:
+    image: postgres:12.6
+    container_name: slg-db-staging
+    restart: unless-stopped
+    ports:
+      - 5434:5432
+    env_file:
+      - ./database/.env
+    volumes:
+      - ./database/data:/var/lib/postgresql/data
+    networks:
+      vps-martin-network:
+        ipv4_address: 192.168.10.40
+
+  slg-redis-staging:
+    image: 'bitnami/redis:latest'
+    container_name: slg-redis-staging
+    mem_limit: 256m
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    expose:
+      - 6379
+    networks:
+      vps-martin-network:
+        ipv4_address: 192.168.10.41
+
+  slg-app-staging:
+    depends_on: 
+      - slg-db-staging
+      - slg-redis-staging
+    image: node:14.15.1
+    container_name: slg-app-staging
+    restart: unless-stopped
+    volumes:
+      - ./www:/var/www
+    expose:
+      - 8081
+    networks:
+      vps-martin-network:
+        ipv4_address: 192.168.10.42
+    command: bash -c "cd /var/www && npm i --prod && node ./dist/src/main"
+
+#--------------------
+
+networks:
+    vps-martin-network:
+      external: true

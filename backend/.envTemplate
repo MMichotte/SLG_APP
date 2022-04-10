@@ -6,6 +6,11 @@ PORT=8000
 JWT_PRIVATE_KEY=xxxxxxx
 TOKEN_EXPIRATION=xh
 
+## REDIS :
+REDIS_HOST=xxxxxxx
+REDIS_PORT=xxxxxxx
+REDIS_TTL=xxxxxxx
+
 ## DATABASES :
 ### DEV
 DB_DIALECT=xxxxxxx
