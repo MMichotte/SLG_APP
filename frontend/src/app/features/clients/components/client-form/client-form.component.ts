@@ -121,7 +121,8 @@ export class ClientFormComponent implements OnInit, OnChanges {
     if (client.person && client.person !== '') {
       client.personId = client.person.id; 
     } else {
-      client.person = null;
+      if (this.isCompany) client.personId = null;
+      delete client.person;
     }
     if (!client.email) {
       client.email = `${Date.now()}@fake_email.com`;
