@@ -1,3 +1,4 @@
+import { RedisService } from '@core/services/redis.service';
 import { CompaniesModule } from '@modules/companies/companies.module';
 import { PersonsModule } from '@modules/persons/persons.module';
 import { Module } from '@nestjs/common';
@@ -16,7 +17,8 @@ import { CarsService } from './services/cars.service';
   ],
   controllers: [CarsController],
   providers: [
-    CarsService
+    CarsService,
+    RedisService
   ],
   exports: [CarsService],
 })

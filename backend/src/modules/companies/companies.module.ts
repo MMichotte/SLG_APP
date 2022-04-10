@@ -1,3 +1,4 @@
+import { RedisService } from '@core/services/redis.service';
 import { PersonsModule } from './../persons/persons.module';
 import { Company } from './entities/company.entity';
 import { Module } from '@nestjs/common';
@@ -13,7 +14,10 @@ import { AddressesModule } from '@modules/adresses/addresses.module';
     PersonsModule
   ],
   controllers: [CompaniesController],
-  providers: [CompaniesService],
+  providers: [
+    CompaniesService,
+    RedisService
+  ],
   exports: [CompaniesService]
 })
 export class CompaniesModule {}

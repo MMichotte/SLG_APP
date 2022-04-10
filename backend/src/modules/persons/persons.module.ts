@@ -4,6 +4,7 @@ import { Module } from '@nestjs/common';
 import { PersonsService } from './services/persons.service';
 import { PersonsController } from './controllers/persons.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RedisService } from '@core/services/redis.service';
 
 @Module({
   imports: [
@@ -11,7 +12,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     AddressesModule
   ],
   controllers: [PersonsController],
-  providers: [PersonsService],
+  providers: [
+    PersonsService,
+    RedisService
+  ],
   exports: [PersonsService]
 })
 export class PersonsModule {}

@@ -5,12 +5,14 @@ import { Injectable } from '@nestjs/common';
 import { CreateProductDTO } from '../dto/create-product.dto';
 import { UpdateProductDTO } from '../dto/update-product.dto';
 import { Like } from 'typeorm';
+import { RedisService } from '@core/services/redis.service';
 
 @Injectable()
 export class ProductsService {
 
   constructor(
-    private readonly productRepository: ProductRepository
+    private readonly productRepository: ProductRepository,
+    private readonly redisService: RedisService
   ) {}
 
   findAll(search?: string): Promise<Product[]> {
@@ -22,7 +24,9 @@ export class ProductsService {
         ] 
       });
     }
-    return this.productRepository.find();
+    return this.redisService.getOrSetCache('products', () => {
+      return this.productRepository.find();
+    });
   }
 
   findOneById(id: number): Promise<Product> {
@@ -38,18 +42,22 @@ export class ProductsService {
   }
 
   create(CreateProductDTO: CreateProductDTO): Promise<Product> {
+    this.redisService.resetCache('products');
     return this.productRepository.save(CreateProductDTO);
   }
 
   update(id: number, updateProductDto: UpdateProductDTO): Promise<any> {
+    this.redisService.resetCache('products');
     return this.productRepository.update(id,updateProductDto);  
   }
   
   update_transactional(id: number, updateProductDto: UpdateProductDTO, QR: QueryRunner): Promise<any> {
+    this.redisService.resetCache('products');
     return QR.manager.update(Product, id,updateProductDto);  
   }
 
   remove(id: number) {
+    this.redisService.resetCache('products');
     return this.productRepository.delete(id);
   }
 }

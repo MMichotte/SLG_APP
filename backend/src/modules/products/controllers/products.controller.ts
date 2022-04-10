@@ -14,18 +14,6 @@ import { Product } from '../entities/product.entity';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 
-//TODO -> create service for REDIS 
-/*
-import env from '@config/env'; 
-import { createClient as redisCreateClient } from 'redis';
-const DEFAULT_REDIS_TTL = env.REDIS_TTL;
-
-const redisClient = redisCreateClient({
-  url: `redis://${env.REDIS_HOST}:${env.REDIS_PORT}`
-});
-redisClient.connect();
-*/
-
 @Controller('products')
 @UseGuards(RolesGuard)
 @UseGuards(JwtAuthGuard)
@@ -42,20 +30,11 @@ export class ProductsController {
     isArray: true
   })
   async findAll(): Promise<ProductDTO[]> {
-    /*
-    const redisProducts = await redisClient.get('products');
-    let products: Product[] = [];
-    if (redisProducts) {
-      products = JSON.parse(redisProducts);
-      return plainToClass(ProductDTO,products);
-    }
-    */
     let products = await this.productsService.findAll();
     products = products.map( (p: any) => {
       p.reservedQuantity = 0; //TODO calc reserved quant based on active worksheets
       return p;
     });
-    // redisClient.setEx('products', DEFAULT_REDIS_TTL, JSON.stringify(products)); 
     return plainToClass(ProductDTO,products);
   }
   
@@ -112,7 +91,6 @@ export class ProductsController {
     if (existingProd) throw new ConflictException;
     
     const createdProduct: Product = await this.productsService.create(createProductDto);
-    // redisClient.del('products');
     return plainToClass(SimpleProductDTO,createdProduct);
   }
 
@@ -136,7 +114,6 @@ export class ProductsController {
     updateProductDto.updatedAt = new Date();
     const updatedProduct: Product = await this.productsService.update(id, updateProductDto);
     updatedProduct.id = id;
-    // redisClient.del('products');
     return plainToClass(SimpleProductDTO,updatedProduct);
   }
   
@@ -145,7 +122,6 @@ export class ProductsController {
   async remove(@Param('id') id: number) {
     const product: Product | undefined = await this.productsService.findOneById(+id);
     if (product == undefined) throw new NotFoundException;
-    // redisClient.del('products');
     return await this.productsService.remove(id);
   }
 }

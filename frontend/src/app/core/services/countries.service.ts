@@ -12,11 +12,11 @@ export class CountriesService {
   ) {}
 
   getAll() {
-    return this.http.get(`${this.endpoint}/all?fields=name;flag`);
+    return this.http.get(`${this.endpoint}/all?fields=name,flag`);
   }
 
   getByName(partialName: string) {
-    return this.http.get(`${this.endpoint}/name/${partialName}?fields=name;flag`);
+    return this.http.get(`${this.endpoint}/name/${partialName}?fields=name,flag`);
   }
 
 }

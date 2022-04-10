@@ -1,3 +1,4 @@
+import { redisClient } from './core/services/redis.service';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -11,6 +12,14 @@ import { FrontendMiddleware } from '@core/middlewares/frontend.middleware';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  try {
+    await redisClient.connect(); //TODO Try catch 
+  }
+  catch(e) {
+    console.log('\nFailed to connec to redis database!\n');
+    throw e;
+  }
+  
   /**
    * Adding security headers. 
    * doc: https://helmetjs.github.io

@@ -1,3 +1,4 @@
+import { RedisService } from '@core/services/redis.service';
 import { Injectable } from '@nestjs/common';
 import { CreateCarDTO } from '../dto/create-car.dto';
 import { UpdateCarDTO } from '../dto/update-car.dto';
@@ -8,11 +9,14 @@ import { CarRepository } from '../repositories/car.repository';
 @Injectable()
 export class CarsService {
   constructor(
-    private readonly carRepository: CarRepository
+    private readonly carRepository: CarRepository,
+    private readonly redisService: RedisService
   ) { }
 
   findAll(): Promise<Car[]> {
-    return this.carRepository.find({ relations: ['model', 'model.carMake', 'person', 'company'] });
+    return this.redisService.getOrSetCache('cars', () => {
+      return this.carRepository.find({ relations: ['model', 'model.carMake', 'person', 'company'] });
+    });
   }
 
   findOneById(id: number): Promise<Car> {
@@ -31,14 +35,17 @@ export class CarsService {
   }
 
   create(carMake: CreateCarDTO): Promise<Car> {
+    this.redisService.resetCache('cars');
     return this.carRepository.save(carMake);
   }
 
   async update(id: number, carMake: UpdateCarDTO): Promise<any> {
+    this.redisService.resetCache('cars');
     return await this.carRepository.update(id, carMake);
   }
 
   remove(id: number) {
+    this.redisService.resetCache('cars');
     return this.carRepository.delete(id);
   }
 }

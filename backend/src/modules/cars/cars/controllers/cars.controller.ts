@@ -39,8 +39,8 @@ export class CarsController {
     isArray: true
   })
   async findAll(): Promise<CarDTO[]>{
-    const car: Car[] = await this.carsService.findAll();
-    return plainToClass(CarDTO, car);
+    const cars: Car[] = await this.carsService.findAll();
+    return plainToClass(CarDTO, cars);
   }
 
   @Get(':id')
