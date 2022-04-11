@@ -1,4 +1,5 @@
 #!/bin/bash
+cd ..
 
 echo -e "\n\033[32m1. Creating app folder\033[0m"
 mkdir ./app

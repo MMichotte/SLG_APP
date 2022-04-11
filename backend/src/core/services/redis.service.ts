@@ -18,6 +18,14 @@ export class RedisService {
     return data;
   } 
 
+  async get(key: string): Promise<any> {
+    return redisClient.get(key);
+  }
+  
+  async set(key: string, data): Promise<any> {
+    redisClient.setEx(key, +env.REDIS_TTL, JSON.stringify(data));
+  }
+
   resetCache(key: string) {
     redisClient.del(key);
   }

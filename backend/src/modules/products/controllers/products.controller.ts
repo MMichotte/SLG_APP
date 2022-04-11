@@ -37,7 +37,18 @@ export class ProductsController {
     });
     return plainToClass(ProductDTO,products);
   }
-  
+
+  @Get('data-was-updated')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiResponse({
+    status: 200,
+    type: Boolean,
+  })
+  async getUpdatedStatus(): Promise<boolean> {
+    return await this.productsService.getUpdatedStatus();
+  }
+
+
   @Get('light')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiQuery({

@@ -3,6 +3,7 @@ import { CreateProductDTO } from './../dto/create-product.dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UpdateProductDTO } from '../dto/update-product.dto';
+import { BrowserCacheService } from '@core/services/browser-cache.service';
 
 @Injectable()
 export class ProductService {
@@ -10,11 +11,19 @@ export class ProductService {
   endpoint: string = '/api/products';
 
   constructor (
-    private readonly httpClient: HttpClient
+    private readonly httpClient: HttpClient,
+    private readonly browserCacheService: BrowserCacheService
   ) { }
 
-  getAll (): any {
-    return this.httpClient.get(this.endpoint);
+  async getAll (): Promise<any> {
+    const useCache = !(await this.getDataWasUpdated());
+    return this.browserCacheService.getOrSetCache('products', useCache, async () => {
+      return this.httpClient.get(this.endpoint).toPromise();
+    });
+  }
+
+  async getDataWasUpdated (): Promise<any> {
+    return this.httpClient.get(`${this.endpoint}/data-was-updated`).toPromise();
   }
   
   getOne (id: number): any {

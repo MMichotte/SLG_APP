@@ -1,9 +1,10 @@
-private
 node_modules
 www
+.private
+.vscode
 temp
 
-.vscode
+docker/database/data
 
 .env
 *.env

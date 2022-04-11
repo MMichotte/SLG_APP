@@ -54,7 +54,7 @@ export class ProductsComponent implements OnInit {
 
   refreshProducts(): void {
     this.loadingData = true;
-    this.productService.getAll().subscribe(
+    this.productService.getAll().then(
       (products: Product[]) => {
         products.map((p: Product) => {
           p.margin = Number((p.salePriceHT - p.purchasePriceHT).toFixed(2));

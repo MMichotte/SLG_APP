@@ -20,6 +20,7 @@ import { ProductsRoutingModule } from './products-routing.module';
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ConfirmDialogService } from '@core/services/confirm-dialog.service';
 import { StockUpdateFormComponent } from './components/stock-update-form/stock-update-form.component';
+import { BrowserCacheService } from '@core/services/browser-cache.service';
 
 @NgModule({
   declarations: [ProductsComponent, ProductFormComponent, ProductDetailComponent, StockUpdateFormComponent],
@@ -40,7 +41,7 @@ import { StockUpdateFormComponent } from './components/stock-update-form/stock-u
     ProductsRoutingModule,
     BillingModule
   ],
-  providers: [ProductService, DialogService, ToastService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig],
+  providers: [ProductService, DialogService, ToastService, BrowserCacheService, ConfirmDialogService, DynamicDialogRef, DynamicDialogConfig],
   exports: [ProductFormComponent]
 })
 export class ProductsModule { }

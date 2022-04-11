@@ -24,9 +24,15 @@ export class ProductsService {
         ] 
       });
     }
-    return this.redisService.getOrSetCache('products', () => {
+    const products = this.redisService.getOrSetCache('products', () => {
       return this.productRepository.find();
     });
+    this.redisService.set('products_have_been_updated', true);
+    return products;
+  }
+
+  async getUpdatedStatus(): Promise<boolean> {
+    return !(await this.redisService.get('products_have_been_updated'));
   }
 
   findOneById(id: number): Promise<Product> {
@@ -42,22 +48,27 @@ export class ProductsService {
   }
 
   create(CreateProductDTO: CreateProductDTO): Promise<Product> {
-    this.redisService.resetCache('products');
+    this.resetCache();
     return this.productRepository.save(CreateProductDTO);
   }
 
   update(id: number, updateProductDto: UpdateProductDTO): Promise<any> {
-    this.redisService.resetCache('products');
+    this.resetCache();
     return this.productRepository.update(id,updateProductDto);  
   }
   
   update_transactional(id: number, updateProductDto: UpdateProductDTO, QR: QueryRunner): Promise<any> {
-    this.redisService.resetCache('products');
+    this.resetCache();
     return QR.manager.update(Product, id,updateProductDto);  
   }
 
   remove(id: number) {
-    this.redisService.resetCache('products');
+    this.resetCache();
     return this.productRepository.delete(id);
+  }
+
+  private resetCache() {
+    this.redisService.resetCache('products');
+    this.redisService.resetCache('products_have_been_updated');
   }
 }

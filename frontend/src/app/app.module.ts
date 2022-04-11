@@ -9,6 +9,7 @@ import { SharedModule } from '@shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from '@core/interceptors/auth.interceptor';
+import { BrowserCacheService } from '@core/services/browser-cache.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { AuthInterceptor } from '@core/interceptors/auth.interceptor';
     ToastModule,
     ConfirmDialogModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, BrowserCacheService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
