@@ -19,6 +19,7 @@ import { validate } from 'class-validator';
 import { LightCompanyDTO } from '../dto/light-company.dto';
 import { LightOwnerDTO } from '@core/dtos/light-owner.dto';
 import { EOwnerType } from '@core/enums/owner-type.enum';
+import { DataLastUpdatedAtDTO } from '@core/dtos/data-last-updated-at.dto';
 
 @Controller('companies')
 @UseGuards(RolesGuard)
@@ -42,6 +43,17 @@ export class CompaniesController {
   async findAll(): Promise<CompanyDTO[]> {
     const companies: Company[] = await this.companiesService.findAll();
     return plainToClass(CompanyDTO, companies);
+  }
+
+  @Get('last-updated-at')
+  @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
+  @ApiResponse({
+    status: 200,
+    type: DataLastUpdatedAtDTO
+  })
+  async getLastUpdatedAtDate(): Promise<DataLastUpdatedAtDTO> {
+    const lastUpdatedAt = await this.companiesService.getLastUpdatedAtDate();
+    return plainToClass(DataLastUpdatedAtDTO, lastUpdatedAt);
   }
 
   @Get('clients')

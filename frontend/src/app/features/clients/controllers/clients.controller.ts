@@ -22,15 +22,19 @@ export class ClientsController {
   async getAll(): Promise<Client[]> {
     const clients: Client[] = [];
     
-    // TODO handle error in toPromise! 
-    const persons: Person[] = await this.personsService.getAll().toPromise();
+    // TODO handle errors 
+    let persons: Person[] = null;
+    let companies: Company[] = null;
+    [persons, companies] = await Promise.all([
+      this.personsService.getAll(),
+      this.companiesService.getAllClients().toPromise()
+    ]);
+    
     persons.forEach(
       (p: Person) => {
         clients.push(new Client(new Person(p)));
       }
     );
-
-    const companies: Company[] = await this.companiesService.getAllClients().toPromise();
     companies.forEach(
       (c: Company) => {
         clients.push(new Client(new Company(c)));

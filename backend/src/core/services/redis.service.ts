@@ -19,7 +19,11 @@ export class RedisService {
   } 
 
   async get(key: string): Promise<any> {
-    return redisClient.get(key);
+    try {
+      return JSON.parse(await redisClient.get(key));
+    } catch (e) {
+      return null;
+    }    
   }
   
   async set(key: string, data): Promise<any> {

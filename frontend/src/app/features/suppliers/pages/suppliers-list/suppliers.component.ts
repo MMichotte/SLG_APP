@@ -80,7 +80,7 @@ export class SuppliersComponent implements OnInit {
   }
 
   private _getPersons(): void {
-    this.personsService.getAll().subscribe(
+    this.personsService.getAll().then(
       (persons: Person[]) => {
         const personsClient: Client[] = persons.map(p => {
           return new Client(new Person(p));

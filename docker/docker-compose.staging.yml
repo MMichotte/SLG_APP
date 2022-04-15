@@ -19,6 +19,7 @@ services:
   slg-redis-staging:
     image: 'bitnami/redis:latest'
     container_name: slg-redis-staging
+    restart: unless-stopped
     mem_limit: 256m
     environment:
       - ALLOW_EMPTY_PASSWORD=yes

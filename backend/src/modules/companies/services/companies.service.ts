@@ -6,6 +6,7 @@ import { CreateCompanyDTO } from '../dto/create-company.dto';
 import { Company } from '../entities/company.entity';
 import { UpdateCompanyDTO } from '../dto/update-company.dto';
 import { RedisService } from '@core/services/redis.service';
+import { DataLastUpdatedAtDTO } from '@core/dtos/data-last-updated-at.dto';
 
 @Injectable()
 export class CompaniesService {
@@ -19,6 +20,14 @@ export class CompaniesService {
     return this.redisService.getOrSetCache('companies', () => {
       return this.companyRepository.find({ relations: ['person', 'address'] });
     });
+  }
+
+  async getLastUpdatedAtDate(): Promise<DataLastUpdatedAtDTO> {
+    const lastUpdatedAt: string|null|undefined = await this.redisService.get('companies_last_updated_at');
+    if (lastUpdatedAt == null || lastUpdatedAt == undefined) {
+      return new DataLastUpdatedAtDTO({lastUpdatedAt: new Date('1900-01-01').toJSON()});
+    }
+    return new DataLastUpdatedAtDTO({lastUpdatedAt: lastUpdatedAt});
   }
   
   findAllSuppliers(): Promise<Company[]> {
@@ -85,5 +94,6 @@ export class CompaniesService {
     this.redisService.resetCache('suppliers');
     this.redisService.resetCache('clients');
     this.redisService.resetCache('light-clients');
+    this.redisService.set('companies_last_updated_at', new Date().toJSON());
   }
 }

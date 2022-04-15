@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BrowserCacheService } from '@core/services/browser-cache.service';
 import { CreatePersonDTO } from '../dto/create-person.dto';
 import { UpdatePersonDTO } from '../dto/update-person.dto';
 
@@ -11,11 +12,14 @@ export class PersonsService {
   endpoint: string = '/api/persons';
 
   constructor(
-    private readonly httpClient: HttpClient
+    private readonly httpClient: HttpClient,
+    private readonly browserCacheService: BrowserCacheService
   ) { }
 
   getAll(): any {
-    return this.httpClient.get(this.endpoint);
+    return this.browserCacheService.getOrSetCache(this.endpoint, async () => {
+      return this.httpClient.get(this.endpoint).toPromise();
+    });
   }
   
   getAllOwnersLight(): any {

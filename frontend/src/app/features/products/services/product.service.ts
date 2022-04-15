@@ -16,16 +16,11 @@ export class ProductService {
   ) { }
 
   async getAll (): Promise<any> {
-    const useCache = !(await this.getDataWasUpdated());
-    return this.browserCacheService.getOrSetCache('products', useCache, async () => {
+    return this.browserCacheService.getOrSetCache(this.endpoint, async () => {
       return this.httpClient.get(this.endpoint).toPromise();
     });
   }
 
-  async getDataWasUpdated (): Promise<any> {
-    return this.httpClient.get(`${this.endpoint}/data-was-updated`).toPromise();
-  }
-  
   getOne (id: number): any {
     return this.httpClient.get(`${this.endpoint}/${id}`);
   }

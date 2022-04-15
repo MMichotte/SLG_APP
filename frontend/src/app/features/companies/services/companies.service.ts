@@ -2,6 +2,7 @@ import { UpdateCompanyDTO } from './../dto/update-company.dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CreateCompanyDTO } from '../dto/create-company.dto';
+import { BrowserCacheService } from '@core/services/browser-cache.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,14 @@ export class CompaniesService {
   endpoint: string = '/api/companies';
 
   constructor(
-    private readonly httpClient: HttpClient
+    private readonly httpClient: HttpClient,
+    private readonly browserCacheService: BrowserCacheService
   ) { }
 
   getAll(): any {
-    return this.httpClient.get(this.endpoint);
+    return this.browserCacheService.getOrSetCache(this.endpoint, async () => {
+      return this.httpClient.get(this.endpoint).toPromise();
+    });
   }
   
   getOne(id: number): any {

@@ -2,6 +2,7 @@ import { LightProductDTO } from './../dto/light-product.dto';
 import { SimpleProductDTO } from './../dto/simple-product.dto';
 import { ProductDTO } from './../dto/product';
 import { Roles } from '@core/decorators/roles.decorator';
+import { DataLastUpdatedAtDTO } from '@core/dtos/data-last-updated-at.dto';
 import { EUserRoles } from '@modules/users/enums/user-roles.enum';
 import { Controller, Get, Post, Body, Param, Delete, UseGuards, Patch, NotFoundException, ConflictException, BadRequestException, Query } from '@nestjs/common';
 import { ProductsService } from '../services/products.service';
@@ -38,14 +39,15 @@ export class ProductsController {
     return plainToClass(ProductDTO,products);
   }
 
-  @Get('data-was-updated')
+  @Get('last-updated-at')
   @Roles(EUserRoles.ADMIN, EUserRoles.USER, EUserRoles.ACCOUNTING)
   @ApiResponse({
     status: 200,
-    type: Boolean,
+    type: DataLastUpdatedAtDTO
   })
-  async getUpdatedStatus(): Promise<boolean> {
-    return await this.productsService.getUpdatedStatus();
+  async getLastUpdatedAtDate(): Promise<DataLastUpdatedAtDTO> {
+    const lastUpdatedAt = await this.productsService.getLastUpdatedAtDate();
+    return plainToClass(DataLastUpdatedAtDTO, lastUpdatedAt);
   }
 
 

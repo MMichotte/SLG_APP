@@ -1,3 +1,4 @@
+import { DataLastUpdatedAtDTO } from './../../../core/dtos/data-last-updated-at.dto';
 import { QueryRunner } from 'typeorm';
 import { Product } from './../entities/product.entity';
 import { ProductRepository } from './../repositories/products.repository';
@@ -27,12 +28,15 @@ export class ProductsService {
     const products = this.redisService.getOrSetCache('products', () => {
       return this.productRepository.find();
     });
-    this.redisService.set('products_have_been_updated', true);
     return products;
   }
 
-  async getUpdatedStatus(): Promise<boolean> {
-    return !(await this.redisService.get('products_have_been_updated'));
+  async getLastUpdatedAtDate(): Promise<DataLastUpdatedAtDTO> {
+    const lastUpdatedAt: string|null|undefined = await this.redisService.get('products_last_updated_at');
+    if (lastUpdatedAt == null || lastUpdatedAt == undefined) {
+      return new DataLastUpdatedAtDTO({lastUpdatedAt: new Date('1900-01-01').toJSON()});
+    }
+    return new DataLastUpdatedAtDTO({lastUpdatedAt: lastUpdatedAt});
   }
 
   findOneById(id: number): Promise<Product> {
@@ -69,6 +73,6 @@ export class ProductsService {
 
   private resetCache() {
     this.redisService.resetCache('products');
-    this.redisService.resetCache('products_have_been_updated');
+    this.redisService.set('products_last_updated_at', new Date().toJSON());
   }
 }
